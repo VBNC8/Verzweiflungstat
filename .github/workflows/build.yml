@@ -1,4 +1,4 @@
-name: Build
+name: Finaler-CAD-Build
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -6,18 +6,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            modules
+            zephyr
+            bootloader
+            zmk
+          key: ${{ runner.os }}-build-cache
+      - name: Install West
+        run: pip3 install west
+      - name: West Init
+        run: west init -l config
+      - name: West Update
+        run: west update
+      - name: West Zephyr Export
+        run: west zephyr-export
       - name: Build Left
-        uses: zmkfirmware/zmk-action-build@v1
-        with:
-          board: nice_nano_v2
-          shield: aurora_corne_left nice_view_adapter nice_view
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Build Right
-        uses: zmkfirmware/zmk-action-build@v1
-        with:
-          board: nice_nano_v2
-          shield: aurora_corne_right nice_view_adapter nice_view
-      - name: Archive
+        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="aurora_corne_right nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Export UF2
+        run: |
+          cp build/zephyr/zmk.uf2 left.uf2
+          # Da wir nacheinander bauen, müssen wir das manuell schieben
+          west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="aurora_corne_right nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 right.uf2
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: firmware-cad-scroll
           path: ./*.uf2
