@@ -1,29 +1,14 @@
-name: Finaler Build
+name: Build
 on: [push, workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:3.5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: West Init
-        run: west init -l config
-      - name: West Update
-        run: west update
-      - name: West Zephyr Export
-        run: west zephyr-export
-      - name: Build Left
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Rename Left
-        run: cp build/zephyr/zmk.uf2 left.uf2
-      - name: Build Right
-        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="aurora_corne_right nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Rename Right
-        run: cp build/zephyr/zmk.uf2 right.uf2
-      - name: Upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware
-          path: ./*.uf2
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      matrix_json: |
+        [{
+          "board": "nice_nano_v2",
+          "shield": "aurora_corne_left nice_view_adapter nice_view"
+        }, {
+          "board": "nice_nano_v2",
+          "shield": "aurora_corne_right nice_view_adapter nice_view"
+        }]
