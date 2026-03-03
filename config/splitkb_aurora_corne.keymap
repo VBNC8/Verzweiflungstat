@@ -12,13 +12,6 @@
 &right_encoder { status = "okay"; };
 
 / {
-    /* Diese Definition greift nur, wenn das Label existiert */
-    nice_view_spi: &nice_view_spi {
-        cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-    };
-};
-
-/ {
     chosen { zmk,underglow = &led_strip; };
 
     conditional_layers {
