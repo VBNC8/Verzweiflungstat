@@ -1,3 +1,3 @@
-&{/soc/spi@40004000/ls0xx@0} {
+&arduino_spi {
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
