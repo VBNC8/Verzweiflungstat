@@ -1,3 +1,3 @@
-&nice_view_spi {
+&{/soc/spi@3f00/nice_view_spi} {
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
