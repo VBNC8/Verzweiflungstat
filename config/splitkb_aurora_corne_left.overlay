@@ -1,3 +1,9 @@
-&arduino_spi {
+&spi0 {
+    status = "okay";
+    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+};
+
+&{/soc/spi@40003000} {
+    status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
