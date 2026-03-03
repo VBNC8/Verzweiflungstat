@@ -1,9 +1,10 @@
 on: [push, pull_request, workflow_dispatch]
+
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
-      build_matrix: |
+      matrix_json: |
         [{
           "board": "nice_nano_v2",
           "shield": "aurora_corne_left nice_view_adapter nice_view"
