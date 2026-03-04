@@ -8,8 +8,8 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* TEST: Encoder komplett abschalten */
-&left_encoder { status = "disabled"; };
-&right_encoder { status = "disabled"; };
+/*&left_encoder { status = "disabled"; };*/
+/*&right_encoder { status = "disabled"; };*/
 
 / {
     chosen {
