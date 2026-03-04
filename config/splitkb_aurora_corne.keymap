@@ -11,50 +11,6 @@
 &left_encoder { status = "okay"; };
 &right_encoder { status = "okay"; };
 
-/ {
-    chosen {
-        zmk,matrix_transform = &default_transform;
-    };
-};
-
-/* Wir überschreiben die Transformation mit dem Standard-Layout für 6-Spalten Corne */
-&default_transform {
-    columns = <12>;
-    rows = <4>;
-    map = <
-            0  1  2  3  4  5     6  7  8  9  10 11
-            12 13 14 15 16 17    18 19 20 21 22 23
-            24 25 26 27 28 29    30 31 32 33 34 35
-                     36 37 38    39 40 41
-        >;
-};
-
-/ {
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-matrix";
-        diode-direction = "col2row";
-        row-gpios
-            = <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // P0.22 ist Pin 9 (ROW0)
-            , <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // P0.24 ist Pin 10 (ROW1)
-            , <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // P1.00 ist Pin 11 (ROW2)
-            , <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // P0.11 ist Pin 12 (ROW3)
-            ;
-        col-gpios
-            = <&gpio0 31 GPIO_ACTIVE_HIGH> // P0.31 ist Pin 14 (COL0)
-            , <&gpio0 29 GPIO_ACTIVE_HIGH> // P0.29 ist Pin 13 (COL1)
-            , <&gpio0 2  GPIO_ACTIVE_HIGH> // P0.02 ist Pin 16 (COL2)
-            , <&gpio0 28 GPIO_ACTIVE_HIGH> // P0.28 ist Pin 15 (COL3)
-            , <&gpio1 15 GPIO_ACTIVE_HIGH> // P1.15 ist Pin 17 (COL4)
-            , <&gpio1 13 GPIO_ACTIVE_HIGH> // P1.13 ist Pin 18 (COL5)
-            ;
-    };
-
-    chosen { 
-        zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
-        zmk,underglow = &led_strip;
-    };
-
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer { if-layers = <1 2>; then-layer = <4>; };
