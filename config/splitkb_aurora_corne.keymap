@@ -76,11 +76,11 @@ tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_
           retro-tap;
           bindings = <&mo>, <&kp>; 
         };
-        /* Mouse Scroll Behavior */
+        /* Vereinfachtes Mouse Scroll Behavior */
         hw_scroller: hw_scroller {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&msc>, <&msc>;
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
             tap-ms = <20>;
         };
     };
@@ -94,7 +94,7 @@ tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_
 &none &kp Z  &hrm_safe LALT X   &kp C                &kp V                 &kp B                   &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT   &kp DEL   &none 
                                 &kp C_PP            &lt 2 ESC             &lt 1 TAB               &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
-            sensor-bindings = <&hw_scroller SCRL_UP SCRL_DOWN>, <&hw_scroller SCRL_DOWN SCRL_UP>;
+            sensor-bindings = <&hw_scroller>, <&hw_scroller>;
         };
 
         lower_layer {
