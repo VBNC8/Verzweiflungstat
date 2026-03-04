@@ -89,12 +89,12 @@ tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_
         compatible = "zmk,keymap";
         default_layer {
             bindings = <
-&none &kp Q  &kp W                &kp E                &kp R                 &kp T                   &kp Y       &kp U                 &kp I               &kp O                &kp P     &lt 3 MKP_MCLK
+&none &kp Q  &kp W                &kp E                &kp R                 &kp T                   &kp Y       &kp U                 &kp I               &kp O                &kp P     &kp P
 &none &kp A  &kp S                &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G                   &kp H       &hrm_shift RSHIFT J  &hrm_safe RCTRL K  &kp L                &kp SLASH &none 
 &none &kp Z  &hrm_safe LALT X   &kp C                &kp V                 &kp B                   &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT   &kp DEL   &none 
                                 &kp C_PP            &lt 2 ESC             &lt 1 TAB               &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>, <&hw_scroll SCRL_UP SCRL_DOWN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>, <&hw_scroll SCRL_VERT SCRL_VERT>;
         };
 
         lower_layer {
