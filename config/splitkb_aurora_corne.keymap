@@ -11,6 +11,11 @@
 &left_encoder { status = "okay"; };
 &right_encoder { status = "okay"; };
 
+/ {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer { if-layers = <1 2>; then-layer = <4>; };
