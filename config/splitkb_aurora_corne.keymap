@@ -22,17 +22,60 @@
     };
 
     macros {
-        usb_on: usb_on { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; };
-        bt_off: bt_off { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; };
-        durchmesser: durchmesser { compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; };
-        smiley: smiley { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <20>; tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; };
-        nbsp: nbsp { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <30>; tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; };
+        usb_on: usb_on { 
+compatible = "zmk,behavior-macro"; 
+#binding-cells = <0>; 
+bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
+};
+        bt_off: bt_off { 
+compatible = "zmk,behavior-macro"; 
+#binding-cells = <0>; 
+bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
+};
+        durchmesser: durchmesser { 
+compatible = "zmk,behavior-macro"; 
+#binding-cells = <0>; 
+bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
+};
+        smiley: smiley { 
+compatible = "zmk,behavior-macro";
+#binding-cells = <0>; wait-ms = <20>; 
+tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
+};
+        nbsp: nbsp { compatible = "zmk,behavior-macro"; 
+#binding-cells = <0>; wait-ms = <30>; 
+tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
+};
     };
 
     behaviors {
-        hrm_safe: hrm_safe { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; tapping-term-ms = <280>; quick-tap-ms = <175>; flavor = "balanced"; require-prior-idle-ms = <150>; bindings = <&kp>, <&kp>; hold-trigger-on-release; };
-        hrm_shift: hrm_shift { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; tapping-term-ms = <180>; quick-tap-ms = <150>; flavor = "balanced"; bindings = <&kp>, <&kp>; hold-trigger-on-release; };
-        lt_hp: lt_hp { compatible = "zmk,behavior-hold-tap"; #binding-cells = <2>; tapping-term-ms = <200>; quick-tap-ms = <200>; flavor = "balanced"; retro-tap; bindings = <&mo>, <&kp>; };
+        hrm_safe: hrm_safe { 
+          compatible = "zmk,behavior-hold-tap"; 
+          #binding-cells = <2>; 
+          tapping-term-ms = <280>; 
+          quick-tap-ms = <175>; 
+          flavor = "balanced"; 
+          require-prior-idle-ms = <150>; 
+          bindings = <&kp>, <&kp>; 
+          hold-trigger-on-release; 
+        };
+        hrm_shift: hrm_shift {
+          compatible = "zmk,behavior-hold-tap"; 
+          #binding-cells = <2>;
+          tapping-term-ms = <180>; 
+          quick-tap-ms = <150>; 
+          flavor = "balanced"; 
+          bindings = <&kp>, <&kp>; hold-trigger-on-release; 
+        };
+        lt_hp: lt_hp {
+          compatible = "zmk,behavior-hold-tap"; 
+          #binding-cells = <2>; 
+          tapping-term-ms = <200>; 
+          quick-tap-ms = <200>;
+          flavor = "balanced";
+          retro-tap;
+          bindings = <&mo>, <&kp>; 
+        };
         /* Mouse Scroll Behavior */
         inc_dec_msc: inc_dec_msc {
             compatible = "zmk,behavior-sensor-rotate-var";
@@ -51,7 +94,7 @@
 &none &kp Z  &hrm_safe LALT X   &kp C                &kp V                 &kp B                   &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT   &kp DEL   &none 
                                 &kp C_PP            &lt 2 ESC             &lt 1 TAB               &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>, <&inc_dec_msc SCRL_DOWN SCRL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>, <&inc_dec_kp DOWN UP>;
         };
 
         lower_layer {
