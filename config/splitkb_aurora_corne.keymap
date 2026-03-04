@@ -12,6 +12,24 @@
 &right_encoder { status = "okay"; };
 
 / {
+    chosen {
+        zmk,matrix_transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <12>;
+        rows = <4>;
+        map = <
+&kp L00 &kp L01 &kp L02 &kp L03 &kp L04 &kp L05    &kp R05 &kp R04 &kp R03 &kp R02 &kp R01 &kp R00
+&kp L10 &kp L11 &kp L12 &kp L13 &kp L14 &kp L15    &kp R15 &kp R14 &kp R13 &kp R12 &kp R11 &kp R10
+&kp L20 &kp L21 &kp L22 &kp L23 &kp L24 &kp L25    &kp R25 &kp R24 &kp R23 &kp R22 &kp R21 &kp R20
+                        &kp L33 &kp L34 &kp L35    &kp R35 &kp R34 &kp R33
+        >;
+    };
+};
+
+/ {
     chosen { zmk,underglow = &led_strip; };
 
     conditional_layers {
