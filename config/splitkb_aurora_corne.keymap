@@ -7,9 +7,9 @@
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/pointing.h>
 
-/* Hardware Setup */
-&left_encoder { status = "okay"; };
-&right_encoder { status = "okay"; };
+/* TEST: Encoder komplett abschalten */
+&left_encoder { status = "disabled"; };
+&right_encoder { status = "disabled"; };
 
 / {
     chosen {
