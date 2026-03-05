@@ -1,4 +1,4 @@
-name: Finaler-CAD-Build
+name: Vertical Display
 on: [push, workflow_dispatch]
 jobs:
   build:
