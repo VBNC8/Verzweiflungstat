@@ -104,7 +104,7 @@ tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_
 &none &kp NON_US_BSLH  &trans     &kp RA(NON_US_BSLH)  &trans         &kp NON_US_HASH          &kp RA(N7)  &kp RA(N8)  &kp RA(N9)  &kp RA(N0)  &trans &trans 
                                   &trans                &kp LGUI       &kp HOME                &kp END      &trans      &nbsp
             >;
-            sensor-bindings = <&inc_dec_kp PG_UP PG_DN>, <&inc_dec_kp PG_DN PG_UP>;
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>, <&inc_dec_kp PG_DN PG_UP>;
         };
 
         raise_layer {
