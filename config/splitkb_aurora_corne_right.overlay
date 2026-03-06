@@ -1,39 +1,18 @@
 #include <dt-bindings/pinctrl/nrf-pinctrl.h>
+#include <dt-bindings/pinctrl/nrf-pinctrl.h>
+
+/* Wir löschen den Alias und deaktivieren den SPI-Bus, 
+   damit die rechte Seite gar nicht erst versucht, Hardware zu finden. */
 
 / {
     aliases {
-        nice-view-spi = &spi3;
-    };
-};
-
-&pinctrl {
-    spi3_default: spi3_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 17)>;
-        };
-    };
-    spi3_sleep: spi3_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 17)>;
-            low-power-enable;
-        };
+        /delete-property/ nice-view-spi;
     };
 };
 
 &spi3 {
-    status = "okay";
-    pinctrl-0 = <&spi3_default>;
-    pinctrl-1 = <&spi3_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-
-    nice_view: ls0xx@0 {
-        compatible = "sharp,ls0xx";
-        reg = <0>;
-        spi-max-frequency = <1000000>;
-        width = <160>;
-        height = <68>;
-    };
+    status = "disabled";
 };
+
+/* Der Rest der Datei kann leer bleiben, da das Basis-Shield 
+   die Matrix-Pins für die rechte Seite automatisch setzt. */
