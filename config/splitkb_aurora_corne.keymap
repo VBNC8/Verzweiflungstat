@@ -96,8 +96,7 @@
             retro-tap;
             bindings = <&mo>, <&kp>; 
         };
-        behaviors {
-            scroll_encoder: scroll_encoder {
+        scroll_encoder: scroll_encoder {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
