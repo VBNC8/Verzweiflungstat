@@ -22,8 +22,7 @@ jobs:
       - name: Build Left (Aurora Corne)
         # Wir löschen hier die Shields "nice_view_adapter" und "nice_view", 
         # damit ZMK nur deine manuelle Definition aus der Keymap nutzt.
-        run: west build -s zmk/app -b nice_nano -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-
+        run: west build -s zmk/app -b nice_nano -- -DSHIELD="splitkb_aurora_corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
         run: cp build/zephyr/zmk.uf2 left.uf2
 
