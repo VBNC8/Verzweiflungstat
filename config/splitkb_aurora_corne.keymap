@@ -6,6 +6,10 @@
 #include <dt-bindings/zmk/rgb.h>
 /*#include <dt-bindings/zmk/mouse.h>*/
 #include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/matrix_transform.h> // meistens schon da
+#include <dt-bindings/zmk/outputs.h>
+/* Die hier ist wichtig für die Pin-Namen: */
+#include <dt-bindings/zmk/pinctrl.h>
 
 /* Definition der Pins für den SPI-Bus (SCK, MOSI, MISO) */
 &pinctrl {
