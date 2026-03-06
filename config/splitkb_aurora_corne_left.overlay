@@ -1,4 +1,18 @@
 #include <dt-bindings/pinctrl/nrf-pinctrl.h>
+#include <dt-bindings/zmk/matrix_transform.h>
+
+/ {
+    /* Ein Alias für den SPI-Bus erstellen, den das Shield sucht */
+    aliases {
+        nice_view_spi = &spi3; 
+    };
+};
+
+/* Falls dein Board spi0 nutzt (Standard für nice!nano), 
+   muss der Knoten als okay markiert sein */
+&spi0 {
+    status = "okay";
+};
 
 &pinctrl {
     spi3_default: spi3_default {
