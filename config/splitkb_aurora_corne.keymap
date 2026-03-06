@@ -12,9 +12,9 @@
 /*&right_encoder { status = "disabled"; };*/
 
 / {
-    chosen {
-        zmk,underglow = &led_strip;
-    };
+    /*chosen {*/
+    /*    zmk,underglow = &led_strip;*/
+    /*};*/
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
