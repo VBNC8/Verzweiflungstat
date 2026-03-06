@@ -4,7 +4,7 @@
 / {
     /* Ein Alias für den SPI-Bus erstellen, den das Shield sucht */
     aliases {
-        nice_view_spi = &spi3; 
+        nice-view-spi = &spi3; 
     };
 };
 
