@@ -96,6 +96,13 @@
             retro-tap;
             bindings = <&mo>, <&kp>; 
         };
+        behaviors {
+            scroll_encoder: scroll_encoder {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+            tap-ms = <20>;
+        };
     };
 
     keymap {
@@ -107,7 +114,7 @@
 &none &kp Z  &hrm_safe LALT X     &kp C                &kp V                 &kp B                   &kp N       &kp M                 &kp COMMA            &hrm_safe RALT DOT   &kp DEL   &none 
                                   &kp C_PP             &lt 2 ESC             &lt 1 TAB               &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_msc 20 (-20)>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&scroll_encoder MOVE_Y(-120) MOVE_Y(120)>;
         };
 
         lower_layer {
