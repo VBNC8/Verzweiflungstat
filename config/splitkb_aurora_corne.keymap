@@ -113,7 +113,7 @@
 &none &kp Z  &hrm_safe LALT X     &kp C                &kp V                 &kp B                   &kp N       &kp M                 &kp COMMA            &hrm_safe RALT DOT   &kp DEL   &none 
                                   &kp C_PP             &lt 2 ESC             &lt 1 TAB               &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&hw_scroll SCRL_DN SCRL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&hw_scroll SCROLL_VERT(15) SCROLL_VERT(-15)>;
         };
 
         lower_layer {
