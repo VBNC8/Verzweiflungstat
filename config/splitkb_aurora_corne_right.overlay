@@ -1,4 +1,4 @@
-&left_encoder {
+&encoder {
     status = "okay";
     /* Ändere diesen Wert von 80 auf 20 oder 26 */
     /* 20 bedeutet: 1 Impuls pro physikalischer Raste */
