@@ -19,9 +19,7 @@ jobs:
 
       - name: Draw keymap
         run: |
-          # 1. Keymap parsen (Anpassen an deinen Dateinamen!)
-          keymap parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          # 2. Diagramm zeichnen
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > keymap.svg
           
       - name: Commit and push
