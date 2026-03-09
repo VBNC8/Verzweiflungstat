@@ -10,7 +10,7 @@ parse_config:
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
     "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
-    "&lt 2 ESC": {t: "ESC", h: "Raise", type: "held"}
+    "&lt 2 ESC": {t: "ESC", h: "Raise", type: "ghost"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise", type: "held"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust", type: "held"}
     "&mo 1": {t: "Lower", type: "held"}
