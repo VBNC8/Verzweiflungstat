@@ -1,5 +1,6 @@
 parse_config:
   columns: 10
+  skip_binding_parsing: false
   check_side_key_usage: true
   raw_binding_map:
     # --- LAYER KEYS (ROT) ---
