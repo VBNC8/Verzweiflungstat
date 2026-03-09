@@ -10,10 +10,6 @@ parse_config:
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
 
-    "''": {t: ' ', type: ghost}
-    "&nbsp": {t: ' ', type: ghost}
-    "SKIP": {t: ' ', type: ghost}
-
     # --- DEUTSCHE TASTEN & SYMBOLE ---
     "&kp LC(LS(ESC))": "Task Mgr"
     "&nbsp": "&nbsp"
@@ -102,5 +98,4 @@ draw_config:
   key_w: 60
   key_h: 56
   split_gap: 30
-  svg_style: |
-    .key.ghost { display: none !important; }
+
