@@ -31,7 +31,7 @@ layers:
     - ⏯
     - {t: ESC, h: Raise, type: ghost}
     - {t: ⇥, h: Lower, type: held}
-    - {t: ↵, h: Lower, type: skip}
+    - {t: ↵, h: Lower, type: held}
   - - {t: ␣, h: Raise, type: held}
     - {t: ⌫, h: Adjust, type: held}
   lower:
@@ -48,7 +48,7 @@ layers:
   - - ' '
     - ' '
     - ' '
-    - {t: '1', s: '!'}
+    - {t: '1', s: '!', type: skip}
     - {t: '2', s: '"'}
     - {t: '3', s: §}
     - {t: '4', s: $}
