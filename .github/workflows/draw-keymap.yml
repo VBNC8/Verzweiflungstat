@@ -20,22 +20,22 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Parse erzeugt 42 Keys
+          # 1. Schritt: Normaler Parse (erzeugt 42 Keys)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Randtasten löschen (0, 11, 12, 23, 24, 35) -> 36 bleiben übrig
+          # 2. Schritt: Randtasten löschen (0, 11, 12, 23, 24, 35)
           yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 35) = null)' keymap.yaml
           yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
           
-          # 3. Layout komplett manuell definieren (Ortho 3x10 + 6 Daumen)
-          # Wir löschen das zmk_keyboard Feld komplett, damit keine Validierung stört
+          # 3. Schritt: Das physische Layout auf ortho_layout umstellen
+          # Wir löschen das alte Layout-Objekt komplett
           yq -i 'del(.layout)' keymap.yaml
           
-          # Wir fügen ein simples Grid-Layout ein
-          yq -i '.layout.raw_ortho.rows = 3' keymap.yaml
-          yq -i '.layout.raw_ortho.cols = 12' keymap.yaml
+          # Wir setzen das vom Drawer geforderte ortho_layout
+          yq -i '.layout.ortho_layout.rows = 3' keymap.yaml
+          yq -i '.layout.ortho_layout.cols = 12' keymap.yaml
           
-          # 4. Zeichnen
+          # 4. Schritt: Zeichnen
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
