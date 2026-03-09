@@ -1,7 +1,5 @@
 parse_config:
   raw_binding_map:
-    "''": " "  # Macht die Randtasten komplett leer
-    "&nbsp": " "
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
     "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
@@ -100,10 +98,4 @@ draw_config:
   key_w: 60
   key_h: 56
   split_gap: 30
-  svg_style: |
-    rect.empty {
-      fill: #2a2a2a !important; /* Ein sehr dunkles Grau */
-      stroke: #333 !important;   /* Kaum sichtbarer Rand */
-      opacity: 0.3;              /* Macht sie fast transparent */
-    }
 
