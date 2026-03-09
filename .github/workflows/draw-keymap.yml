@@ -4,16 +4,35 @@ on:
   push:
     paths:
       - "config/*.keymap"
-      - "config/*.dtsi"
-      - ".github/workflows/draw-keymap.yml"
       - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    with:
-      keymap_patterns: "config/*.keymap"
-      output_folder: "keymap-drawer"
-      config_path: "config/keymap_drawer.config.yaml"
-      parse_args: "--skip-keys 0 11 12 23 24 35"
-      draw_args: "--select-layers 0 1 2 3 4" # Optional: Nur bestimmte Layer zeichnen
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer
+
+      - name: Parse and Draw
+        run: |
+          # 1. Schritt: Keymap parsen und Randtasten (Index 0, 13, 26 links & 12, 25, 38 rechts) entfernen
+          # Die Indizes richten sich nach der Reihenfolge in deinem keymap-file.
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --skip-keys 0 12 13 25 26 38 > keymap.yaml
+          
+          # 2. Schritt: Zeichnen (Nimmt die Informationen aus der keymap.yaml und deiner config)
+          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
+
+      - name: Commit and push
+        run: |
+          mkdir -p keymap-drawer
+          mv splitkb_aurora_corne.svg keymap-drawer/splitkb_aurora_corne.svg
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add keymap-drawer/*.svg
+          git commit -m "Keymap Drawer: Randtasten entfernt & Config angewendet" || exit 0
+          git push
