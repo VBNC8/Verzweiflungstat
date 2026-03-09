@@ -25,7 +25,6 @@ parse_config:
     "&kp LC(LS(ESC))": "Task Mgr"
     "&nbsp": "&nbsp"
 
-    # --- ZAHLEN & DEUTSCHE FIXES ---
     "&kp N1": {t: "1", s: "!"}
     "&kp N2": {t: "2", s: "\""}
     "&kp N3": {t: "3", s: "§"}
@@ -59,14 +58,12 @@ parse_config:
     "&kp RPAR": "="
     "&kp RBKT": {t: "+", s: "*"}
 
-    # --- MULTIMEDIA & MAUS ---
-    "&kp C_PREV": "⏮"
+    "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": "⏯"
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
-    # --- SYSTEM & BT ---
     "&usb_on": {t: "ψ USB", s: "☀ ON"}  
     "&bt_off": {t: "$$mdi:bluetooth$$", s: "☀ OFF"}
     "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
@@ -76,14 +73,12 @@ parse_config:
     "&bt BT_SEL 4": {t: "$$mdi:bluetooth$$", s: "⓹"}
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
 
-    # --- MAKROS & SPEZIAL ---
     "&smiley": "☻"
     "&durchmesser": "Ø"
     "&kp RA(M)": "µ"
     "&kp RA(N2)": "²"  
     "&kp RA(N3)": "³"
 
-    # --- MODIFIER FIXES ---
     "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
     "&hrm_shift LSHIFT F": {t: "F", h: "Shift"}
     "&hrm_shift RSHIFT J": {t: "J", h: "Shift"}
