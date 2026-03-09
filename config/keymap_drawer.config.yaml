@@ -57,7 +57,7 @@ parse_config:
     "&kp SLASH": {t: "-", s: "_"}
     "&kp RPAR": "="
     "&kp RBKT": {t: "+", s: "*"}
-
+    
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": "⏯"
