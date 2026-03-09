@@ -728,19 +728,19 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#mdi:bluetooth" xlink:href="#mdi:bluetooth" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth"/>
 <text x="0" y="24" class="key hold">PC</text>
-<text x="0" y="-24" class="key shifted">1</text>
+<text x="0" y="-24" class="key shifted">⓵</text>
 </g>
 <g transform="translate(140, 91)" class="key keypos-14">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#mdi:bluetooth" xlink:href="#mdi:bluetooth" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth"/>
 <text x="0" y="24" class="key hold">S8</text>
-<text x="0" y="-24" class="key shifted">2</text>
+<text x="0" y="-24" class="key shifted">⓶</text>
 </g>
 <g transform="translate(196, 84)" class="key keypos-15">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#mdi:bluetooth" xlink:href="#mdi:bluetooth" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth"/>
-<text x="0" y="24" class="key hold">ZBok</text>
-<text x="0" y="-24" class="key shifted">3</text>
+<text x="0" y="24" class="key hold">Zbook</text>
+<text x="0" y="-24" class="key shifted">⓷</text>
 </g>
 <g transform="translate(252, 91)" class="key keypos-16">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

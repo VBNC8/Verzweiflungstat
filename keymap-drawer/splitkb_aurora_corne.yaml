@@ -115,9 +115,9 @@ layers:
   - - ✕
     - ' '
     - ' '
-    - {t: '$$mdi:bluetooth$$', h: PC, s: '1'}
-    - {t: '$$mdi:bluetooth$$', h: S8, s: '2'}
-    - {t: '$$mdi:bluetooth$$', h: ZBok, s: '3'}
+    - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
+    - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
+    - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
     - {t: '$$mdi:bluetooth$$', s: ⓸}
     - {t: '$$mdi:bluetooth$$', s: ⓹}
     - ' '
