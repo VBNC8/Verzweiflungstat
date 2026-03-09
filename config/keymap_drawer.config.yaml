@@ -89,7 +89,7 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  # Das hier schneidet die äußeren Spalten ab:
+  # Zwingt den Zeichner auf das 3x5_3 Template (36 Tasten)
   layout: {qmk_keyboard: "splitkb/aurora/corne", qmk_layout: "LAYOUT_split_3x5_3"}
   append_style: |
     svg { background-color: #1a1b26; }
