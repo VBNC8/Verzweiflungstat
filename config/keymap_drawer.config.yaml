@@ -13,12 +13,10 @@ parse_config:
     "&mo 3": {t: "Adjust", type: "held"}
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
-
     # --- DEUTSCHE TASTEN & SYMBOLE ---
     "&kp LC(LS(ESC))": "Task Mgr"
     "&nbsp": "&nbsp"
-    
-    # --- NAVIGATION & EINGABE ---
+     # --- NAVIGATION & EINGABE ---
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
     "&kp LGUI": "$$mdi:microsoft-windows-classic$$"
