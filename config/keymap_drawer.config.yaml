@@ -95,3 +95,6 @@ draw_config:
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
     exposed_key_count: 36  # Zeichnet nur die inneren 3x5+3 Tasten
+  draw_key_caps: true
+  # Versuche diesen Befehl (manche Versionen nutzen 'skip_unmapped_keys')
+  skip_unmapped_keys: true
