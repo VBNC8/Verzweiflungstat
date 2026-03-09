@@ -9,7 +9,7 @@ parse_config:
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
-    "&kp HOME": {t: "⤒ Pos1", type: "held"}
+    "&kp HOME": {t: "TEST-FRUST", h: "Lower", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
 
     # --- DEUTSCHE TASTEN & SYMBOLE ---
