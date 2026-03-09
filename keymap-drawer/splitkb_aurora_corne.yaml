@@ -1,0 +1,217 @@
+layout: {zmk_keyboard: splitkb_aurora_corne}
+layers:
+  default:
+  - ''
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: P, h: Lower}
+  - ''
+  - A
+  - S
+  - {t: D, h: CTRL}
+  - {t: F, h: Shift}
+  - G
+  - H
+  - {t: J, h: Shift}
+  - {t: K, h: CTRL}
+  - L
+  - {t: '-', s: _}
+  - ''
+  - ''
+  - Z
+  - {t: X, h: Alt}
+  - C
+  - V
+  - B
+  - N
+  - M
+  - ','
+  - {t: ., h: AltGr}
+  - ⌦
+  - ''
+  - ⏯
+  - {t: ESC, h: Raise, type: held}
+  - {t: ⇥, h: Lower, type: held}
+  - {t: ↵, h: Lower, type: held}
+  - {t: ␣, h: Raise, type: held}
+  - {t: ⌫, h: Adjust, type: held}
+  lower:
+  - ''
+  - {t: ^, s: °}
+  - F2
+  - {t: ▽, type: trans}
+  - F4
+  - F5
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: '1', s: '!'}
+  - {t: '2', s: '"'}
+  - {t: '3', s: §}
+  - {t: '4', s: $}
+  - {t: '5', s: '%'}
+  - {t: '6', s: '&'}
+  - {t: '7', s: /}
+  - {t: '8', s: (}
+  - {t: '9', s: )}
+  - {t: '0', s: '='}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: <, s: '>'}
+  - {t: ▽, type: trans}
+  - '|'
+  - {t: ▽, type: trans}
+  - {t: '#', s: ''''}
+  - '{'
+  - '['
+  - ']'
+  - '}'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - $$mdi:microsoft-windows-classic$$
+  - ⤒ Pos1
+  - ⤓ End
+  - {t: ▽, type: trans}
+  - '&nbsp'
+  raise:
+  - ''
+  - '@'
+  - µ
+  - €
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - Ü
+  - \
+  - Ö
+  - '='
+  - {t: ▽, type: trans}
+  - ''
+  - Ä
+  - {t: ß, s: '?'}
+  - 🖱 RMB
+  - 🖱 LMB
+  - '&durchmesser'
+  - UP
+  - LEFT
+  - DOWN
+  - RIGHT
+  - {t: +, s: '*'}
+  - {t: ▽, type: trans}
+  - ''
+  - ´
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '`'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '~'
+  - {t: ▽, type: trans}
+  - ☻
+  - Task Mgr
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&nbsp'
+  - {t: ▽, type: trans}
+  adjust:
+  - ''
+  - {t: '$$mdi:bluetooth$$', s: ☀ OFF}
+  - ²
+  - ³
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ✕, s: Alt F4}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
+  - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
+  - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
+  - {t: '$$mdi:bluetooth$$', s: ⓸}
+  - {t: '$$mdi:bluetooth$$', s: ⓹}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: ψ USB, s: ☀ ON}
+  - EP TOG
+  - EP ON
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ⏮
+  - ⏭
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F10
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  rgb:
+  - ''
+  - RGB TOG
+  - RGB EFF
+  - RGB BRI
+  - RGB SAI
+  - RGB HUI
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: ▽, type: trans}
+  - RGB EFR
+  - RGB BRD
+  - RGB SAD
+  - RGB HUD
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - BT CLR
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
