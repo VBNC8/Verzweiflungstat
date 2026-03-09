@@ -119,11 +119,11 @@ draw_config:
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
     rect.skip { 
-      fill: #000000 !important; 
-      stroke: #1a1b26 !important; 
+      fill: #000000 !important;
+      stroke: #000000 !important; /* Rand auch schwarz */
+      stroke-dasharray: none !important; /* Entfernt die gestrichelte Linie */
+      opacity: 1 !important; /* Sicherstellen, dass sie nicht transparent ist */
     }
-    /* Optional: Auch den Text auf Ghost-Tasten dunkler machen */
-    .ghost text { fill: #414868 !important; }
     
 
 
