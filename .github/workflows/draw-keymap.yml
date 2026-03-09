@@ -20,19 +20,21 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Parse erzeugt die 42-Key YAML
+          # 1. Schritt: Normaler Parse (erzeugt 42 Keys)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Wir löschen die Rand-Indizes (0, 11, 12, 23, 24, 25, 35)
-          # WICHTIG: Prüfe nochmal, ob wirklich genau 6 Tasten gelöscht werden, damit 36 übrig bleiben.
-          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = null)' keymap.yaml
+          # 2. Schritt: Randtasten löschen (0, 11, 12, 23, 24, 35)
+          # WICHTIG: Wir löschen genau 6 Tasten, damit 36 übrig bleiben (42 - 6 = 36)
+          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 35) = null)' keymap.yaml
           yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
           
-          # 3. Wir setzen das Layout auf das generische 'corne'
-          # Der Drawer erkennt bei 36 Tasten automatisch das 3x5 Layout
-          yq -i '.layout = {"zmk_keyboard": "corne"}' keymap.yaml
+          # 3. Schritt: Layout-Check umgehen
+          # Wir löschen die ZMK-Referenz und setzen ein manuelles Layout-Format
+          yq -i 'del(.layout.zmk_keyboard)' keymap.yaml
+          yq -i '.layout.qmk_keyboard = "handwired/ortho5x12"' keymap.yaml
           
-          # 4. Zeichnen
+          # 4. Schritt: Zeichnen
+          # Da wir jetzt kein "Corne"-Template mehr erzwingen, zeichnet er, was er findet
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
