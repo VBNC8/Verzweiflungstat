@@ -1,6 +1,6 @@
 parse_config:
   # Hier die Indizes der Randtasten eintragen (basierend auf 42-Key Matrix)
-  skip_keys: [0, 11, 12, 23, 24, 35]
+  skip_keys: [0]
   raw_binding_map:
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
