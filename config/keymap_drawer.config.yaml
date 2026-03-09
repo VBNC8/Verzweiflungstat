@@ -9,7 +9,7 @@ parse_config:
     
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
-    "&lt 1 RET": {t: "↵", h: "Lower", type: "skip"}
+    "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
     "&lt 2 ESC": {t: "ESC", h: "Raise", type: "ghost"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise", type: "held"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust", type: "held"}
@@ -31,7 +31,7 @@ parse_config:
     "&kp PLUS": "`"
 
     # --- ZAHLEN & UMLAUTE ---
-    "&kp N1": {t: "1", s: "!"}
+    "&kp N1": {t: "1", s: "!", type: "skip"}
     "&kp N2": {t: "2", s: "\""}
     "&kp N3": {t: "3", s: "§"}
     "&kp N4": {t: "4", s: "$"}
