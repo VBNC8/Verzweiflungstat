@@ -121,7 +121,7 @@ draw_config:
   combos:
     - p: [0, 1]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
       k: "RGB / Adjust"    # Der Text, der im "Knochen" stehen soll
-      l: ["rgb_layer"]           # Auf welchen Layern der Knochen erscheinen soll
+      l: ["rgb"]           # Auf welchen Layern der Knochen erscheinen soll
     
 
 
