@@ -20,15 +20,19 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Parse erzeugt die keymap.yaml mit 42 Tasten
+          # 1. Parse erzeugt die 42-Key YAML
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Wir ersetzen die Rand-Indizes durch "SKIP" statt sie zu löschen
-          # Indizes: 0, 11, 12, 23, 24, 25, 35
-          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = "SKIP")' keymap.yaml
+          # 2. Wir löschen die Rand-Indizes (0, 11, 12, 23, 24, 25, 35) physikalisch
+          # Dadurch schrumpft jeder Layer von 42 auf 35/36 Tasten
+          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = null)' keymap.yaml
+          yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
           
-          # 3. Zeichnen mit dem originalen Shield-Layout (-z)
-          # Da die Anzahl jetzt wieder 42 ist (viele davon "SKIP"), meckert Pydantic nicht mehr.
+          # 3. JETZT DER TRICK: Wir ändern das Layout-Template auf ein 3x5 Board (36 Keys)
+          # Das 'corne_ish_zen' ist das perfekte 3x5 Template im Drawer
+          yq -i '.layout = {"zmk_keyboard": "lowprokb_corne_ish_zen_v1"}' keymap.yaml
+          
+          # 4. Zeichnen (er sieht nun 36 Tasten und ein 36-Tasten-Template)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
