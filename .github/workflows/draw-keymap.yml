@@ -19,7 +19,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install keymap-drawer
-        run: pip install keymap-drawer
+        run: pip install tree-sitter==0.21.3 keymap-drawer
 
       - name: Draw keymap
         run: |
