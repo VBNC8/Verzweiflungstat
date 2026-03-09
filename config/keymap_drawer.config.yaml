@@ -1,3 +1,8 @@
+combos:
+  - p: [37, 38]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
+    k: "RGB / Adjust"    # Der Text, der im "Knochen" stehen soll
+    l: ["RGB"]       # Auf welchen Layern der Knochen erscheinen soll
+    
 parse_config:
   check_side_key_usage: true
   skip_binding_parsing: false
