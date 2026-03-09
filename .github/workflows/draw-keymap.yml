@@ -20,10 +20,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # Parse: Liest automatisch die skip_keys aus der Config
+          # 1. Wir parsen die Datei (hier werden die Keys markiert)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # Draw: Nutzt ebenfalls die Config für das Design
+          # 2. WICHTIG: Wir zeichnen NUR aus der yaml, ohne das ZMK-Board erneut zu triggern
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
