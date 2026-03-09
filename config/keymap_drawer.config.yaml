@@ -83,10 +83,6 @@ parse_config:
 
     # --- MAKROS & SPEZIAL ---
     "&smiley": "☻"
-    "&durchmesser": "Ø"
-    "&kp RA(M)": "µ"
-    "&kp RA(N2)": "²"  
-    "&kp RA(N3)": "³"
 
     # --- MODIFIER FIXES ---
     "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
