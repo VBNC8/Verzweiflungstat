@@ -1,30 +1,30 @@
 layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
 layers:
   default:
-  - [' ', '&kp Q', '&kp W', '&kp E', '&kp R', '&kp T', '&kp Y', '&kp U', '&kp I', '&kp O']
-  - - '&kp P'
-    - '&lt 1 P'
+  - [' ', Q, W, E, R, T, Y, U, I, O]
+  - - P
+    - {t: P, h: Lower}
     - ' '
-    - '&kp A'
-    - '&kp S'
+    - A
+    - S
     - {t: D, h: CTRL}
     - {t: F, h: Shift}
-    - '&kp G'
-    - '&kp H'
+    - G
+    - H
     - {t: J, h: Shift}
   - - {t: K, h: CTRL}
-    - '&kp L'
+    - L
     - {t: '-', s: _}
     - ' '
     - ' '
-    - '&kp Z'
+    - Z
     - {t: X, h: Alt}
-    - '&kp C'
-    - '&kp V'
-    - '&kp B'
-  - - '&kp N'
-    - '&kp M'
-    - '&kp COMMA'
+    - C
+    - V
+    - B
+  - - N
+    - M
+    - ','
     - {t: ., h: AltGr}
     - ⌦
     - ' '
@@ -37,10 +37,10 @@ layers:
   lower:
   - - ' '
     - {t: ^, s: °}
-    - '&kp F2'
+    - F2
     - ' '
-    - '&kp F4'
-    - '&kp F5'
+    - F4
+    - F5
     - ' '
     - ' '
     - ' '
@@ -86,10 +86,10 @@ layers:
     - 🖱 RMB
     - 🖱 LMB
     - Ø
-    - '&kp UP'
-    - '&kp LEFT'
-  - - '&kp DOWN'
-    - '&kp RIGHT'
+    - UP
+    - LEFT
+  - - DOWN
+    - RIGHT
     - {t: +, s: '*'}
     - ' '
     - ' '
@@ -137,16 +137,16 @@ layers:
     - ' '
     - ' '
     - {t: ψ USB, s: ☀ ON}
-    - '&ext_power EP_TOG'
-    - '&ext_power EP_ON'
+    - EP TOG
+    - EP ON
     - ' '
     - ' '
-  - [' ', ' ', ⏮, ⏭, ' ', ' ', '&kp F10', ' ', ' ', ' ']
+  - [' ', ' ', ⏮, ⏭, ' ', ' ', F10, ' ', ' ', ' ']
   - - ' '
     - {t: ' ', type: held}
   rgb:
-  - [' ', '&rgb_ug RGB_TOG', '&rgb_ug RGB_EFF', '&rgb_ug RGB_BRI', '&rgb_ug RGB_SAI', '&rgb_ug RGB_HUI', ' ', ' ', ' ', ' ']
-  - [' ', ' ', ' ', ' ', '&rgb_ug RGB_EFR', '&rgb_ug RGB_BRD', '&rgb_ug RGB_SAD', '&rgb_ug RGB_HUD', ' ', ' ']
+  - [' ', RGB TOG, RGB EFF, RGB BRI, RGB SAI, RGB HUI, ' ', ' ', ' ', ' ']
+  - [' ', ' ', ' ', ' ', RGB EFR, RGB BRD, RGB SAD, RGB HUD, ' ', ' ']
   - [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-  - [' ', ' ', ' ', ' ', ' ', ' ', '&bt BT_CLR', ' ', ' ', ' ']
+  - [' ', ' ', ' ', ' ', ' ', ' ', BT CLR, ' ', ' ', ' ']
   - [' ', ' ']
