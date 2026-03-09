@@ -89,6 +89,28 @@ parse_config:
     "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
     "&hrm_safe LALT X": {t: "X", h: "Alt"}
     "&hrm_safe RALT DOT": {t: ".", h: "AltGr"}
+    
+    # --- RGB UNTERBELEUCHTUNG ---
+    "&rgb_ug RGB_TOG": {t: "$$mdi:lightbulb-on$$", s: "OnOff"}
+    "&rgb_ug RGB_EFF": {t: "$$mdi:cosine-wave$$", s: "Mode"}
+    "&rgb_ug RGB_EFR": {t: "$$mdi:cosine-wave$$", s: "Rev"}
+    "&rgb_ug RGB_BRI": {t: "$$mdi:brightness-7$$", s: "Bri+"}
+    "&rgb_ug RGB_BRD": {t: "$$mdi:brightness-4$$", s: "Bri-"}
+    "&rgb_ug RGB_SAI": {t: "$$mdi:palette$$", s: "Sat+"}
+    "&rgb_ug RGB_SAD": {t: "$$mdi:palette-outline$$", s: "Sat-"}
+    "&rgb_ug RGB_HUI": {t: "$$mdi:palette-swatch$$", s: "Hue+"}
+    "&rgb_ug RGB_HUD": {t: "$$mdi:palette-swatch-outline$$", s: "Hue-"}
+
+    # --- BLUETOOTH & SYSTEM ---
+    "&bt BT_CLR": {t: "$$mdi:bluetooth-off$$", s: "CLR", type: "held"}
+    "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "1", h: "PC"}
+    "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "2", h: "S8"}
+    "&bt BT_SEL 2": {t: "$$mdi:bluetooth$$", s: "3", h: "ZBok"}
+    "&bt_off": {t: "$$mdi:bluetooth-off$$"}
+    "&usb_on": "$$mdi:usb$$"
+    "&kp LA(F4)": "✕"
+    "&ext_power EP_TOG": "Pwr±"
+    "&ext_power EP_ON": "Pwr+"
 
 draw_config:
   dark_mode: true
