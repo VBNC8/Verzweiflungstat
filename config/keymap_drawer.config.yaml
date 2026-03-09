@@ -110,8 +110,17 @@ draw_config:
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     
-    /* Jetzt greifen die Klassen automatisch durch das Mapping oben */
-    rect.lower { fill: #7aa2f7; } 
-    rect.raise { fill: #bb9af7; }
-    rect.adjust { fill: #e0af68; }
+    /* Wir definieren Farben für unsere neuen Klassen */
+    .lower-text { fill: #7aa2f7 !important; }
+    .raise-text { fill: #bb9af7 !important; }
+    .adjust-text { fill: #e0af68 !important; }
+
+    /* Wir überschreiben die rote 'held' Farbe mit dem Standard-Dunkel */
+    rect.held { fill: #24283b; } 
+    
+  # Hier passiert die Magie: Wir wickeln den Text in ein farbiges Element ein
+  glyph_map:
+    Lower: '<tspan class="lower-text">Lower</tspan>'
+    Raise: '<tspan class="raise-text">Raise</tspan>'
+    Adjust: '<tspan class="adjust-text">Adjust</tspan>'
 
