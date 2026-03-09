@@ -114,15 +114,15 @@ draw_config:
   dark_mode: true
   n_columns: 1
   append_style: |
-    svg { background-color: #ff00ff; }
-    rect.key { fill: #24283b; stroke: #414868; }
-    text { fill: #c0caf5; }
-    rect.held { fill: #f7768e; }
-    rect.skip { 
+    /* Erzwinge Schwarz für JEDES Element, das 'skip' im Klassennamen hat */
+    *[class*="skip"] rect, 
+    rect[class*="skip"], 
+    g[class*="skip"] rect {
       fill: #000000 !important;
-      stroke: #000000 !important; /* Rand auch schwarz */
-      stroke-dasharray: none !important; /* Entfernt die gestrichelte Linie */
-      opacity: 1 !important; /* Sicherstellen, dass sie nicht transparent ist */
+      stroke: #1a1b26 !important;
+      stroke-dasharray: none !important;
+      stroke-width: 2px !important;
+      opacity: 1 !important;
     }
     
 
