@@ -20,10 +20,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Schritt: Parse (Argumente NACH dem Unterbefehl 'parse')
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --skip-keys 0 12 13 25 26 38 > keymap.yaml
+          # 1. Schritt: Parse (Konfig global, skip-keys spezifisch für parse)
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --skip-keys 0 11 12 23 24 35 > keymap.yaml
           
-          # 2. Schritt: Draw
+          # 2. Schritt: Draw (Konfig global mitgeben)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
