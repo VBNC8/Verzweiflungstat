@@ -103,9 +103,6 @@ parse_config:
 
     # --- BLUETOOTH & SYSTEM ---
     "&bt BT_CLR": {t: "$$mdi:bluetooth-off$$", s: "CLR", type: "held"}
-    "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "1", h: "PC"}
-    "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "2", h: "S8"}
-    "&bt BT_SEL 2": {t: "$$mdi:bluetooth$$", s: "3", h: "ZBok"}
     "&bt_off": {t: "$$mdi:bluetooth-off$$"}
     "&usb_on": "$$mdi:usb$$"
     "&kp LA(F4)": "✕"
