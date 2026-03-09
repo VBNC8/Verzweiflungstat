@@ -1,17 +1,34 @@
 name: Draw ZMK keymaps
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Ermöglicht manuelles Starten
   push:
     paths:
-      - "config/*.keymap"
-      - "config/*.dtsi"
+      - "keymap-drawer/*.yaml" # Startet, wenn du die YAML händisch änderst
       - ".github/workflows/draw-keymap.yml"
-      - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    with:
-      keymap_patterns: "config/*.keymap"
-      output_folder: "keymap-drawer"
-      config_path: "config/keymap_drawer.config.yaml"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer
+
+      - name: Draw keymap
+        run: |
+          keymap draw keymap-drawer/splitkb_aurora_corne.yaml > keymap-drawer/splitkb_aurora_corne.svg
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add keymap-drawer/splitkb_aurora_corne.svg
+          git commit -m "Update keymap graphics" || echo "No changes to commit"
+          git push
