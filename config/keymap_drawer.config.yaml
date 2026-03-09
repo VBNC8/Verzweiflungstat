@@ -119,9 +119,9 @@ draw_config:
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
   combos:
-    - p: [0, 1]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
+    - p: [1, 2]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
       k: "RGB / Adjust"    # Der Text, der im "Knochen" stehen soll
-      l: ["rgb"]           # Auf welchen Layern der Knochen erscheinen soll
+      # l: ["rgb"]           # Auf welchen Layern der Knochen erscheinen soll
     
 
 
