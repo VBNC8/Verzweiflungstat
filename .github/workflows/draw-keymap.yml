@@ -23,16 +23,16 @@ jobs:
           # 1. Parse erzeugt die 42-Key YAML
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Wir löschen die Rand-Indizes (0, 11, 12, 23, 24, 25, 35) physikalisch
-          # Dadurch schrumpft jeder Layer von 42 auf 35/36 Tasten
+          # 2. Wir löschen die Rand-Indizes (0, 11, 12, 23, 24, 25, 35)
+          # WICHTIG: Prüfe nochmal, ob wirklich genau 6 Tasten gelöscht werden, damit 36 übrig bleiben.
           yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = null)' keymap.yaml
           yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
           
-          # 3. JETZT DER TRICK: Wir ändern das Layout-Template auf ein 3x5 Board (36 Keys)
-          # Das 'corne_ish_zen' ist das perfekte 3x5 Template im Drawer
-          yq -i '.layout = {"zmk_keyboard": "lowprokb_corne_ish_zen_v1"}' keymap.yaml
+          # 3. Wir setzen das Layout auf das generische 'corne'
+          # Der Drawer erkennt bei 36 Tasten automatisch das 3x5 Layout
+          yq -i '.layout = {"zmk_keyboard": "corne"}' keymap.yaml
           
-          # 4. Zeichnen (er sieht nun 36 Tasten und ein 36-Tasten-Template)
+          # 4. Zeichnen
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
