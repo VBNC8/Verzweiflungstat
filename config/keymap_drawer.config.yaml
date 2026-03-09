@@ -14,26 +14,90 @@ parse_config:
     "&kp HOME": {t: "⤒ Pos1", type: "held"}  # h: macht die Taste rot
     "&kp END": {t: "⤓ End", type: "held"}    # h: macht die Taste rot
 
-    # --- DEUTSCHE TASTEN ---
-    "&kp N1": {t: "1", s: "!"}
-    "&kp N2": {t: "2", s: "\""}
-    "&kp N3": {t: "3", s: "§"}
-    "&kp N4": {t: "4", s: "$"}
-    "&kp N5": {t: "5", s: "%"}
-    "&kp N6": {t: "6", s: "&"}
-    "&kp N7": {t: "7", s: "/"}
-    "&kp N8": {t: "8", s: "("}
-    "&kp N9": {t: "9", s: ")"}
-    "&kp N0": {t: "0", s: "="}
-    "&kp MINUS": {t: "ß", s: "?"}
-    "&kp SEMI": "Ö"
-    "&kp SQT": "Ä"
-    "&kp LBKT": "Ü"
-    "&kp RA(Q)": "@"
-    "&kp RA(E)": "€"
-    "&kp NON_US_BSLH": {t: "<", s: ">"}
-    "&kp SLASH": {t: "-", s: "_"}
-    "&kp RBKT": {t: "+", s: "*"}
+        # --- DEUTSCHE TASTEN & SYMBOLE ---
+    "&kp LC(LS(ESC))": "Task Mgr"
+    "&nbsp": "&nbsp"
+    
+    # --- NAVIGATION & EINGABE ---
+    "&kp RET": "⏎"
+    "&kp BSPC": "⌫"
+    "&kp DEL": "⌦"
+    "&kp TAB": "⇥"
+    "&kp ESC": "ESC"
+    "&kp SPACE": "␣"
+    "&kp LGUI": "$$mdi:microsoft-windows-classic$$"
+    "&kp GRAVE": {t: "^", s: "°"}
+    "&kp PLUS": "`"
+    "&kp HOME": "⤒ Pos1"
+    "&kp END": "⤓ End"
+    "&kp LC(LS(ESC))": "Task Mgr"
+    "&nbsp": "&nbsp"
+
+    # --- ZAHLEN & DEUTSCHE FIXES ---
+    "&kp N1": {t: "1", s: "!"}
+    "&kp N2": {t: "2", s: "\""}
+    "&kp N3": {t: "3", s: "§"}
+    "&kp N4": {t: "4", s: "$"}
+    "&kp N5": {t: "5", s: "%"}
+    "&kp N6": {t: "6", s: "&"}
+    "&kp N7": {t: "7", s: "/"}
+    "&kp N8": {t: "8", s: "("}
+    "&kp N9": {t: "9", s: ")"}
+    "&kp N0": {t: "0", s: "="}
+    "&kp MINUS": {t: "ß", s: "?"}
+    "&kp SEMI": "Ö"
+    "&kp SQT": "Ä"
+    "&kp LBKT": "Ü"
+    "&kp RA(N7)": "{"
+    "&kp RA(N8)": "["
+    "&kp RA(N9)": "]"
+    "&kp RA(N0)": "}"
+    "&kp RA(Q)": "@"
+    "&kp RA(E)": "€"
+    "&kp RA(M)": "µ"
+    "&kp RA(MINUS)": "\\"
+    "&kp RA(SQT)": "´"
+    "&kp RA(NON_US_BSLH)": "|"
+    "&kp RA(RBKT)": "~"
+    "&kp RA(N2)": "²"
+    "&kp RA(N3)": "³"
+    "&kp NON_US_HASH": {t: "#", s: "'"}
+    "&kp NON_US_BSLH": {t: "<", s: ">"}
+    "&kp SLASH": {t: "-", s: "_"}
+    "&kp RPAR": "="
+    "&kp RBKT": {t: "+", s: "*"}
+
+    # --- MULTIMEDIA & MAUS ---
+    "&kp C_PREV": "⏮"
+    "&kp C_NEXT": "⏭"
+    "&kp C_PP": "⏯"
+    "&mkp LCLK": "🖱 LMB"
+    "&mkp RCLK": "🖱 RMB"
+
+    # --- SYSTEM & BT ---
+    "&usb_on": {t: "ψ USB", s: "☀ ON"}  
+    "&bt_off": {t: "$$mdi:bluetooth$$", s: "☀ OFF"}
+    "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
+    "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "⓶", h: "S8"}
+    "&bt BT_SEL 2": {t: "$$mdi:bluetooth$$", s: "⓷", h: "Zbook"}
+    "&bt BT_SEL 3": {t: "$$mdi:bluetooth$$", s: "⓸"}
+    "&bt BT_SEL 4": {t: "$$mdi:bluetooth$$", s: "⓹"}
+    "&kp LA(F4)": {t: "✕", s: "Alt F4"}
+
+    # --- MAKROS & SPEZIAL ---
+    "&smiley": "☻"
+    "&durchmesser": "Ø"
+    "&kp RA(M)": "µ"
+    "&kp RA(N2)": "²"  
+    "&kp RA(N3)": "³"
+
+    # --- MODIFIER FIXES ---
+    "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
+    "&hrm_shift LSHIFT F": {t: "F", h: "Shift"}
+    "&hrm_shift RSHIFT J": {t: "J", h: "Shift"}
+    "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
+    "&hrm_safe LALT X": {t: "X", h: "Alt"}
+    "&hrm_safe RALT DOT": {t: ".", h: "AltGr"}
 
 draw_config:
   dark_mode: true
