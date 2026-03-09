@@ -99,4 +99,19 @@ draw_config:
   key_w: 60
   key_h: 56
   split_gap: 30
+  # Mappt den Text auf der Taste auf eine CSS-Klasse
+  label_offsets:
+    Lower: lower
+    Raise: raise
+    Adjust: adjust
+  
+  append_style: |
+    svg { background-color: #1a1b26; }
+    rect.key { fill: #24283b; stroke: #414868; }
+    text { fill: #c0caf5; }
+    
+    /* Jetzt greifen die Klassen automatisch durch das Mapping oben */
+    rect.lower { fill: #7aa2f7; } 
+    rect.raise { fill: #bb9af7; }
+    rect.adjust { fill: #e0af68; }
 
