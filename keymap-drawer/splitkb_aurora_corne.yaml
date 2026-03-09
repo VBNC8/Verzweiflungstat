@@ -29,7 +29,7 @@ layers:
     - ⌦
     - ' '
     - ⏯
-    - {t: ESC, h: Raise, type: held}
+    - {t: ESC, h: Raise, type: ghost}
     - {t: ⇥, h: Lower, type: held}
     - {t: ↵, h: Lower, type: held}
   - - {t: ␣, h: Raise, type: held}
