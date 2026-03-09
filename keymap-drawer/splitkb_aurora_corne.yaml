@@ -111,42 +111,51 @@ layers:
   - - {t: '&nbsp', type: held}
     - ' '
   adjust:
-  - - ' '
-    - {t: '$$mdi:bluetooth$$', s: ☀ OFF}
-    - ²
-    - ³
+  - [' ', '$$mdi:bluetooth-off$$', ², ³, ' ', ' ', ' ', ' ', ' ', ' ']
+  - - ✕
     - ' '
     - ' '
-    - ' '
-    - ' '
-    - ' '
-    - ' '
-  - - {t: ✕, s: Alt F4}
-    - ' '
-    - ' '
-    - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
-    - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
-    - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
+    - {t: '$$mdi:bluetooth$$', h: PC, s: '1'}
+    - {t: '$$mdi:bluetooth$$', h: S8, s: '2'}
+    - {t: '$$mdi:bluetooth$$', h: ZBok, s: '3'}
     - {t: '$$mdi:bluetooth$$', s: ⓸}
     - {t: '$$mdi:bluetooth$$', s: ⓹}
     - ' '
     - ' '
-  - - ' '
-    - ' '
-    - ' '
-    - ' '
-    - ' '
-    - {t: ψ USB, s: ☀ ON}
-    - EP TOG
-    - EP ON
-    - ' '
-    - ' '
+  - [' ', ' ', ' ', ' ', ' ', '$$mdi:usb$$', Pwr±, Pwr+, ' ', ' ']
   - [' ', ' ', ⏮, ⏭, ' ', ' ', F10, ' ', ' ', ' ']
   - - ' '
     - {t: ' ', type: held}
   rgb:
-  - [' ', RGB TOG, RGB EFF, RGB BRI, RGB SAI, RGB HUI, ' ', ' ', ' ', ' ']
-  - [' ', ' ', ' ', ' ', RGB EFR, RGB BRD, RGB SAD, RGB HUD, ' ', ' ']
+  - - ' '
+    - {t: '$$mdi:lightbulb-on$$', s: OnOff}
+    - {t: '$$mdi:cosine-wave$$', s: Mode}
+    - {t: '$$mdi:brightness-7$$', s: Bri+}
+    - {t: '$$mdi:palette$$', s: Sat+}
+    - {t: '$$mdi:palette-swatch$$', s: Hue+}
+    - ' '
+    - ' '
+    - ' '
+    - ' '
+  - - ' '
+    - ' '
+    - ' '
+    - ' '
+    - {t: '$$mdi:cosine-wave$$', s: Rev}
+    - {t: '$$mdi:brightness-4$$', s: Bri-}
+    - {t: '$$mdi:palette-outline$$', s: Sat-}
+    - {t: '$$mdi:palette-swatch-outline$$', s: Hue-}
+    - ' '
+    - ' '
   - [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-  - [' ', ' ', ' ', ' ', ' ', ' ', BT CLR, ' ', ' ', ' ']
+  - - ' '
+    - ' '
+    - ' '
+    - ' '
+    - ' '
+    - ' '
+    - {t: '$$mdi:bluetooth-off$$', s: CLR, type: held}
+    - ' '
+    - ' '
+    - ' '
   - [' ', ' ']
