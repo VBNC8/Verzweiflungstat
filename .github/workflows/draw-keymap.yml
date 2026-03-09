@@ -20,10 +20,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # Wir setzen die Konfig (-c) vor den Befehl und die Skip-Keys ganz ans Ende
-          keymap -c config/keymap_drawer.config.yaml parse --skip-keys 0 11 12 23 24 35 -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          # Parse: Liest automatisch die skip_keys aus der Config
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # Zeichnen bleibt gleich
+          # Draw: Nutzt ebenfalls die Config für das Design
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
