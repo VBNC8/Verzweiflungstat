@@ -1,7 +1,6 @@
 parse_config:
-  columns: 10
-  skip_binding_parsing: false
   check_side_key_usage: true
+  skip_binding_parsing: true
   raw_binding_map:
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
@@ -90,9 +89,6 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  exposed_key_count: 36
-  # Zwingt den Zeichner auf das 3x5_3 Template (36 Tasten)
-  layout: {qmk_keyboard: "splitkb/aurora/corne", qmk_layout: "LAYOUT_split_3x5_3"}
   append_style: |
     svg { background-color: #1a1b26; }
     rect.key { fill: #24283b; stroke: #414868; }
