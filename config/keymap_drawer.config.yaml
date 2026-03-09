@@ -9,7 +9,7 @@ parse_config:
     
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
-    "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
+    "&lt 1 RET": {t: "↵", h: "Lower", type: "skip"}
     "&lt 2 ESC": {t: "ESC", h: "Raise", type: "ghost"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise", type: "held"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust", type: "held"}
@@ -118,7 +118,7 @@ draw_config:
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
-    rect.ghost { 
+    rect.skip { 
       fill: #000000 !important; 
       stroke: #1a1b26 !important; 
     }
