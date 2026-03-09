@@ -38,7 +38,7 @@ layers:
   - {t: ␣, h: Raise, type: held}
   - {t: ⌫, h: Adjust, type: held}
   lower:
-  - {t: ^, s: °}
+  - {t: '^', s: '°'}
   - F2
   - {t: ▽, type: trans}
   - F4
@@ -50,19 +50,19 @@ layers:
   - {t: ▽, type: trans}
   - {t: '1', s: '!'}
   - {t: '2', s: '"'}
-  - {t: '3', s: §}
-  - {t: '4', s: $}
+  - {t: '3', s: '§'}
+  - {t: '4', s: '$'}
   - {t: '5', s: '%'}
   - {t: '6', s: '&'}
-  - {t: '7', s: /}
-  - {t: '8', s: (}
-  - {t: '9', s: )}
-  - {t: '0', s: =}
-  - {t: <, s: '>'}
+  - {t: '7', s: '/'}
+  - {t: '8', s: '('}
+  - {t: '9', s: ')'}
+  - {t: '0', s: '='}
+  - {t: '<', s: '>'}
   - {t: ▽, type: trans}
   - '|'
   - {t: ▽, type: trans}
-  - {t: '#', s: ''''}
+  - {t: '#', s: "'"}
   - '{'
   - '['
   - ']'
@@ -94,8 +94,94 @@ layers:
   - LEFT
   - DOWN
   - RIGHT
-  - {t: +, s: '*'}
+  - {t: '+', s: '*'}
   - ´
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '`'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '~'
+  - ☻
+  - Task Mgr
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&nbsp'
+  - {t: ▽, type: trans}
+  adjust:
+  - {t: '$$mdi:bluetooth$$', s: ☀ OFF}
+  - ²
+  - ³
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ✕, s: Alt F4}
+  - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
+  - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
+  - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
+  - {t: '$$mdi:bluetooth$$', s: ⓸}
+  - {t: '$$mdi:bluetooth$$', s: ⓹}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ψ USB, s: ☀ ON}
+  - EP TOG
+  - EP ON
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ⏮
+  - ⏭
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F10
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  rgb:
+  - RGB TOG
+  - RGB EFF
+  - RGB BRI
+  - RGB SAI
+  - RGB HUI
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - RGB EFR
+  - RGB BRD
+  - RGB SAD
+  - RGB HUD
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - BT CLR
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
