@@ -20,17 +20,15 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Schritt: Ganz normaler Parse
+          # 1. Parse erzeugt die keymap.yaml mit 42 Tasten
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Schritt: Wir löschen die Rand-Indizes direkt aus JEDEM Layer der YAML
-          # Basierend auf deiner Liste: 0, 11, 12, 23, 24, 25, 35
-          # Wir nutzen 'del', um die Einträge komplett zu entfernen
-          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = null)' keymap.yaml
-          yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
+          # 2. Wir ersetzen die Rand-Indizes durch "SKIP" statt sie zu löschen
+          # Indizes: 0, 11, 12, 23, 24, 25, 35
+          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 25 or . == 35) = "SKIP")' keymap.yaml
           
-          # 3. Schritt: Jetzt zeichnen wir (ohne das ZMK-Shield-Template zu erzwingen)
-          # Wir nutzen --layout, um ihm ein generisches 3x10+3 Grid vorzugaukeln
+          # 3. Zeichnen mit dem originalen Shield-Layout (-z)
+          # Da die Anzahl jetzt wieder 42 ist (viele davon "SKIP"), meckert Pydantic nicht mehr.
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
