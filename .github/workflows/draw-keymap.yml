@@ -1,31 +1,19 @@
 name: Draw ZMK keymaps
 on:
-  workflow_dispatch: # Erlaubt manuelles Starten
+  workflow_dispatch:
   push:
     paths:
-      - "config/*.keymap" # Startet, wenn die Keymap geändert wird
+      - "config/*.keymap"
+      - "config/*.dtsi"
+      - ".github/workflows/draw-keymap.yml"
+      - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # Erlaubt das Hochladen des Bildes ins Repo
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install keymap-drawer
-        run: pip install keymap-drawer
-
-      - name: Draw keymap
-        run: |
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > keymap.svg
-          
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add keymap.svg
-          git commit -m "Update keymap visualization" || exit 0
-          git push
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    with:
+      keymap_patterns: "config/*.keymap"
+      output_folder: "keymap-drawer"
+      config_path: "config/keymap_drawer.config.yaml"
+      parse_args: "--skip-keys 0 13 26 25 38"
+      draw_args: "--select-layers 0 1 2 3 4" # Optional: Nur bestimmte Layer zeichnen
