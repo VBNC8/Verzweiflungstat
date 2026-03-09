@@ -23,17 +23,15 @@ jobs:
           # 1. Schritt: Normaler Parse (erzeugt 42 Keys)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Schritt: Randtasten löschen (0, 11, 12, 23, 24, 35)
+          # 2. Schritt: Randtasten löschen (0, 11, 12, 23, 24, 35) -> 36 bleiben
           yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 35) = null)' keymap.yaml
           yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
           
-          # 3. Schritt: Das physische Layout auf ortho_layout umstellen
-          # Wir löschen das alte Layout-Objekt komplett
+          # 3. Schritt: Layout-Objekt neu aufbauen
           yq -i 'del(.layout)' keymap.yaml
-          
-          # Wir setzen das vom Drawer geforderte ortho_layout
           yq -i '.layout.ortho_layout.rows = 3' keymap.yaml
-          yq -i '.layout.ortho_layout.cols = 12' keymap.yaml
+          # Hier lag der Fehler: 'columns' statt 'cols'
+          yq -i '.layout.ortho_layout.columns = 12' keymap.yaml
           
           # 4. Schritt: Zeichnen
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
