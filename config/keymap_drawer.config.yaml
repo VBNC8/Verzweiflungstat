@@ -99,18 +99,4 @@ draw_config:
   key_w: 60
   key_h: 56
   split_gap: 30
-  append_style: |
-    svg { background-color: #1a1b26; }
-    rect.key { fill: #24283b; stroke: #414868; }
-    text { fill: #c0caf5; }
-
-    /* Färbt Tasten basierend auf dem Text-Inhalt (Selektoren) */
-    /* Wir suchen nach dem Text in der h-Hold-Position oder t-Tap-Position */
-    
-    g.key:has(text:nth-of-type(1):-moz-only-whitespace):has(text:nth-of-type(2):-moz-only-whitespace) { /* Fallback */ }
-
-    /* Das hier ist der "Magic Trick" über CSS-Attribut-Selektoren, 
-       falls das Tool die Klassen nicht nativ vergibt: */
-    
-    rect.held { fill: #444b6a; } /* Standard für alle gehaltenen Tasten */
 
