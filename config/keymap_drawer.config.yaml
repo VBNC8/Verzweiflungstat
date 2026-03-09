@@ -1,8 +1,4 @@
-combos:
-  - p: [37, 38]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
-    k: "RGB / Adjust"    # Der Text, der im "Knochen" stehen soll
-    l: ["RGB"]       # Auf welchen Layern der Knochen erscheinen soll
-    
+
 parse_config:
   check_side_key_usage: true
   skip_binding_parsing: false
@@ -122,3 +118,10 @@ draw_config:
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
+  combos:
+    - p: [37, 38]          # Die Indizes deiner beiden Daumentasten (Lower & Raise)
+      k: "RGB / Adjust"    # Der Text, der im "Knochen" stehen soll
+      l: ["RGB"]       # Auf welchen Layern der Knochen erscheinen soll
+    
+
+
