@@ -20,10 +20,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # Einfacher Parse ohne fehleranfällige Argumente
+          # Ganz normaler Parse - die Config regelt das Aussehen
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # Zeichnen basierend auf der Config
+          # Zeichnen mit dem originalen Shield-Layout
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
