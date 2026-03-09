@@ -102,3 +102,13 @@ draw_config:
   key_w: 60
   key_h: 56
   split_gap: 30
+  svg_style: |
+    /* Blendet die markierten Tasten komplett aus */
+    rect.ghost, text.ghost { 
+      display: none; 
+    }
+    /* Entfernt auch die Umrandung (Border) */
+    .key.ghost { 
+      fill: none; 
+      stroke: none; 
+    }
