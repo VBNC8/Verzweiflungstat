@@ -100,27 +100,4 @@ draw_config:
   key_h: 56
   split_gap: 30
   # Mappt den Text auf der Taste auf eine CSS-Klasse
-  label_offsets:
-    Lower: lower
-    Raise: raise
-    Adjust: adjust
   
-  append_style: |
-    svg { background-color: #1a1b26; }
-    rect.key { fill: #24283b; stroke: #414868; }
-    text { fill: #c0caf5; }
-    
-    /* Wir definieren Farben für unsere neuen Klassen */
-    .lower-text { fill: #7aa2f7 !important; }
-    .raise-text { fill: #bb9af7 !important; }
-    .adjust-text { fill: #e0af68 !important; }
-
-    /* Wir überschreiben die rote 'held' Farbe mit dem Standard-Dunkel */
-    rect.held { fill: #24283b; } 
-    
-  # Hier passiert die Magie: Wir wickeln den Text in ein farbiges Element ein
-  glyph_map:
-    Lower: '<tspan class="lower-text">Lower</tspan>'
-    Raise: '<tspan class="raise-text">Raise</tspan>'
-    Adjust: '<tspan class="adjust-text">Adjust</tspan>'
-
