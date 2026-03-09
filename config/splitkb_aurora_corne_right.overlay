@@ -1,6 +1,23 @@
-&encoder {
-    status = "okay";
-    /* Ändere diesen Wert von 80 auf 20 oder 26 */
-    /* 20 bedeutet: 1 Impuls pro physikalischer Raste */
-    steps = <20>; 
+/ {
+    /* Wir suchen den Encoder im Wurzelverzeichnis des DeviceTree */
+    encoder_right: encoder {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        steps = <20>;
+        status = "okay";
+    };
+};
+
+/* Wir sagen ZMK, dass dieser Encoder für die rechte Seite genutzt werden soll */
+&right_encoder {
+    status = "disabled";
+};
+
+/ {
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&encoder_right>;
+        triggers-per-rotation = <20>;
+    };
 };
