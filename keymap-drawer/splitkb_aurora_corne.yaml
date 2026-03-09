@@ -163,7 +163,7 @@ layers:
     - ' '
     - ' '
     - ' '
-    - {t: '$$mdi:bluetooth-off$$', s: CLR}
+    - {t: '$$mdi:bluetooth-off$$', s: CLR, type: ghost}
     - ' '
     - ' '
     - ' '
