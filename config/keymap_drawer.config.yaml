@@ -11,8 +11,8 @@ parse_config:
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
-    "&kp HOME": {t: "⤒ Pos1", h: "Home", type: "held"}  # h: macht die Taste rot
-    "&kp END": {t: "⤓ End", h: "End", type: "held"}    # h: macht die Taste rot
+    "&kp HOME": {t: "⤒ Pos1", type: "held"}  # h: macht die Taste rot
+    "&kp END": {t: "⤓ End", type: "held"}    # h: macht die Taste rot
 
     # --- DEUTSCHE TASTEN ---
     "&kp N1": {t: "1", s: "!"}
