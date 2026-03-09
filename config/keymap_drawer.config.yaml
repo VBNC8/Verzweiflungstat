@@ -1,6 +1,7 @@
 parse_config:
   check_side_key_usage: true
-  skip_binding_parsing: true
+  skip_binding_parsing: false
+  columns: 10
   raw_binding_map:
     "&trans": " "           # Macht &trans komplett leer/unsichtbar
     "&none": " "            # Macht &none komplett leer/unsichtbar
