@@ -57,11 +57,6 @@ parse_config:
     "&kp SLASH": {t: "-", s: "_"}
     "&kp RPAR": "="
     "&kp RBKT": {t: "+", s: "*"}
-    "&kp C_PREV": "⏮"
-    "&kp C_NEXT": "⏭"
-    "&kp C_PP": "⏯"
-    "&mkp LCLK": "🖱 LMB"
-    "&mkp RCLK": "🖱 RMB"
 
     "&usb_on": {t: "ψ USB", s: "☀ ON"}  
     "&bt_off": {t: "$$mdi:bluetooth$$", s: "☀ OFF"}
@@ -84,6 +79,12 @@ parse_config:
     "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
     "&hrm_safe LALT X": {t: "X", h: "Alt"}
     "&hrm_safe RALT DOT": {t: ".", h: "AltGr"}
+        
+    "&kp C_PREV": "⏮"
+    "&kp C_NEXT": "⏭"
+    "&kp C_PP": "⏯"
+    "&mkp LCLK": "🖱 LMB"
+    "&mkp RCLK": "🖱 RMB"
 
 draw_config:
   dark_mode: true
