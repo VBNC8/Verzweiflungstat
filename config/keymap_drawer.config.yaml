@@ -1,4 +1,11 @@
 parse_config:
+  # Zwingt den Parser, die Spalten zu zählen und entsprechend zu kürzen
+  check_side_key_usage: true
+  columns: 10
+  
+  # Hier kannst du Tasten definieren, die er komplett ignorieren soll
+  # Falls er doch noch 42 Tasten zeichnet, "schneiden" wir sie hier weg:
+  skip_binding_parsing: false
   raw_binding_map:
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
