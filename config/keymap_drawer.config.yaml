@@ -21,6 +21,7 @@ parse_config:
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
+    "&kp F10": {t: "F10", type: "ghost"} 
 
     # --- SYMBOLE & NAVIGATION ---
     
@@ -75,7 +76,7 @@ parse_config:
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
 
     # --- SONSTIGES ---
-    "&smiley": "☻"
+    "&smiley": {t: "☻", type: "ghost"}
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
