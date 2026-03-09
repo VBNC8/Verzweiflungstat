@@ -114,7 +114,7 @@ draw_config:
   dark_mode: true
   n_columns: 1
   append_style: |
-    svg { background-color: #1a1b26; }
+    svg { background-color: #ff00ff; }
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
