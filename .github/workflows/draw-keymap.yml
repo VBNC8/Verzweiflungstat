@@ -23,7 +23,7 @@ jobs:
 
       - name: Draw keymap
         run: |
-          keymap draw --style dark keymap-drawer/splitkb_aurora_corne.yaml > keymap-drawer/splitkb_aurora_corne.svg
+          keymap draw keymap-drawer/splitkb_aurora_corne.yaml --style dark > keymap-drawer/splitkb_aurora_corne.svg
 
       - name: Commit and push
         run: |
