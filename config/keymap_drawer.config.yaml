@@ -12,6 +12,8 @@ parse_config:
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
 
+    "''": {t: ' ', type: ghost}
+
     # --- DEUTSCHE TASTEN & SYMBOLE ---
     "&kp LC(LS(ESC))": "Task Mgr"
     "&nbsp": "&nbsp"
