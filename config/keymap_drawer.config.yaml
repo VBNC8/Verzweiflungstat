@@ -93,3 +93,4 @@ draw_config:
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
+    exposed_key_count: 36  # Zeichnet nur die inneren 3x5+3 Tasten
