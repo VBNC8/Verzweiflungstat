@@ -15,6 +15,7 @@ parse_config:
     "&kp END": {t: "⤓ End", type: "held"}
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
     "&nbsp": {t: "&nbsp", type: "held"}
+    "&kp F12": {t: " ", type: "held"}
 
     # --- SYMBOLE & NAVIGATION ---
     
