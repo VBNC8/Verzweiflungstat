@@ -118,6 +118,12 @@ draw_config:
     rect.key { fill: #24283b; stroke: #414868; }
     text { fill: #c0caf5; }
     rect.held { fill: #f7768e; }
+    rect.ghost { 
+      fill: #000000 !important; 
+      stroke: #1a1b26 !important; 
+    }
+    /* Optional: Auch den Text auf Ghost-Tasten dunkler machen */
+    .ghost text { fill: #414868 !important; }
     
 
 
