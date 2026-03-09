@@ -1,23 +1,17 @@
 / {
-    /* Wir suchen den Encoder im Wurzelverzeichnis des DeviceTree */
-    encoder_right: encoder {
+    /* Wir definieren das Hardware-Gerät direkt im Stammverzeichnis */
+    my_encoder: encoder {
         compatible = "alps,ec11";
         a-gpios = <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         steps = <20>;
         status = "okay";
     };
-};
 
-/* Wir sagen ZMK, dass dieser Encoder für die rechte Seite genutzt werden soll */
-&right_encoder {
-    status = "disabled";
-};
-
-/ {
-    sensors {
+    /* Wir sagen ZMK, dass dieser neue 'my_encoder' der aktive Sensor ist */
+    sensors: sensors {
         compatible = "zmk,keymap-sensors";
-        sensors = <&encoder_right>;
+        sensors = <&my_encoder>;
         triggers-per-rotation = <20>;
     };
 };
