@@ -13,6 +13,7 @@ parse_config:
     "&mo 3": {t: "Adjust", type: "held"}
 
     "''": {t: ' ', type: ghost}
+    "&nbsp": {t: ' ', type: ghost}
 
     # --- DEUTSCHE TASTEN & SYMBOLE ---
     "&kp LC(LS(ESC))": "Task Mgr"
@@ -103,12 +104,12 @@ draw_config:
   key_h: 56
   split_gap: 30
   svg_style: |
-    /* Blendet die markierten Tasten komplett aus */
+    /* Blendet das Rechteck und den Text aus */
     rect.ghost, text.ghost { 
-      display: none; 
+      opacity: 0; 
     }
-    /* Entfernt auch die Umrandung (Border) */
-    .key.ghost { 
-      fill: none; 
-      stroke: none; 
+    /* Entfernt die Border/Umrandung komplett */
+    g.key.ghost rect {
+      stroke-width: 0;
+      fill: none;
     }
