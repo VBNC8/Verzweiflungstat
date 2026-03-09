@@ -4,44 +4,14 @@ on:
   push:
     paths:
       - "config/*.keymap"
+      - "config/*.dtsi"
+      - ".github/workflows/draw-keymap.yml"
       - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install keymap-drawer
-        run: pip install keymap-drawer
-
-      - name: Parse and Draw
-        run: |
-          # 1. Schritt: Normaler Parse (erzeugt 42 Keys)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          
-          # 2. Schritt: Randtasten löschen (0, 11, 12, 23, 24, 35) -> 36 bleiben
-          yq -i '.layers[].[] |= (select(path[-1] | . == 0 or . == 11 or . == 12 or . == 23 or . == 24 or . == 35) = null)' keymap.yaml
-          yq -i '.layers[].[] |= del(select(. == null))' keymap.yaml
-          
-          # 3. Schritt: Layout-Objekt neu aufbauen
-          yq -i 'del(.layout)' keymap.yaml
-          yq -i '.layout.ortho_layout.rows = 3' keymap.yaml
-          # Hier lag der Fehler: 'columns' statt 'cols'
-          yq -i '.layout.ortho_layout.columns = 12' keymap.yaml
-          
-          # 4. Schritt: Zeichnen
-          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
-
-      - name: Commit and push
-        run: |
-          mkdir -p keymap-drawer
-          mv splitkb_aurora_corne.svg keymap-drawer/splitkb_aurora_corne.svg
-          git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          git add keymap-drawer/*.svg
-          git commit -m "Keymap Drawer: Randtasten entfernt & Config angewendet" || exit 0
-          git push
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    with:
+      keymap_patterns: "config/*.keymap"
+      output_folder: "keymap-drawer"
+      config_path: "config/keymap_drawer.config.yaml"
