@@ -21,13 +21,16 @@ jobs:
       - name: Install keymap-drawer
         run: pip install tree-sitter==0.21.3 keymap-drawer
 
-      - name: Draw keymap
+      - name: Parse and Draw
         run: |
+          # Der Trick: Wir sagen dem Parser hier explizit 10 Spalten
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --columns 10 > keymap-drawer/splitkb_aurora_corne.yaml
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/splitkb_aurora_corne.yaml > keymap-drawer/splitkb_aurora_corne.svg
+
+      - name: Commit and push
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add keymap-drawer/splitkb_aurora_corne.svg
-          git commit -m "Update keymap graphics" || echo "No changes to commit"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add keymap-drawer/*.yaml keymap-drawer/*.svg
+          git commit -m "Update keymap drawer" || exit 0
           git push
