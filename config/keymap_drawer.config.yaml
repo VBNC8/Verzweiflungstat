@@ -10,7 +10,7 @@ parse_config:
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
     "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
-    "&lt 2 ESC": {t: "ESC", h: "Raise", type: "ghost"}
+    "&lt 2 ESC": {t: "ESC", h: "Raise", type: "held"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise", type: "held"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust", type: "held"}
     "&mo 1": {t: "Lower", type: "held"}
@@ -31,7 +31,7 @@ parse_config:
     "&kp PLUS": "`"
 
     # --- ZAHLEN & UMLAUTE ---
-    "&kp N1": {t: "1", s: "!", type: "skip"}
+    "&kp N1": {t: "1", s: "!"}
     "&kp N2": {t: "2", s: "\""}
     "&kp N3": {t: "3", s: "§"}
     "&kp N4": {t: "4", s: "$"}
@@ -79,7 +79,7 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
-    "&kp C_PP": "⏯"
+    "&kp C_PP": {t: "⏯", type: "ghost"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
@@ -113,17 +113,6 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  append_style: |
-    /* Erzwinge Schwarz für JEDES Element, das 'skip' im Klassennamen hat */
-    *[class*="skip"] rect, 
-    rect[class*="skip"], 
-    g[class*="skip"] rect {
-      fill: #000000 !important;
-      stroke: #1a1b26 !important;
-      stroke-dasharray: none !important;
-      stroke-width: 2px !important;
-      opacity: 1 !important;
-    }
     
 
 
