@@ -20,15 +20,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Schritt: Wir parsen mit skip_keys (Indizes aus deiner YAML)
-          # Das erzeugt eine keymap.yaml, die nur 36 Tasten enthält.
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --skip-keys 0 11 12 23 24 25 35 > keymap.yaml
+          # Einfacher Parse ohne fehleranfällige Argumente
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. WICHTIG: Wir löschen die Layout-Info aus der YAML, bevor wir zeichnen!
-          # Das zwingt den Drawer in den "Generic"-Modus.
-          sed -i 's/layout: {zmk_keyboard: splitkb_aurora_corne}/layout: {qmk_keyboard: handwired\/ortho5x12}/' keymap.yaml
-          
-          # 3. Zeichnen
+          # Zeichnen basierend auf der Config
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
 
       - name: Commit and push
