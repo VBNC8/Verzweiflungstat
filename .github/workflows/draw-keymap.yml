@@ -23,7 +23,7 @@ jobs:
 
       - name: Draw keymap
         run: |
-          keymap draw keymap-drawer/splitkb_aurora_corne.yaml -o keymap-drawer/splitkb_aurora_corne.svg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/splitkb_aurora_corne.yaml > keymap-drawer/splitkb_aurora_corne.svg
       - name: Commit and push
         run: |
           git config --global user.name "github-actions[bot]"
