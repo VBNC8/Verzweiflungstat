@@ -2,6 +2,9 @@ parse_config:
   check_side_key_usage: true
   skip_binding_parsing: true
   raw_binding_map:
+    "&trans": " "           # Macht &trans komplett leer/unsichtbar
+    "&none": " "            # Macht &none komplett leer/unsichtbar
+    
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower", type: "held"}
     "&lt 1 RET": {t: "↵", h: "Lower", type: "held"}
