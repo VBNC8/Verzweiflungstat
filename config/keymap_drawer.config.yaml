@@ -15,7 +15,7 @@ parse_config:
     "&nbsp": "&nbsp"
     
     # --- NAVIGATION & EINGABE ---
-    "&kp RET": "⏎"
+    "&kp RET": "Z"
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
     "&kp TAB": "⇥"
