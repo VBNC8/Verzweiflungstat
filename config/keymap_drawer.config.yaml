@@ -104,12 +104,9 @@ draw_config:
   key_h: 56
   split_gap: 30
   svg_style: |
-    /* Blendet das Rechteck und den Text aus */
-    rect.ghost, text.ghost { 
-      opacity: 0; 
+    /* Versteckt die markierten Tasten physikalisch */
+    g.key.ghost {
+      display: none !important;
     }
-    /* Entfernt die Border/Umrandung komplett */
-    g.key.ghost rect {
-      stroke-width: 0;
-      fill: none;
-    }
+    /* Falls 'display: none' das Gitter verschiebt, nutzen wir alternativ Sichtbarkeit */
+    /* g.key.ghost { visibility: hidden !important; } */
