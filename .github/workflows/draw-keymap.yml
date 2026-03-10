@@ -23,10 +23,16 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # Der Trick: Wir sagen dem Parser hier explizit 10 Spalten
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap --columns 10 > keymap-drawer/splitkb_aurora_corne.yaml
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/splitkb_aurora_corne.yaml > keymap-drawer/splitkb_aurora_corne.svg
-
+          # 1. Erzeuge die keymap.yaml
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          
+          # 2. Injektiere die Test-Combo (Taste 1 zu Taste 2)
+          # Wir nutzen yq, um das combos-Array zu füllen oder zu erstellen
+          yq -i '.combos += [{"k": [1, 2], "t": "TEST", "l": ["default"]}]' keymap.yaml
+          
+          # 3. Zeichne das SVG
+          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
+          
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
