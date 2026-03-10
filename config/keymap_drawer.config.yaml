@@ -120,12 +120,24 @@ draw_config:
   svg_extra_config:
     width: 1200
   svg_style: |
+    /* 1. Randtasten entfernen */
     g.key.remove_me {
       display: none !important;
     }
+
+    /* 2. Schriftart-Fix: Verhindert das "Rutschen" der Buchstaben */
     text {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 14px;
     }
+
+    /* 3. Symbole in den Ecken (@, €, etc.) kleiner machen */
+    /* Das schafft Platz und verhindert, dass sie sich mit den Buchstaben beißen */
     text.side {
+      font-size: 9px;
+    }
+
+    /* 4. Layer-Texte (Raise/Lower) auf den Daumen */
+    text.hint {
       font-size: 8px;
     }
