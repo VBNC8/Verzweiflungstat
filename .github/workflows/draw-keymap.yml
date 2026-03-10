@@ -29,8 +29,9 @@ jobs:
           # 1. Erzeuge die keymap.yaml
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Injektiere die Combo mit den Kurz-Keys (k statt key_positions, pos statt p)
-          yq -i '.combos += [{"k": [37, 40], "pos": [175, 230], "t": "RGB"}]' keymap.yaml
+          # 2. Injektiere die Combo mit exakt den Feldern, die Pydantic in der Fehlermeldung akzeptiert
+          # Wir nutzen 'p' für Position und versuchen 'key_positions' für die Tasten (da 'k' als Liste abgelehnt wurde)
+          yq -i '.combos += [{"key_positions": [37, 40], "p": [175, 230], "type": "RGB"}]' keymap.yaml
           
           # 3. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
