@@ -42,31 +42,29 @@ g.key.remove_me {
   display: none !important;
 }
 
-/* 2. SCHRIFTART-BASIS */
-svg {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+/* 2. Haupt-Text (Zentrallage) */
+/* Wir zielen auf den Text, der KEINE speziellen Klassen hat */
+.key text:not(.side):not(.hint) {
+  fill: #ffffff !important;
+  font-size: 14px !important;
+  dominant-baseline: central !important;
 }
 
-/* 3. FARBE WIEDERHERSTELLEN (Weißer Text) */
-text {
-  fill: #ffffff !important; /* Erzwingt weißen Text für den Dark Mode */
+/* 3. ALLE Neben-Legenden (Ecken/Oben/Unten) */
+/* Der Drawer nutzt oft 'small' oder einfach mehrere 'text' Elemente */
+.key text.side, 
+.key text:nth-child(n+2) { 
+  font-size: 8px !important;
+  fill: #888888 !important;
 }
 
-/* 4. VERTIKALE ZENTRIERUNG (Begradigen) */
-text {
-  text-anchor: middle;
-  dominant-baseline: central; /* Rückt die Buchstaben wieder in die Mitte */
+/* 4. Der "Hammer" für die Position */
+/* Wenn translateY nicht geht, nutzen wir 'baseline-shift' */
+text.side, text:nth-child(n+2) {
+  baseline-shift: -20%; /* Schiebt obere Zeichen nach unten */
 }
 
-/* 3. Die Symbole oben und unten gezielt ansprechen */
-/* .top = Symbole oben (Shift), .bottom = Symbole unten (AltGr) */
-text.top, text.bottom, text.side {
-  font-size: 4px !important;  /* 4px war VIEL zu klein, man sieht nichts mehr */
-  fill: #bbbbbb !important;  /* Etwas grauer, damit sie nicht vom Hauptzeichen ablenken */
-}
-/* 4. Position korrigieren (Vermeidet das "Kleben" am Rand) */
-text.top { transform: translateY(10px); }
-text.bottom { transform: translateY(-10px); }
+/* Falls er auf 'text:nth-child' reagiert, rücken wir damit alles ein */
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
