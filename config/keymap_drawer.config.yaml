@@ -125,20 +125,34 @@ draw_config:
     g.key.remove_me {
       display: none !important;
     }
-    /* 2. Font-Fix: Verhindert das Hochrutschen der Buchstaben */
-    text {
+    /* 2. SCHRIFTART-STANDARDS (MONOSPACE ERZWINGEN) */
+    svg {
       font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-      dominant-baseline: middle !important; /* Zentriert den Text wieder vertikal */
+      font-size: 14px; /* Standard-Basisgröße des Drawers */
     }
 
-    /* 3. Symbole (Side-Legends) wieder an ihre Ecken binden */
+    /* 3. POSITIONIERUNG (DEN VERMURXTEN FONT FIXEN) */
+    text {
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    /* 4. SONDERZEICHEN / SIDE-LEGENDS (WICHTIG!) */
+    /* Diese müssen kleiner sein und dürfen NICHT zentriert werden, 
+       sonst rutschen @, €, 1, 2 etc. alle in die Mitte der Taste */
     text.side {
-      font-size: 8px !important; 
-      dominant-baseline: auto !important; /* Side-Legends dürfen NICHT zentriert werden */
+      font-size: 8px; 
+      dominant-baseline: auto;
     }
 
-    /* 4. Combo-Box (RGB) aufräumen */
+    /* 5. LEGENDEN-ABSTÄNDE (HART CODIERT) */
+    /* Verhindert, dass Symbole über den Buchstaben hängen */
+    .key text {
+      fill: #ffffff; /* Weißer Text für Dark Mode */
+    }
+    
+    /* 6. COMBO-SYMBOL (RGB) */
     g.combo text {
-      font-size: 8px !important;
+      font-size: 8px;
       font-weight: bold;
     }
