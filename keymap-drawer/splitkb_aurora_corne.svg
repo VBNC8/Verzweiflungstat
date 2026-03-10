@@ -37,122 +37,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-usb" viewBox="0 0 24 24"><path d="M15,7V11H16V13H13V5H15L12,1L9,5H11V13H8V10.93C8.7,10.56 9.2,9.85 9.2,9C9.2,7.78 8.21,6.8 7,6.8C5.78,6.8 4.8,7.78 4.8,9C4.8,9.85 5.3,10.56 6,10.93V13A2,2 0 0,0 8,15H11V18.05C10.29,18.41 9.8,19.15 9.8,20A2.2,2.2 0 0,0 12,22.2A2.2,2.2 0 0,0 14.2,20C14.2,19.15 13.71,18.41 13,18.05V15H16A2,2 0 0,0 18,13V11H19V7H15Z" /></svg>
 </svg>
 </defs>/* end glyphs */
-<style>/* inherit to force styles through use tags */
-svg path {
-    fill: inherit;
+<style>/* 1. Randtasten weg */
+g.key.remove_me {
+  display: none;
 }
 
-/* font and background color specifications */
-svg.keymap {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    font-size: 14px;
-    font-kerning: normal;
-    text-rendering: optimizeLegibility;
-    fill: #24292e;
-}
-
-/* default key styling */
-rect.key {
-    fill: #f6f8fa;
-}
-
-rect.key, rect.combo {
-    stroke: #c9cccf;
-    stroke-width: 1;
-}
-
-/* default key side styling, only used is draw_key_sides is set */
-rect.side {
-    filter: brightness(90%);
-}
-
-/* color accent for combo boxes */
-rect.combo, rect.combo-separate {
-    fill: #cdf;
-}
-
-/* color accent for held keys */
-rect.held, rect.combo.held {
-    fill: #fdd;
-}
-
-/* color accent for ghost (optional) keys */
-rect.ghost, rect.combo.ghost {
-    stroke-dasharray: 4, 4;
-    stroke-width: 2;
-}
-
+/* 2. Grundtext & Farbe */
 text {
-    text-anchor: middle;
-    dominant-baseline: middle;
+  fill: white;
+  font-family: monospace;
+  font-size: 14px;
 }
 
-/* styling for layer labels */
-text.label {
-    font-weight: bold;
-    text-anchor: start;
-    stroke: white;
-    stroke-width: 4;
-    paint-order: stroke;
+/* 3. Hauptbuchstaben nach unten schieben */
+/* Da sie zu weit oben kleben, geben wir ihnen einen festen Schubs nach unten. */
+/* '0.35em' ist etwa ein Drittel der Buchstabenhöhe. */
+.key text:not(.side) {
+  dy: 0.35em;
 }
 
-/* styling for optional footer */
-text.footer {
-    text-anchor: end;
-    dominant-baseline: auto;
-    stroke: white;
-    stroke-width: 4;
-    paint-order: stroke;
+/* 4. Symbole (Oben/Unten) korrigieren */
+text.side {
+  font-size: 8px;
+  fill: #cccccc;
 }
 
-/* styling for combo tap, and key hold/shifted label text */
-text.combo, text.hold, text.shifted {
-    font-size: 11px;
+/* Top-Symbole (@, €) etwas weiter nach UNTEN in die Taste rein */
+text.side.tl, text.side.tr {
+  dy: 0.2em;
 }
 
-text.hold {
-    text-anchor: middle;
-    dominant-baseline: auto;
+/* Bottom-Symbole etwas weiter nach OBEN */
+text.side.bl, text.side.br {
+  dy: -0.2em;
 }
-
-text.shifted {
-    text-anchor: middle;
-    dominant-baseline: hanging;
-}
-
-text.layer-activator {
-    text-decoration: underline;
-}
-
-/* styling for hold/shifted label text in combo box */
-text.combo.hold, text.combo.shifted {
-    font-size: 8px;
-}
-
-/* lighter symbol for transparent keys */
-text.trans {
-    fill: #7b7e81;
-}
-
-/* styling for combo dendrons */
-path.combo {
-    stroke-width: 1;
-    stroke: gray;
-    fill: none;
-}
-
-/* Start Tabler Icons Cleanup */
-/* cannot use height/width with glyphs */
-.icon-tabler > path {
-    fill: inherit;
-    stroke: inherit;
-    stroke-width: 2;
-}
-/* hide tabler's default box */
-.icon-tabler > path[stroke="none"][fill="none"] {
-    visibility: hidden;
-}
-/* End Tabler Icons Cleanup */
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
