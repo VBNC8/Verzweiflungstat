@@ -210,10 +210,10 @@ layers:
   - ' '
   - ' '
   - {t: '$$mdi:bluetooth-off$$', s: CLR, type: ghost}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
+  - F13
+  - F13
+  - F13
+  - F13
   - ' '
 combos:
 - p: [37, 38]
