@@ -28,6 +28,16 @@ jobs:
           # 2. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
+      - name: Inject Virtual Combo
+        run: |
+          # Wir fügen die Combo ans Ende der Datei an
+          cat <<EOF >> keymap.yaml
+          combos:
+            - key_positions: [37, 40]
+              p: [175, 230]
+              type: "RGB"
+          EOF
+          
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
