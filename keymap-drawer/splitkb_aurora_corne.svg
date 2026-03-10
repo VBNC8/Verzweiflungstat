@@ -37,29 +37,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-usb" viewBox="0 0 24 24"><path d="M15,7V11H16V13H13V5H15L12,1L9,5H11V13H8V10.93C8.7,10.56 9.2,9.85 9.2,9C9.2,7.78 8.21,6.8 7,6.8C5.78,6.8 4.8,7.78 4.8,9C4.8,9.85 5.3,10.56 6,10.93V13A2,2 0 0,0 8,15H11V18.05C10.29,18.41 9.8,19.15 9.8,20A2.2,2.2 0 0,0 12,22.2A2.2,2.2 0 0,0 14.2,20C14.2,19.15 13.71,18.41 13,18.05V15H16A2,2 0 0,0 18,13V11H19V7H15Z" /></svg>
 </svg>
 </defs>/* end glyphs */
-<style>/* Nur die großen Hauptbuchstaben in der Mitte zentrieren */
-/* Wir nutzen hier y-Offset statt baseline, um Symbole nicht zu stören */
+<style>/* Hauptbuchstaben moderat vergrößern */
 text.key:not(.side) {
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 500;
 }
 
-/* Hoch- und Tiefgestellte Symbole (Side Legends) */
-/* Wir verringern die Größe leicht, damit sie nicht mit dem Haupttext kollidieren */
+/* Side Legends (hoch/tief) klein halten, damit sie nicht wandern */
 text.side {
-  font-size: 9px !important;
-  fill: #a1a1a1 !important; /* Etwas dezenteres Grau für bessere Übersicht */
+  font-size: 8px !important;
+  fill: #b0b0b0 !important;
 }
 
-/* Die Combo-Box (RGB) - Hier fixen wir die Verschiebung */
+/* Spezielle Korrektur für die Combo-Kiste (RGB) */
+/* Wir zentrieren den Text innerhalb der Combo-Gruppe */
 g.combo text {
   font-size: 10px !important;
+  transform: translateY(2px); /* Schiebt das Wort 'RGB' manuell in die Mitte der Box */
   font-weight: bold;
-  dominant-baseline: middle !important;
-  text-anchor: middle !important;
 }
 
-/* Die roten 'held' Tasten (Layer, Task Mgr etc.) */
+/* Die roten 'held' Tasten besser lesbar machen */
 rect.held + text {
   font-size: 11px !important;
   fill: #ffffff !important;
