@@ -12,7 +12,7 @@ layers:
   - I
   - O
   - P
-  - {t: P, h: lower}
+  - {t: P, h: Lower}
   - ' '
   - A
   - S
@@ -55,7 +55,7 @@ layers:
   - F8
   - F9
   - {t: F10, type: ghost}
-  - {t: ' ', type: held}
+  - ' '
   - ' '
   - {t: '1', s: '!'}
   - {t: '2', s: '"'}
@@ -184,7 +184,7 @@ layers:
   - ' '
   - ' '
   - ' '
-  - {t: ' ', type: held}
+  - ' '
   - ' '
   - ' '
   - {t: '$$mdi:cosine-wave$$', s: Rev}
