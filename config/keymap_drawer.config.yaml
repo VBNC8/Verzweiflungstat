@@ -120,31 +120,32 @@ draw_config:
   dark_mode: true
   n_columns: 1
   svg_style: |
-    /* Hauptbuchstaben vergrößern und zentrieren */
-    text.key {
+    /* Nur die großen Hauptbuchstaben in der Mitte zentrieren */
+    /* Wir nutzen hier y-Offset statt baseline, um Symbole nicht zu stören */
+    text.key:not(.side) {
       font-size: 16px !important;
-      dominant-baseline: central !important;
+      font-weight: 500;
+    }
+
+    /* Hoch- und Tiefgestellte Symbole (Side Legends) */
+    /* Wir verringern die Größe leicht, damit sie nicht mit dem Haupttext kollidieren */
+    text.side {
+      font-size: 9px !important;
+      fill: #a1a1a1 !important; /* Etwas dezenteres Grau für bessere Übersicht */
+    }
+
+    /* Die Combo-Box (RGB) - Hier fixen wir die Verschiebung */
+    g.combo text {
+      font-size: 10px !important;
+      font-weight: bold;
+      dominant-baseline: middle !important;
       text-anchor: middle !important;
     }
     
-    /* Sekundäre Symbole (oben links/rechts) anpassen */
-    text.side {
-      font-size: 10px !important;
-    }
-
-    /* Korrektur für deine roten 'held' Tasten */
-    /* Wir schieben den Text hier leicht nach unten, falls 'central' nicht reicht */
+    /* Die roten 'held' Tasten (Layer, Task Mgr etc.) */
     rect.held + text {
-      dominant-baseline: central !important;
-      font-size: 12px !important;
-      fill: #ffffff !important;
-    }
-
-    /* Die Combo-Bubbles (RGB) */
-    text.combo {
       font-size: 11px !important;
-      font-weight: bold;
-      dominant-baseline: central !important;
+      fill: #ffffff !important;
     }
 
 
