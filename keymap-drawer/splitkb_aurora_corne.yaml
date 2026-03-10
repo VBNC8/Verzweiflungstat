@@ -32,7 +32,7 @@ layers:
     - V
     - B
   - - N
-    - M
+    - {t: M, s: µ}
     - ','
     - {t: ., s: AltGr}
     - ⌦
