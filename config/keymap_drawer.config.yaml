@@ -141,3 +141,4 @@ draw_config:
     text.hint {
       font-size: 8px;
     }
+    }
