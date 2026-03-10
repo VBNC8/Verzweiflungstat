@@ -114,38 +114,34 @@ parse_config:
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
-svg_style: |
-    /* 1. Randtasten weg */
-    g.key.remove_me {
-      display: none;
-    }
+draw_config:
+  dark_mode: true
+  n_columns: 1
+  # HIER muss das CSS rein:
+  svg_extra_config:
+    width: 1000
+    style: |
+      /* 1. Randtasten weg */
+      g.key.remove_me { display: none; }
 
-    /* 2. Grundtext & Farbe */
-    text {
-      fill: white;
-      font-family: monospace;
-      font-size: 14px;
-    }
+      /* 2. Grundtext */
+      text {
+        fill: white;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 14px;
+      }
 
-    /* 3. Hauptbuchstaben nach unten schieben */
-    /* Da sie zu weit oben kleben, geben wir ihnen einen festen Schubs nach unten. */
-    /* '0.35em' ist etwa ein Drittel der Buchstabenhöhe. */
-    .key text:not(.side) {
-      dy: 0.35em;
-    }
+      /* 3. HAUPTBUCHSTABEN ZENTRIEREN */
+      /* Wir schieben sie ca. 3.5 Pixel nach unten (0.25em) */
+      .key text:not(.side) {
+        dy: 0.25em;
+      }
 
-    /* 4. Symbole (Oben/Unten) korrigieren */
-    text.side {
-      font-size: 8px;
-      fill: #cccccc;
-    }
-
-    /* Top-Symbole (@, €) etwas weiter nach UNTEN in die Taste rein */
-    text.side.tl, text.side.tr {
-      dy: 0.2em;
-    }
-
-    /* Bottom-Symbole etwas weiter nach OBEN */
-    text.side.bl, text.side.br {
-      dy: -0.2em;
-    }
+      /* 4. SIDE-LEGENDS (@, €, etc.) */
+      text.side {
+        font-size: 8px;
+        fill: #cccccc;
+      }
+      /* Oben ein Stück runter, unten ein Stück rauf */
+      text.side.tl, text.side.tr { dy: 0.1em; }
+      text.side.bl, text.side.br { dy: -0.1em; }
