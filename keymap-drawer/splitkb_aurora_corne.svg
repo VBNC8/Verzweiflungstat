@@ -41,30 +41,28 @@
 g.key.remove_me {
   display: none !important;
 }
-/* 2. Grundschrift & Zentrierung */
+/* 2. Font-Basis (Monospace verhindert Verschiebungen) */
 svg {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 }
+
+/* 3. Ausrichtung Hauptlegenden */
 text {
   text-anchor: middle;
-  dominant-baseline: middle;
+  dominant-baseline: central;
 }
 
-/* 3. Side-Legends näher zusammenrücken */
+/* 4. Side-Legends (Fix für den Abstand) */
+/* Wir verkleinern die Schrift leicht, damit sie optisch näher rücken */
 text.side {
-  font-size: 8px;
+  font-size: 7px;
   dominant-baseline: auto;
 }
 
-/* Verschiebt Top-Left Symbole (@, €, etc.) ein Stück nach innen */
-text.side.tl { transform: translate(2px, 2px); }
-
-/* Verschiebt Bottom-Right Symbole ein Stück nach oben/links */
-text.side.br { transform: translate(-2px, -2px); }
-
-/* 4. Kontrast für die Legenden */
-.key text { fill: #e0e0e0; }
-.key.held text { fill: #ffffff; font-weight: bold; }
+/* 5. Combo & Hints (Daumen-Labels) */
+g.combo text, text.hint {
+  font-size: 8px;
+}
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
