@@ -119,19 +119,4 @@ draw_config:
   n_columns: 1
   svg_extra_config:
     width: 1200
-  svg_style: |
-    /* 1. Nur die Randtasten ausblenden */
-    g.key.remove_me {
-      display: none;
-    }
-
-    /* 2. Nur die Schriftart und Farbe setzen */
-    text {
-      fill: white;
-      font-family: monospace;
-    }
-
-    /* 3. Side-Legends nur verkleinern, nicht verschieben */
-    text.side {
-      font-size: 8px;
-    }
+ 
