@@ -117,28 +117,32 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  svg_extra_config:
-    width: 1200
   svg_style: |
-    /* 1. Randtasten entfernen */
+    /* 1. LÖSCH-FILTER (F15-Tasten physisch entfernen) */
     g.key.remove_me {
       display: none !important;
     }
 
-    /* 2. Schriftart-Fix: Verhindert das "Rutschen" der Buchstaben */
-    text {
+    /* 2. SCHRIFTART-BASIS */
+    svg {
       font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-      font-size: 14px;
     }
 
-    /* 3. Symbole in den Ecken (@, €, etc.) kleiner machen */
-    /* Das schafft Platz und verhindert, dass sie sich mit den Buchstaben beißen */
+    /* 3. FARBE WIEDERHERSTELLEN (Weißer Text) */
+    text {
+      fill: #ffffff !important; /* Erzwingt weißen Text für den Dark Mode */
+    }
+
+    /* 4. VERTIKALE ZENTRIERUNG (Begradigen) */
+    text {
+      text-anchor: middle;
+      dominant-baseline: central; /* Rückt die Buchstaben wieder in die Mitte */
+    }
+
+    /* 5. SIDE-LEGENDS FIX (@, €, etc.) */
+    /* Wir müssen sie auch weiß machen und kleiner halten */
     text.side {
-      font-size: 9px;
-    }
-
-    /* 4. Layer-Texte (Raise/Lower) auf den Daumen */
-    text.hint {
       font-size: 8px;
-    }
+      dominant-baseline: auto;
+      fill: #e0e0e0 !important; /* Etwas dezenteres Weiß */
     }
