@@ -42,29 +42,31 @@ g.key.remove_me {
   display: none !important;
 }
 
-/* 2. Haupt-Text (Zentrallage) */
-/* Wir zielen auf den Text, der KEINE speziellen Klassen hat */
-.key text:not(.side):not(.hint) {
+/* 2. Grundtext & Farbe */
+text {
   fill: #ffffff !important;
-  font-size: 14px !important;
-  dominant-baseline: central !important;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 14px;
 }
 
-/* 3. ALLE Neben-Legenden (Ecken/Oben/Unten) */
-/* Der Drawer nutzt oft 'small' oder einfach mehrere 'text' Elemente */
-.key text.side, 
-.key text:nth-child(n+2) { 
+/* 3. Side-Legends (Oben/Unten/Ecken) */
+/* Wir nutzen 'em' Einheiten, die sind relativ zur Schriftgröße 
+   und skalieren bei 1200px besser mit. */
+text.side, text.top, text.bottom {
   font-size: 8px !important;
-  fill: #888888 !important;
+  fill: #cccccc !important;
 }
 
-/* 4. Der "Hammer" für die Position */
-/* Wenn translateY nicht geht, nutzen wir 'baseline-shift' */
-text.side, text:nth-child(n+2) {
-  baseline-shift: -20%; /* Schiebt obere Zeichen nach unten */
-}
+/* 4. Der manuelle vertikale Schubs */
+/* Da translateY bei dir horizontal spinnt, nutzen wir dy.
+   Positive Werte schieben nach UNTEN, negative nach OBEN. */
+text.top { dy: 0.5em; }
+text.bottom { dy: -0.5em; }
 
-/* Falls er auf 'text:nth-child' reagiert, rücken wir damit alles ein */
+/* Hauptbuchstaben ein Stück runter, falls sie zu hoch schweben */
+.key text:not(.side):not(.top):not(.bottom) {
+  dy: 0.3em;
+}
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
