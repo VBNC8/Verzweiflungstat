@@ -120,27 +120,31 @@ draw_config:
   dark_mode: true
   n_columns: 1
   svg_style: |
-    /* Erzwingt die Größe für Hauptbeschriftungen (z.B. Q, W, E) */
+    /* Hauptbuchstaben vergrößern und zentrieren */
     text.key {
       font-size: 16px !important;
+      dominant-baseline: central !important;
+      text-anchor: middle !important;
     }
     
-    /* Erzwingt die Größe für die kleineren Legenden (z.B. @, €, Symbols) */
+    /* Sekundäre Symbole (oben links/rechts) anpassen */
     text.side {
-      font-size: 11px !important;
-    }
-    
-    /* Sorgt dafür, dass deine roten 'held' Tasten Text in weiß und lesbar haben */
-    rect.held + text {
-      fill: #ffffff !important;
-      font-size: 12px !important;
-      font-weight: bold;
+      font-size: 10px !important;
     }
 
-    /* Macht die Combo-Bubbles (RGB) deutlich lesbar */
-    text.combo {
+    /* Korrektur für deine roten 'held' Tasten */
+    /* Wir schieben den Text hier leicht nach unten, falls 'central' nicht reicht */
+    rect.held + text {
+      dominant-baseline: central !important;
       font-size: 12px !important;
+      fill: #ffffff !important;
+    }
+
+    /* Die Combo-Bubbles (RGB) */
+    text.combo {
+      font-size: 11px !important;
       font-weight: bold;
-    }  
+      dominant-baseline: central !important;
+    }
 
 
