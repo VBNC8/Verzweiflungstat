@@ -82,8 +82,8 @@ layers:
   - {t: ' ', type: remove_me}
   - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
-  - {t: ⤒ Pos1, type: skip}
-  - {t: ⤓ End, type: none}
+  - {t: ⤒ Pos1, type: held}
+  - {t: ⤓ End, type: held}
   - ' '
   - ' '
   raise:
