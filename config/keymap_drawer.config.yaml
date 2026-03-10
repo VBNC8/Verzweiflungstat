@@ -114,50 +114,38 @@ parse_config:
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
-draw_config:
-  dark_mode: true
-  n_columns: 1
-  # Wir setzen die Breite auf 1000px, das ist ein guter Kompromiss für die Schärfe.
-  svg_extra_config:
-    width: 1000
-  svg_style: |
-    /* 1. LÖSCH-FILTER (Tasten ausblenden) */
+svg_style: |
+    /* 1. Randtasten weg */
     g.key.remove_me {
-      display: none !important;
+      display: none;
     }
 
-    /* 2. GRUNDTEXT: Farbe und Monospace (Stabilisierung) */
-    svg {
-      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Monaco, monospace;
-    }
+    /* 2. Grundtext & Farbe */
     text {
-      fill: #ffffff !important; /* Weißer Text */
+      fill: white;
+      font-family: monospace;
       font-size: 14px;
     }
 
-    /* 3. VERTIKALE ZENTRIERUNG (Das Begradigen) */
-    /* Dies ist der stabilste Befehl, um Buchstaben (Q, W, E...) in die Mitte zu rücken */
-    text {
-      text-anchor: middle;
-      dominant-baseline: central;
+    /* 3. Hauptbuchstaben nach unten schieben */
+    /* Da sie zu weit oben kleben, geben wir ihnen einen festen Schubs nach unten. */
+    /* '0.35em' ist etwa ein Drittel der Buchstabenhöhe. */
+    .key text:not(.side) {
+      dy: 0.35em;
     }
 
-    /* 4. SIDE-LEGENDS FIX (@, €, etc.) */
-    /* Wir müssen sie auch weiß machen und kleiner halten */
+    /* 4. Symbole (Oben/Unten) korrigieren */
     text.side {
       font-size: 8px;
-      dominant-baseline: auto;
-      fill: #e0e0e0 !important; /* Etwas dezenteres Weiß */
+      fill: #cccccc;
     }
 
-    /* 5. SIDE-LEGENDS POSITION: Der manuelle Schubs nach INNEN */
-    /* Wir zielen auf Top-Left (.tl) und Bottom-Right (.br) und rücken sie 
-       mit dx/dy sanft vom Rand weg. Das ist oft stabiler als transform: translate. */
-    text.side.tl {
-      dx: 1; /* Schiebt nach RECHTS */
-      dy: 1; /* Schiebt nach UNTEN */
+    /* Top-Symbole (@, €) etwas weiter nach UNTEN in die Taste rein */
+    text.side.tl, text.side.tr {
+      dy: 0.2em;
     }
-    text.side.br {
-      dx: -1; /* Schiebt nach LINKS */
-      dy: -1; /* Schiebt nach OBEN */
+
+    /* Bottom-Symbole etwas weiter nach OBEN */
+    text.side.bl, text.side.br {
+      dy: -0.2em;
     }
