@@ -22,29 +22,26 @@ jobs:
       - name: Install dependencies
         run: |
           pip install tree-sitter==0.21.3 keymap-drawer
-          # yq ist auf GitHub Runnern meist vorinstalliert, aber sicher ist sicher:
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
 
       - name: Parse, Inject and Draw
         run: |
-          # 1. Erzeuge die keymap.yaml aus deiner ZMK-Keymap
+          # 1. Erzeuge die keymap.yaml
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Injektiere die Combo SAUBER in die YAML-Struktur (VOR dem Zeichnen)
-          # Wir nutzen yq, um sicherzustellen, dass die Combo korrekt unter "combos" landet
-          yq -i '.combos += [{"key_positions": [37, 40], "p": [175, 230], "type": "RGB"}]' keymap.yaml
+          # 2. Injektiere die Combo mit den Kurz-Keys (k statt key_positions, pos statt p)
+          yq -i '.combos += [{"k": [37, 40], "pos": [175, 230], "t": "RGB"}]' keymap.yaml
           
-          # 3. Jetzt das SVG basierend auf der manipulierten keymap.yaml zeichnen
+          # 3. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # Wir verschieben die Dateien in den gewünschten Ordner, falls nötig
           mkdir -p keymap-drawer
           mv keymap.yaml keymap-drawer/
           mv splitkb_aurora_corne.svg keymap-drawer/
           git add keymap-drawer/*.yaml keymap-drawer/*.svg
-          git commit -m "Update keymap drawer with RGB combo" || exit 0
+          git commit -m "Update keymap drawer with RGB combo fix" || exit 0
           git push
