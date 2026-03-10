@@ -26,9 +26,9 @@ jobs:
           # 1. Erzeuge die keymap.yaml
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Injektiere die Test-Combo (Taste 1 zu Taste 2)
-          # Wir nutzen yq, um das combos-Array zu füllen oder zu erstellen
-          yq -i '.combos += [{"k": [1, 2], "t": "TEST", "l": ["default"]}]' keymap.yaml
+          # 2. Injektiere die Test-Combo mit korrektem Pydantic-Format
+          # 'p' sind die Koordinaten [x, y], 'key_positions' sind die Tasten
+          yq -i '.combos += [{"key_positions": [1, 2], "p": [100, 50], "type": "TEST"}]' keymap.yaml
           
           # 3. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
