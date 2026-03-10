@@ -118,32 +118,14 @@ draw_config:
   dark_mode: true
   n_columns: 1
   svg_extra_config:
-    width: 1200  # Standard ist oft um die 800. 1200 macht es deutlich größer.
-    # DAS HIER IST DER POSTPROZESSOR:
+    width: 1200
   svg_style: |
-    /* Sucht alle Tasten-Gruppen mit dem Typ 'remove_me' und blendet sie aus */
     g.key.remove_me {
       display: none !important;
     }
-    /* 2. Font-Basis (Monospace verhindert Verschiebungen) */
-    svg {
-      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    /* 3. Ausrichtung Hauptlegenden */
     text {
-      text-anchor: middle;
-      dominant-baseline: central;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
-
-    /* 4. Side-Legends (Fix für den Abstand) */
-    /* Wir verkleinern die Schrift leicht, damit sie optisch näher rücken */
     text.side {
-      font-size: 7px;
-      dominant-baseline: auto;
-    }
-
-    /* 5. Combo & Hints (Daumen-Labels) */
-    g.combo text, text.hint {
       font-size: 8px;
     }
