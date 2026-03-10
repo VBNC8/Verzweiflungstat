@@ -142,7 +142,7 @@ draw_config:
     /* 5. SIDE-LEGENDS FIX (@, €, etc.) */
     /* Wir müssen sie auch weiß machen und kleiner halten */
     text.side {
-      font-size: 7px;
+      font-size: 4px;
       dominant-baseline: auto;
       fill: #e0e0e0 !important; /* Etwas dezenteres Weiß */
     }
