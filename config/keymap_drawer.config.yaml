@@ -119,6 +119,7 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
+  font_size: 14
     
 
 
