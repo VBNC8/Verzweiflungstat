@@ -61,9 +61,12 @@ text {
 /* 3. Die Symbole oben und unten gezielt ansprechen */
 /* .top = Symbole oben (Shift), .bottom = Symbole unten (AltGr) */
 text.top, text.bottom, text.side {
-  font-size: 8px !important;  /* 4px war VIEL zu klein, man sieht nichts mehr */
+  font-size: 4px !important;  /* 4px war VIEL zu klein, man sieht nichts mehr */
   fill: #bbbbbb !important;  /* Etwas grauer, damit sie nicht vom Hauptzeichen ablenken */
 }
+/* 4. Position korrigieren (Vermeidet das "Kleben" am Rand) */
+text.top { transform: translateY(2px); }
+text.bottom { transform: translateY(-2px); }
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
