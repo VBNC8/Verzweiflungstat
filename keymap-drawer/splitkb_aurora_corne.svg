@@ -41,6 +41,10 @@
 g.key.remove_me {
   display: none !important;
 }
+/* Optional: Falls die Combo-Box 'RGB' zu groß ist, hier kleiner machen */
+g.combo text {
+  font-size: 8px !important;
+}
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
