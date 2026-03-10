@@ -37,39 +37,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-usb" viewBox="0 0 24 24"><path d="M15,7V11H16V13H13V5H15L12,1L9,5H11V13H8V10.93C8.7,10.56 9.2,9.85 9.2,9C9.2,7.78 8.21,6.8 7,6.8C5.78,6.8 4.8,7.78 4.8,9C4.8,9.85 5.3,10.56 6,10.93V13A2,2 0 0,0 8,15H11V18.05C10.29,18.41 9.8,19.15 9.8,20A2.2,2.2 0 0,0 12,22.2A2.2,2.2 0 0,0 14.2,20C14.2,19.15 13.71,18.41 13,18.05V15H16A2,2 0 0,0 18,13V11H19V7H15Z" /></svg>
 </svg>
 </defs>/* end glyphs */
-<style>/* 1. Randtasten weg */
-g.key.remove_me {
-  display: none;
-}
-
-/* 2. Grundtext & Farbe */
-text {
-  fill: white;
-  font-family: monospace;
-  font-size: 14px;
-}
-
-/* 3. Hauptbuchstaben nach unten schieben */
-/* Da sie zu weit oben kleben, geben wir ihnen einen festen Schubs nach unten. */
-/* '0.35em' ist etwa ein Drittel der Buchstabenhöhe. */
-.key text:not(.side) {
-  dy: 0.35em;
-}
-
-/* 4. Symbole (Oben/Unten) korrigieren */
-text.side {
-  font-size: 8px;
-  fill: #cccccc;
-}
-
-/* Top-Symbole (@, €) etwas weiter nach UNTEN in die Taste rein */
-text.side.tl, text.side.tr {
-  dy: 0.2em;
-}
-
-/* Bottom-Symbole etwas weiter nach OBEN */
-text.side.bl, text.side.br {
-  dy: -0.2em;
+<style>g.key.remove_me { display: none; }
+text { 
+  fill: white !important; 
+  dominant-baseline: middle !important; 
 }
 
 svg.keymap { fill: #d1d6db; }
