@@ -219,6 +219,6 @@ combos:
 - p: [37, 38]
   k: RGB
   l: [rgb]
-- p: [37, 38]
+- p: [39, 40]
   k: RGB
   l: [rgb]
