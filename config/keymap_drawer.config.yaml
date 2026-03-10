@@ -119,7 +119,28 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  font_size: 14
+  svg_style: |
+    /* Erzwingt die Größe für Hauptbeschriftungen (z.B. Q, W, E) */
+    text.key {
+      font-size: 16px !important;
+    }
     
+    /* Erzwingt die Größe für die kleineren Legenden (z.B. @, €, Symbols) */
+    text.side {
+      font-size: 11px !important;
+    }
+    
+    /* Sorgt dafür, dass deine roten 'held' Tasten Text in weiß und lesbar haben */
+    rect.held + text {
+      fill: #ffffff !important;
+      font-size: 12px !important;
+      font-weight: bold;
+    }
+
+    /* Macht die Combo-Bubbles (RGB) deutlich lesbar */
+    text.combo {
+      font-size: 12px !important;
+      font-weight: bold;
+    }  
 
 
