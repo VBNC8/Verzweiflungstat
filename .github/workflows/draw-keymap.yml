@@ -25,12 +25,7 @@ jobs:
         run: |
           # 1. Erzeuge die keymap.yaml
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          
-          # 2. Injektiere die Test-Combo mit korrektem Pydantic-Format
-          # 'p' sind die Koordinaten [x, y], 'key_positions' sind die Tasten
-          yq -i '.combos += [{"key_positions": [1, 2], "p": [100, 50], "type": "TEST"}]' keymap.yaml
-          
-          # 3. Zeichne das SVG
+          # 2. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
