@@ -1,0 +1,224 @@
+layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
+layers:
+  default:
+  - ' '
+  - {t: Q, s: '@'}
+  - W
+  - {t: E, s: €}
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: P, h: Lower}
+  - ' '
+  - A
+  - S
+  - {t: D, h: CTRL}
+  - {t: F, h: Shift}
+  - G
+  - H
+  - {t: J, h: Shift}
+  - {t: K, h: CTRL}
+  - L
+  - {t: '-', s: _}
+  - ' '
+  - ' '
+  - Z
+  - {t: X, h: Alt}
+  - C
+  - V
+  - B
+  - N
+  - {t: M, s: µ}
+  - ','
+  - {t: ., s: AltGr}
+  - ⌦
+  - ' '
+  - {t: ⏯, type: ghost}
+  - {t: ESC, h: Raise}
+  - {t: ⇥, h: Lower}
+  - {t: ↵, h: Lower}
+  - {t: ␣, h: Raise}
+  - {t: ⌫, h: Adjust}
+  lower:
+  - ' '
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - {t: F10, type: ghost}
+  - ' '
+  - ' '
+  - {t: '1', s: '!'}
+  - {t: '2', s: '"'}
+  - {t: '3', s: §}
+  - {t: '4', s: $}
+  - {t: '5', s: '%'}
+  - {t: '6', s: '&'}
+  - {t: '7', s: /}
+  - {t: '8', s: (}
+  - {t: '9', s: )}
+  - {t: '0', s: '='}
+  - ' '
+  - ' '
+  - {t: <, s: '>'}
+  - ' '
+  - '|'
+  - ' '
+  - {t: '#', s: ''''}
+  - '{'
+  - '['
+  - ']'
+  - '}'
+  - ' '
+  - ' '
+  - ' '
+  - $$mdi:microsoft-windows-classic$$
+  - {t: ⤒ Pos1, type: held}
+  - {t: ⤓ End, type: held}
+  - ' '
+  - ' '
+  raise:
+  - ' '
+  - {t: ^, s: °}
+  - µ
+  - €
+  - ' '
+  - ' '
+  - ' '
+  - Ü
+  - \
+  - Ö
+  - '='
+  - ' '
+  - ' '
+  - Ä
+  - {t: ß, s: '?'}
+  - 🖱 RMB
+  - 🖱 LMB
+  - Ø
+  - UP
+  - LEFT
+  - DOWN
+  - RIGHT
+  - {t: +, s: '*'}
+  - ' '
+  - ' '
+  - ´
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - '`'
+  - ' '
+  - ' '
+  - '~'
+  - ' '
+  - {t: ☻, type: ghost}
+  - {t: Task Mgr, type: held}
+  - ' '
+  - ' '
+  - {t: '&nbsp', type: held}
+  - ' '
+  adjust:
+  - ' '
+  - $$mdi:bluetooth-off$$
+  - ²
+  - ³
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ✕
+  - ' '
+  - ' '
+  - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
+  - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
+  - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
+  - {t: '$$mdi:bluetooth$$', s: ⓸}
+  - {t: '$$mdi:bluetooth$$', s: ⓹}
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - $$mdi:usb$$
+  - Pwr±
+  - Pwr+
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ⏮
+  - ⏭
+  - ' '
+  - ' '
+  - {t: F10, type: ghost}
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - {t: ' ', type: held}
+  rgb:
+  - ' '
+  - {t: '$$mdi:lightbulb-on$$', s: OnOff}
+  - {t: '$$mdi:cosine-wave$$', s: Mode}
+  - {t: '$$mdi:brightness-7$$', s: Bri+}
+  - {t: '$$mdi:palette$$', s: Sat+}
+  - {t: '$$mdi:palette-swatch$$', s: Hue+}
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - {t: '$$mdi:cosine-wave$$', s: Rev}
+  - {t: '$$mdi:brightness-4$$', s: Bri-}
+  - {t: '$$mdi:palette-outline$$', s: Sat-}
+  - {t: '$$mdi:palette-swatch-outline$$', s: Hue-}
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - ' '
+  - {t: '$$mdi:bluetooth-off$$', s: CLR, type: ghost}
+  - {t: ' ', type: held}
+  - {t: ' ', type: held}
+  - {t: ' ', type: held}
+  - {t: ' ', type: held}
+  - ' '
+combos:
+- p: [37, 38]
+  k: RGB
+  l: [rgb]
+- p: [39, 40]
+  k: RGB
+  l: [rgb]
