@@ -118,30 +118,38 @@ draw_config:
   dark_mode: true
   n_columns: 1
   # HIER muss das CSS rein:
-svg_extra_config:
-  width: 1000
-  style: |
+  svg_style: |
     /* 1. Randtasten weg */
-    g.key.remove_me { display: none; }
+    g.key.remove_me {
+      display: none;
+    }
 
-    /* 2. Grundtext */
+    /* 2. Grundtext & Farbe */
     text {
       fill: white;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-family: monospace;
       font-size: 14px;
     }
 
-    /* 3. HAUPTBUCHSTABEN ZENTRIEREN */
-    /* Wir schieben sie ca. 3.5 Pixel nach unten (0.25em) */
+    /* 3. Hauptbuchstaben nach unten schieben */
+    /* Da sie zu weit oben kleben, geben wir ihnen einen festen Schubs nach unten. */
+    /* '0.35em' ist etwa ein Drittel der Buchstabenhöhe. */
     .key text:not(.side) {
-      dy: 0.25em;
+      dy: 0.35em;
     }
 
-    /* 4. SIDE-LEGENDS (@, €, etc.) */
+    /* 4. Symbole (Oben/Unten) korrigieren */
     text.side {
       font-size: 8px;
       fill: #cccccc;
     }
-    /* Oben ein Stück runter, unten ein Stück rauf */
-    text.side.tl, text.side.tr { dy: 0.1em; }
-    text.side.bl, text.side.br { dy: -0.1em; }
+
+    /* Top-Symbole (@, €) etwas weiter nach UNTEN in die Taste rein */
+    text.side.tl, text.side.tr {
+      dy: 0.2em;
+    }
+
+    /* Bottom-Symbole etwas weiter nach OBEN */
+    text.side.bl, text.side.br {
+      dy: -0.2em;
+    }
