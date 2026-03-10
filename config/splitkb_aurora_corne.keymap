@@ -27,7 +27,7 @@
         };
         combo_rgb_t2 {
             timeout-ms = <50>;
-            key-positions = <37 38>;
+            key-positions = <39 40>;
             bindings = <&kp F11>;
             layers = <4>;
         };
