@@ -41,9 +41,22 @@
 g.key.remove_me {
   display: none !important;
 }
-/* Optional: Falls die Combo-Box 'RGB' zu groß ist, hier kleiner machen */
+/* 2. Font-Fix: Verhindert das Hochrutschen der Buchstaben */
+text {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  dominant-baseline: middle !important; /* Zentriert den Text wieder vertikal */
+}
+
+/* 3. Symbole (Side-Legends) wieder an ihre Ecken binden */
+text.side {
+  font-size: 8px !important; 
+  dominant-baseline: auto !important; /* Side-Legends dürfen NICHT zentriert werden */
+}
+
+/* 4. Combo-Box (RGB) aufräumen */
 g.combo text {
   font-size: 8px !important;
+  font-weight: bold;
 }
 
 svg.keymap { fill: #d1d6db; }
