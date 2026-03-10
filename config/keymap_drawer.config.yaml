@@ -64,6 +64,8 @@ parse_config:
     "&kp SLASH": {t: "-", s: "_"}
     "&kp RPAR": "="
     "&kp RBKT": {t: "+", s: "*"}
+    "&kp Q": {t: "Q", s: "@"}
+    "&kp E": {t: "E", s: "€"}
 
     # --- SYSTEM & BT ---
     "&usb_on": {t: "ψ USB", s: "☀ ON"}
@@ -90,7 +92,7 @@ parse_config:
     "&hrm_shift RSHIFT J": {t: "J", h: "Shift"}
     "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
     "&hrm_safe LALT X": {t: "X", h: "Alt"}
-    "&hrm_safe RALT DOT": {t: ".", h: "AltGr"}
+    "&hrm_safe RALT DOT": {t: ".", s: "AltGr"}
     
     # --- RGB UNTERBELEUCHTUNG ---
     "&rgb_ug RGB_TOG": {t: "$$mdi:lightbulb-on$$", s: "OnOff"}
