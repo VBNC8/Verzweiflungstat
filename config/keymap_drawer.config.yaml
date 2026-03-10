@@ -119,27 +119,3 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  svg_style: |
-    /* Hauptbuchstaben: Nur minimal vergrößern, um das Layout nicht zu sprengen */
-    text.key:not(.side) {
-      font-size: 14px !important;
-    }
-
-    /* Side Legends: Wir lassen sie klein (9px) und rühren die Position nicht an */
-    text.side {
-      font-size: 9px !important;
-    }
-
-    /* Combo-Box (RGB): Wir passen nur die Schrift an, ohne sie zu verschieben */
-    g.combo text {
-      font-size: 9px !important;
-      font-weight: bold;
-    }
-
-    /* Rote Held-Tasten: Weißer Text für besseren Kontrast */
-    rect.held + text {
-      fill: #ffffff !important;
-      font-size: 11px !important;
-    }
-
-
