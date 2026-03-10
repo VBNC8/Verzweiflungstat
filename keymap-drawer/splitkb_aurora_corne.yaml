@@ -1,7 +1,16 @@
 layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
 layers:
   default:
-  - [' ', Q, W, E, R, T, Y, U, I, O]
+  - - ' '
+    - {t: Q, s: '@'}
+    - W
+    - {t: E, s: €}
+    - R
+    - T
+    - Y
+    - U
+    - I
+    - O
   - - P
     - {t: P, h: Lower}
     - ' '
@@ -25,7 +34,7 @@ layers:
   - - N
     - M
     - ','
-    - {t: ., h: AltGr}
+    - {t: ., s: AltGr}
     - ⌦
     - ' '
     - {t: ⏯, type: ghost}
