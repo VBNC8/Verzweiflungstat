@@ -66,6 +66,7 @@ parse_config:
     "&kp RBKT": {t: "+", s: "*"}
     "&kp Q": {t: "Q", s: "@"}
     "&kp E": {t: "E", s: "€"}
+    "&kp M": {t: "M", s: "µ"}
 
     # --- SYSTEM & BT ---
     "&usb_on": {t: "ψ USB", s: "☀ ON"}
