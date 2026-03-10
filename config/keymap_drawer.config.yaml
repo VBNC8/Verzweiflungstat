@@ -142,7 +142,7 @@ draw_config:
        sonst rutschen @, €, 1, 2 etc. alle in die Mitte der Taste */
     text.side {
       font-size: 8px; 
-      dominant-baseline: auto;
+      dominant-baseline: middle;
     }
 
     /* 5. LEGENDEN-ABSTÄNDE (HART CODIERT) */
