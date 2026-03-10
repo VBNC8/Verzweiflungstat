@@ -49,23 +49,26 @@ text {
   font-size: 14px;
 }
 
-/* 3. Side-Legends (Oben/Unten/Ecken) */
-/* Wir nutzen 'em' Einheiten, die sind relativ zur Schriftgröße 
-   und skalieren bei 1200px besser mit. */
+/* 3. Side-Legends (Oben/Unten) */
 text.side, text.top, text.bottom {
   font-size: 8px !important;
   fill: #cccccc !important;
 }
 
-/* 4. Der manuelle vertikale Schubs */
-/* Da translateY bei dir horizontal spinnt, nutzen wir dy.
-   Positive Werte schieben nach UNTEN, negative nach OBEN. */
-text.top { dy: 0.5em; }
-text.bottom { dy: -0.5em; }
+/* 4. Vertikaler Schubs via Transform - aber diesmal sauber getrennt */
+/* Falls translateY bei dir horizontal schiebt, liegt ein Rotations-Fehler vor. 
+   Wir probieren es hier mit einer alternativen Schreibweise. */
+text.top { 
+  transform: translate(0, 4px) !important; 
+}
+text.bottom { 
+  transform: translate(0, -4px) !important; 
+}
 
-/* Hauptbuchstaben ein Stück runter, falls sie zu hoch schweben */
+/* Hauptbuchstaben zentrieren */
 .key text:not(.side):not(.top):not(.bottom) {
-  dy: 0.3em;
+  dominant-baseline: middle !important;
+  text-anchor: middle !important;
 }
 
 svg.keymap { fill: #d1d6db; }
