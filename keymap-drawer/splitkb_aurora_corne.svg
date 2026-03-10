@@ -41,37 +41,30 @@
 g.key.remove_me {
   display: none !important;
 }
-/* 2. SCHRIFTART-STANDARDS (MONOSPACE ERZWINGEN) */
+/* 2. Grundschrift & Zentrierung */
 svg {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 14px; /* Standard-Basisgröße des Drawers */
 }
-
-/* 3. POSITIONIERUNG (DEN VERMURXTEN FONT FIXEN) */
 text {
   text-anchor: middle;
   dominant-baseline: middle;
 }
 
-/* 4. SONDERZEICHEN / SIDE-LEGENDS (WICHTIG!) */
-/* Diese müssen kleiner sein und dürfen NICHT zentriert werden, 
-   sonst rutschen @, €, 1, 2 etc. alle in die Mitte der Taste */
+/* 3. Side-Legends näher zusammenrücken */
 text.side {
-  font-size: 8px; 
-  dominant-baseline: middle;
-}
-
-/* 5. LEGENDEN-ABSTÄNDE (HART CODIERT) */
-/* Verhindert, dass Symbole über den Buchstaben hängen */
-.key text {
-  fill: #ffffff; /* Weißer Text für Dark Mode */
-}
-
-/* 6. COMBO-SYMBOL (RGB) */
-g.combo text {
   font-size: 8px;
-  font-weight: bold;
+  dominant-baseline: auto;
 }
+
+/* Verschiebt Top-Left Symbole (@, €, etc.) ein Stück nach innen */
+text.side.tl { transform: translate(2px, 2px); }
+
+/* Verschiebt Bottom-Right Symbole ein Stück nach oben/links */
+text.side.br { transform: translate(-2px, -2px); }
+
+/* 4. Kontrast für die Legenden */
+.key text { fill: #e0e0e0; }
+.key.held text { fill: #ffffff; font-weight: bold; }
 
 svg.keymap { fill: #d1d6db; }
 rect.key { fill: #3f4750; }
