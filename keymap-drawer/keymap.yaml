@@ -1,7 +1,7 @@
 layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
 layers:
   default:
-  - ' '
+  - F15
   - {t: Q, s: '@'}
   - W
   - {t: E, s: €}
@@ -13,7 +13,7 @@ layers:
   - O
   - P
   - {t: P, h: Lower}
-  - ' '
+  - F15
   - A
   - S
   - {t: D, h: CTRL}
@@ -24,8 +24,8 @@ layers:
   - {t: K, h: CTRL}
   - L
   - {t: '-', s: _}
-  - ' '
-  - ' '
+  - F15
+  - F15
   - Z
   - {t: X, h: Alt}
   - C
@@ -36,7 +36,7 @@ layers:
   - ','
   - {t: ., s: AltGr}
   - ⌦
-  - ' '
+  - F15
   - {t: ⏯, type: ghost}
   - {t: ESC, h: Raise}
   - {t: ⇥, h: Lower}
@@ -44,7 +44,7 @@ layers:
   - {t: ␣, h: Raise}
   - {t: ⌫, h: Adjust}
   lower:
-  - ' '
+  - F15
   - F1
   - F2
   - F3
@@ -55,8 +55,8 @@ layers:
   - F8
   - F9
   - F10
-  - ' '
-  - ' '
+  - F15
+  - F15
   - {t: '1', s: '!'}
   - {t: '2', s: '"'}
   - {t: '3', s: §}
@@ -67,8 +67,8 @@ layers:
   - {t: '8', s: (}
   - {t: '9', s: )}
   - {t: '0', s: '='}
-  - ' '
-  - ' '
+  - F15
+  - F15
   - {t: <, s: '>'}
   - ' '
   - '|'
@@ -79,7 +79,7 @@ layers:
   - ']'
   - '}'
   - ' '
-  - ' '
+  - F15
   - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
   - {t: ⤒ Pos1, type: held}
@@ -87,7 +87,7 @@ layers:
   - ' '
   - ' '
   raise:
-  - ' '
+  - F15
   - {t: ^, s: °}
   - µ
   - €
@@ -98,8 +98,8 @@ layers:
   - \
   - Ö
   - '='
-  - ' '
-  - ' '
+  - F15
+  - F15
   - Ä
   - {t: ß, s: '?'}
   - 🖱 RMB
@@ -110,8 +110,8 @@ layers:
   - DOWN
   - RIGHT
   - {t: +, s: '*'}
-  - ' '
-  - ' '
+  - F15
+  - F15
   - ´
   - ' '
   - ' '
@@ -122,7 +122,7 @@ layers:
   - ' '
   - ' '
   - '~'
-  - ' '
+  - F15
   - {t: ☻, type: ghost}
   - {t: Task Mgr, type: held}
   - ' '
@@ -130,7 +130,7 @@ layers:
   - {t: '&nbsp', type: held}
   - ' '
   adjust:
-  - ' '
+  - F15
   - $$mdi:bluetooth-off$$
   - ²
   - ³
@@ -141,8 +141,8 @@ layers:
   - ' '
   - ' '
   - ✕
-  - ' '
-  - ' '
+  - F15
+  - F15
   - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
   - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
   - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
@@ -153,8 +153,8 @@ layers:
   - ' '
   - ' '
   - ' '
-  - ' '
-  - ' '
+  - F15
+  - F15
   - $$mdi:usb$$
   - Pwr±
   - Pwr+
@@ -165,7 +165,7 @@ layers:
   - ⏮
   - ⏭
   - ' '
-  - ' '
+  - F15
   - {t: F10, type: ghost}
   - ' '
   - ' '
@@ -173,7 +173,7 @@ layers:
   - ' '
   - {t: ' ', type: held}
   rgb:
-  - ' '
+  - F15
   - {t: '$$mdi:lightbulb-on$$', s: OnOff}
   - {t: '$$mdi:cosine-wave$$', s: Mode}
   - {t: '$$mdi:brightness-7$$', s: Bri+}
@@ -184,8 +184,8 @@ layers:
   - ' '
   - ' '
   - ' '
-  - ' '
-  - ' '
+  - F15
+  - F15
   - ' '
   - {t: '$$mdi:cosine-wave$$', s: Rev}
   - {t: '$$mdi:brightness-4$$', s: Bri-}
@@ -196,6 +196,8 @@ layers:
   - ' '
   - ' '
   - ' '
+  - F15
+  - F15
   - ' '
   - ' '
   - ' '
@@ -206,9 +208,7 @@ layers:
   - ' '
   - ' '
   - ' '
-  - ' '
-  - ' '
-  - ' '
+  - F15
   - {t: '$$mdi:bluetooth-off$$', s: CLR, type: ghost}
   - {t: ' ', type: held}
   - {t: ' ', type: held}
