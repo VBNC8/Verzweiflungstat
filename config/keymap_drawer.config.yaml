@@ -119,3 +119,5 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
+  svg_extra_config:
+    width: 1200  # Standard ist oft um die 800. 1200 macht es deutlich größer.
