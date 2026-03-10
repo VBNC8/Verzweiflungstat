@@ -21,31 +21,41 @@
         tri_layer { if-layers = <1 2>; then-layer = <4>; };
     };
 
+    combos {
+        compatible = "zmk,combos";
+        combo_rgb_test {
+            timeout-ms = <50>;
+            key-positions = <1 2>;
+            bindings = <&none>;
+            layers = <0>;
+        };
+    };
+
     macros {
         usb_on: usb_on { 
-compatible = "zmk,behavior-macro"; 
-#binding-cells = <0>; 
-bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
-};
+          compatible = "zmk,behavior-macro"; 
+          #binding-cells = <0>; 
+          bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
+        };
         bt_off: bt_off { 
-compatible = "zmk,behavior-macro"; 
-#binding-cells = <0>; 
-bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
-};
+          compatible = "zmk,behavior-macro"; 
+          #binding-cells = <0>; 
+          bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
+        };
         durchmesser: durchmesser { 
-compatible = "zmk,behavior-macro"; 
-#binding-cells = <0>; 
-bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
-};
+          compatible = "zmk,behavior-macro"; 
+          #binding-cells = <0>; 
+          bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
+        };
         smiley: smiley { 
-compatible = "zmk,behavior-macro";
-#binding-cells = <0>; wait-ms = <20>; 
-tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
-};
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>; wait-ms = <20>; 
+          tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
+        };
         nbsp: nbsp { compatible = "zmk,behavior-macro"; 
-#binding-cells = <0>; wait-ms = <30>; 
-tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
-};
+          #binding-cells = <0>; wait-ms = <30>; 
+          tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
+        };
     };
 
     behaviors {
