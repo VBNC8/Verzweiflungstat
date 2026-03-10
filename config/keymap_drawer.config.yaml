@@ -22,7 +22,7 @@ parse_config:
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
-    "&kp FX_ghost": {t: "F10", type: "ghost"} 
+    "&f10_ghost": {t: "F10", type: "ghost"} 
     "&kp F11": "RGB"
 
     # --- SYMBOLE & NAVIGATION ---
