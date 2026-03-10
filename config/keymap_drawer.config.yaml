@@ -13,9 +13,9 @@ parse_config:
     "&lt 2 ESC": {t: "ESC", h: "Raise"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
-    #"&mo 1": {t: "Lower", type: "held"}
-    #"&mo 2": {t: "Raise", type: "held"}
-    #"&mo 3": {t: "Adjust", type: "held"}
+    "&mo 1": {t: "Lower", type: "held"}
+    "&mo 2": {t: "Raise", type: "held"}
+    "&mo 3": {t: "Adjust", type: "held"}
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
