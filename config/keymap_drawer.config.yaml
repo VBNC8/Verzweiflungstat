@@ -120,26 +120,26 @@ draw_config:
   dark_mode: true
   n_columns: 1
   svg_style: |
-    /* Hauptbeschriftungen: Etwas größer, aber ohne Positionsänderung */
+    /* Hauptbuchstaben: Nur minimal vergrößern, um das Layout nicht zu sprengen */
     text.key:not(.side) {
       font-size: 14px !important;
     }
 
-    /* Side Legends: Wir fixieren sie auf eine Größe, die nicht überlappt */
+    /* Side Legends: Wir lassen sie klein (9px) und rühren die Position nicht an */
     text.side {
       font-size: 9px !important;
     }
 
-    /* Combo-Box (RGB): Wir korrigieren nur die Textgröße, damit sie in die Box passt */
+    /* Combo-Box (RGB): Wir passen nur die Schrift an, ohne sie zu verschieben */
     g.combo text {
-      font-size: 8px !important;
+      font-size: 9px !important;
       font-weight: bold;
     }
 
-    /* Die roten 'held' Tasten: Hier erhöhen wir nur die Lesbarkeit */
+    /* Rote Held-Tasten: Weißer Text für besseren Kontrast */
     rect.held + text {
       fill: #ffffff !important;
-      font-size: 10px !important;
+      font-size: 11px !important;
     }
 
 
