@@ -217,8 +217,8 @@ layers:
   - ' '
 combos:
 - p: [37, 38]
-  k: F11
+  k: RGB
   l: [rgb]
 - p: [37, 38]
-  k: F11
+  k: RGB
   l: [rgb]

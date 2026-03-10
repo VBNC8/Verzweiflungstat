@@ -992,11 +992,11 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="304" y="206" width="28" height="26" class="combo"/>
-<text x="318" y="219" class="combo tap">F11</text>
+<text x="318" y="219" class="combo tap">RGB</text>
 </g>
 <g class="combo combopos-1">
 <rect rx="6" ry="6" x="304" y="206" width="28" height="26" class="combo"/>
-<text x="318" y="219" class="combo tap">F11</text>
+<text x="318" y="219" class="combo tap">RGB</text>
 </g>
 </g>
 </g>
