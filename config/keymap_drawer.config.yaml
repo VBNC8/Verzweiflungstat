@@ -117,21 +117,47 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  # Wir lassen width weg, wenn das den Error verursacht hat
+  # Wir setzen die Breite auf 1000px, das ist ein guter Kompromiss für die Schärfe.
+  svg_extra_config:
+    width: 1000
   svg_style: |
-    /* Randtasten weg */
+    /* 1. LÖSCH-FILTER (Tasten ausblenden) */
     g.key.remove_me {
-      display: none;
+      display: none !important;
     }
 
-    /* Nur die nötigste Text-Korrektur */
+    /* 2. GRUNDTEXT: Farbe und Monospace (Stabilisierung) */
+    svg {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Monaco, monospace;
+    }
     text {
-      fill: white;
-      font-family: monospace;
+      fill: #ffffff !important; /* Weißer Text */
       font-size: 14px;
     }
 
-    /* Symbole klein halten */
-    text.side, text.top, text.bottom {
+    /* 3. VERTIKALE ZENTRIERUNG (Das Begradigen) */
+    /* Dies ist der stabilste Befehl, um Buchstaben (Q, W, E...) in die Mitte zu rücken */
+    text {
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    /* 4. SIDE-LEGENDS FIX (@, €, etc.) */
+    /* Wir müssen sie auch weiß machen und kleiner halten */
+    text.side {
       font-size: 8px;
+      dominant-baseline: auto;
+      fill: #e0e0e0 !important; /* Etwas dezenteres Weiß */
+    }
+
+    /* 5. SIDE-LEGENDS POSITION: Der manuelle Schubs nach INNEN */
+    /* Wir zielen auf Top-Left (.tl) und Bottom-Right (.br) und rücken sie 
+       mit dx/dy sanft vom Rand weg. Das ist oft stabiler als transform: translate. */
+    text.side.tl {
+      dx: 1; /* Schiebt nach RECHTS */
+      dy: 1; /* Schiebt nach UNTEN */
+    }
+    text.side.br {
+      dx: -1; /* Schiebt nach LINKS */
+      dy: -1; /* Schiebt nach OBEN */
     }
