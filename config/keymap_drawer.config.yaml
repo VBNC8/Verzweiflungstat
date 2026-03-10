@@ -146,5 +146,5 @@ draw_config:
       fill: #bbbbbb !important;  /* Etwas grauer, damit sie nicht vom Hauptzeichen ablenken */
     }
     /* 4. Position korrigieren (Vermeidet das "Kleben" am Rand) */
-    text.top { transform: translateY(2px); }
-    text.bottom { transform: translateY(-2px); }
+    text.top { transform: translateY(10px); }
+    text.bottom { transform: translateY(-10px); }
