@@ -1,8 +1,5 @@
 
 parse_config:
-  #check_side_key_usage: true
-  #skip_binding_parsing: false
-  #columns: 10
   raw_binding_map:
     "&trans": " "           # Macht &trans komplett leer/unsichtbar
     "&none": " "            # Macht &none komplett leer/unsichtbar
@@ -23,11 +20,11 @@ parse_config:
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
     "&kp F14": {t: " ", type: "ghost"}
+    "&kp F15": {t: " ", type: "remove_me"}
     "&f10_ghost": {t: "F10", type: "ghost"} 
     "&kp F11": "RGB"
 
     # --- SYMBOLE & NAVIGATION ---
-    
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
     "&kp LGUI": "$$mdi:microsoft-windows-classic$$"
@@ -122,3 +119,9 @@ draw_config:
   n_columns: 1
   svg_extra_config:
     width: 1200  # Standard ist oft um die 800. 1200 macht es deutlich größer.
+    # DAS HIER IST DER POSTPROZESSOR:
+  svg_style: |
+    /* Sucht alle Tasten-Gruppen mit dem Typ 'remove_me' und blendet sie aus */
+    g.key.remove_me {
+      display: none !important;
+    }
