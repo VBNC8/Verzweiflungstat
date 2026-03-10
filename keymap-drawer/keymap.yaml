@@ -12,7 +12,7 @@ layers:
   - I
   - O
   - P
-  - {t: P, h: Lower}
+  - {t: P, h: lower}
   - ' '
   - A
   - S
@@ -38,11 +38,11 @@ layers:
   - ⌦
   - ' '
   - {t: ⏯, type: ghost}
-  - {t: ESC, h: Raise, type: held}
-  - {t: ⇥, h: Lower, type: held}
-  - {t: ↵, h: Lower, type: held}
-  - {t: ␣, h: Raise, type: held}
-  - {t: ⌫, h: Adjust, type: held}
+  - {t: ESC, h: Raise}
+  - {t: ⇥, h: Lower}
+  - {t: ↵, h: Lower}
+  - {t: ␣, h: Raise}
+  - {t: ⌫, h: Adjust}
   lower:
   - ' '
   - F1
@@ -55,7 +55,7 @@ layers:
   - F8
   - F9
   - {t: F10, type: ghost}
-  - ' '
+  - {t: ' ', type: held}
   - ' '
   - {t: '1', s: '!'}
   - {t: '2', s: '"'}
@@ -184,7 +184,7 @@ layers:
   - ' '
   - ' '
   - ' '
-  - ' '
+  - {t: ' ', type: held}
   - ' '
   - ' '
   - {t: '$$mdi:cosine-wave$$', s: Rev}
