@@ -216,6 +216,6 @@ layers:
   - ' '
   - ' '
 combos:
-- p: [37, 40]
+- p: [37, 38]
   k: F11
   l: [default]
