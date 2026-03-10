@@ -4,7 +4,6 @@ parse_config:
   #skip_binding_parsing: false
   #columns: 10
   raw_binding_map:
-    "TEST": {t: "🧪", type: combo}
     "&trans": " "           # Macht &trans komplett leer/unsichtbar
     "&none": " "            # Macht &none komplett leer/unsichtbar
     
