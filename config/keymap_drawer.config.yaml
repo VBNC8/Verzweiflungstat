@@ -120,30 +120,26 @@ draw_config:
   dark_mode: true
   n_columns: 1
   svg_style: |
-    /* Hauptbuchstaben moderat vergrößern */
+    /* Hauptbeschriftungen: Etwas größer, aber ohne Positionsänderung */
     text.key:not(.side) {
-      font-size: 15px !important;
-      font-weight: 500;
+      font-size: 14px !important;
     }
 
-    /* Side Legends (hoch/tief) klein halten, damit sie nicht wandern */
+    /* Side Legends: Wir fixieren sie auf eine Größe, die nicht überlappt */
     text.side {
-      font-size: 8px !important;
-      fill: #b0b0b0 !important;
+      font-size: 9px !important;
     }
 
-    /* Spezielle Korrektur für die Combo-Kiste (RGB) */
-    /* Wir zentrieren den Text innerhalb der Combo-Gruppe */
+    /* Combo-Box (RGB): Wir korrigieren nur die Textgröße, damit sie in die Box passt */
     g.combo text {
-      font-size: 10px !important;
-      transform: translateY(2px); /* Schiebt das Wort 'RGB' manuell in die Mitte der Box */
+      font-size: 8px !important;
       font-weight: bold;
     }
-    
-    /* Die roten 'held' Tasten besser lesbar machen */
+
+    /* Die roten 'held' Tasten: Hier erhöhen wir nur die Lesbarkeit */
     rect.held + text {
-      font-size: 11px !important;
       fill: #ffffff !important;
+      font-size: 10px !important;
     }
 
 
