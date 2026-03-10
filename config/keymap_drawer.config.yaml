@@ -117,37 +117,21 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
+  svg_extra_config:
+    width: 1200
   svg_style: |
-    /* 1. LÖSCH-FILTER (F15-Tasten physisch entfernen) */
+    /* 1. Nur die Randtasten ausblenden */
     g.key.remove_me {
-      display: none !important;
+      display: none;
     }
 
-    /* 2. Grundtext & Farbe */
+    /* 2. Nur die Schriftart und Farbe setzen */
     text {
-      fill: #ffffff !important;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: 14px;
+      fill: white;
+      font-family: monospace;
     }
 
-    /* 3. Side-Legends (Oben/Unten) */
-    text.side, text.top, text.bottom {
-      font-size: 8px !important;
-      fill: #cccccc !important;
-    }
-
-    /* 4. Vertikaler Schubs via Transform - aber diesmal sauber getrennt */
-    /* Falls translateY bei dir horizontal schiebt, liegt ein Rotations-Fehler vor. 
-       Wir probieren es hier mit einer alternativen Schreibweise. */
-    text.top { 
-      transform: translate(0, 4px) !important; 
-    }
-    text.bottom { 
-      transform: translate(0, -4px) !important; 
-    }
-
-    /* Hauptbuchstaben zentrieren */
-    .key text:not(.side):not(.top):not(.bottom) {
-      dominant-baseline: middle !important;
-      text-anchor: middle !important;
+    /* 3. Side-Legends nur verkleinern, nicht verschieben */
+    text.side {
+      font-size: 8px;
     }
