@@ -166,7 +166,7 @@ layers:
   - ⏭
   - ' '
   - ' '
-  - {t: F10, type: trans}
+  - {t: F10, type: ghost}
   - ' '
   - ' '
   - ' '
