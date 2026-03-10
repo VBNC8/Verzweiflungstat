@@ -37,30 +37,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-usb" viewBox="0 0 24 24"><path d="M15,7V11H16V13H13V5H15L12,1L9,5H11V13H8V10.93C8.7,10.56 9.2,9.85 9.2,9C9.2,7.78 8.21,6.8 7,6.8C5.78,6.8 4.8,7.78 4.8,9C4.8,9.85 5.3,10.56 6,10.93V13A2,2 0 0,0 8,15H11V18.05C10.29,18.41 9.8,19.15 9.8,20A2.2,2.2 0 0,0 12,22.2A2.2,2.2 0 0,0 14.2,20C14.2,19.15 13.71,18.41 13,18.05V15H16A2,2 0 0,0 18,13V11H19V7H15Z" /></svg>
 </svg>
 </defs>/* end glyphs */
-<style>/* Sucht alle Tasten-Gruppen mit dem Typ 'remove_me' und blendet sie aus */
-g.key.remove_me {
+<style>g.key.remove_me {
   display: none !important;
 }
-/* 2. Font-Basis (Monospace verhindert Verschiebungen) */
-svg {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-}
-
-/* 3. Ausrichtung Hauptlegenden */
 text {
-  text-anchor: middle;
-  dominant-baseline: central;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
-
-/* 4. Side-Legends (Fix für den Abstand) */
-/* Wir verkleinern die Schrift leicht, damit sie optisch näher rücken */
 text.side {
-  font-size: 7px;
-  dominant-baseline: auto;
-}
-
-/* 5. Combo & Hints (Daumen-Labels) */
-g.combo text, text.hint {
   font-size: 8px;
 }
 
