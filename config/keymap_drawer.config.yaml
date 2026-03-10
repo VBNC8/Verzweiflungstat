@@ -117,22 +117,21 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  svg_extra_config:
-
+  # Wir lassen width weg, wenn das den Error verursacht hat
   svg_style: |
-    /* 1. Nur die Randtasten ausblenden */
+    /* Randtasten weg */
     g.key.remove_me {
       display: none;
     }
 
-    /* 2. Nur die Schriftart und Farbe setzen */
+    /* Nur die nötigste Text-Korrektur */
     text {
       fill: white;
       font-family: monospace;
+      font-size: 14px;
     }
 
-    /* 3. Side-Legends nur verkleinern, nicht verschieben */
-    text.side {
+    /* Symbole klein halten */
+    text.side, text.top, text.bottom {
       font-size: 8px;
     }
- 
