@@ -80,7 +80,7 @@ layers:
   - '}'
   - ' '
   - ' '
-  - '&F14'
+  - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
   - {t: ⤒ Pos1, type: held}
   - {t: ⤓ End, type: held}
