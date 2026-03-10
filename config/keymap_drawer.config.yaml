@@ -117,14 +117,4 @@ parse_config:
 draw_config:
   dark_mode: true
   n_columns: 1
-  # Wir nutzen die Standard-Attribute des Drawers, die garantiert ziehen:
-  label_font_size: 14
-  secondary_font_size: 8
-  # Wir versuchen das CSS direkt in den svg_style zurückzuholen, 
-  # aber OHNE die dy-Befehle, die den Python-Error ausgelöst haben.
-  svg_style: |
-    g.key.remove_me { display: none; }
-    text { 
-      fill: white !important; 
-      dominant-baseline: middle !important; 
-    }
+  width: 1200
