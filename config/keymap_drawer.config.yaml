@@ -118,30 +118,30 @@ draw_config:
   dark_mode: true
   n_columns: 1
   # HIER muss das CSS rein:
-  svg_extra_config:
-    width: 1000
-    style: |
-      /* 1. Randtasten weg */
-      g.key.remove_me { display: none; }
+svg_extra_config:
+  width: 1000
+  style: |
+    /* 1. Randtasten weg */
+    g.key.remove_me { display: none; }
 
-      /* 2. Grundtext */
-      text {
-        fill: white;
-        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 14px;
-      }
+    /* 2. Grundtext */
+    text {
+      fill: white;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 14px;
+    }
 
-      /* 3. HAUPTBUCHSTABEN ZENTRIEREN */
-      /* Wir schieben sie ca. 3.5 Pixel nach unten (0.25em) */
-      .key text:not(.side) {
-        dy: 0.25em;
-      }
+    /* 3. HAUPTBUCHSTABEN ZENTRIEREN */
+    /* Wir schieben sie ca. 3.5 Pixel nach unten (0.25em) */
+    .key text:not(.side) {
+      dy: 0.25em;
+    }
 
-      /* 4. SIDE-LEGENDS (@, €, etc.) */
-      text.side {
-        font-size: 8px;
-        fill: #cccccc;
-      }
-      /* Oben ein Stück runter, unten ein Stück rauf */
-      text.side.tl, text.side.tr { dy: 0.1em; }
-      text.side.bl, text.side.br { dy: -0.1em; }
+    /* 4. SIDE-LEGENDS (@, €, etc.) */
+    text.side {
+      font-size: 8px;
+      fill: #cccccc;
+    }
+    /* Oben ein Stück runter, unten ein Stück rauf */
+    text.side.tl, text.side.tr { dy: 0.1em; }
+    text.side.bl, text.side.br { dy: -0.1em; }
