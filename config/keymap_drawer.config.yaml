@@ -1,9 +1,3 @@
-layout:
-  # Das erzwingt ein 5-Spalten Corne Layout (3x5_3)
-  qmk_keyboard: crkbd/rev1
-  qmk_layout: LAYOUT_split_3x5_3
-
-  
 parse_config:
   raw_binding_map:
     
