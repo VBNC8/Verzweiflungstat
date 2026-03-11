@@ -92,7 +92,7 @@
             #binding-cells = <0>;
             tapping-term-ms = <5000>;
             flavor = "tap-preferred";
-            bindings = <&macro_bt_clr>, <&kp F14>; 
+            bindings = <&macro_bt_clr &kp F14>; 
         };
     };
 
