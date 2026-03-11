@@ -117,7 +117,7 @@ parse_config:
     "&rgb_ug RGB_HUD": {t: "$$mdi:palette-swatch-outline$$", s: "Hue-"}
 
     # --- BLUETOOTH & SYSTEM ---
-    "&enc_bt_clr": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
+    "hold_bt_clr": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
     "&bt_off": {t: "$$mdi:bluetooth-off$$"}
     "&usb_on": "$$mdi:usb$$"
     "&kp LA(F4)": "✕"
