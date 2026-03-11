@@ -113,7 +113,7 @@
 
         raise_layer {
             bindings = <
-&none  &kp GRAVE    &kp RA(N2)  &kp RA(N3)    &durchmesser       &smiley               &kp LS(N2)      &kp LBKT       &kp RA(MINUS)  &kp SEMI   &&trans      &none
+&none  &kp GRAVE    &kp RA(N2)  &kp RA(N3)    &durchmesser       &smiley               &kp LS(N2)      &kp LBKT       &kp RA(MINUS)  &kp SEMI   &trans      &none
 &none  &kp SQT      &kp MINUS   &mkp RCLK     &mkp LCLK          &kp LS(N1)            &kp UP          &kp LEFT       &kp DOWN       &kp RIGHT  &kp RBKT     &none
 &none  &kp RA(SQT)  &kp PLUS    &kp RA(RBKT)  &kp LS(N8)         &kp LS(N9)            &kp LS(MINUS)   &kp RA(N7)     &kp RA(N8)     &kp RA(N9) &kp RA(N0)   &none
                                 &kp F14       &kp LC(LS(ESC))    &trans                &trans          &nbsp          &trans
