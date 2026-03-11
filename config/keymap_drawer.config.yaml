@@ -1,8 +1,6 @@
 
 parse_config:
   raw_binding_map:
-    "&trans": " "           # Macht &trans komplett leer/unsichtbar
-    #"&none": " "            # Macht &none komplett leer/unsichtbar
     
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower"}
@@ -22,6 +20,7 @@ parse_config:
     "&kp F14": {t: " ", type: "ghost"}
     "&kp F15": {t: " ", type: "remove_me"}
     "&f10_ghost": {t: "F10", type: "ghost"} 
+    "&kp F15": {t: " ", type: "hidden"}
     "&kp F11": "RGB"
 
     # --- MATH CODES (NUMPAD) ---
@@ -125,10 +124,8 @@ draw_config:
   dark_mode: true
   n_columns: 1
   width: 1200
-  label_font_size: 14
-  secondary_font_size: 9
   svg_style: |
-    /* Nur Tasten ausblenden, in denen F15 oder F14 steht */
-    g.key:has(text:contains("F15")),
+    /* Löscht nur Tasten vom Typ 'hidden' */
+    rect.hidden, g.hidden {
       display: none !important;
     }
