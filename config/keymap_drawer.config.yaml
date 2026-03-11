@@ -19,10 +19,15 @@ parse_config:
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
+    "&kp LS(N1)": "!"
     "&kp LS(N2)": '"'
+    "&kp LS(N7)": "/"
     "&kp LS(N8)": "("
     "&kp LS(N9)": ")"
-    
+    "&kp LS(N0)": "="
+    "&kp LS(MINUS)": "?"
+    "&kp LS(DOT)": ":"
+     
     # --- MATH CODES (NUMPAD) ---
     "&kp KP_PLUS": "+"
     "&kp KP_MINUS": "-"
