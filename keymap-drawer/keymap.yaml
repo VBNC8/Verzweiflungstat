@@ -101,7 +101,7 @@ layers:
   - /
   - '='
   - t: ' '
-    type: ghost
+    h: $$mdi:bluetooth-off$$
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
