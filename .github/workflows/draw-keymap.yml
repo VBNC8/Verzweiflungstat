@@ -23,27 +23,26 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # 1. Normal parsen (42 Tasten)
+          # 1. Parsen (ignoriert erst mal, wo die Combos liegen)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
           
-          # 2. Python-Skript zum Beschneiden und Layout-Wechsel
           python3 - <<EOF
           import yaml
           with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
           
-          # Layout auf 3x5_3 umstellen
+          # Layout-Wechsel auf das schmale 3x5_3
           data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
           
-          # Randtasten in jedem Layer entfernen
-          # Wir entfernen Indizes 35, 24, 23, 12, 11, 0 (von hinten nach vorne)
+          # Randtasten löschen (42 -> 36)
           for layer in data['layers'].values():
               for idx in [35, 24, 23, 12, 11, 0]:
-                  if len(layer) > idx:
-                      layer.pop(idx)
+                  if len(layer['keys']) > idx:
+                      layer['keys'].pop(idx)
           
-          # Combos entfernen (da die Indizes nach dem Löschen nicht mehr stimmen)
-          data['combos'] = []
+          # Wir lassen die Combos einfach so, wie sie aus der .keymap kommen.
+          # Da du dort <31 32> geschrieben hast, landen sie im 36er Layout 
+          # jetzt exakt auf den Daumentasten.
           
           with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
