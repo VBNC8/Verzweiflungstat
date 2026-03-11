@@ -26,10 +26,14 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Parsen ohne Layout-Zwang (verhindert den AssertionError)
+          # 1. Normal parsen (verhindert den AssertionError)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          
-          # 2. Zeichnen mit dem erzwungenen 5-Spalten Layout
+
+          # 2. Die Randtasten (F15) physisch aus der YAML löschen (Indizes 0, 11, 12, 23, 24, 35)
+          # Wir nutzen yq, um die Layer-Arrays zu beschneiden
+          yq -i '.layers[].keys |= (del(.[35]) | del(.[24]) | del(.[23]) | del(.[12]) | del(.[11]) | del(.[0]))' keymap.yaml
+
+          # 3. Jetzt zeichnen mit dem 5-Spalten Layout (3x5_3 passt jetzt perfekt zu den 36 Rest-Tasten)
           keymap -c config/keymap_drawer.config.yaml draw -l crkbd/rev1:LAYOUT_split_3x5_3 keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
