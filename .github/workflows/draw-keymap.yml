@@ -26,14 +26,16 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Normal parsen (erzeugt keymap.yaml mit 42 Tasten)
+          # 1. Normal parsen (erzeugt keymap.yaml mit allen Tasten)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
 
-          # 2. Das Layout in der YAML Datei hart auf 5-Spalten (3x5_3) umbiegen
-          # Wir löschen das alte Layout und setzen das neue crkbd 3x5_3 Layout
+          # 2. Das Layout in der YAML auf 5-Spalten umstellen
           yq -i '.layout = {"qmk_keyboard": "crkbd/rev1", "qmk_layout": "LAYOUT_split_3x5_3"}' keymap.yaml
 
-          # 3. Zeichnen (Der Drawer nimmt jetzt nur die Tasten, die ins 5-Spalten-Raster passen)
+          # 3. Combos radikal entfernen, um Validierungsfehler zu vermeiden
+          yq -i 'del(.combos)' keymap.yaml
+
+          # 4. Zeichnen ohne CSS (Fonts sollten jetzt wieder zentriert sein)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
