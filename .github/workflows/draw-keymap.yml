@@ -22,21 +22,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install tree-sitter==0.21.3 keymap-drawer
-          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
 
       - name: Draw Only
         run: |
-          # Wir geben den genauen Pfad zur Datei an
-          # Falls die Datei direkt im Hauptordner liegt, lass das "keymap-drawer/" weg
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > splitkb_aurora_corne.svg
-          
+          # Zeichne direkt aus dem Ordner in den Ordner
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
+
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          mkdir -p keymap-drawer
-          mv keymap.yaml keymap-drawer/
-          mv splitkb_aurora_corne.svg keymap-drawer/
-          git add keymap-drawer/*.yaml keymap-drawer/*.svg
-          git commit -m "Update keymap drawer with RGB combo fix" || exit 0
+          # Wir brauchen kein 'mv' mehr, da die Datei schon im richtigen Ordner landet
+          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
+          git commit -m "Update keymap SVG from manual yaml" || exit 0
           git push
