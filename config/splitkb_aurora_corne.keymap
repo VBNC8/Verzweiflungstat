@@ -154,7 +154,7 @@
 &none  &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &rgb_ug RGB_BRI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI    &trans     &trans   &trans  &trans  &trans &none
 &none  &trans           &rgb_ug RGB_EFR  &rgb_ug RGB_BRD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD    &trans     &trans   &trans  &trans  &trans &none
 &none  &trans           &trans           &trans           &trans           &trans             &trans     &trans   &trans  &trans  &trans &none
-                                         &bt BT_CLR       &kp F13          &kp F13            &kp F13    &kp F13  &trans  
+                                         &kp F14          &kp F13          &kp F13            &kp F13    &kp F13  &trans  
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp PG_DN PG_UP>;
         };
