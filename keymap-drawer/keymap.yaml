@@ -74,11 +74,11 @@ layers:
   - '|'
   - ' '
   - {t: '#', s: ''''}
-  - '{'
-  - '['
-  - ']'
-  - '}'
-  - ' '
+  - {t: +, s: '*'}
+  - {t: '-', s: _}
+  - Sft+ ]
+  - Sft+ 7
+  - Sft+ 0
   - {t: ' ', type: remove_me}
   - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
@@ -113,15 +113,15 @@ layers:
   - {t: ' ', type: remove_me}
   - {t: ' ', type: remove_me}
   - ´
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
   - '`'
-  - ' '
-  - ' '
   - '~'
+  - ' '
+  - ' '
+  - ' '
+  - '{'
+  - '['
+  - ']'
+  - '}'
   - {t: ' ', type: remove_me}
   - {t: ☻, type: ghost}
   - {t: Task Mgr, type: held}
