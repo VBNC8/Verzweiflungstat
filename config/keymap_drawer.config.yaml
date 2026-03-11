@@ -125,3 +125,10 @@ draw_config:
   dark_mode: true
   n_columns: 1
   width: 1200
+  label_font_size: 14
+  secondary_font_size: 9
+  svg_style: |
+    /* Nur Tasten ausblenden, in denen F15 oder F14 steht */
+    g.key:has(text:contains("F15")),
+      display: none !important;
+    }
