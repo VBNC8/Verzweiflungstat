@@ -26,11 +26,11 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # Nur Layout und ZMK-Quelle angeben, Rest kommt aus der Config
-          keymap -c config/keymap_drawer.config.yaml parse -l crkbd/rev1:LAYOUT_split_3x5_3 -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          # 1. Parsen ohne Layout-Zwang (verhindert den AssertionError)
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # Zeichnen ohne CSS (rettet die Fonts!)
-          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
+          # 2. Zeichnen mit dem erzwungenen 5-Spalten Layout
+          keymap -c config/keymap_drawer.config.yaml draw -l crkbd/rev1:LAYOUT_split_3x5_3 keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
         run: |
