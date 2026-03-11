@@ -24,6 +24,13 @@ parse_config:
     "&f10_ghost": {t: "F10", type: "ghost"} 
     "&kp F11": "RGB"
 
+    # --- MATH CODES (NUMPAD) ---
+    "&kp KP_PLUS": "+"
+    "&kp KP_MINUS": "-"
+    "&kp KP_MULTIPLY": "*"
+    "&kp KP_DIVIDE": "/"
+    "&kp KP_EQUAL": "="
+    
     # --- SYMBOLE & NAVIGATION ---
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
