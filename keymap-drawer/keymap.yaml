@@ -24,7 +24,7 @@ layers:
   - {t: K, h: CTRL}
   - L
   - {t: '-', s: _}
-  - {t: ' ', type: remove_me}
+  - ''
   - {t: ' ', type: remove_me}
   - Z
   - {t: X, h: Alt}
