@@ -26,12 +26,9 @@ jobs:
 
       - name: Draw Only
         run: |
-          # Wir kommentieren das Parsing aus, damit deine manuelle Datei erhalten bleibt
-          # keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-
-          # Wir zeichnen direkt aus deiner vorbereiteten Datei
-          # Falls die Datei in einem Unterordner liegt, passe den Pfad hier an (z.B. keymap-drawer/keymap.yaml)
-          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
+          # Wir geben den genauen Pfad zur Datei an
+          # Falls die Datei direkt im Hauptordner liegt, lass das "keymap-drawer/" weg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
         run: |
