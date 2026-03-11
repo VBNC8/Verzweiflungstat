@@ -26,10 +26,13 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Erzeuge die keymap.yaml
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          # 1. Erzeuge die keymap.yaml mit erzwungenem 5-Spalten-Layout (3x5_3)
+          # Das ignoriert die äußeren Spalten deiner 6-Spalten ZMK Datei.
+          keymap -c config/keymap_drawer.config.yaml parse \
+            -l crkbd/rev1:LAYOUT_split_3x5_3 \
+            -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Zeichne das SVG
+          # 2. Zeichne das SVG (Die Fonts bleiben mittig, da kein CSS mehr stört)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
