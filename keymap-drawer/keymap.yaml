@@ -173,14 +173,14 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: $$mdi:cosine-wave$$
+    s: Mode
+  - t: $$mdi:brightness-7$$
+    s: Bri+
+  - t: $$mdi:palette$$
+    s: Sat+
+  - t: $$mdi:palette-swatch$$
+    s: Hue+
   - ✕
   - t: $$mdi:bluetooth$$
     h: PC
@@ -195,14 +195,14 @@ layers:
     s: ⓸
   - t: $$mdi:bluetooth$$
     s: ⓹
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: $$mdi:cosine-wave$$
+    s: Rev
+  - t: $$mdi:brightness-4$$
+    s: Bri-
+  - t: $$mdi:palette-outline$$
+    s: Sat-
+  - t: $$mdi:palette-swatch-outline$$
+    s: Hue-
   - t: ▽
     type: trans
   - $$mdi:usb$$
@@ -228,93 +228,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ' '
-    type: held
-  rgb:
   - t: $$mdi:lightbulb-on$$
     s: OnOff
-  - t: $$mdi:cosine-wave$$
-    s: Mode
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: $$mdi:cosine-wave$$
-    s: Rev
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - t: $$mdi:palette-outline$$
-    s: Sat-
-  - t: $$mdi:palette-swatch-outline$$
-    s: Hue-
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ' '
-    type: ghost
   - t: ' '
     type: held
-  - t: ' '
-    type: held
-  - t: ' '
-    type: held
-  - t: ' '
-    type: held
-  - t: ▽
-    type: trans
-combos:
-- p:
-  - 31
-  - 32
-  k: RGB
-  l:
-  - rgb
-- p:
-  - 33
-  - 34
-  k: RGB
-  l:
-  - rgb
