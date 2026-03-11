@@ -116,10 +116,9 @@ layers:
     s: °
   - ²
   - ³
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - Ø
+  - t: ☻
+    type: ghost
   - t: ▽
     type: trans
   - Ü
@@ -131,7 +130,8 @@ layers:
     s: '?'
   - 🖱 RMB
   - 🖱 LMB
-  - Ø
+  - t: ▽
+    type: trans
   - UP
   - LEFT
   - DOWN
@@ -151,7 +151,7 @@ layers:
   - '['
   - ']'
   - '}'
-  - t: ☻
+  - t: ' '
     type: ghost
   - t: Task Mgr
     type: held
