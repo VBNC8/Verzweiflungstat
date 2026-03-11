@@ -87,7 +87,7 @@
             #binding-cells = <0>;      // Keine Parameter in der Keymap nötig
             tapping-term-ms = <5000>;  // 5 Sekunden
             flavor = "tap-preferred";
-            bindings = <&bt BT_CLR>, <&kp F14>; // Befehle fest eingebaut
+            bindings = <&bt BT_CLR &kp F14>; // Befehle fest eingebaut
         };
     };
 
