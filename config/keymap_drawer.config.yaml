@@ -125,16 +125,3 @@ draw_config:
   dark_mode: true
   n_columns: 1
   width: 1200
-  label_font_size: 14
-  secondary_font_size: 9
-  svg_style: |
-    /* Randtasten F15 komplett entfernen */
-    g.key.remove_me {
-      display: none !important;
-    }
-
-    /* Nur die Grundfarbe fixieren, keine dy-Experimente */
-    text {
-      fill: #ffffff !important;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
