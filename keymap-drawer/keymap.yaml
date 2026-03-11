@@ -114,10 +114,8 @@ layers:
   raise:
   - t: ^
     s: °
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ²
+  - ³
   - t: ▽
     type: trans
   - t: ▽
@@ -167,8 +165,10 @@ layers:
     type: trans
   adjust:
   - $$mdi:bluetooth-off$$
-  - ²
-  - ³
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
