@@ -27,11 +27,11 @@ jobs:
       - name: Parse and Draw
         run: |
           # 1. Erzeuge die keymap.yaml
-          # Wir fügen -n hinzu, um die 5 Layer korrekt zu benennen
+          # Die Reihenfolge ist entscheidend: keymap [global-config] parse [parse-options]
           keymap -c config/keymap_drawer.config.yaml parse \
+            -z config/splitkb_aurora_corne.keymap \
             -l crkbd/rev1:LAYOUT_split_3x5_3 \
-            -n default lower raise adjust rgb \
-            -z config/splitkb_aurora_corne.keymap > keymap.yaml
+            -n default lower raise adjust rgb > keymap.yaml
           
           # 2. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
