@@ -27,11 +27,8 @@ jobs:
       - name: Parse and Draw
         run: |
           # 1. Erzeuge die keymap.yaml
-          # Wir lassen -n (Namen) weg, damit das Tool sie automatisch aus der .keymap liest.
-          # Wir erzwingen nur das 5-Spalten-Layout (3x5_3).
-          keymap -c config/keymap_drawer.config.yaml parse \
-            -l crkbd/rev1:LAYOUT_split_3x5_3 \
-            -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          # Wir geben die 5 Namen explizit an, damit sie zu den 5 Layern passen
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap -l crkbd/rev1:LAYOUT_split_3x5_3 -n default lower raise adjust rgb > keymap.yaml
           
           # 2. Zeichne das SVG
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
