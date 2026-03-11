@@ -293,7 +293,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - BT CLR
+  - t: ' '
+    type: ghost
   - t: ' '
     type: held
   - t: ' '
