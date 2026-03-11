@@ -26,15 +26,15 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Normal parsen (verhindert den AssertionError)
+          # 1. Normal parsen (erzeugt keymap.yaml mit 42 Tasten)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
 
-          # 2. Die Randtasten (F15) physisch aus der YAML löschen (Indizes 0, 11, 12, 23, 24, 35)
-          # Wir nutzen yq, um die Layer-Arrays zu beschneiden
-          yq -i '.layers[].keys |= (del(.[35]) | del(.[24]) | del(.[23]) | del(.[12]) | del(.[11]) | del(.[0]))' keymap.yaml
+          # 2. Das Layout in der YAML Datei hart auf 5-Spalten (3x5_3) umbiegen
+          # Wir löschen das alte Layout und setzen das neue crkbd 3x5_3 Layout
+          yq -i '.layout = {"qmk_keyboard": "crkbd/rev1", "qmk_layout": "LAYOUT_split_3x5_3"}' keymap.yaml
 
-          # 3. Jetzt zeichnen mit dem 5-Spalten Layout (3x5_3 passt jetzt perfekt zu den 36 Rest-Tasten)
-          keymap -c config/keymap_drawer.config.yaml draw -l crkbd/rev1:LAYOUT_split_3x5_3 keymap.yaml > splitkb_aurora_corne.svg
+          # 3. Zeichnen (Der Drawer nimmt jetzt nur die Tasten, die ins 5-Spalten-Raster passen)
+          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
         run: |
