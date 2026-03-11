@@ -130,8 +130,7 @@ layers:
     s: '?'
   - 🖱 RMB
   - 🖱 LMB
-  - t: ▽
-    type: trans
+  - '!'
   - UP
   - LEFT
   - DOWN
@@ -143,8 +142,7 @@ layers:
   - '~'
   - (
   - )
-  - t: ▽
-    type: trans
+  - '?'
   - '{'
   - '['
   - ']'
