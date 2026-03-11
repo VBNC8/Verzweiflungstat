@@ -2,7 +2,7 @@
 parse_config:
   raw_binding_map:
     "&trans": " "           # Macht &trans komplett leer/unsichtbar
-    "&none": " "            # Macht &none komplett leer/unsichtbar
+    #"&none": " "            # Macht &none komplett leer/unsichtbar
     
     # --- LAYER KEYS (ROT) ---
     "&lt 1 TAB": {t: "⇥", h: "Lower"}
