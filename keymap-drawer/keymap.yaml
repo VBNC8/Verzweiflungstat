@@ -220,7 +220,7 @@ layers:
   - ⏭
   - t: ▽
     type: trans
-  - t: F10
+  - t: ' '
     type: ghost
   - t: ▽
     type: trans
