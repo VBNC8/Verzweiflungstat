@@ -304,4 +304,16 @@ layers:
     type: held
   - t: ▽
     type: trans
-combos: []
+combos:
+- p:
+  - 31
+  - 32
+  k: RGB
+  l:
+  - rgb
+- p:
+  - 33
+  - 34
+  k: RGB
+  l:
+  - rgb
