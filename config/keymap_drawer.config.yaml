@@ -124,8 +124,3 @@ draw_config:
   dark_mode: true
   n_columns: 1
   width: 1200
-  svg_style: |
-    /* Löscht nur Tasten vom Typ 'hidden' */
-    rect.hidden, g.hidden {
-      display: none !important;
-    }
