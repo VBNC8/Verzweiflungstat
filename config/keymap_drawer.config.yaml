@@ -81,7 +81,7 @@ parse_config:
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
 
     # --- SONSTIGES ---
-    "&smiley": {t: "☻", type: "ghost"}
+    "&smiley": {t: "☻"}
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
