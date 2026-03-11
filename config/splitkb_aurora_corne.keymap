@@ -42,10 +42,11 @@
           #binding-cells = <0>; wait-ms = <30>; 
           tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
         };
-        macro_bt_clr: macro_bt_clr {
+        // Ein Makro mit eingebauter Verzögerung
+        hold_bt_clr: hold_bt_clr {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <0>;
+            wait-ms = <5000>; // Warte 5 Sekunden
             tap-ms = <0>;
             bindings = <&bt BT_CLR>;
         };
@@ -85,16 +86,6 @@
             #sensor-binding-cells = <2>; // Wir erlauben wieder 2 Parameter
             bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
             tap-ms = <20>;
-        };
-
-        // Ein spezieller Hold-Tap NUR für BT_CLR und F14
-        enc_bt_clr: enc_bt_clr {
-            compatible = "zmk,behavior-hold-tap";
-            label = "ENCODER_BT_CLEAR";
-            #binding-cells = <0>;      // Wichtig: 0 Zellen, da Makro und Key feststehen
-            tapping-term-ms = <5000>;  // Die gewünschten 5 Sekunden
-            flavor = "tap-preferred";
-            bindings = <&macro_bt_clr &kp F14>; // Halten: Makro | Tippen: F14
         };
     };
 
