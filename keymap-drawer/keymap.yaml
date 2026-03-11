@@ -1,7 +1,7 @@
 layout: {qmk_keyboard: corne_rotated, qmk_layout: LAYOUT_split_3x6_3}
 layers:
   default:
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: Q, s: '@'}
   - W
   - {t: E, s: €}
@@ -13,7 +13,7 @@ layers:
   - O
   - P
   - {t: P, h: Lower}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - A
   - S
   - {t: D, h: CTRL}
@@ -25,7 +25,7 @@ layers:
   - L
   - {t: '-', s: _}
   - ''
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - Z
   - {t: X, h: Alt}
   - C
@@ -36,7 +36,7 @@ layers:
   - ','
   - {t: ., s: AltGr}
   - ⌦
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: ⏯, type: ghost}
   - {t: ESC, h: Raise}
   - {t: ⇥, h: Lower}
@@ -44,7 +44,7 @@ layers:
   - {t: ␣, h: Raise}
   - {t: ⌫, h: Adjust}
   lower:
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - F1
   - F2
   - F3
@@ -55,8 +55,8 @@ layers:
   - F8
   - F9
   - F10
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - {t: '1', s: '!'}
   - {t: '2', s: '"'}
   - {t: '3', s: §}
@@ -67,39 +67,39 @@ layers:
   - {t: '8', s: (}
   - {t: '9', s: )}
   - {t: '0', s: '='}
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - {t: <, s: '>'}
-  - ' '
+  - {t: ▽, type: trans}
   - '|'
-  - ' '
+  - {t: ▽, type: trans}
   - {t: '#', s: ''''}
   - +
   - '-'
   - '*'
   - /
   - '='
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
   - {t: ⤒ Pos1, type: held}
   - {t: ⤓ End, type: held}
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   raise:
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: ^, s: °}
   - µ
   - €
-  - ' '
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - Ü
   - \
   - Ö
   - '='
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - Ä
   - {t: ß, s: '?'}
   - 🖱 RMB
@@ -110,111 +110,111 @@ layers:
   - DOWN
   - RIGHT
   - {t: +, s: '*'}
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - ´
   - '`'
   - '~'
-  - ' '
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - '{'
   - '['
   - ']'
   - '}'
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: ☻, type: ghost}
   - {t: Task Mgr, type: held}
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: '&nbsp', type: held}
-  - ' '
+  - {t: ▽, type: trans}
   adjust:
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - $$mdi:bluetooth-off$$
   - ²
   - ³
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - ✕
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - {t: '$$mdi:bluetooth$$', h: PC, s: ⓵}
   - {t: '$$mdi:bluetooth$$', h: S8, s: ⓶}
   - {t: '$$mdi:bluetooth$$', h: Zbook, s: ⓷}
   - {t: '$$mdi:bluetooth$$', s: ⓸}
   - {t: '$$mdi:bluetooth$$', s: ⓹}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
   - $$mdi:usb$$
   - Pwr±
   - Pwr+
-  - ' '
-  - ' '
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - ⏮
   - ⏭
-  - ' '
-  - {t: ' ', type: remove_me}
+  - {t: ▽, type: trans}
+  - {t: ' ', type: hidden}
   - {t: F10, type: ghost}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ' ', type: held}
   rgb:
-  - {t: ' ', type: remove_me}
+  - {t: ' ', type: hidden}
   - {t: '$$mdi:lightbulb-on$$', s: OnOff}
   - {t: '$$mdi:cosine-wave$$', s: Mode}
   - {t: '$$mdi:brightness-7$$', s: Bri+}
   - {t: '$$mdi:palette$$', s: Sat+}
   - {t: '$$mdi:palette-swatch$$', s: Hue+}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
-  - ' '
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
+  - {t: ▽, type: trans}
   - {t: '$$mdi:cosine-wave$$', s: Rev}
   - {t: '$$mdi:brightness-4$$', s: Bri-}
   - {t: '$$mdi:palette-outline$$', s: Sat-}
   - {t: '$$mdi:palette-swatch-outline$$', s: Hue-}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - {t: ' ', type: remove_me}
-  - {t: ' ', type: remove_me}
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - ' '
-  - {t: ' ', type: remove_me}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ' ', type: hidden}
+  - {t: ' ', type: hidden}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ' ', type: hidden}
   - {t: '$$mdi:bluetooth-off$$', s: CLR, type: ghost}
   - {t: ' ', type: held}
   - {t: ' ', type: held}
   - {t: ' ', type: held}
   - {t: ' ', type: held}
-  - ' '
+  - {t: ▽, type: trans}
 combos:
 - p: [37, 38]
   k: RGB
