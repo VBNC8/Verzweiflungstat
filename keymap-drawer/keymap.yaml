@@ -117,8 +117,7 @@ layers:
   - ²
   - ³
   - Ø
-  - t: ☻
-    type: ghost
+  - ☻
   - t: ▽
     type: trans
   - Ü
