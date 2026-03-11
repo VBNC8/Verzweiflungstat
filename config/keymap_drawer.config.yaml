@@ -1,4 +1,8 @@
 parse_config:
+  layer_names: ["default", "lower", "raise", "adjust", "rgb"] # Exakt 5 Namen
+  raw_binding_map:
+    "&lt 1 TAB": {t: "⇥", h: "Lower"} 
+    
   raw_binding_map:
     
     # --- LAYER KEYS (ROT) ---
