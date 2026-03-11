@@ -27,17 +27,7 @@ jobs:
       - name: Parse and Draw
         run: |
           # 1. Normal parsen
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-
-          # 2. Die Randtasten löschen (neue yq-Syntax)
-          # Wir gehen jeden Layer einzeln durch und löschen die Indizes
-          yq -i '.layers |= map(.keys |= (del(.[35]) | del(.[24]) | del(.[23]) | del(.[12]) | del(.[11]) | del(.[0])))' keymap.yaml
-
-          # 3. Layout auf 3x5_3 umstellen
-          yq -i '.layout = {"qmk_keyboard": "crkbd/rev1", "qmk_layout": "LAYOUT_split_3x5_3"}' keymap.yaml
-
-          # 4. Combos entfernen
-          yq -i 'del(.combos)' keymap.yaml
+          # keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
 
           # 5. Zeichnen
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
