@@ -958,14 +958,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g class="combo combopos-0">
-<rect rx="6" ry="6" x="248" y="206" width="28" height="26" class="combo"/>
-<text x="262" y="219" class="combo tap">RGB</text>
-</g>
-<g class="combo combopos-1">
-<rect rx="6" ry="6" x="452" y="206" width="28" height="26" class="combo"/>
-<text x="466" y="219" class="combo tap">RGB</text>
-</g>
 </g>
 </g>
 </svg>
