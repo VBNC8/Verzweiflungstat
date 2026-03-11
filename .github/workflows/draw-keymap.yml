@@ -27,7 +27,7 @@ jobs:
       - name: Parse and Draw
         run: |
           # 1. Normal parsen
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
+          # keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
 
           # 5. Zeichnen
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
