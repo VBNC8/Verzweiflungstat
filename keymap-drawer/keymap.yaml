@@ -74,11 +74,11 @@ layers:
   - '|'
   - ' '
   - {t: '#', s: ''''}
-  - KP PLUS
-  - KP MINUS
-  - KP MULTIPLY
-  - KP DIVIDE
-  - KP EQUAL
+  - +
+  - '-'
+  - '*'
+  - /
+  - '='
   - {t: ' ', type: remove_me}
   - {t: ' ', type: ghost}
   - $$mdi:microsoft-windows-classic$$
