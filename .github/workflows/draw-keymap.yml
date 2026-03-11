@@ -23,7 +23,7 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # 1. Parsen (ignoriert erst mal, wo die Combos liegen)
+          # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
           
           python3 - <<EOF
@@ -35,19 +35,29 @@ jobs:
           data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
           
           # Randtasten löschen (42 -> 36)
-          for layer in data['layers'].values():
+          # Wir unterstützen beide Formate: {'layer_name': {'keys': []}} oder {'layer_name': []}
+          layers = data.get('layers', {})
+          for name, layer in layers.items():
+              # Falls der Layer direkt eine Liste von Keys ist
+              if isinstance(layer, list):
+                  keys_list = layer
+              # Falls der Layer ein Dict mit dem Key 'keys' ist
+              elif isinstance(layer, dict) and 'keys' in layer:
+                  keys_list = layer['keys']
+              else:
+                  continue
+                  
               for idx in [35, 24, 23, 12, 11, 0]:
-                  if len(layer['keys']) > idx:
-                      layer['keys'].pop(idx)
+                  if len(keys_list) > idx:
+                      keys_list.pop(idx)
           
-          # Wir lassen die Combos einfach so, wie sie aus der .keymap kommen.
-          # Da du dort <31 32> geschrieben hast, landen sie im 36er Layout 
-          # jetzt exakt auf den Daumentasten.
-          
+          # Sicherstellen, dass der Zielordner existiert
+          import os
+          os.makedirs('keymap-drawer', exist_ok=True)
+
           with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
           EOF
-
       - name: Draw SVG
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
