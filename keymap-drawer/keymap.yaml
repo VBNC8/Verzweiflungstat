@@ -100,7 +100,9 @@ layers:
   - '*'
   - /
   - '='
-  - '&hold_bt_clr'
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: ghost
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
