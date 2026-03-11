@@ -114,8 +114,10 @@ layers:
   raise:
   - t: ^
     s: °
-  - µ
-  - €
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
