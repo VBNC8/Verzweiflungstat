@@ -26,16 +26,20 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Normal parsen (erzeugt keymap.yaml mit allen Tasten)
+          # 1. Normal parsen (erzeugt 42 Tasten)
           keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
 
-          # 2. Das Layout in der YAML auf 5-Spalten umstellen
+          # 2. Die Randtasten aus JEDEM Layer löschen (Indizes von hinten nach vorne löschen!)
+          # Das reduziert die Tastenanzahl von 42 auf 36 pro Layer.
+          yq -i '.layers[].keys |= (del(.[35]) | del(.[24]) | del(.[23]) | del(.[12]) | del(.[11]) | del(.[0]))' keymap.yaml
+
+          # 3. Das Layout auf 5-Spalten (3x5_3) umstellen
           yq -i '.layout = {"qmk_keyboard": "crkbd/rev1", "qmk_layout": "LAYOUT_split_3x5_3"}' keymap.yaml
 
-          # 3. Combos radikal entfernen, um Validierungsfehler zu vermeiden
+          # 4. Combos entfernen (um sicherzugehen)
           yq -i 'del(.combos)' keymap.yaml
 
-          # 4. Zeichnen ohne CSS (Fonts sollten jetzt wieder zentriert sein)
+          # 5. Zeichnen (Jetzt sind es exakt 36 Tasten - Match!)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
