@@ -26,11 +26,10 @@ jobs:
 
       - name: Parse and Draw
         run: |
-          # 1. Erzeuge die keymap.yaml
-          # Wir nutzen NUR noch -l für das Layout und -z für die Datei.
+          # Nur Layout und ZMK-Quelle angeben, Rest kommt aus der Config
           keymap -c config/keymap_drawer.config.yaml parse -l crkbd/rev1:LAYOUT_split_3x5_3 -z config/splitkb_aurora_corne.keymap > keymap.yaml
           
-          # 2. Zeichne das SVG
+          # Zeichnen ohne CSS (rettet die Fonts!)
           keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
