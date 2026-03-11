@@ -24,13 +24,14 @@ jobs:
           pip install tree-sitter==0.21.3 keymap-drawer
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
 
-      - name: Parse and Draw
+      - name: Draw Only
         run: |
-          # 1. Normal parsen (Das erzeugt die 42-Tasten Datei)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
-          
-          # 2. Zeichnen versuchen (wir erlauben den Fehler mit "|| true")
-          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg || true
+          # Wir kommentieren das Parsing aus, damit deine manuelle Datei erhalten bleibt
+          # keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > keymap.yaml
+
+          # Wir zeichnen direkt aus deiner vorbereiteten Datei
+          # Falls die Datei in einem Unterordner liegt, passe den Pfad hier an (z.B. keymap-drawer/keymap.yaml)
+          keymap -c config/keymap_drawer.config.yaml draw keymap.yaml > splitkb_aurora_corne.svg
           
       - name: Commit and push
         run: |
