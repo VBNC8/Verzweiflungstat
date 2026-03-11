@@ -94,7 +94,7 @@
             #binding-cells = <0>;      // Wichtig: 0 Zellen, da Makro und Key feststehen
             tapping-term-ms = <5000>;  // Die gewünschten 5 Sekunden
             flavor = "tap-preferred";
-            bindings = <&macro_bt_clr>, <&kp F14>; // Halten: Makro | Tippen: F14
+            bindings = <&macro_bt_clr &kp F14>; // Halten: Makro | Tippen: F14
         };
     };
 
