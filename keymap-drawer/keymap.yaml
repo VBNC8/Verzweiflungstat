@@ -133,8 +133,8 @@ layers:
   - LEFT
   - DOWN
   - RIGHT
-  - t: +
-    s: '*'
+  - t: ▽
+    type: trans
   - ´
   - '`'
   - '~'
