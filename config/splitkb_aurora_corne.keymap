@@ -93,7 +93,9 @@
             flavor = "tap-preferred";
             bindings = <&macro_bt_clr>, <&none>; 
         };
-        combos {
+     };
+
+     combos {
         compatible = "zmk,combos";
 
         // Gänsefüßchen (") auf D und F
