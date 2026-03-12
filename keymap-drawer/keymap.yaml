@@ -91,7 +91,7 @@ layers:
   - t: ▽
     type: trans
   - '|'
-  - Sft+ 4
+  - $
   - t: '#'
     s: ''''
   - +
