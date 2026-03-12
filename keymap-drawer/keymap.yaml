@@ -116,11 +116,14 @@ layers:
   - Ø
   - ☻
   - '"'
-  - Ü
+  - t: ▽
+    type: trans
   - \
   - Ö
-  - ´
-  - Ä
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - ß
   - 🖱 RMB
   - 🖱 LMB
