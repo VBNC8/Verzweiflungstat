@@ -191,7 +191,7 @@
             bindings = <
 &none  &kp GRAVE     &kp RA(N2)       &kp RA(N3)           &durchmesser     &smiley           &trans       &trans        &kp RA(MINUS)  &trans     &trans      &none
 &none  &trans        &trans           &mkp RCLK            &mkp LCLK        &kp LS(N1)        &kp UP       &kp LEFT      &kp DOWN       &kp RIGHT  &kp PLUS    &none
-&none  &kp RA(RBKT)  &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &kp LS(N8)       &kp LS(N9)        &trans       &2_paren      &2_brc         &2_bkt     &trans      &none
+&none  &kp RA(RBKT)  &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &trans           &trans            &trans       &2_paren      &2_brc         &2_bkt     &trans      &none
                                       &kp F14              &kp LC(LS(ESC))  &trans            &trans       &nbsp         &trans
             >;
             sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp PG_DN PG_UP>;
