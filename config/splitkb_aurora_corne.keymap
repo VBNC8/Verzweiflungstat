@@ -18,6 +18,24 @@
     };
 
     macros {
+         2_paren: 2_paren {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp LS(N8)>, <&kp LS(N9)>, <&kp LEFT>;
+        };
+        2_brc: 2_brc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp RA(N7)>, <&kp RA(N0)>, <&kp LEFT>;
+        };
+        2_bkt: 2_bkt {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
+        };
         usb_on: usb_on { 
           compatible = "zmk,behavior-macro"; 
           #binding-cells = <0>; 
@@ -173,7 +191,7 @@
             bindings = <
 &none  &kp GRAVE     &kp RA(N2)       &kp RA(N3)           &durchmesser     &smiley           &kp LS(N2)      &trans         &kp RA(MINUS)  &trans     &trans      &none
 &none  &trans        &trans           &mkp RCLK            &mkp LCLK        &kp LS(N1)        &kp UP          &kp LEFT       &kp DOWN       &kp RIGHT  &kp PLUS    &none
-&none  &kp RA(RBKT)  &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &kp LS(N8)       &kp LS(N9)        &kp LS(MINUS)   &kp RA(N7)     &kp RA(N8)     &kp RA(N9) &kp RA(N0)  &none
+&none  &kp RA(RBKT)  &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &kp LS(N8)       &kp LS(N9)        &trans          &2_paren       &2_brc         &2_bkc     &trans      &none
                                       &kp F14              &kp LC(LS(ESC))  &trans            &trans          &nbsp          &trans
             >;
             sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp PG_DN PG_UP>;
