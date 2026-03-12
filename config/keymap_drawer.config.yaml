@@ -41,7 +41,8 @@ parse_config:
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
     "&kp LGUI": "$$mdi:microsoft-windows-classic$$"
-    "&kp GRAVE": {t: "^", s: "°"}
+    "&kp GRAVE": {t: "^"}
+    "&kp LS(GRAVE)": {t: "°"}
     "&kp PLUS": "`"
 
     # --- ZAHLEN & UMLAUTE ---
