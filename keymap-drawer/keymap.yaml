@@ -228,3 +228,12 @@ layers:
     s: OnOff
   - t: ' '
     type: held
+combos:
+- p:
+  - 15
+  - 16
+  k: '"'
+- p:
+  - 19
+  - 20
+  k: '?'
