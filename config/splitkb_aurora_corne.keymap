@@ -42,17 +42,10 @@
           #binding-cells = <0>; wait-ms = <30>; 
           tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
         };
-        // Ein Makro nur für den BT-Clear Befehl
         macro_bt_clr: macro_bt_clr {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&bt BT_CLR>;
-        };
-        // Ein Makro das einfach gar nichts tut (für den schnellen Tipp)
-        macro_nothing: macro_nothing {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&none>;
         };
     };
 
@@ -91,13 +84,14 @@
             bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
             tap-ms = <20>;
         };
+        // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
             compatible = "zmk,behavior-hold-tap";
             label = "ENCODER_BT_CLEAR";
-            #binding-cells = <0>;
-            tapping-term-ms = <5000>; // Hier greifen die 5 Sekunden wirklich!
+            #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
+            tapping-term-ms = <5000>;  // Deine 5 Sekunden
             flavor = "tap-preferred";
-            bindings = <&macro_bt_clr &macro_nothing>; 
+            bindings = <&macro_bt_clr>, <&none>; 
         };
     };
 
