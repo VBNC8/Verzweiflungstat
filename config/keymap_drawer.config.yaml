@@ -56,7 +56,7 @@ parse_config:
     "&kp N8": {t: "8", s: "("}
     "&kp N9": {t: "9", s: ")"}
     "&kp N0": {t: "0", s: "="}
-    "&kp MINUS": {t: "ß", s: "?"}
+    "&kp MINUS": "ß"
     "&kp SEMI": "Ö"
     "&kp SQT": "Ä"
     "&kp LBKT": "Ü"
@@ -67,6 +67,8 @@ parse_config:
     "&kp RA(Q)": "@"
     "&kp RA(E)": "€"
     "&kp RA(M)": "µ"
+    "&kp RA(P)": "Ö"
+    "&kp RA(Y)": "Ü"
     "&kp RA(MINUS)": "\\"
     "&kp EQUAL": "´"
     "&kp RA(NON_US_BSLH)": "|"
