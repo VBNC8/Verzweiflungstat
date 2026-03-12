@@ -116,6 +116,14 @@
      combos {
         compatible = "zmk,combos";
 
+        // Backslash (\) auf K und L
+        combo_backslash {
+            timeout-ms = <40>;
+            key-positions = <21 22>; // K=21, L=22
+            bindings = <&kp RA(MINUS)>; // AltGr + ß ergibt \ im DE-Layout
+            layers = <0>;
+        };
+
         // Gänsefüßchen (") auf D und F
         combo_quote {
             timeout-ms = <50>;
