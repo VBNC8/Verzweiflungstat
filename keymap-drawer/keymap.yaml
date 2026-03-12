@@ -123,8 +123,7 @@ layers:
   - \
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - ´
   - °
   - t: ▽
     type: trans
@@ -135,7 +134,7 @@ layers:
   - LEFT
   - DOWN
   - RIGHT
-  - '`'
+  - Sft+ \
   - '~'
   - <
   - '>'
@@ -148,8 +147,7 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - t: ▽
-    type: trans
+  - '`'
   - t: ' '
     type: ghost
   - t: Task Mgr
