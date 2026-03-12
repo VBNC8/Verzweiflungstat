@@ -113,6 +113,38 @@
             bindings = <&kp LS(MINUS)>; // In DE-Layout meist LS(_) für ?
             layers = <0>; // Nur auf dem Default Layer aktiv
         };
+       
+        // Ä (A + Z) - Vertikal linker Ringfinger
+        combo_ae {
+            timeout-ms = <50>;
+            key-positions = <13 25>; // A=13, Z=25
+            bindings = <&kp RA(SQT)>;
+            layers = <0>;
+        };
+
+        // Ö (O + L) - Vertikal rechter Ringfinger
+        combo_oe {
+            timeout-ms = <50>;
+            key-positions = <9 21>; // O=9, L=21
+            bindings = <&kp RA(P)>;
+            layers = <0>;
+        };
+
+        // Ü (U + J) - Vertikal rechter Zeigefinger
+        combo_ue {
+            timeout-ms = <50>;
+            key-positions = <7 19>; // U=7, J=19
+            bindings = <&kp RA(Y)>;
+            layers = <0>;
+        };
+
+        // ß (S + X) - Dein SX-Experiment
+        combo_ss {
+            timeout-ms = <50>;
+            key-positions = <14 26>; // S=14, X=26
+            bindings = <&kp MINUS>;
+            layers = <0>;
+        };
     };
 
     keymap {
