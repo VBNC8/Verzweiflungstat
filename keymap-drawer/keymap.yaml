@@ -215,10 +215,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
   - t: $$mdi:lightbulb-on$$
     s: OnOff
+  - t: ▽
+    type: trans
   - t: ' '
     type: held
 combos:
