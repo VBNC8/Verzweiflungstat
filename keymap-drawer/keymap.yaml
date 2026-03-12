@@ -88,8 +88,7 @@ layers:
     s: '='
   - t: <
     s: '>'
-  - t: ▽
-    type: trans
+  - Sft+ 5
   - '|'
   - $
   - t: '#'
