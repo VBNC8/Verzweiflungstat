@@ -231,8 +231,8 @@ layers:
     type: held
 combos:
 - p:
+  - 17
   - 18
-  - 19
   k: \
   l:
   - default
