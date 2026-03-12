@@ -235,3 +235,29 @@ combos:
   k: '?'
   l:
   - default
+- p:
+  - 10
+  - 20
+  k: AGr+ '
+  l:
+  - default
+- p:
+  - 8
+  - 18
+  k: AGr+ P
+  l:
+  - default
+- p:
+  - 6
+  - 16
+  k: AGr+ Y
+  l:
+  - default
+- p:
+  - 11
+  - 21
+  k:
+    t: ß
+    s: '?'
+  l:
+  - default
