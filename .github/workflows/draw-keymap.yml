@@ -34,27 +34,30 @@ jobs:
           # Layout-Wechsel auf das schmale 3x5_3
           data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
           
-          # Randtasten löschen (42 -> 36)
-          # Wir unterstützen beide Formate: {'layer_name': {'keys': []}} oder {'layer_name': []}
+          # Definition der zu löschenden Indizes (Randtasten)
+          deleted_indices = [0, 11, 12, 23, 24, 35]
+          
+          # 2. Layer-Tasten löschen (42 -> 36)
           layers = data.get('layers', {})
           for name, layer in layers.items():
-              # Falls der Layer direkt eine Liste von Keys ist
-              if isinstance(layer, list):
-                  keys_list = layer
-              # Falls der Layer ein Dict mit dem Key 'keys' ist
-              elif isinstance(layer, dict) and 'keys' in layer:
-                  keys_list = layer['keys']
-              else:
-                  continue
-                  
-              for idx in [35, 24, 23, 12, 11, 0]:
+              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
+              for idx in sorted(deleted_indices, reverse=True):
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
           
-          # Sicherstellen, dass der Zielordner existiert
+          # 3. NEU: Combos umrechnen
+          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
+          if 'combos' in data:
+              for combo in data['combos']:
+                  new_positions = []
+                  for pos in combo['p']:
+                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
+                      offset = sum(1 for d in deleted_indices if d < pos)
+                      new_positions.append(pos - offset)
+                  combo['p'] = new_positions
+          
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
-
           with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
           EOF
