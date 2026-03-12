@@ -119,7 +119,7 @@
         // Backslash (\) auf K und L
         combo_backslash {
             timeout-ms = <40>;
-            key-positions = <21 22>; // K=21, L=22
+            key-positions = <20 21>; // K=20, L=21
             bindings = <&kp RA(MINUS)>; // AltGr + ß ergibt \ im DE-Layout
             layers = <0>;
         };
