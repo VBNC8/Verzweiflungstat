@@ -121,8 +121,7 @@ layers:
   - Ü
   - \
   - Ö
-  - t: ▽
-    type: trans
+  - ´
   - Ä
   - t: ß
     s: '?'
@@ -133,11 +132,11 @@ layers:
   - LEFT
   - DOWN
   - RIGHT
-  - t: ▽
-    type: trans
-  - ´
   - '`'
   - '~'
+  - t: <
+    s: '>'
+  - Sft+ |
   - (
   - )
   - '?'
