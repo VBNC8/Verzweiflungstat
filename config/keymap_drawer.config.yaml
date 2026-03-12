@@ -19,6 +19,10 @@ parse_config:
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
+    "&2_paren": "()"
+    "&2_brc": "{}"
+    "&2_bkt": "[]"
+    
     "&kp LS(N1)": "!"
     "&kp LS(N2)": '"'
     "&kp LS(N4)": '$'
