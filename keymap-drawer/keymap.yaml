@@ -121,8 +121,7 @@ layers:
   - Ö
   - ´
   - Ä
-  - t: ß
-    s: '?'
+  - ß
   - 🖱 RMB
   - 🖱 LMB
   - '!'
@@ -244,20 +243,18 @@ combos:
 - p:
   - 8
   - 18
-  k: AGr+ P
+  k: Ö
   l:
   - default
 - p:
   - 6
   - 16
-  k: AGr+ Y
+  k: Ü
   l:
   - default
 - p:
   - 11
   - 21
-  k:
-    t: ß
-    s: '?'
+  k: ß
   l:
   - default
