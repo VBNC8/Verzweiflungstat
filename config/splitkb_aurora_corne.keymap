@@ -103,6 +103,7 @@
             timeout-ms = <50>;
             key-positions = <15 16>; // D und F
             bindings = <&kp LS(N2)>; // In DE-Layout meist LS(2) für "
+            layers = <0>; // Nur auf dem Default Layer aktiv
         };
 
         // Fragezeichen (?) auf J und K
@@ -110,6 +111,7 @@
             timeout-ms = <50>;
             key-positions = <19 20>; // J und K
             bindings = <&kp LS(MINUS)>; // In DE-Layout meist LS(_) für ?
+            layers = <0>; // Nur auf dem Default Layer aktiv
         };
     };
 
