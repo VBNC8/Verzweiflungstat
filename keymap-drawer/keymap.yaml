@@ -142,8 +142,8 @@ layers:
   - )
   - t: ▽
     type: trans
-  - '&2_paren'
-  - '&2_brc'
+  - ()
+  - '{}'
   - '&2_bkc'
   - t: ▽
     type: trans
