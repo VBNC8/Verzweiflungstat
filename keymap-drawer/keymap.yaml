@@ -145,9 +145,9 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - ()
-  - '{}'
-  - '[]'
+  - '&pair_paren'
+  - '&pair_brc'
+  - '&pair_bkt'
   - t: ▽
     type: trans
   - t: ' '
