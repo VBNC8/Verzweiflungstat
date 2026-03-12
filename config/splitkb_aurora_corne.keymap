@@ -118,7 +118,7 @@
         combo_ae {
             timeout-ms = <50>;
             key-positions = <13 25>; // A=13, Z=25
-            bindings = <&kp RA(SQT)>;
+            bindings = <&kp SQT>;
             layers = <0>;
         };
 
@@ -126,7 +126,7 @@
         combo_oe {
             timeout-ms = <50>;
             key-positions = <9 21>; // O=9, L=21
-            bindings = <&kp RA(P)>;
+            bindings = <&kp SEMI>;
             layers = <0>;
         };
 
@@ -134,7 +134,7 @@
         combo_ue {
             timeout-ms = <50>;
             key-positions = <7 19>; // U=7, J=19
-            bindings = <&kp RA(Y)>;
+            bindings = <&kp LBKT>;
             layers = <0>;
         };
 
