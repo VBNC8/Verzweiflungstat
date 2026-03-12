@@ -138,10 +138,10 @@
             layers = <0>;
         };
 
-        // ß (S + X) - Dein SX-Experiment
+        // ß (W + S) - Vertikal nach oben (Linker Ringfinger)
         combo_ss {
             timeout-ms = <50>;
-            key-positions = <14 26>; // S=14, X=26
+            key-positions = <2 14>; // W=2, S=14
             bindings = <&kp MINUS>;
             layers = <0>;
         };
