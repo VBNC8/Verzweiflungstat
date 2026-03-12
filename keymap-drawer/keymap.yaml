@@ -253,8 +253,8 @@ combos:
   l:
   - default
 - p:
+  - 1
   - 11
-  - 21
   k: ß
   l:
   - default
