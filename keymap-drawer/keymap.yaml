@@ -115,7 +115,8 @@ layers:
   - ³
   - Ø
   - ☻
-  - '"'
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - \
