@@ -93,6 +93,22 @@
             flavor = "tap-preferred";
             bindings = <&macro_bt_clr>, <&none>; 
         };
+        combos {
+        compatible = "zmk,combos";
+
+        // Gänsefüßchen (") auf D und F
+        combo_quote {
+            timeout-ms = <50>;
+            key-positions = <15 16>; // D und F
+            bindings = <&kp LS(N2)>; // In DE-Layout meist LS(2) für "
+        };
+
+        // Fragezeichen (?) auf J und K
+        combo_question {
+            timeout-ms = <50>;
+            key-positions = <19 20>; // J und K
+            bindings = <&kp LS(MINUS)>; // In DE-Layout meist LS(_) für ?
+        };
     };
 
     keymap {
