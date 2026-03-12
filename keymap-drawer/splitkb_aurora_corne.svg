@@ -335,9 +335,7 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g class="combo combopos-2">
 <rect rx="6" ry="6" x="14" y="120" width="28" height="26" class="combo"/>
-<text x="28" y="133" class="combo tap">
-<tspan x="28" dy="-0.6em">AGr+</tspan><tspan x="28" dy="1.2em">&#x27;</tspan>
-</text>
+<text x="28" y="133" class="combo tap">Ä</text>
 </g>
 <g class="combo combopos-3">
 <rect rx="6" ry="6" x="630" y="50" width="28" height="26" class="combo"/>
