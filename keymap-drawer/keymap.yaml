@@ -134,7 +134,7 @@ layers:
   - LEFT
   - DOWN
   - RIGHT
-  - Sft+ \
+  - ''''
   - '~'
   - <
   - '>'
