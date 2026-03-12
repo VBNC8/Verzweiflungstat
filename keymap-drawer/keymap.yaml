@@ -119,12 +119,14 @@ layers:
   - t: ▽
     type: trans
   - \
-  - Ö
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - ß
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - 🖱 RMB
   - 🖱 LMB
   - '!'
