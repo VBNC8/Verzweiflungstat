@@ -181,10 +181,10 @@
             layers = <0>; // Nur auf dem Default Layer aktiv
         };
        
-        // Ä (A + Z) - Vertikal linker Ringfinger
+        // Ä (A + Z) - Vertikal linker pinkie
         combo_ae {
             timeout-ms = <50>;
-            key-positions = <13 25>; // A=13, Z=25
+            key-positions = <1 13>; // A=13, Q=1
             bindings = <&kp SQT>;
             layers = <0>;
         };
