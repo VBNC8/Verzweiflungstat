@@ -205,7 +205,8 @@ layers:
     type: trans
   - $$mdi:usb$$
   - Pwr±
-  - Pwr+
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
