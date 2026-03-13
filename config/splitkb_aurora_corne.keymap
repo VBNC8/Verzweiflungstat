@@ -21,8 +21,8 @@
          plus_minus: plus_minus {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
+            wait-ms = <40>; // Erhöht auf 40ms für Windows-Stabilität
+            tap-ms = <40>;
             bindings = <&macro_press &kp LALT>, 
                        <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N7 &kp KP_N7>, 
                        <&macro_release &kp LALT>;
