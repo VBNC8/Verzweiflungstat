@@ -116,6 +116,14 @@
      combos {
         compatible = "zmk,combos";
 
+        // CREO: Ctrl+Alt auf X und C (Links unten)
+        combo_creo_mod {
+            timeout-ms = <50>;
+            key-positions = <26 27>; // X=26, C=27
+            bindings = <&kp LC(LALT)>;
+            layers = <0>;
+        };
+
         // Backslash (\) auf K und L
         combo_backslash {
             timeout-ms = <40>;
