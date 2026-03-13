@@ -137,7 +137,7 @@ parse_config:
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
-    "&caps_word": "CAPS\nWORD" # Das \n erzwingt den Zeilenumbruch
+    "&caps_wrd": "CAPS\nWORD" # Das \n erzwingt den Zeilenumbruch
     "&kp LC(LALT)": "CREO\n(C+A)"
 
 draw_config:
