@@ -1,16 +1,1 @@
-/ {
-    my_encoder: encoder {
-        compatible = "alps,ec11";
-        a-gpios = <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <48>;
-        status = "okay";
-    };
 
-    /* Wir sagen ZMK, dass dieser neue 'my_encoder' der aktive Sensor ist */
-    sensors: sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&my_encoder>;
-        triggers-per-rotation = <24>;
-    };
-};
