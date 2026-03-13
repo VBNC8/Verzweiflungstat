@@ -12,18 +12,16 @@
         zmk,underglow = &led_strip;
     };
 
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer { if-layers = <1 2>; then-layer = <4>; };
-    };
-
     macros {
          plus_minus: plus_minus {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp RALT &kp LSHFT>
-                     , <&macro_tap &kp N1>
-                     , <&macro_release &kp RALT &kp LSHFT>;
+            wait-ms = <20>;
+            tap-ms = <20>;
+            bindings = <&kp B &kp N1>
+                     , <&macro_press &kp LALT>
+                     , <&macro_tap &kp X>
+                     , <&macro_release &kp LALT>;
         };
         pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
