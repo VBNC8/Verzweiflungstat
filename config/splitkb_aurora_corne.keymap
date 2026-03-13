@@ -21,14 +21,9 @@
          plus_minus: plus_minus {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <30>;
-            bindings 
-                = <&macro_tap &kp KP_NLCK> // NumLock an
-                , <&macro_press &kp LALT>
-                , <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N7 &kp KP_N7>
-                , <&macro_release &kp LALT>
-                , <&macro_tap &kp KP_NLCK>; // NumLock wieder aus (optional)
+            bindings = <&macro_press &kp RALT &kp LSHFT>
+                     , <&macro_tap &kp N1>
+                     , <&macro_release &kp RALT &kp LSHFT>;
         };
         pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
