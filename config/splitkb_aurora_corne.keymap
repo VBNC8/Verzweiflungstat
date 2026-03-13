@@ -133,6 +133,14 @@
      combos {
         compatible = "zmk,combos";
 
+        // ! (E + D) - Vertikal Mittelfinger
+        combo_excl {
+            timeout-ms = <40>;
+            key-positions = <3 15>;
+            bindings = <&kp LS(N1)>;
+            layers = <0>;
+        };
+
         // Doppelpunkt (:) auf , und .
         combo_colon {
             timeout-ms = <50>;
