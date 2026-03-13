@@ -106,8 +106,7 @@ layers:
     type: held
   - t: ⤓ End
     type: held
-  - t: ▽
-    type: trans
+  - Gui+ D
   - t: ▽
     type: trans
   raise:
