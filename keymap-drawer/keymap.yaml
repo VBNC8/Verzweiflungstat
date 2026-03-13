@@ -232,6 +232,12 @@ layers:
     type: held
 combos:
 - p:
+  - 21
+  - 22
+  k: Ctl+ LALT
+  l:
+  - default
+- p:
   - 17
   - 18
   k: \
