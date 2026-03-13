@@ -232,6 +232,12 @@ layers:
     type: held
 combos:
 - p:
+  - 27
+  - 28
+  k: ':'
+  l:
+  - default
+- p:
   - 21
   - 22
   k: 'CREO
