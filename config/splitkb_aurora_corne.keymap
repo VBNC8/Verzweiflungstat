@@ -261,7 +261,7 @@
 &none  &usb_on       &ext_power EP_TOG  &trans            &trans         &trans              &trans           &trans           &kp C_PREV       &kp C_NEXT       &trans     &none
                                         &kp F14           &trans         &trans              &rgb_ug RGB_TOG  &trans           &kp F12
             >;
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp PG_DN PG_UP>;
+            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>, <&inc_dec_kp PG_DN PG_UP>;
         };
     };
 };
