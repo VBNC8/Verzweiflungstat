@@ -234,7 +234,9 @@ combos:
 - p:
   - 21
   - 22
-  k: Ctl+ LALT
+  k: 'CREO
+
+    (C+A)'
   l:
   - default
 - p:
@@ -246,7 +248,9 @@ combos:
 - p:
   - 13
   - 16
-  k: '&caps_word'
+  k: 'CAPS
+
+    WORD'
   l:
   - default
 - p:
