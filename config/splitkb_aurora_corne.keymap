@@ -124,6 +124,14 @@
             layers = <0>;
         };
 
+        // Caps Word auf beiden Shift-Tasten (F und J)
+        combo_caps_word {
+            timeout-ms = <40>;
+            key-positions = <16 19>; // F=16, J=19
+            bindings = <&caps_word>;
+            layers = <0>;
+        };
+        
         // Gänsefüßchen (") auf D und F
         combo_quote {
             timeout-ms = <50>;
