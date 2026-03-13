@@ -232,6 +232,12 @@ layers:
     type: held
 combos:
 - p:
+  - 2
+  - 12
+  k: '!'
+  l:
+  - default
+- p:
   - 27
   - 28
   k: ':'
