@@ -248,9 +248,7 @@ combos:
 - p:
   - 13
   - 16
-  k: 'CAPS
-
-    WORD'
+  k: '&caps_wrd'
   l:
   - default
 - p:
