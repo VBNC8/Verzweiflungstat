@@ -68,6 +68,14 @@
     };
 
     behaviors {
+        caps_wrd: caps_wrd {
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
+            // Hier habe ich UNDERSCORE hinzugefügt. 
+            // MINUS ist oft auch gut, falls man Kebab-Case schreibt.
+        };
+
         hrm_safe: hrm_safe { 
           compatible = "zmk,behavior-hold-tap"; 
           #binding-cells = <2>; 
@@ -136,7 +144,7 @@
         combo_caps_word {
             timeout-ms = <40>;
             key-positions = <16 19>; // F=16, J=19
-            bindings = <&caps_word>;
+            bindings = <&caps_wrd>;
             layers = <0>;
         };
         
