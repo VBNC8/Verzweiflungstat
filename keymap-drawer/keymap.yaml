@@ -272,8 +272,8 @@ combos:
   l:
   - default
 - p:
+  - 0
   - 10
-  - 20
   k: Ä
   l:
   - default
