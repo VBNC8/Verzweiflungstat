@@ -136,6 +136,9 @@ parse_config:
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
+    "&caps_word": "CAPS\nWORD" # Das \n erzwingt den Zeilenumbruch
+    "&kp LC(LALT)": "CREO\n(C+A)"
+
 draw_config:
   dark_mode: true
   #n_columns: 1
