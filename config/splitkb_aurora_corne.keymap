@@ -133,6 +133,14 @@
      combos {
         compatible = "zmk,combos";
 
+        // Doppelpunkt (:) auf , und .
+        combo_colon {
+            timeout-ms = <50>;
+            key-positions = <32 33>; // Positionen für COMMA und DOT auf dem Corne (bitte prüfen!)
+            bindings = <&kp LS(DOT)>;
+            layers = <0>;
+        };
+
         // CREO: Ctrl+Alt auf X und C (Links unten)
         combo_creo_mod {
             timeout-ms = <50>;
