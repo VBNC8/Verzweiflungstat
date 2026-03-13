@@ -129,7 +129,8 @@ layers:
     type: trans
   - 🖱 RMB
   - 🖱 LMB
-  - '!'
+  - t: ▽
+    type: trans
   - UP
   - LEFT
   - DOWN
