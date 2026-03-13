@@ -41,6 +41,7 @@ parse_config:
     "&kp KP_MULTIPLY": "*"
     "&kp KP_DIVIDE": "/"
     "&kp KP_EQUAL": "="
+    "&plus_minus": "±"
     
     # --- SYMBOLE & NAVIGATION ---
     "&kp BSPC": "⌫"
