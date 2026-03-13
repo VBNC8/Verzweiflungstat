@@ -106,7 +106,8 @@ layers:
     type: held
   - t: ⤓ End
     type: held
-  - Gui+ D
+  - t: $$mdi:monitor$$
+    s: Show
   - t: ▽
     type: trans
   raise:
