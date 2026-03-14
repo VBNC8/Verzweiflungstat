@@ -11,6 +11,6 @@ manifest:
       import: app/west.yml
     - name: zmk-input-behavior-pinnacle
       remote: petejohanson
-      revision: main
+      revision: v1
   self:
     path: config
