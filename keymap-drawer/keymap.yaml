@@ -305,15 +305,3 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 1
-  - 11
-  k: ²
-  l:
-  - lower
-- p:
-  - 2
-  - 12
-  k: ³
-  l:
-  - lower
