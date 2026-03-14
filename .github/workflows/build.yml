@@ -9,16 +9,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: West Init & Clean Update
-        run: |
-          # Lösche alles Alte, falls vorhanden
-          rm -rf .west zmk zephyr modules
-          # Initialisiere West direkt mit dem ZMK-Main Repo
-          west init -m https://github.com/zmkfirmware/zmk --mr main
-          # Kopiere deine Config an die richtige Stelle für West
-          # (Angenommen dein Repo-Inhalt liegt gerade im Root)
-          west update
-          west zephyr-export
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr Export
+        run: west zephyr-export
 
       - name: Build Left
         run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
