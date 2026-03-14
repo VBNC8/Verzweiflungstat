@@ -1,20 +1,45 @@
-steps:
-      - name: Checkout
+name: Vertical Display
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    steps:
+      - name: Checkout User Config
         uses: actions/checkout@v4
         with:
-          path: config # Checkt dein Repo in den Unterordner 'config' aus
+          path: config # Schiebt deine Keymap/Treiber in den Ordner 'config'
 
       - name: West Init
         run: west init -m https://github.com/zmkfirmware/zmk --mr main .
 
-      - name: West Update
+      - name: West Update (Laden der nRF-Boards)
         run: |
-          # Erzwingt das Laden aller Module (auch nrf HAL!)
           west update
           west zephyr-export
 
-      - name: Build Left
-        run: west build -s app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Build Left (Display & Encoder)
+        run: |
+          west build -s app -b nice_nano_v2 -- \
+          -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
+          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: Build Right
-        run: west build -p -s app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Save Left
+        run: cp build/zephyr/zmk.uf2 left.uf2
+
+      - name: Build Right (Cirque Trackpad)
+        run: |
+          west build -p -s app -b nice_nano_v2 -- \
+          -DSHIELD="splitkb_aurora_corne_right" \
+          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Save Right
+        run: cp build/zephyr/zmk.uf2 right.uf2
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-verzweiflungstat
+          path: ./*.uf2
