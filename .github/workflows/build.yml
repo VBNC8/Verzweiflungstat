@@ -1,4 +1,4 @@
-name: Vertical Display
+name: Vertical Display Success
 on: [push, workflow_dispatch]
 
 jobs:
@@ -9,32 +9,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # Wir lassen 'path: config' weg, damit alles im Root landet
+        # Wir lassen den Standard-Checkout ohne Pfad-Angabe
 
       - name: Manual ZMK Setup
         run: |
+          # 1. Wir finden heraus, wo die west.yml wirklich ist und schieben sie in den Root
+          find . -name "west.yml" -exec cp {} . \;
+          
+          # 2. West initialisieren mit der Datei direkt im Root
           west init -l .
+          
+          # 3. ZMK und Module laden
           west update
           west zephyr-export
-          # Kurz checken, wo wir sind (hilft bei Fehlern enorm)
-          ls -d */ 
 
       - name: Build Left
         run: |
-          # Wir probieren den Pfad 'app', falls 'zmk/app' nicht da ist
-          [ -d "zmk/app" ] && APP_DIR="zmk/app" || APP_DIR="app"
-          west build -s $APP_DIR -p -b nice_nano_v2 -- \
+          # ZMK landet durch west update im Ordner 'zmk'
+          west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
       - name: Build Right
         run: |
-          [ -d "zmk/app" ] && APP_DIR="zmk/app" || APP_DIR="app"
-          west build -s $APP_DIR -p -b nice_nano_v2 -- \
+          west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          
-      - name: Upload
+
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: firmware
