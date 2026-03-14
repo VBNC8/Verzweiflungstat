@@ -23,23 +23,23 @@ jobs:
           west update
           west zephyr-export
 
-      - name: Pfad-Check und Build
+      - name: Build Firmware
         run: |
-          echo "--- Wo ist die App? ---"
-          find . -maxdepth 3 -name "app" -type d
+          # Wir erzwingen den Pfad zum ZMK-App-Verzeichnis
+          # West legt es nach dem 'west update' normalerweise hier ab:
+          ZMK_APP_DIR="${GITHUB_WORKSPACE}/zmk/app"
           
-          # Wir suchen den Pfad automatisch
-          REAL_APP_DIR=$(find . -name "app" -type d | grep "/app" | head -n 1)
-          echo "Benutze Pfad: $REAL_APP_DIR"
-          
-          echo "--- Starte Build Left ---"
-          west build -s "$REAL_APP_DIR" -p -b nice_nano_v2 -- \
+          # Falls das nicht klappt, schauen wir manuell nach
+          ls -R ${GITHUB_WORKSPACE} | grep "app:" || echo "App not found in workspace"
+
+          echo "Starte Build Left..."
+          west build -s "$ZMK_APP_DIR" -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 left.uf2
 
-          echo "--- Starte Build Right ---"
-          west build -s "$REAL_APP_DIR" -p -b nice_nano_v2 -- \
+          echo "Starte Build Right..."
+          west build -s "$ZMK_APP_DIR" -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 right.uf2
