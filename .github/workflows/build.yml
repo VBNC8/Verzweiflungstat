@@ -13,33 +13,32 @@ jobs:
 
       - name: Manual Setup
         run: |
-          # 1. ZMK manuell klonen
           git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
-          
-          # 2. West initialisieren
-          # Wir suchen die west.yml, egal wo sie sich versteckt hat
-          WEST_YML_PATH=$(find . -name "west.yml" | head -n 1)
-          echo "West.yml gefunden unter: $WEST_YML_PATH"
-          
           cd zmk_workspace
           west init -l app/
-          
-          # 3. West Update
           west update
+          # Das hier ist der entscheidende Befehl:
           west zephyr-export
 
-      - name: Build Left
+      - name: Build Firmware
         run: |
+          # Wir müssen West sagen, wo die Zephyr-Basis liegt, 
+          # damit der 'build' Befehl registriert wird.
+          export ZEPHYR_BASE=${GITHUB_WORKSPACE}/zephyr
+          
+          echo "Starte Build Left..."
           west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          
+          # UF2 wegsichern, bevor der zweite Build den Ordner überschreibt
           cp build/zephyr/zmk.uf2 left.uf2
 
-      - name: Build Right
-        run: |
+          echo "Starte Build Right..."
           west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          
           cp build/zephyr/zmk.uf2 right.uf2
 
       - name: Upload
