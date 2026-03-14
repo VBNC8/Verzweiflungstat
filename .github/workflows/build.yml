@@ -8,26 +8,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: West Init
         run: west init -l config
-      - name: West Update
-        run: west update
-      - name: West Zephyr Export
-        run: west zephyr-export
-      - name: Build Left (mit Display)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Save Left
-        run: cp build/zephyr/zmk.uf2 left.uf2
-      - name: Build Right (ohne Display)
-        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Save Right
-        run: cp build/zephyr/zmk.uf2 right.uf2
-      - name: Force Fresh ZMK
+
+      - name: Force Fresh ZMK (Fix Invalid BOARD)
         run: |
           rm -rf zmk
           west update
+          west zephyr-export
+
+      - name: Build Left (mit Display & Encoder)
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Save Left
+        run: cp build/zephyr/zmk.uf2 left.uf2
+
+      - name: Build Right (mit Trackpad)
+        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Save Right
+        run: cp build/zephyr/zmk.uf2 right.uf2
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-cad-scroll
+          name: firmware-verzweiflungstat
           path: ./*.uf2
