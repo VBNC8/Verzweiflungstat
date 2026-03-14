@@ -13,27 +13,27 @@ jobs:
 
       - name: Manual ZMK Setup
         run: |
-          # Wir suchen, wo die west.yml wirklich gelandet ist
-          # Falls sie in 'config/west.yml' liegt, kopieren wir sie nach oben
-          [ -f config/west.yml ] && cp config/west.yml . || echo "west.yml already in root or elsewhere"
-          
-          # West initialisieren
           west init -l .
           west update
           west zephyr-export
+          # Kurz checken, wo wir sind (hilft bei Fehlern enorm)
+          ls -d */ 
 
       - name: Build Left
         run: |
-          west build -s zmk/app -p -b nice_nano_v2 -- \
+          # Wir probieren den Pfad 'app', falls 'zmk/app' nicht da ist
+          [ -d "zmk/app" ] && APP_DIR="zmk/app" || APP_DIR="app"
+          west build -s $APP_DIR -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
       - name: Build Right
         run: |
-          west build -s zmk/app -p -b nice_nano_v2 -- \
+          [ -d "zmk/app" ] && APP_DIR="zmk/app" || APP_DIR="app"
+          west build -s $APP_DIR -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-
+          
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
