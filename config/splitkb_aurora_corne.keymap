@@ -272,14 +272,15 @@
     compatible = "nordic,nrf-spim";
     status = "okay";
     pinctrl-0 = <&spi0_default>;
-    pinctrl-names = "default";
-    cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>; // Pin 1 -> P0.31
+    pinctrl-1 = <&spi0_sleep>; // Das hier hat gefehlt!
+    pinctrl-names = "default", "sleep"; // Hier müssen jetzt 2 Namen stehen
+    cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>; 
 
     trackpad: glidepoint@0 {
         compatible = "cirque,pinnacle";
         reg = <0>;
         status = "okay";
-        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // TX -> P0.06
+        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; 
         sensitivity = <10>;
         sleep;
     };
