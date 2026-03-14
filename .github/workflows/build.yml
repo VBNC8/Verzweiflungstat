@@ -27,7 +27,9 @@ jobs:
           
           # 4. Build Left
           echo "Building Left..."
+          # Wir zeigen West explizit, wo die nice_nano Definitionen liegen
           west build -s app -p -b nice_nano_v2 -- \
+            -Dboard_dir="$(pwd)/app/boards/arm/nice_nano_v2" \
             -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 ../left.uf2
@@ -35,6 +37,7 @@ jobs:
           # 5. Build Right
           echo "Building Right..."
           west build -s app -p -b nice_nano_v2 -- \
+            -Dboard_dir="$(pwd)/app/boards/arm/nice_nano_v2" \
             -DSHIELD="splitkb_aurora_corne_right" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 ../right.uf2
