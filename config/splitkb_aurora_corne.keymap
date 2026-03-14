@@ -4,7 +4,6 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
-/*#include <dt-bindings/zmk/mouse.h>*/
 #include <dt-bindings/zmk/pointing.h>
 
 / {
@@ -64,13 +63,11 @@
 
     behaviors {
         caps_wrd: caps_wrd {
-            compatible = "zmk,behavior-caps-word";
-            #binding-cells = <0>;
-            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
-            // Hier habe ich UNDERSCORE hinzugefügt. 
-            // MINUS ist oft auch gut, falls man Kebab-Case schreibt.
+          compatible = "zmk,behavior-caps-word";
+          #binding-cells = <0>;
+          continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
+          // incl. UNDERSCORE und MINUS 
         };
-
         hrm_safe: hrm_safe { 
           compatible = "zmk,behavior-hold-tap"; 
           #binding-cells = <2>; 
@@ -100,19 +97,19 @@
         };
 
         hw_scroll: hw_scroll {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>; // Wir erlauben wieder 2 Parameter
-            bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
-            tap-ms = <20>;
+          compatible = "zmk,behavior-sensor-rotate-var";
+          #sensor-binding-cells = <2>; // Wir erlauben wieder 2 Parameter
+          bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
+          tap-ms = <20>;
         };
         // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
-            compatible = "zmk,behavior-hold-tap";
-            label = "ENCODER_BT_CLEAR";
-            #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
-            tapping-term-ms = <5000>;  // Deine 5 Sekunden
-            flavor = "tap-preferred";
-            bindings = <&macro_bt_clr>, <&none>; 
+          compatible = "zmk,behavior-hold-tap";
+          label = "ENCODER_BT_CLEAR";
+          #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
+          tapping-term-ms = <5000>;  // Deine 5 Sekunden
+          flavor = "tap-preferred";
+          bindings = <&macro_bt_clr>, <&none>; 
         };
      };
 
@@ -130,7 +127,7 @@
         // Doppelpunkt (:) auf , und .
         combo_colon {
             timeout-ms = <50>;
-            key-positions = <32 33>; // Positionen für COMMA und DOT auf dem Corne (bitte prüfen!)
+            key-positions = <32 33>; // Positionen für COMMA und DOT auf dem Corne
             bindings = <&kp LS(DOT)>;
             layers = <0>;
         };
