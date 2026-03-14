@@ -9,39 +9,37 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # Wir lassen den Pfad weg, damit alles im Root landet
 
-      - name: Manual Setup
+      - name: Setup and Build
         run: |
+          # 1. ZMK Workspace vorbereiten
           git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
           cd zmk_workspace
+          
+          # 2. West initialisieren und updaten
           west init -l app/
           west update
-          # Das hier ist der entscheidende Befehl:
           west zephyr-export
-
-      - name: Build Firmware
-        run: |
-          # Wir müssen West sagen, wo die Zephyr-Basis liegt, 
-          # damit der 'build' Befehl registriert wird.
-          export ZEPHYR_BASE=${GITHUB_WORKSPACE}/zephyr
           
-          echo "Starte Build Left..."
-          west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
-          -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
-          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          # 3. Umgebungsvariablen setzen (Ganz wichtig!)
+          export ZEPHYR_BASE=$(pwd)/zephyr
+          export PATH=$PATH:~/.local/bin
           
-          # UF2 wegsichern, bevor der zweite Build den Ordner überschreibt
-          cp build/zephyr/zmk.uf2 left.uf2
-
-          echo "Starte Build Right..."
-          west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
-          -DSHIELD="splitkb_aurora_corne_right" \
-          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          # 4. Build Left
+          echo "Building Left..."
+          west build -s app -p -b nice_nano_v2 -- \
+            -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 ../left.uf2
           
-          cp build/zephyr/zmk.uf2 right.uf2
+          # 5. Build Right
+          echo "Building Right..."
+          west build -s app -p -b nice_nano_v2 -- \
+            -DSHIELD="splitkb_aurora_corne_right" \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 ../right.uf2
 
-      - name: Upload
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: firmware-corne
