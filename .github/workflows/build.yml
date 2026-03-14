@@ -9,28 +9,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: config
+        # Wir lassen den Pfad weg, damit alles im Root landet
 
       - name: Manual Setup
         run: |
-          # 1. ZMK manuell klonen (da wissen wir, wo es ist!)
+          # 1. ZMK manuell klonen
           git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
           
-          # 2. In den Ordner gehen und West dort initialisieren
+          # 2. West initialisieren
+          # Wir suchen die west.yml, egal wo sie sich versteckt hat
+          WEST_YML_PATH=$(find . -name "west.yml" | head -n 1)
+          echo "West.yml gefunden unter: $WEST_YML_PATH"
+          
           cd zmk_workspace
           west init -l app/
           
-          # 3. Deine west.yml rüberkopieren, damit er die Shields/Module findet
-          cp ../config/west.yml bootloader_west.yml # nur zur Sicherheit
-          
-          # 4. West Update (holt Zephyr und nRF-Boards)
+          # 3. West Update
           west update
           west zephyr-export
 
       - name: Build Left
         run: |
-          # Wir bauen direkt aus dem manuell geklonten Ordner
           west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
@@ -46,5 +45,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: firmware-corne
           path: ./*.uf2
