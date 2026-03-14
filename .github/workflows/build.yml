@@ -1,25 +1,20 @@
-name: Vertical Display
-on: [push, workflow_dispatch]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
-    steps:
+steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: config # Checkt dein Repo in den Unterordner 'config' aus
 
       - name: West Init
-        run: west init -l config
+        run: west init -m https://github.com/zmkfirmware/zmk --mr main .
 
       - name: West Update
-        run: west update
-
-      - name: West Zephyr Export
-        run: west zephyr-export
+        run: |
+          # Erzwingt das Laden aller Module (auch nrf HAL!)
+          west update
+          west zephyr-export
 
       - name: Build Left
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
       - name: Build Right
-        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -p -s app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
