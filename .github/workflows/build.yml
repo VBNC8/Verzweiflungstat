@@ -7,23 +7,19 @@ jobs:
     container:
       image: zmkfirmware/zmk-build-arm:stable
     steps:
-      - name: Checkout User Config
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: config
+        # Wir lassen 'path: config' weg, damit alles im Root landet
 
       - name: Manual ZMK Setup
         run: |
-          # 1. Wir kopieren die west.yml aus deinem config-Ordner ins Hauptverzeichnis
-          cp config/west.yml .
+          # Wir suchen, wo die west.yml wirklich gelandet ist
+          # Falls sie in 'config/west.yml' liegt, kopieren wir sie nach oben
+          [ -f config/west.yml ] && cp config/west.yml . || echo "west.yml already in root or elsewhere"
           
-          # 2. West mit der lokalen west.yml initialisieren
+          # West initialisieren
           west init -l .
-          
-          # 3. ZMK und alle Module (nRF etc.) klonen
           west update
-          
-          # 4. Zephyr Export, damit 'west build' erkannt wird
           west zephyr-export
 
       - name: Build Left
@@ -32,21 +28,14 @@ jobs:
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: Save Left
-        run: cp build/zephyr/zmk.uf2 left.uf2
-
       - name: Build Right
         run: |
           west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: Save Right
-        run: cp build/zephyr/zmk.uf2 right.uf2
-
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-erfolg-hoffentlich
-          path: ./*.uf2
-          
+          name: firmware
+          path: build/zephyr/*.uf2
