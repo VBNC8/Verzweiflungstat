@@ -22,6 +22,10 @@ jobs:
         run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Right
         run: cp build/zephyr/zmk.uf2 right.uf2
+      - name: Force Fresh ZMK
+        run: |
+          rm -rf zmk
+          west update
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
