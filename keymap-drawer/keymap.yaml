@@ -57,8 +57,8 @@ layers:
     h: Adjust
   lower:
   - ^
-  - ²
-  - ³
+  - <
+  - '>'
   - Ø
   - ☻
   - °
@@ -135,8 +135,10 @@ layers:
   - '`'
   - t: ▽
     type: trans
-  - <
-  - '>'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -303,3 +305,15 @@ combos:
   k: ß
   l:
   - default
+- p:
+  - 11
+  - 21
+  k: ²
+  l:
+  - lower
+- p:
+  - 12
+  - 22
+  k: ³
+  l:
+  - lower
