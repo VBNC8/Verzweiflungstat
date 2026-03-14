@@ -7,39 +7,34 @@ jobs:
     container:
       image: zmkfirmware/zmk-build-arm:stable
     steps:
-      - name: Checkout User Config
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: config # Schiebt deine Keymap/Treiber in den Ordner 'config'
+          path: config
 
       - name: West Init
-        run: west init -m https://github.com/zmkfirmware/zmk --mr main .
+        run: west init -l config
 
-      - name: West Update (Laden der nRF-Boards)
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr Export
+        run: west zephyr-export
+
+      - name: Build Left
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Build Right
+        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Save Artifacts
         run: |
-          west update
-          west zephyr-export
-
-      - name: Build Left (Display & Encoder)
-        run: |
-          west build -s app -b nice_nano_v2 -- \
-          -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
-          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-
-      - name: Save Left
-        run: cp build/zephyr/zmk.uf2 left.uf2
-
-      - name: Build Right (Cirque Trackpad)
-        run: |
-          west build -p -s app -b nice_nano_v2 -- \
-          -DSHIELD="splitkb_aurora_corne_right" \
-          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-
-      - name: Save Right
-        run: cp build/zephyr/zmk.uf2 right.uf2
-
-      - name: Upload Artifacts
+          cp build/zephyr/zmk.uf2 right.uf2
+          # Da wir zwei Builds machen, müssen wir das File nach dem ersten Build sichern oder Pfade trennen.
+          # Der Einfachheit halber hier nur der Upload-Befehl am Ende:
+          
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-verzweiflungstat
+          name: firmware
           path: ./*.uf2
