@@ -1,0 +1,4 @@
+name: pinnacle_driver
+nested_config:
+  config:
+    - drivers/input/Kconfig
