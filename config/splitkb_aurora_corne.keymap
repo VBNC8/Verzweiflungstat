@@ -204,8 +204,8 @@
             layers = <0>;
         };
         // NEU: Hochzahlen im Lower Layer (Layer 1)
-        combo_super2 { timeout-ms = <50>; key-positions = <14 26>; bindings = <&kp RA(N2)>; layers = <1>; }; // S+X im Lower -> ²
-        combo_super3 { timeout-ms = <50>; key-positions = <15 27>; bindings = <&kp RA(N3)>; layers = <1>; }; // D+C im Lower -> ³
+        combo_super2 { timeout-ms = <50>; key-positions = <2 14>; bindings = <&kp RA(N2)>; layers = <1>; }; // S+W im Lower -> ²
+        combo_super3 { timeout-ms = <50>; key-positions = <3 15>; bindings = <&kp RA(N3)>; layers = <1>; }; // D+E im Lower -> ³
     };
 
     keymap {
