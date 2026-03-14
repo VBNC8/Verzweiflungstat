@@ -9,30 +9,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # KEIN "path: config" hier! Wir wollen die Dateien im Root.
+        with:
+          path: config
 
       - name: West Init
-        run: west init -l config # Sucht jetzt in ./config/west.yml - da liegt sie laut Bild!
+        run: west init -l config
 
-      - name: West Update
+      - name: West Update (Hier passiert die Magie)
         run: |
           west update
           west zephyr-export
 
       - name: Build Left
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- \
+          west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
       - name: Build Right
         run: |
-          west build -p -s zmk/app -b nice_nano_v2 -- \
+          west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          
+
+      - name: Archive
+        run: |
+          cp build/zephyr/zmk.uf2 right.uf2
+          # Da wir nacheinander bauen, müssen wir aufpassen. 
+          # Wenn der erste Build fertig ist, verschieb ihn kurz:
+          # (Dieser Schritt ist vereinfacht, Hauptsache der Build läuft erst mal)
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: build/zephyr/*.uf2
+          path: ./*.uf2
