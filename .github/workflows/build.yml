@@ -12,19 +12,26 @@ jobs:
         with:
           path: config
 
-      - name: Manual ZMK Clone
+      - name: Manual ZMK Setup
         run: |
+          # 1. ZMK klonen
           git clone https://github.com/zmkfirmware/zmk.git zmk
-          cd zmk
-          west init -l app/
+          # 2. West im aktuellen Ordner initialisieren
+          west init -l config
+          # 3. Alle Module (nRF, Zephyr etc.) holen
           west update
+          # 4. WICHTIG: West sagen, wo Zephyr liegt
           west zephyr-export
 
       - name: Build Left
         run: |
+          # Wir nutzen den absoluten Pfad zum West-Befehl im ZMK-Kontext
           west build -s zmk/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
+      - name: Save Left
+        run: cp build/zephyr/zmk.uf2 left.uf2
 
       - name: Build Right
         run: |
@@ -32,12 +39,12 @@ jobs:
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: Save
-        run: |
-          cp build/zephyr/zmk.uf2 right.uf2
-          
+      - name: Save Right
+        run: cp build/zephyr/zmk.uf2 right.uf2
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-verzweiflung
+          name: firmware-final-test
           path: ./*.uf2
+          
