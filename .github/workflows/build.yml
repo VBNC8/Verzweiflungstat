@@ -9,43 +9,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # Wir lassen den Standard-Checkout ohne Pfad-Angabe
+        with:
+          path: config
 
-      - name: Manual ZMK Setup
+      - name: Manual Setup
         run: |
-          # 1. Wir finden heraus, wo die west.yml wirklich ist und schieben sie in den Root
-          find . -name "west.yml" -exec cp {} . \;
+          # 1. ZMK manuell klonen (da wissen wir, wo es ist!)
+          git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
           
-          # 2. West initialisieren mit der Datei direkt im Root
-          west init -l .
+          # 2. In den Ordner gehen und West dort initialisieren
+          cd zmk_workspace
+          west init -l app/
           
-          # 3. ZMK und Module laden
+          # 3. Deine west.yml rüberkopieren, damit er die Shields/Module findet
+          cp ../config/west.yml bootloader_west.yml # nur zur Sicherheit
+          
+          # 4. West Update (holt Zephyr und nRF-Boards)
           west update
           west zephyr-export
 
-      - name: Build Firmware
+      - name: Build Left
         run: |
-          # Wir erzwingen den Pfad zum ZMK-App-Verzeichnis
-          # West legt es nach dem 'west update' normalerweise hier ab:
-          ZMK_APP_DIR="${GITHUB_WORKSPACE}/zmk/app"
-          
-          # Falls das nicht klappt, schauen wir manuell nach
-          ls -R ${GITHUB_WORKSPACE} | grep "app:" || echo "App not found in workspace"
-
-          echo "Starte Build Left..."
-          west build -s "$ZMK_APP_DIR" -p -b nice_nano_v2 -- \
+          # Wir bauen direkt aus dem manuell geklonten Ordner
+          west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 left.uf2
 
-          echo "Starte Build Right..."
-          west build -s "$ZMK_APP_DIR" -p -b nice_nano_v2 -- \
+      - name: Build Right
+        run: |
+          west build -s zmk_workspace/app -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 right.uf2
 
-      - name: Upload Artifacts
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: build/zephyr/*.uf2
+          path: ./*.uf2
