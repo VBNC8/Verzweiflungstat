@@ -23,18 +23,26 @@ jobs:
           west update
           west zephyr-export
 
-      - name: Build Left
+      - name: Pfad-Check und Build
         run: |
-          # ZMK landet durch west update im Ordner 'zmk'
-          west build -s zmk/app -p -b nice_nano_v2 -- \
+          echo "--- Wo ist die App? ---"
+          find . -maxdepth 3 -name "app" -type d
+          
+          # Wir suchen den Pfad automatisch
+          REAL_APP_DIR=$(find . -name "app" -type d | grep "/app" | head -n 1)
+          echo "Benutze Pfad: $REAL_APP_DIR"
+          
+          echo "--- Starte Build Left ---"
+          west build -s "$REAL_APP_DIR" -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 left.uf2
 
-      - name: Build Right
-        run: |
-          west build -s zmk/app -p -b nice_nano_v2 -- \
+          echo "--- Starte Build Right ---"
+          west build -s "$REAL_APP_DIR" -p -b nice_nano_v2 -- \
           -DSHIELD="splitkb_aurora_corne_right" \
           -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 right.uf2
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
