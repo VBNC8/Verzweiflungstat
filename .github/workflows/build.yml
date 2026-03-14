@@ -12,32 +12,33 @@ jobs:
 
       - name: Setup and Build
         run: |
-          # 1. ZMK Workspace vorbereiten
           git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
           cd zmk_workspace
-          
-          # 2. West initialisieren und updaten
           west init -l app/
           west update
           west zephyr-export
           
-          # 3. Umgebungsvariablen setzen (Ganz wichtig!)
           export ZEPHYR_BASE=$(pwd)/zephyr
-          export PATH=$PATH:~/.local/bin
           
-          # 4. Build Left
+          # Wir suchen den echten Pfad zum nice_nano_v2 Board
+          BOARD_PATH=$(find app/boards -name "nice_nano_v2" -type d | head -n 1)
+          echo "Board gefunden in: $BOARD_PATH"
+          
+          # Falls find nichts findet, probieren wir den Standardpfad
+          if [ -z "$BOARD_PATH" ]; then
+            BOARD_PATH="app/boards/arm/nice_nano_v2"
+          fi
+
           echo "Building Left..."
-          # Wir zeigen West explizit, wo die nice_nano Definitionen liegen
           west build -s app -p -b nice_nano_v2 -- \
-            -Dboard_dir="$(pwd)/app/boards/arm/nice_nano_v2" \
+            -Dboard_dir="$(pwd)/$BOARD_PATH" \
             -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 ../left.uf2
           
-          # 5. Build Right
           echo "Building Right..."
           west build -s app -p -b nice_nano_v2 -- \
-            -Dboard_dir="$(pwd)/app/boards/arm/nice_nano_v2" \
+            -Dboard_dir="$(pwd)/$BOARD_PATH" \
             -DSHIELD="splitkb_aurora_corne_right" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 ../right.uf2
