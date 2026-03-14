@@ -281,8 +281,8 @@
         compatible = "cirque,pinnacle";
         reg = <0>;
         status = "okay";
-        dr-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; 
-        sensitivity = <10>;
+        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; 
+        sensitivity = <35>;
         sleep;
     };
 };
