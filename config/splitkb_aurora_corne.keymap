@@ -257,8 +257,6 @@
                     <NRF_PSEL(SPIM_MISO, 0, 17)>;
         };
     };
-
-    // Dieser Block hier muss "spi0_sleep" heißen, damit er unten gefunden wird
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
@@ -269,12 +267,14 @@
     };
 };
 
+// Das hier ist der "Trick": Das Trackpad wird nur für die rechte Seite definiert
+#ifdef SHIELD_SPLITKB_AURORA_CORNE_RIGHT
 &spi0 {
     compatible = "nordic,nrf-spim";
     status = "okay";
     pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>; // Das hier hat gefehlt!
-    pinctrl-names = "default", "sleep"; // Hier müssen jetzt 2 Namen stehen
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>; 
 
     trackpad: glidepoint@0 {
@@ -286,3 +286,4 @@
         sleep;
     };
 };
+#endif
