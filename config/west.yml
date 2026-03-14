@@ -11,6 +11,7 @@ manifest:
       import: app/west.yml
     - name: zmk-input-behavior-pinnacle
       remote: petejohanson
-      revision: v1
+      revision: main
+      path: pinnacle-driver # Erzwingt einen sauberen Unterordner
   self:
     path: config
