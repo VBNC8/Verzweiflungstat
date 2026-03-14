@@ -2,15 +2,10 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: cygnus-zmk
-      url-base: https://github.com/cygnus-zmk
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-pinnacle
-      remote: cygnus-zmk
-      revision: main
   self:
     path: config
