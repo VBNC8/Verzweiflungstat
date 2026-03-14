@@ -61,8 +61,7 @@ layers:
   - ³
   - Ø
   - ☻
-  - t: ▽
-    type: trans
+  - °
   - ()
   - '{}'
   - '[]'
@@ -87,8 +86,7 @@ layers:
     s: )
   - t: '0'
     s: '='
-  - t: ▽
-    type: trans
+  - '~'
   - '%'
   - '|'
   - $
@@ -122,7 +120,8 @@ layers:
   - F8
   - F9
   - F10
-  - °
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - 🖱 RMB
@@ -134,7 +133,8 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - '~'
+  - t: ▽
+    type: trans
   - <
   - '>'
   - t: ▽
