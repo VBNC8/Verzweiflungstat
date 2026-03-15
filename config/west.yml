@@ -1,14 +1,16 @@
 manifest:
-  defaults:
-    revision: v0.3
   remotes:
     - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    # Additional modules containing boards/shields/custom code can be listed here as well
-    # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+      url_base: https://github.com/zmkfirmware
+    - name: petejohanson
+      url_base: https://github.com/petejohanson
   projects:
     - name: zmk
       remote: zmkfirmware
+      revision: v0.3  # Bleibt bei deiner stabilen Version
       import: app/west.yml
+    - name: zmk-input-behavior
+      remote: petejohanson
+      revision: 1d63dd036a18d36306636780775796a560df3653 # Ein spezifischer, älterer Commit
   self:
     path: config 
