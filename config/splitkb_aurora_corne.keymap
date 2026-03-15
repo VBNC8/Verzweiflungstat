@@ -7,6 +7,10 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/mouse.h>
 
+&trackpad {
+    status = "okay";
+};
+
 / {
     chosen {
         zmk,underglow = &led_strip;
