@@ -2,3 +2,7 @@
 &i2c0 {
     status = "disabled";
 };
+
+&spi0 {
+    status = "okay";
+};
