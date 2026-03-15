@@ -1,6 +1,5 @@
-name: Vertical Display Success
-on: [push, workflow_dispatch]
-
+name: Build
+on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,41 +9,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup and Build
+      - name: Cache west modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-zephyr-modules
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/west.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr export
+        run: west zephyr-export
+
+      - name: West Build (Left)
         run: |
-          git clone https://github.com/zmkfirmware/zmk.git zmk_workspace
-          cd zmk_workspace
-          west init -l app/
-          west update
-          west zephyr-export
-          
-          export ZEPHYR_BASE=$(pwd)/zephyr
-          
-          # Wir suchen den echten Pfad zum nice_nano_v2 Board
-          BOARD_PATH=$(find app/boards -name "nice_nano_v2" -type d | head -n 1)
-          echo "Board gefunden in: $BOARD_PATH"
-          
-          # Falls find nichts findet, probieren wir den Standardpfad
-          if [ -z "$BOARD_PATH" ]; then
-            BOARD_PATH="app/boards/arm/nice_nano_v2"
-          fi
+          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 corne_left.uf2
 
-          echo "Building Left..."
-          west build -s app -p -b nice_nano_v2 -- \
-            -Dboard_dir="$(pwd)/$BOARD_PATH" \
-            -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          cp build/zephyr/zmk.uf2 ../left.uf2
-          
-          echo "Building Right..."
-          west build -s app -p -b nice_nano_v2 -- \
-            -Dboard_dir="$(pwd)/$BOARD_PATH" \
-            -DSHIELD="splitkb_aurora_corne_right" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          cp build/zephyr/zmk.uf2 ../right.uf2
+      - name: West Build (Right)
+        run: |
+          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 corne_right.uf2
 
-      - name: Upload Artifacts
+      - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-corne
-          path: ./*.uf2
+          name: firmware
+          path: "*.uf2"
+        
