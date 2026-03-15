@@ -7,17 +7,7 @@
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
 
-// Lokale Definition der ZMK Maus-Struktur, 
-// damit wir keine Header suchen müssen
-struct zmk_mouse_report_body {
-    uint16_t x;
-    uint16_t y;
-    int16_t scroll_x;
-    int16_t scroll_y;
-} __attribute__((packed));
-
-// Wir sagen dem Linker, dass diese Funktion irgendwo im ZMK-Kern existiert
-extern int zmk_endpoints_send_mouse_report(struct zmk_mouse_report_body body);
+#include <zephyr/input/input.h>
 
 #define DT_DRV_COMPAT cirque_pinnacle
 
@@ -44,14 +34,20 @@ static void pinnacle_work_handler(struct k_work *work) {
     struct spi_buf_set rxs = {.buffers = &rx, .count = 1};
 
     if (spi_transceive_dt(&config->bus, &txs, &rxs) == 0) {
+        // Die Koordinaten liegen bei Pinnacle oft in buf[1] und buf[2]
+        // Wir casten zu int8_t für die Richtung (positiv/negativ)
         int8_t dx = (int8_t)buf[1];
         int8_t dy = (int8_t)buf[2];
 
         if (dx != 0 || dy != 0) {
-            // Sende Mausdaten direkt über den Endpoint
-            zmk_endpoints_send_mouse_report((struct zmk_mouse_report_body){
-                .x = dx, .y = dy
-            });
+            // Wir melden die relative Bewegung an das System
+            // input_report_rel(Gerät, Achse, Wert, Sync, Timeout)
+            input_report_rel(dev, INPUT_REL_X, dx, false, K_FOREVER);
+            
+            // Das 'true' beim letzten Aufruf (Sync) sagt ZMK: 
+            // "Jetzt ist das Paket fertig, schick es ab!"
+            input_report_rel(dev, INPUT_REL_Y, -dy, true, K_FOREVER); 
+            // Hinweis: -dy oft nötig, da Trackpad-Y und Screen-Y meist invertiert sind
         }
     }
 }
