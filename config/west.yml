@@ -11,6 +11,6 @@ manifest:
       import: app/west.yml
     - name: zmk-input-behavior
       remote: petejohanson
-      revision: 1d63dd036a18d36306636780775796a560df3653
+      revision: v0.3  # Diesen Zweig gibt es passend zur ZMK-Version
   self:
     path: config
