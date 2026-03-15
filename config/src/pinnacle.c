@@ -2,12 +2,15 @@
 #include <zephyr/device.h>
 #include <zephyr/devicetree.h>
 
-// Wir holen uns die ID direkt aus dem DeviceTree Label
-#define TRACKPAD_NODE DT_NODELABEL(trackpad)
+// Wir prüfen, ob das Label "trackpad" überhaupt existiert
+#define HAS_TRACKPAD DT_NODE_EXISTS(DT_NODELABEL(trackpad))
 
 static int pinnacle_init(const struct device *dev) {
     return 0;
 }
 
-// Hier nutzen wir jetzt die korrekte DT-Instanz
-DEVICE_DT_DEFINE(TRACKPAD_NODE, pinnacle_init, NULL, NULL, NULL, POST_KERNEL, 90, NULL);
+#if HAS_TRACKPAD
+// Nur wenn das Trackpad im DeviceTree (rechte Seite) gefunden wird, 
+// wird dieser Teil mitkompiliert.
+DEVICE_DT_DEFINE(DT_NODELABEL(trackpad), pinnacle_init, NULL, NULL, NULL, POST_KERNEL, 90, NULL);
+#endif
