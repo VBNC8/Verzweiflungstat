@@ -1,0 +1,10 @@
+compatible: "cirque,pinnacle"
+include: spi-device.yaml
+
+properties:
+  dr-gpios:
+    type: phandle-array
+    required: true
+  sideband-interupt:
+    type: boolean
+    description: "Use a sideband interrupt instead of SPI's MISO for data ready"
