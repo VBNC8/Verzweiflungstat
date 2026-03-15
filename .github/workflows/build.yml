@@ -36,14 +36,21 @@ jobs:
 
       - name: West Build (Left)
         run: |
+          # Wir definieren den Pfad zum ZMK-Ordner absolut
+          ZMK_ROOT="${GITHUB_WORKSPACE}/zmk"
+          
           west build -p -s zmk/app -b nice_nano_v2 -- \
+            -DBOARD_ROOT="$ZMK_ROOT" \
             -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 corne_left.uf2
 
       - name: West Build (Right)
         run: |
+          ZMK_ROOT="${GITHUB_WORKSPACE}/zmk"
+          
           west build -p -s zmk/app -b nice_nano_v2 -- \
+            -DBOARD_ROOT="$ZMK_ROOT" \
             -DSHIELD="splitkb_aurora_corne_right" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 corne_right.uf2
