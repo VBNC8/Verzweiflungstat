@@ -3,17 +3,33 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install & Build (ZMK Action)
-        uses: zmkfirmware/zmk-build-action@v2
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr export
+        run: west zephyr-export
+
+      - name: Build Left
+        run: |
+          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 left.uf2
+
+      - name: Build Right
+        run: |
+          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/zephyr/zmk.uf2 right.uf2
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
         with:
-          repository: zmkfirmware/zmk
-          branch: main
-          # Hier definierst du nur das Board und das Shield
-          board: nice_nano_v2
-          shield: splitkb_aurora_corne_left nice_view_adapter nice_view
-          # Dein Config-Ordner (wo deine Keymap/Overlays liegen)
-          config_path: config
+          name: firmware
+          path: ./*.uf2
