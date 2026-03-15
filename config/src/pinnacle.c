@@ -7,18 +7,16 @@
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
 
-// Wir nutzen die vollständigen Pfade relativ zur ZMK App, 
-// oder greifen auf Zephyr-Standards zurück
-#include <dt-bindings/zmk/mouse.h>
-
-// Deklaration der ZMK-Funktion (damit wir keinen Header brauchen)
+// Lokale Definition der ZMK Maus-Struktur, 
+// damit wir keine Header suchen müssen
 struct zmk_mouse_report_body {
-    int16_t x;
-    int16_t y;
+    uint16_t x;
+    uint16_t y;
     int16_t scroll_x;
     int16_t scroll_y;
-};
+} __attribute__((packed));
 
+// Wir sagen dem Linker, dass diese Funktion irgendwo im ZMK-Kern existiert
 extern int zmk_endpoints_send_mouse_report(struct zmk_mouse_report_body body);
 
 #define DT_DRV_COMPAT cirque_pinnacle
