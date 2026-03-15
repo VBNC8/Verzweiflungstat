@@ -27,9 +27,12 @@ static int pinnacle_read(const struct device *dev) {
     uint8_t cmd = 0xFC; // Read command for Pinnacle
 
     struct spi_buf tx_buf = {.buf = &cmd, .len = 1};
-    struct spi_buf_set tx_bufs = {.bufs = &tx_buf, .count = 1};
+    // Hier wurde "bufs" zu "buffers" geändert:
+    struct spi_buf_set tx_bufs = {.buffers = &tx_buf, .count = 1};
+    
     struct spi_buf rx_buf = {.buf = buffer, .len = 6};
-    struct spi_buf_set rx_bufs = {.bufs = &rx_buf, .count = 1};
+    // Und hier ebenfalls:
+    struct spi_buf_set rx_bufs = {.buffers = &rx_buf, .count = 1};
 
     return spi_transceive_dt(&config->bus, &tx_bufs, &rx_bufs);
 }
