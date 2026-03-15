@@ -1,8 +1,15 @@
 #include <zephyr/kernel.h>
+#include <zephyr/devicetree.h>
+
+// Wir prüfen, ob ein aktives Trackpad im DeviceTree existiert
+#if DT_HAS_COMPAT_STATUS_OKAY(cirque_pinnacle)
+
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
-#include <zmk/mouse.h>
+
+// Falls zmk/mouse.h immer noch Probleme macht, 
+// nutzen wir hier die direkten ZMK-Event-Strukturen
 #include <zmk/endpoints.h>
 #include <zmk/events/mouse_state_changed.h>
 
@@ -17,8 +24,6 @@ struct pinnacle_data {
     const struct device *dev;
     struct gpio_callback gpio_cb;
     struct k_work work;
-    int16_t x;
-    int16_t y;
 };
 
 static void pinnacle_work_handler(struct k_work *work) {
@@ -33,11 +38,11 @@ static void pinnacle_work_handler(struct k_work *work) {
     struct spi_buf_set rxs = {.buffers = &rx, .count = 1};
 
     if (spi_transceive_dt(&config->bus, &txs, &rxs) == 0) {
-        // Sehr einfache Auswertung der Relativdaten (Byte 1 & 2)
         int8_t dx = (int8_t)buf[1];
         int8_t dy = (int8_t)buf[2];
 
         if (dx != 0 || dy != 0) {
+            // Sende Mausdaten direkt über den Endpoint
             zmk_endpoints_send_mouse_report((struct zmk_mouse_report_body){
                 .x = dx, .y = dy
             });
@@ -55,6 +60,9 @@ static int pinnacle_init(const struct device *dev) {
     const struct pinnacle_config *config = dev->config;
     data->dev = dev;
     k_work_init(&data->work, pinnacle_work_handler);
+    
+    if (!spi_is_ready_dt(&config->bus)) return -ENODEV;
+    
     gpio_pin_configure_dt(&config->dr_gpio, GPIO_INPUT);
     gpio_init_callback(&data->gpio_cb, pinnacle_callback, BIT(config->dr_gpio.pin));
     gpio_add_callback(config->dr_gpio.port, &data->gpio_cb);
@@ -72,3 +80,5 @@ static int pinnacle_init(const struct device *dev) {
                          &pinnacle_config_##n, POST_KERNEL, 90, NULL);
 
 DT_INST_FOREACH_STATUS_OKAY(PINNACLE_INST)
+
+#endif // DT_HAS_COMPAT_STATUS_OKAY
