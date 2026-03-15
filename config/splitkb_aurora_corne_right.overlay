@@ -17,4 +17,7 @@
     status = "okay";
     pinctrl-0 = <&spi3_default>;
     pinctrl-names = "default";
+    
+    /* Wir definieren P0.08 als Chip Select Pin */
+    cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
 };
