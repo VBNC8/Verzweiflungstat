@@ -14,7 +14,7 @@
 };
 
 &spi3 {
-    status = "okay";
+    status = "disabled";
     pinctrl-0 = <&spi3_default>;
     pinctrl-names = "default";
     /* Deine Belegung: SS (Chip Select) = P0.31 */
