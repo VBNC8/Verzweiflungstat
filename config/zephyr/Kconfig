@@ -1,0 +1,4 @@
+config INPUT_PINNACLE
+    bool "Cirque Pinnacle"
+    default y
+    depends on SPI
