@@ -13,7 +13,7 @@
     };
 };
 
-&spi1 {
+&spi3 {
     status = "okay";
     pinctrl-0 = <&spi3_default>;
     pinctrl-names = "default";
