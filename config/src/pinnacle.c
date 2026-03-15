@@ -1,17 +1,25 @@
 #include <zephyr/kernel.h>
 #include <zephyr/devicetree.h>
 
-// Wir prüfen, ob ein aktives Trackpad im DeviceTree existiert
 #if DT_HAS_COMPAT_STATUS_OKAY(cirque_pinnacle)
 
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
 
-// Falls zmk/mouse.h immer noch Probleme macht, 
-// nutzen wir hier die direkten ZMK-Event-Strukturen
-#include <zmk/endpoints.h>
-#include <zmk/events/mouse_state_changed.h>
+// Wir nutzen die vollständigen Pfade relativ zur ZMK App, 
+// oder greifen auf Zephyr-Standards zurück
+#include <dt-bindings/zmk/mouse.h>
+
+// Deklaration der ZMK-Funktion (damit wir keinen Header brauchen)
+struct zmk_mouse_report_body {
+    int16_t x;
+    int16_t y;
+    int16_t scroll_x;
+    int16_t scroll_y;
+};
+
+extern int zmk_endpoints_send_mouse_report(struct zmk_mouse_report_body body);
 
 #define DT_DRV_COMPAT cirque_pinnacle
 
