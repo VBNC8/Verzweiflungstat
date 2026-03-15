@@ -15,7 +15,7 @@ jobs:
       - name: West Zephyr Export
         run: west zephyr-export
       - name: Build Left (mit Display)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
         run: cp build/zephyr/zmk.uf2 left.uf2
       - name: Build Right (ohne Display)
