@@ -24,6 +24,7 @@ struct pinnacle_data {
 
 static void pinnacle_work_handler(struct k_work *work) {
     struct pinnacle_data *data = CONTAINER_OF(work, struct pinnacle_data, work);
+    const struct device *dev = data->dev;
     const struct pinnacle_config *config = data->dev->config;
 
     uint8_t cmd = 0xFC;
