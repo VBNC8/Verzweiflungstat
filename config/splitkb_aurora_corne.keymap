@@ -7,8 +7,12 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/mouse.h>
 
-&trackpad {
-    status = "okay";
+/ {
+#if DT_NODE_HAS_STATUS(DT_NODELABEL(trackpad), okay)
+    &trackpad {
+        status = "okay";
+    };
+#endif
 };
 
 / {
