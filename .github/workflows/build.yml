@@ -36,21 +36,25 @@ jobs:
 
       - name: West Build (Left)
         run: |
-          # Wir definieren den Pfad zum ZMK-Ordner absolut
-          ZMK_ROOT="${GITHUB_WORKSPACE}/zmk"
-          
+          # 1. Wir finden den exakten Ordner, der das Board enthält
+          REAL_BOARD_ROOT=$(find ${GITHUB_WORKSPACE}/zmk -name "nice_nano_v2.board" -exec dirname {} \;)
+          # Wir müssen zwei Ebenen hochgehen, damit Zephyr die Board-Struktur erkennt
+          BOARD_ROOT_FINAL=$(dirname $(dirname $REAL_BOARD_ROOT))
+          echo "Board-Pfad gefunden: $BOARD_ROOT_FINAL"
+
           west build -p -s zmk/app -b nice_nano_v2 -- \
-            -DBOARD_ROOT="$ZMK_ROOT" \
+            -DBOARD_ROOT="$BOARD_ROOT_FINAL" \
             -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 corne_left.uf2
 
       - name: West Build (Right)
         run: |
-          ZMK_ROOT="${GITHUB_WORKSPACE}/zmk"
+          REAL_BOARD_ROOT=$(find ${GITHUB_WORKSPACE}/zmk -name "nice_nano_v2.board" -exec dirname {} \;)
+          BOARD_ROOT_FINAL=$(dirname $(dirname $REAL_BOARD_ROOT))
           
           west build -p -s zmk/app -b nice_nano_v2 -- \
-            -DBOARD_ROOT="$ZMK_ROOT" \
+            -DBOARD_ROOT="$BOARD_ROOT_FINAL" \
             -DSHIELD="splitkb_aurora_corne_right" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 corne_right.uf2
