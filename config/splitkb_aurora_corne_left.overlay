@@ -7,3 +7,10 @@
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
+
+/ {
+    // Ein leerer Dummy-Knoten, damit die Keymap nicht meckert
+    trackpad: trackpad_dummy {
+        status = "disabled";
+    };
+};
