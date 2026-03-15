@@ -1,8 +1,11 @@
-/* Deaktivierung der Hardware-Busse für den Stabilitäts-Test */
-&i2c0 { status = "disabled"; };
-&spi0 { status = "disabled"; };
-&spi1 { status = "disabled"; };
-&spi2 { status = "disabled"; };
-&spi3 { status = "disabled"; };
+&spi3 {
+    status = "disabled";
+};
 
-/* Wir definieren keine Pins, damit nichts den Bluetooth-Stack stört */
+/* Wir definieren einen "Dummy", damit die Keymap nicht abstürzt */
+/ {
+    trackpad: trackpad_dummy {
+        compatible = "pinnacle-dummy";
+        status = "disabled";
+    };
+};
