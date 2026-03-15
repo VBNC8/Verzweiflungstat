@@ -1,1 +1,17 @@
+/* Schritt 1: Display-Bus deaktivieren, um P0.17 und P0.20 freizugeben */
+&i2c0 {
+    status = "disabled";
+};
 
+/* Schritt 2: Den SPI-Bus mit deiner neuen Test-Belegung definieren */
+&spi0 {
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-names = "default";
+
+    /* Deine geplante Belegung */
+    sck-pin = <2>;     /* P0.02 (statt P0.06) */
+    mosi-pin = <17>;    /* P0.17 (SDA) */
+    miso-pin = <20>;    /* P0.20 (SCL) */
+    cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>; /* P0.08 (RX) */
+};
