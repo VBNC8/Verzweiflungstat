@@ -20,12 +20,24 @@ jobs:
 
       - name: Build Left
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          # Wir suchen den Pfad zum Board-Ordner manuell
+          BOARD_DIR=$(find ${GITHUB_WORKSPACE}/zmk/app/boards -name "nice_nano_v2" -type d | head -n 1)
+          echo "Benutze Board-Pfad: $BOARD_DIR"
+
+          west build -s zmk/app -p -b nice_nano_v2 -- \
+            -Dboard_dir="$BOARD_DIR" \
+            -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 left.uf2
 
       - name: Build Right
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          BOARD_DIR=$(find ${GITHUB_WORKSPACE}/zmk/app/boards -name "nice_nano_v2" -type d | head -n 1)
+          
+          west build -s zmk/app -p -b nice_nano_v2 -- \
+            -Dboard_dir="$BOARD_DIR" \
+            -DSHIELD="splitkb_aurora_corne_right" \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           cp build/zephyr/zmk.uf2 right.uf2
 
       - name: Upload
