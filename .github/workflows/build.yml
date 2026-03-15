@@ -3,65 +3,17 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache west modules
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-zephyr-modules
+      - name: Install & Build (ZMK Action)
+        uses: zmkfirmware/zmk-build-action@v2
         with:
-          path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-            zmk/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/west.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-
-      - name: West Init
-        run: west init -l config
-
-      - name: West Update
-        run: west update
-
-      - name: West Zephyr export
-        run: west zephyr-export
-
-      - name: West Build (Left)
-        run: |
-          # 1. Wir finden den exakten Ordner, der das Board enthält
-          REAL_BOARD_ROOT=$(find ${GITHUB_WORKSPACE}/zmk -name "nice_nano_v2.board" -exec dirname {} \;)
-          # Wir müssen zwei Ebenen hochgehen, damit Zephyr die Board-Struktur erkennt
-          BOARD_ROOT_FINAL=$(dirname $(dirname $REAL_BOARD_ROOT))
-          echo "Board-Pfad gefunden: $BOARD_ROOT_FINAL"
-
-          west build -p -s zmk/app -b nice_nano_v2 -- \
-            -DBOARD_ROOT="$BOARD_ROOT_FINAL" \
-            -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          cp build/zephyr/zmk.uf2 corne_left.uf2
-
-      - name: West Build (Right)
-        run: |
-          REAL_BOARD_ROOT=$(find ${GITHUB_WORKSPACE}/zmk -name "nice_nano_v2.board" -exec dirname {} \;)
-          BOARD_ROOT_FINAL=$(dirname $(dirname $REAL_BOARD_ROOT))
-          
-          west build -p -s zmk/app -b nice_nano_v2 -- \
-            -DBOARD_ROOT="$BOARD_ROOT_FINAL" \
-            -DSHIELD="splitkb_aurora_corne_right" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          cp build/zephyr/zmk.uf2 corne_right.uf2
-
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware
-          path: "*.uf2"
-        
+          repository: zmkfirmware/zmk
+          branch: main
+          # Hier definierst du nur das Board und das Shield
+          board: nice_nano_v2
+          shield: splitkb_aurora_corne_left nice_view_adapter nice_view
+          # Dein Config-Ordner (wo deine Keymap/Overlays liegen)
+          config_path: config
