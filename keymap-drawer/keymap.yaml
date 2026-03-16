@@ -28,8 +28,7 @@ layers:
   - t: K
     h: CTRL
   - L
-  - t: '-'
-    s: _
+  - 'Sft+ #'
   - Z
   - t: X
     h: Alt
