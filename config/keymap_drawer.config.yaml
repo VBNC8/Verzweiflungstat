@@ -51,6 +51,7 @@ parse_config:
     "&kp GRAVE": {t: "^"}
     "&kp LS(GRAVE)": {t: "°"}
     "&kp PLUS": "`"
+    "&kp LS(SLASH)": "_"
 
     # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
