@@ -31,3 +31,18 @@
         dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 };
+
+/ {
+    /* Wir definieren ein Dummy-Display, damit der Linker zufrieden ist, 
+       weisen ihm aber keine echten Pins zu */
+    chosen {
+        zephyr,display = &dummy_dis;
+    };
+
+    dummy_dis: dummy_dis {
+        compatible = "zephyr,dummy-display";
+        status = "okay";
+        width = <160>;
+        height = <80>;
+    };
+};
