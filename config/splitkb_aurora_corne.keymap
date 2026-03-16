@@ -12,9 +12,6 @@
 };
 
 / {
-    chosen {
-        zmk,underglow = &led_strip;
-    };
 
     macros {
          pair_paren: pair_paren {  // Vorher 2_paren
