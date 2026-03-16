@@ -1,6 +1,20 @@
 /* Wir lassen i2c0 deaktiviert */
 &i2c0 { status = "disabled"; };
 
+/ {
+    /* Das Dummy-Display verhindert den "ord_174" Fehler */
+    chosen {
+        zephyr,display = &dummy_dis;
+    };
+
+    dummy_dis: dummy_dis {
+        compatible = "zephyr,dummy-display";
+        status = "okay";
+        width = <160>;
+        height = <80>;
+    };
+};
+
 /* Wir nutzen SPI3 statt SPI0, um den Hardware-Konflikt zu umgehen */
 &pinctrl {
     spi3_default: spi3_default {
@@ -24,7 +38,6 @@
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
-        /* Deine Belegung: DR (Data Ready) = P0.06 */
-        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 };
