@@ -156,6 +156,14 @@
             layers = <0 1>;
         };
 
+        // Minus/Bindestrich (-) auf L und SLASH
+        combo_minus {
+            timeout-ms = <40>;
+            key-positions = <21 22>; // L=21, SLASH=22
+            bindings = <&kp MINUS>;
+            layers = <0 1>;
+        };
+
         // Caps Word auf beiden Shift-Tasten (F und J)
         combo_caps_word {
             timeout-ms = <40>;
