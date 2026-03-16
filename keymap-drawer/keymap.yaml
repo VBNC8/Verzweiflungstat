@@ -28,7 +28,7 @@ layers:
   - t: K
     h: CTRL
   - L
-  - 'Sft+ #'
+  - ''''
   - Z
   - t: X
     h: Alt
@@ -64,7 +64,7 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - ''''
+  - Sft+ \
   - t: '1'
     s: '!'
   - t: '2'
@@ -273,16 +273,14 @@ combos:
 - p:
   - 18
   - 19
-  k:
-    t: '-'
-    s: _
+  k: '-'
   l:
   - default
   - lower
 - p:
   - 10
   - 11
-  k: Sft+ /
+  k: _
   l:
   - default
   - lower
