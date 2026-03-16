@@ -164,6 +164,14 @@
             layers = <0 1>;
         };
 
+        // Unterstrich (_) auf A und S (Links)
+        combo_underscore {
+            timeout-ms = <40>;
+            key-positions = <13 14>; // A=13, S=14
+            bindings = <&kp LS(SLASH)>; // Ergibt im DE-Layout den Unterstrich (_)
+            layers = <0 1>;
+        };
+
         // Caps Word auf beiden Shift-Tasten (F und J)
         combo_caps_word {
             timeout-ms = <40>;
