@@ -1,3 +1,17 @@
+/ {
+    /* Dummy Display, um den Linker Fehler zu beheben */
+    chosen {
+        zephyr,display = &dummy_dis;
+    };
+
+    dummy_dis: dummy_dis {
+        compatible = "zephyr,dummy-display";
+        status = "okay";
+        width = <160>;
+        height = <80>;
+    };
+};
+
 &pinctrl {
     spi3_default: spi3_default {
         group1 {
@@ -27,22 +41,6 @@
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
-        /* Hier auf den neuen Pin P0.29 ändern! */
         dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-    };
-};
-
-/ {
-    /* Wir definieren ein Dummy-Display, damit der Linker zufrieden ist, 
-       weisen ihm aber keine echten Pins zu */
-    chosen {
-        zephyr,display = &dummy_dis;
-    };
-
-    dummy_dis: dummy_dis {
-        compatible = "zephyr,dummy-display";
-        status = "okay";
-        width = <160>;
-        height = <80>;
     };
 };
