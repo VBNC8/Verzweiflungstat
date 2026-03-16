@@ -121,7 +121,7 @@
             timeout-ms = <40>;
             key-positions = <3 15>;
             bindings = <&kp LS(N1)>;
-            layers = <0>;
+            layers = <0 1>;
         };
 
         // Doppelpunkt (:) auf , und .
@@ -129,7 +129,7 @@
             timeout-ms = <50>;
             key-positions = <32 33>; // Positionen für COMMA und DOT auf dem Corne
             bindings = <&kp LS(DOT)>;
-            layers = <0>;
+            layers = <0 1>;
         };
 
         // CREO: Ctrl+Alt auf X und C (Links unten)
@@ -145,7 +145,15 @@
             timeout-ms = <40>;
             key-positions = <20 21>; // K=20, L=21
             bindings = <&kp RA(MINUS)>; // AltGr + ß ergibt \ im DE-Layout
-            layers = <0>;
+            layers = <0 1>;
+        };
+
+        // Slash (/) auf S und D
+        combo_slash {
+            timeout-ms = <40>;
+            key-positions = <14 15>; // K=20, L=21
+            bindings = <&kp KP_DIVIDE>;
+            layers = <0 1>;
         };
 
         // Caps Word auf beiden Shift-Tasten (F und J)
@@ -161,7 +169,7 @@
             timeout-ms = <50>;
             key-positions = <15 16>; // D und F
             bindings = <&kp LS(N2)>; // In DE-Layout meist LS(2) für "
-            layers = <0>; // Nur auf dem Default Layer aktiv
+            layers = <0 1>;
         };
 
         // Fragezeichen (?) auf J und K
@@ -169,7 +177,7 @@
             timeout-ms = <50>;
             key-positions = <19 20>; // J und K
             bindings = <&kp LS(MINUS)>; // In DE-Layout meist LS(_) für ?
-            layers = <0>; // Nur auf dem Default Layer aktiv
+            layers = <0 1>;
         };
        
         // Ä (A + Z) - Vertikal linker pinkie
@@ -203,9 +211,6 @@
             bindings = <&kp MINUS>;
             layers = <0>;
         };
-        // NEU: Hochzahlen im Lower Layer (Layer 1)
-        combo_super2 { timeout-ms = <50>; key-positions = <2 14>; bindings = <&kp RA(N2)>; layers = <1>; }; // S+W im Lower -> ²
-        combo_super3 { timeout-ms = <50>; key-positions = <3 15>; bindings = <&kp RA(N3)>; layers = <1>; }; // D+E im Lower -> ³
     };
 
     keymap {
@@ -252,15 +257,41 @@
     };
 };
 
-&spi3 {
-    status = "okay";
-    led_strip: ws2812@0 {
-        compatible = "worldsemi,ws2812-spi";
-        reg = <0>;
-        spi-max-frequency = <4000000>;
-        chain-length = <18>; 
-        spi-one-frame = <0x70>;
-        spi-zero-frame = <0x40>;
-        color-mapping = <2 1 3>; 
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 8)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 17)>;
+        };
+    };
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 8)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 17)>;
+            low-power-enable;
+        };
     };
 };
+
+// Das hier ist der "Trick": Das Trackpad wird nur für die rechte Seite definiert
+#ifdef SHIELD_SPLITKB_AURORA_CORNE_RIGHT
+&spi0 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>; 
+
+    trackpad: glidepoint@0 {
+        compatible = "cirque,pinnacle";
+        reg = <0>;
+        status = "okay";
+        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; 
+        sensitivity = <35>;
+        sleep;
+    };
+};
+#endif
