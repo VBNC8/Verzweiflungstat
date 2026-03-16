@@ -156,11 +156,11 @@
             layers = <0 1>;
         };
 
-        // Minus/Bindestrich (-) auf L und SLASH
+        // Minus/Bindestrich (-) für DE-Layout auf L und SLASH
         combo_minus {
             timeout-ms = <40>;
             key-positions = <21 22>; // L=21, SLASH=22
-            bindings = <&kp MINUS>;
+            bindings = <&kp SLASH>;  // Schickt den Code für die Taste rechts neben dem Punkt (DE: -)
             layers = <0 1>;
         };
 
