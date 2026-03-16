@@ -275,7 +275,7 @@ combos:
 - p:
   - 18
   - 19
-  k: /
+  k: '-'
   l:
   - default
   - lower
