@@ -93,9 +93,11 @@ layers:
   - t: '#'
     s: ''''
   - +
-  - '-'
   - '*'
-  - /
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - '='
   - t: $$mdi:bluetooth-off$$
     s: CLR 5s
@@ -214,8 +216,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - Pwr±
   - t: ▽
     type: trans
   - ⏮
