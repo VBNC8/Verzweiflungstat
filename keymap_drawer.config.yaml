@@ -1,0 +1,74 @@
+name: Draw ZMK keymaps
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "config/splitkb_aurora_corne.keymap"
+      - "config/keymap_drawer.config.yaml"
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install tree-sitter==0.21.3 keymap-drawer PyYAML
+
+      - name: Parse and Transform
+        run: |
+          # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
+          
+          python3 - <<EOF
+          import yaml
+          with open('raw_keymap.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+          
+          # Layout-Wechsel auf das schmale 3x5_3
+          data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
+          
+          # Definition der zu löschenden Indizes (Randtasten)
+          deleted_indices = [0, 11, 12, 23, 24, 35]
+          
+          # 2. Layer-Tasten löschen (42 -> 36)
+          layers = data.get('layers', {})
+          for name, layer in layers.items():
+              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
+              for idx in sorted(deleted_indices, reverse=True):
+                  if len(keys_list) > idx:
+                      keys_list.pop(idx)
+          
+          # 3. NEU: Combos umrechnen
+          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
+          if 'combos' in data:
+              for combo in data['combos']:
+                  new_positions = []
+                  for pos in combo['p']:
+                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
+                      offset = sum(1 for d in deleted_indices if d < pos)
+                      new_positions.append(pos - offset)
+                  combo['p'] = new_positions
+          
+          import os
+          os.makedirs('keymap-drawer', exist_ok=True)
+          with open('keymap-drawer/keymap.yaml', 'w') as f:
+              yaml.dump(data, f, sort_keys=False, allow_unicode=True)
+          EOF
+      - name: Draw SVG
+        run: |
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
+          git commit -m "Automated 3x5_3 crop and draw" || exit 0
+          git push
