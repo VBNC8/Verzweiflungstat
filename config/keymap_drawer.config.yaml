@@ -33,7 +33,7 @@ parse_config:
     "&kp LS(N0)": "="
     "&kp LS(MINUS)": "?"
     "&kp LS(DOT)": ":"
-    "&kp LS(BSLH)": "'"
+    "&kp LS(NON_US_HASH)": "'"
      
     # --- MATH CODES (NUMPAD) ---
     "&kp KP_PLUS": "+"
