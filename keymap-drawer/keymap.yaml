@@ -282,6 +282,13 @@ combos:
   - default
   - lower
 - p:
+  - 10
+  - 11
+  k: _
+  l:
+  - default
+  - lower
+- p:
   - 13
   - 16
   k: 'CAPS
