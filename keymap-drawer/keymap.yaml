@@ -127,10 +127,10 @@ layers:
   - 🖱 LMB
   - t: ▽
     type: trans
-  - UP
-  - LEFT
-  - DOWN
-  - RIGHT
+  - UP ▲
+  - LEFT ◀
+  - DOWN ▼
+  - RIGHT ▶
   - '`'
   - t: ▽
     type: trans
