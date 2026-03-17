@@ -100,9 +100,9 @@ layers:
     s: CLR 5s
     type: ghost
   - $$mdi:microsoft-windows-classic$$
-  - t: ⤒ Pos1
+  - t: ↖ Pos1
     type: held
-  - t: ⤓ End
+  - t: ↘ End
     type: held
   - t: $$mdi:monitor$$
     s: Show
@@ -142,10 +142,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - PgUp
+  - ⤒ PgUp
   - t: ▽
     type: trans
-  - PgDn
+  - ⤓ PgDn
   - t: ▽
     type: trans
   - ´
