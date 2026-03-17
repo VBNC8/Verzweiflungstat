@@ -9,8 +9,8 @@ parse_config:
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
-    "&kp HOME": {t: "⤒ Pos1", type: "held"}
-    "&kp END": {t: "⤓ End", type: "held"}
+    "&kp HOME": {t: "↖ Pos1", type: "held"}
+    "&kp END": {t: "↘ End", type: "held"}
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
@@ -52,8 +52,8 @@ parse_config:
     "&kp LS(GRAVE)": {t: "°"}
     "&kp PLUS": "`"
     "&kp LS(SLASH)": "_"
-    "&kp PG_UP": "PgUp"
-    "&kp PG_DN": "PgDn"
+    "&kp PG_UP": "⤒ PgUp"
+    "&kp PG_DN": "⤓ PgDn"
 
     # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
@@ -110,7 +110,7 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
-    "&kp C_PP": {t: "⏯", type: "ghost"}
+    "&kp C_PP": {t: "⏯", type: "held"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
