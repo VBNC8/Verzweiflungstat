@@ -28,11 +28,8 @@
 };
 
 &spi3 {
-    status = "disabled";
-    pinctrl-0 = <&spi3_default>;
-    pinctrl-names = "default";
-    /* Deine Belegung: SS (Chip Select) = P0.31 */
-    cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
+    status = "okay";
+    cs-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>; // Prüfe, ob Pin 22 dein CS ist!
 
     trackpad: trackpad@0 {
         compatible = "cirque,pinnacle";
