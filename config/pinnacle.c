@@ -1,14 +1,14 @@
 #include <zephyr/types.h>
 #include <drivers/spi.h>
-#include <drivers/gpio.h>
 #include <device.h>
+#include <init.h>
 
-// Grundbefehle für den Cirque Pinnacle
-#define PINNACLE_READ 0xA0
-#define PINNACLE_WRITE 0x80
-
-void pinnacle_init_custom(const struct device *spi_dev) {
-    // Hier würde die Initialisierung der Register stehen
-    // Da wir aber erst mal schauen wollen, ob es baut, 
-    // lassen wir es minimalistisch.
+// Wir definieren unser Gerät, damit Zephyr es beim Start "sieht"
+static int pinnacle_init(const struct device *dev) {
+    // Hier wird später die SPI-Kommunikation gestartet
+    // Für den ersten grünen Build reicht ein "Return 0"
+    return 0;
 }
+
+// Das hier ist die Magie: Es meldet den Treiber beim Systemstart an
+SYS_INIT(pinnacle_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
