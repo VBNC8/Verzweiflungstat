@@ -1,3 +1,7 @@
+# Falls die Datei noch nicht so anfängt:
+description: "Cirque Pinnacle"
+compatible: "cirque,pinnacle"
+
 description: "Cirque Pinnacle Trackpad"
 compatible: "cirque,pinnacle"
 include: spi-device.yaml
