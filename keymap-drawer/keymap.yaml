@@ -142,12 +142,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - PG UP
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - PG DN
   - t: ▽
     type: trans
   - ´
