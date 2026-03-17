@@ -1,3 +1,4 @@
+description: "Cirque Pinnacle Trackpad"
 compatible: "cirque,pinnacle"
 include: spi-device.yaml
 
@@ -5,8 +6,4 @@ properties:
   dr-gpios:
     type: phandle-array
     required: true
-    description: "Data Ready (Interrupt) GPIO"
-  sensitivity:
-    type: string
-    default: "4x"
-    enum: ["1x", "2x", "3x", "4x"]
+    description: "Data Ready Interrupt GPIO"
