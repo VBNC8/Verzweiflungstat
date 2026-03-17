@@ -47,7 +47,7 @@ static void pinnacle_work_handler(struct k_work *work) {
         /* Nur senden, wenn wirklich eine Bewegung stattgefunden hat */
         if (x != 0 || y != 0) {
             // Wir invertieren Y (-y), damit "hoch" auch auf dem Bildschirm "hoch" ist
-            zmk_hid_mouse_movement_update(x, -y, 0, 0);
+            zmk_hid_mouse_movement_update(x, -y);
             zmk_endpoints_send_mouse_report();
         }
     }
