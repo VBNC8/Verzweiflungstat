@@ -28,8 +28,7 @@ layers:
   - t: K
     h: CTRL
   - L
-  - t: '-'
-    s: _
+  - 'Sft+ #'
   - Z
   - t: X
     h: Alt
@@ -93,9 +92,9 @@ layers:
   - t: '#'
     s: ''''
   - +
-  - '-'
   - '*'
-  - /
+  - ','
+  - .
   - '='
   - t: $$mdi:bluetooth-off$$
     s: CLR 5s
@@ -241,12 +240,14 @@ combos:
   k: '!'
   l:
   - default
+  - lower
 - p:
   - 27
   - 28
   k: ':'
   l:
   - default
+  - lower
 - p:
   - 21
   - 22
@@ -261,6 +262,30 @@ combos:
   k: \
   l:
   - default
+  - lower
+- p:
+  - 11
+  - 12
+  k: /
+  l:
+  - default
+  - lower
+- p:
+  - 18
+  - 19
+  k:
+    t: '-'
+    s: _
+  l:
+  - default
+  - lower
+- p:
+  - 10
+  - 11
+  k: Sft+ /
+  l:
+  - default
+  - lower
 - p:
   - 13
   - 16
@@ -275,12 +300,14 @@ combos:
   k: '"'
   l:
   - default
+  - lower
 - p:
   - 16
   - 17
   k: '?'
   l:
   - default
+  - lower
 - p:
   - 0
   - 10
@@ -305,15 +332,3 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 1
-  - 11
-  k: ²
-  l:
-  - lower
-- p:
-  - 2
-  - 12
-  k: ³
-  l:
-  - lower
