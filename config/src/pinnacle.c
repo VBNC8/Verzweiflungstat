@@ -4,9 +4,10 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
 
-/* Wir versuchen die Standard-ZMK Header */
-#include <zmk/hid.h>
-#include <zmk/endpoints.h>
+/* Forward Declarations: Wir sagen dem Compiler, dass diese ZMK-Funktionen existieren */
+/* Das ersetzt die Header zmk/hid.h und zmk/endpoints.h */
+extern int zmk_hid_mouse_movement_update(int8_t x, int8_t y);
+extern int zmk_endpoints_send_mouse_report();
 
 LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
 
@@ -44,6 +45,7 @@ static void pinnacle_work_handler(struct k_work *work) {
         int8_t y = (int8_t)report[2];
         
         if (x != 0 || y != 0) {
+            /* Diese Funktionen werden jetzt ohne Header aufgerufen */
             zmk_hid_mouse_movement_update(x, -y);
             zmk_endpoints_send_mouse_report();
         }
@@ -72,7 +74,7 @@ static int pinnacle_init(const struct device *dev) {
 
     k_work_init(&data->work, pinnacle_work_handler);
 
-    /* Trackpad aktivieren */
+    /* Trackpad aktivieren: Feed Enable */
     uint8_t init_cmd[] = { 0x04, 0x01 }; 
     struct spi_buf init_tx_buf = { .buf = init_cmd, .len = 2 };
     struct spi_buf_set init_tx = { .buffers = &init_tx_buf, .count = 1 };
