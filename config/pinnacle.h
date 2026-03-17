@@ -1,0 +1,10 @@
+#pragma once
+#include <zephyr/types.h>
+
+#define PINNACLE_READ_REG 0xA0
+#define PINNACLE_WRITE_REG 0x80
+#define PINNACLE_REG_STATUS 0x02
+#define PINNACLE_REG_SYS_CONFIG 0x03
+#define PINNACLE_REG_FEED_CONFIG_1 0x04
+#define PINNACLE_REG_FEED_CONFIG_2 0x05
+#define PINNACLE_REG_Z_IDLE 0x0B
