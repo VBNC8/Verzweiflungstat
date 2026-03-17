@@ -10,7 +10,7 @@ manifest:
       revision: v0.3
       import: app/west.yml
     - name: zmk-input-behavior-pinnacle
-      remote: petejohanson
+      url: https://github.com/petejohanson/zmk-input-behavior-pinnacle
       revision: main
   self:
     path: config
