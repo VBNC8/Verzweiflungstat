@@ -19,6 +19,12 @@ parse_config:
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
+    # --- PFEILTASTEN (GEFÜLLTE DREIECKE) ---
+    "&kp UP": "UP ▲"
+    "&kp DOWN": "DOWN ▼"
+    "&kp LEFT": "LEFT ◀"
+    "&kp RIGHT": "RIGHT ▶"
+    
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
