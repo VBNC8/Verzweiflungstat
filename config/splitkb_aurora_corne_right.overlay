@@ -29,12 +29,30 @@
 
 &spi3 {
     status = "okay";
-    cs-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>; // Prüfe, ob Pin 22 dein CS ist!
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-names = "default";
+    // CS ist bei dir P0.31
+    cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
 
     trackpad: trackpad@0 {
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
+        // DR (Data Ready) ist P0.29
         dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        
+        sensitivity = "4x";
+        sleep-mode;
+    };
+};
+
+// Sicherstellen, dass die SPI-Pins für den nRF52840 (nice!nano) richtig sitzen
+&pinctrl {
+    spi3_default: spi3_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 17)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 17)>; // Cirque nutzt oft MOSI/MISO auf einem Pin oder getrennt
+        };
     };
 };
