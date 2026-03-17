@@ -2,16 +2,10 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: petejohanson
-      url-base: https://github.com/petejohanson
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
-    - name: zmk-input-behavior-pinnacle
-      remote: petejohanson
-      revision: main
-      path: modules/input/pinnacle  # Das hilft ZMK, den Pfad zu finden
   self:
     path: config
