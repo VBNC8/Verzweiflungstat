@@ -11,21 +11,21 @@ LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
 
 struct pinnacle_config {
     struct spi_dt_spec bus;
-    struct gpio_dt_spec dr_gpio;
 };
 
 struct pinnacle_data {
-    struct gpio_callback dr_cb;
+    struct k_timer timer;
     struct k_work work;
     const struct device *dev;
 };
 
+/* Die Abfrage-Logik (läuft jetzt per Timer) */
 static void pinnacle_work_handler(struct k_work *work) {
     struct pinnacle_data *data = CONTAINER_OF(work, struct pinnacle_data, work);
     const struct pinnacle_config *config = data->dev->config;
 
     uint8_t read_cmd = 0xFC; 
-    uint8_t report[4]; 
+    uint8_t report[4] = {0}; 
     
     struct spi_buf tx_buf = { .buf = &read_cmd, .len = 1 };
     struct spi_buf_set tx = { .buffers = &tx_buf, .count = 1 };
@@ -39,17 +39,17 @@ static void pinnacle_work_handler(struct k_work *work) {
         int8_t x = (int8_t)report[1];
         int8_t y = (int8_t)report[2];
         
+        // Wir filtern nur Null-Werte, um den Funk nicht zu fluten
         if (x != 0 || y != 0) {
-            // Wir senden "rohe" Input-Events. 
-            // ZMK fängt diese automatisch ab und wandelt sie in Mausbewegungen um.
             input_report_rel(data->dev, INPUT_REL_X, x, false, K_FOREVER);
             input_report_rel(data->dev, INPUT_REL_Y, -y, true, K_FOREVER);
         }
     }
 }
 
-static void pinnacle_gpio_callback(const struct device *port, struct gpio_callback *cb, uint32_t pins) {
-    struct pinnacle_data *data = CONTAINER_OF(cb, struct pinnacle_data, dr_cb);
+/* Timer-Callback: Schiebt die Arbeit in die Queue */
+static void pinnacle_timer_handler(struct k_timer *dummy) {
+    struct pinnacle_data *data = CONTAINER_OF(dummy, struct pinnacle_data, timer);
     k_work_submit(&data->work);
 }
 
@@ -58,16 +58,18 @@ static int pinnacle_init(const struct device *dev) {
     struct pinnacle_data *data = dev->data;
     data->dev = dev;
 
-    gpio_pin_configure_dt(&config->dr_gpio, GPIO_INPUT);
-    gpio_init_callback(&data->dr_cb, pinnacle_gpio_callback, BIT(config->dr_gpio.pin));
-    gpio_add_callback(config->dr_gpio.port, &data->dr_cb);
-    gpio_pin_interrupt_configure_dt(&config->dr_gpio, GPIO_INT_EDGE_TO_ACTIVE);
+    if (!spi_is_ready_dt(&config->bus)) return -ENODEV;
 
     k_work_init(&data->work, pinnacle_work_handler);
+    k_timer_init(&data->timer, pinnacle_timer_handler, NULL);
 
+    /* Trackpad aktivieren */
     uint8_t init_cmd[] = { 0x04, 0x01 }; 
     struct spi_buf_set init_tx = { .buffers = &(struct spi_buf){ .buf = init_cmd, .len = 2 }, .count = 1 };
     spi_write_dt(&config->bus, &init_tx);
+
+    /* Starte die Abfrage alle 10ms */
+    k_timer_start(&data->timer, K_MSEC(10), K_MSEC(10));
 
     return 0;
 }
@@ -76,7 +78,6 @@ static int pinnacle_init(const struct device *dev) {
     static struct pinnacle_data pinnacle_data_##n; \
     static const struct pinnacle_config pinnacle_config_##n = { \
         .bus = SPI_DT_SPEC_INST_GET(n, SPI_WORD_SET(8), 0), \
-        .dr_gpio = GPIO_DT_SPEC_INST_GET(n, dr_gpios), \
     }; \
     DEVICE_DT_INST_DEFINE(n, pinnacle_init, NULL, \
                          &pinnacle_data_##n, &pinnacle_config_##n, \
