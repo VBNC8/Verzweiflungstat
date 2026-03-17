@@ -43,4 +43,4 @@ static int pinnacle_init(const struct device *dev) {
     return 0;
 }
 
-SYS_INIT(pinnacle_init, APPLICATION, 90);
+SYS_INIT(pinnacle_init, APPLICATION, 90); 
