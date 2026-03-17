@@ -1,18 +1,11 @@
-west:
-  manifest:
-    remotes:
-      - name: zmkfirmware
-        url-base: https://github.com/zmkfirmware
-      - name: petejohanson
-        url-base: https://github.com/petejohanson
-    projects:
-      - name: zmk
-        remote: zmkfirmware
-        revision: main
-        import: app/west.yml
-      - name: zmk-input-behavior-pinnacle
-        remote: petejohanson
-        revision: main
-    self:
-      path: config
-      
+manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      revision: v0.3
+      import: app/west.yml
+  self:
+    path: config
