@@ -1,3 +1,13 @@
+/* Den Standard-Encoder des Shields für die rechte Seite deaktivieren */
+/ {
+    /delete-node/ encoder_right;
+};
+
+/* Falls der Shield-Code anders strukturiert ist, sicherheitshalber auch so: */
+&right_encoder {
+    status = "disabled";
+};
+
 &i2c0 { status = "disabled"; };
 &i2c1 { status = "disabled"; };
 
