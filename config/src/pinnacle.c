@@ -3,7 +3,8 @@
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
-#include <zmk/mouse.h>
+#include <zmk/events/mouse_state_changed.h>
+#include <zmk/endpoints.h>
 
 LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
 
