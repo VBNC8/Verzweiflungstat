@@ -3,11 +3,7 @@
 #include <zephyr/drivers/spi.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
-
-/* Forward Declarations: Wir sagen dem Compiler, dass diese ZMK-Funktionen existieren */
-/* Das ersetzt die Header zmk/hid.h und zmk/endpoints.h */
-extern int zmk_hid_mouse_movement_update(int8_t x, int8_t y);
-extern int zmk_endpoints_send_mouse_report();
+#include <zephyr/input/input.h>
 
 LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
 
@@ -24,7 +20,6 @@ struct pinnacle_data {
     const struct device *dev;
 };
 
-/* Verarbeitet die Daten vom Trackpad */
 static void pinnacle_work_handler(struct k_work *work) {
     struct pinnacle_data *data = CONTAINER_OF(work, struct pinnacle_data, work);
     const struct pinnacle_config *config = data->dev->config;
@@ -45,27 +40,23 @@ static void pinnacle_work_handler(struct k_work *work) {
         int8_t y = (int8_t)report[2];
         
         if (x != 0 || y != 0) {
-            /* Diese Funktionen werden jetzt ohne Header aufgerufen */
-            zmk_hid_mouse_movement_update(x, -y);
-            zmk_endpoints_send_mouse_report();
+            // Wir senden "rohe" Input-Events. 
+            // ZMK fängt diese automatisch ab und wandelt sie in Mausbewegungen um.
+            input_report_rel(data->dev, INPUT_REL_X, x, false, K_FOREVER);
+            input_report_rel(data->dev, INPUT_REL_Y, -y, true, K_FOREVER);
         }
     }
 }
 
-/* Interrupt bei Berührung */
 static void pinnacle_gpio_callback(const struct device *port, struct gpio_callback *cb, uint32_t pins) {
     struct pinnacle_data *data = CONTAINER_OF(cb, struct pinnacle_data, dr_cb);
     k_work_submit(&data->work);
 }
 
-/* Hardware-Startsequenz */
 static int pinnacle_init(const struct device *dev) {
     const struct pinnacle_config *config = dev->config;
     struct pinnacle_data *data = dev->data;
     data->dev = dev;
-
-    if (!spi_is_ready_dt(&config->bus)) return -ENODEV;
-    if (!gpio_is_ready_dt(&config->dr_gpio)) return -ENODEV;
 
     gpio_pin_configure_dt(&config->dr_gpio, GPIO_INPUT);
     gpio_init_callback(&data->dr_cb, pinnacle_gpio_callback, BIT(config->dr_gpio.pin));
@@ -74,16 +65,13 @@ static int pinnacle_init(const struct device *dev) {
 
     k_work_init(&data->work, pinnacle_work_handler);
 
-    /* Trackpad aktivieren: Feed Enable */
     uint8_t init_cmd[] = { 0x04, 0x01 }; 
-    struct spi_buf init_tx_buf = { .buf = init_cmd, .len = 2 };
-    struct spi_buf_set init_tx = { .buffers = &init_tx_buf, .count = 1 };
+    struct spi_buf_set init_tx = { .buffers = &(struct spi_buf){ .buf = init_cmd, .len = 2 }, .count = 1 };
     spi_write_dt(&config->bus, &init_tx);
 
     return 0;
 }
 
-/* Treiber-Instanzierung */
 #define PINNACLE_INST(n) \
     static struct pinnacle_data pinnacle_data_##n; \
     static const struct pinnacle_config pinnacle_config_##n = { \
