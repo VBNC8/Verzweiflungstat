@@ -15,3 +15,4 @@ west:
         revision: main
     self:
       path: config
+      
