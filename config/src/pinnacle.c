@@ -1,7 +1,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
-#include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/input/input.h>
 
@@ -19,7 +18,6 @@ struct pinnacle_data {
     const struct device *dev;
 };
 
-/* Die Abfrage-Logik (läuft jetzt per Timer) */
 static void pinnacle_work_handler(struct k_work *work) {
     struct pinnacle_data *data = CONTAINER_OF(work, struct pinnacle_data, work);
     const struct pinnacle_config *config = data->dev->config;
@@ -35,19 +33,15 @@ static void pinnacle_work_handler(struct k_work *work) {
     };
     struct spi_buf_set rx = { .buffers = rx_buf, .count = 2 };
 
+    /* SPI Mode 1 erzwingen */
     if (spi_transceive_dt(&config->bus, &tx, &rx) == 0) {
-        int8_t x = (int8_t)report[1];
-        int8_t y = (int8_t)report[2];
-        
-        // Wir filtern nur Null-Werte, um den Funk nicht zu fluten
-        if (x != 0 || y != 0) {
-            input_report_rel(data->dev, INPUT_REL_X, x, false, K_FOREVER);
-            input_report_rel(data->dev, INPUT_REL_Y, -y, true, K_FOREVER);
+        if (report[1] != 0 || report[2] != 0) {
+            input_report_rel(data->dev, INPUT_REL_X, (int8_t)report[1], false, K_FOREVER);
+            input_report_rel(data->dev, INPUT_REL_Y, -(int8_t)report[2], true, K_FOREVER);
         }
     }
 }
 
-/* Timer-Callback: Schiebt die Arbeit in die Queue */
 static void pinnacle_timer_handler(struct k_timer *dummy) {
     struct pinnacle_data *data = CONTAINER_OF(dummy, struct pinnacle_data, timer);
     k_work_submit(&data->work);
@@ -63,21 +57,19 @@ static int pinnacle_init(const struct device *dev) {
     k_work_init(&data->work, pinnacle_work_handler);
     k_timer_init(&data->timer, pinnacle_timer_handler, NULL);
 
-    /* Trackpad aktivieren */
-    uint8_t init_cmd[] = { 0x04, 0x01 }; 
+    /* Initialisierung: Feed Enable */
+    uint8_t init_cmd[] = { 0x84, 0x01 }; // Write to Reg 0x04
     struct spi_buf_set init_tx = { .buffers = &(struct spi_buf){ .buf = init_cmd, .len = 2 }, .count = 1 };
     spi_write_dt(&config->bus, &init_tx);
 
-    /* Starte die Abfrage alle 10ms */
     k_timer_start(&data->timer, K_MSEC(10), K_MSEC(10));
-
     return 0;
 }
 
 #define PINNACLE_INST(n) \
     static struct pinnacle_data pinnacle_data_##n; \
     static const struct pinnacle_config pinnacle_config_##n = { \
-        .bus = SPI_DT_SPEC_INST_GET(n, SPI_WORD_SET(8), 0), \
+        .bus = SPI_DT_SPEC_INST_GET(n, SPI_WORD_SET(8) | SPI_MODE_CPHA, 0), \
     }; \
     DEVICE_DT_INST_DEFINE(n, pinnacle_init, NULL, \
                          &pinnacle_data_##n, &pinnacle_config_##n, \
