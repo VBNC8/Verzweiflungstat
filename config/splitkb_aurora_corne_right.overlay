@@ -1,8 +1,4 @@
-/* Falls der Shield-Code anders strukturiert ist, sicherheitshalber auch so: */
-&right_encoder {
-    status = "disabled";
-};
-
+/* Wir deaktivieren I2C, damit die Pins 17 und 20 exklusiv für SPI frei werden */
 &i2c0 { status = "disabled"; };
 &i2c1 { status = "disabled"; };
 
@@ -20,11 +16,11 @@
     };
 };
 
-/* Wir nutzen SPI3 statt SPI0, um den Hardware-Konflikt zu umgehen */
+/* SPI3 Konfiguration für das Trackpad */
 &pinctrl {
     spi3_default: spi3_default {
         group1 {
-            /* Deine Belegung: SCK = P0.20, MOSI (SI) = P0.08, MISO (SO) = P0.17 */
+            /* SCK = P0.20, MOSI = P0.08, MISO = P0.17 */
             psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,  
                     <NRF_PSEL(SPIM_MOSI, 0, 8)>, 
                     <NRF_PSEL(SPIM_MISO, 0, 17)>;
@@ -36,17 +32,12 @@
     status = "okay";
     pinctrl-0 = <&spi3_default>;
     pinctrl-names = "default";
-    // CS ist bei dir P0.31
     cs-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
 
     trackpad: trackpad@0 {
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
-        // DR (Data Ready) ist P0.29
         dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-        
-        /* sensitivity und sleep-mode wurden entfernt, da sie im Binding fehlen */
     };
 };
-
