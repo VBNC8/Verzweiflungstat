@@ -53,4 +53,48 @@ static void pinnacle_work_handler(struct k_work *work) {
     }
 }
 
-/* Interrupt-Handler
+/* Interrupt-Handler für den DR-Pin (Data Ready) */
+static void pinnacle_gpio_callback(const struct device *port, struct gpio_callback *cb, uint32_t pins) {
+    struct pinnacle_data *data = CONTAINER_OF(cb, struct pinnacle_data, dr_cb);
+    k_work_submit(&data->work);
+}
+
+/* Initialisierung beim Booten */
+static int pinnacle_init(const struct device *dev) {
+    const struct pinnacle_config *config = dev->config;
+    struct pinnacle_data *data = dev->data;
+    data->dev = dev;
+
+    if (!spi_is_ready_dt(&config->bus)) return -ENODEV;
+    if (!gpio_is_ready_dt(&config->dr_gpio)) return -ENODEV;
+
+    // GPIO für den Interrupt-Pin konfigurieren
+    gpio_pin_configure_dt(&config->dr_gpio, GPIO_INPUT);
+    gpio_init_callback(&data->dr_cb, pinnacle_gpio_callback, BIT(config->dr_gpio.pin));
+    gpio_add_callback(config->dr_gpio.port, &data->dr_cb);
+    gpio_pin_interrupt_configure_dt(&config->dr_gpio, GPIO_INT_EDGE_TO_ACTIVE);
+
+    // Work-Queue für die SPI-Abfrage starten
+    k_work_init(&data->work, pinnacle_work_handler);
+
+    // WICHTIG: Trackpad in den aktiven Modus versetzen (Feed Enable)
+    uint8_t init_cmd[] = { 0x04, 0x01 }; 
+    struct spi_buf init_tx_buf = { .buf = init_cmd, .len = 2 };
+    struct spi_buf_set init_tx = { .buffers = &init_tx_buf, .count = 1 };
+    spi_write_dt(&config->bus, &init_tx);
+
+    return 0;
+}
+
+/* Instanziierung des Treibers */
+#define PINNACLE_INST(n) \
+    static struct pinnacle_data pinnacle_data_##n; \
+    static const struct pinnacle_config pinnacle_config_##n = { \
+        .bus = SPI_DT_SPEC_INST_GET(n, SPI_WORD_SET(8), 0), \
+        .dr_gpio = GPIO_DT_SPEC_INST_GET(n, dr_gpios), \
+    }; \
+    DEVICE_DT_INST_DEFINE(n, pinnacle_init, NULL, \
+                         &pinnacle_data_##n, &pinnacle_config_##n, \
+                         APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY, NULL);
+
+DT_INST_FOREACH_STATUS_OKAY(PINNACLE_INST)
