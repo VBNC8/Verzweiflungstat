@@ -41,8 +41,7 @@
         // DR (Data Ready) ist P0.29
         dr-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         
-        sensitivity = "4x";
-        sleep-mode;
+        /* sensitivity und sleep-mode wurden entfernt, da sie im Binding fehlen */
     };
 };
 
