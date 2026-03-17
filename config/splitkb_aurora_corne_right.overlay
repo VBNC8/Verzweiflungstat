@@ -1,5 +1,5 @@
-/* Wir lassen i2c0 deaktiviert */
 &i2c0 { status = "disabled"; };
+&i2c1 { status = "disabled"; };
 
 / {
     /* Das Dummy-Display verhindert den "ord_174" Fehler */
