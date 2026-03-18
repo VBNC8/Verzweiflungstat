@@ -97,8 +97,7 @@ layers:
     type: held
   - t: ↘ End
     type: held
-  - t: $$mdi:monitor$$
-    s: Show
+  - SPACE
   - ⌫
   raise:
   - F1
@@ -145,8 +144,8 @@ layers:
     type: ghost
   - t: Task Mgr
     type: held
-  - t: ▽
-    type: trans
+  - t: $$mdi:monitor$$
+    s: Show
   - t: ▽
     type: trans
   - t: '&nbsp'
