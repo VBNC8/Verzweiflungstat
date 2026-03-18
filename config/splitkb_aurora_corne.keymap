@@ -252,7 +252,7 @@
 &none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley             &kp LS(GRAVE)  &pair_paren      &pair_brc    &pair_bkt   &trans        &none
 &none  &kp N1        &kp N2           &kp N3               &kp N4        &kp N5              &kp N6         &kp N7           &kp N8       &kp N9      &kp N0        &none
 &none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH     &kp KP_PLUS    &kp KP_MULTIPLY  &kp COMMA    &kp DOT     &kp KP_EQUAL  &none
-                                      &enc_bt_clr 0 0      &kp LGUI      &kp HOME            &kp END        &kp LG(D)        &kp BSPC
+                                      &enc_bt_clr 0 0      &kp LGUI      &kp HOME            &kp END        &kp SPACE        &kp BSPC
             >;
         };
 
@@ -262,7 +262,7 @@
 &none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7       &kp F8      &kp F9     &kp F10      &none
 &none  &trans        &trans           &mkp RCLK            &mkp LCLK        &trans           &kp UP       &kp LEFT     &kp DOWN    &kp RIGHT  &kp PLUS     &none
 &none  &trans        &trans           &trans               &trans           &trans           &kp PG_UP    &trans       &kp PG_DN   &trans     &kp EQUAL    &none
-                                      &kp F14              &kp LC(LS(ESC))  &trans           &trans       &nbsp        &trans
+                                      &kp F14              &kp LC(LS(ESC))  &kp LG(D)        &trans       &nbsp        &trans
             >;
         };
 
