@@ -4,65 +4,43 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/input/input.h>
 
-LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
+LOG_MODULE_REGISTER(pinnacle, LOG_LEVEL_INF);
 
 #define DT_DRV_COMPAT cirque_pinnacle
 
-struct pinnacle_config {
-    struct spi_dt_spec bus;
-};
-
-struct pinnacle_data {
-    struct k_timer timer;
-    struct k_work work;
-    const struct device *dev;
-};
+struct pinnacle_config { struct spi_dt_spec bus; };
+struct pinnacle_data { const struct device *dev; struct k_timer timer; struct k_work work; };
 
 static void pinnacle_work_handler(struct k_work *work) {
     struct pinnacle_data *data = CONTAINER_OF(work, struct pinnacle_data, work);
-    const struct pinnacle_config *config = data->dev->config;
-
-    uint8_t read_cmd = 0xFC; 
-    uint8_t report[4] = {0}; 
+    const struct pinnacle_config *cfg = data->dev->config;
+    uint8_t cmd = 0xFC; uint8_t res[4] = {0};
+    struct spi_buf tx_b = {.buf = &cmd, .len = 1};
+    struct spi_buf rx_b[] = {{.buf = NULL, .len = 1}, {.buf = res, .len = 4}};
     
-    struct spi_buf tx_buf = { .buf = &read_cmd, .len = 1 };
-    struct spi_buf_set tx = { .buffers = &tx_buf, .count = 1 };
-    struct spi_buf rx_buf[] = {
-        { .buf = NULL, .len = 1 }, 
-        { .buf = report, .len = sizeof(report) }
-    };
-    struct spi_buf_set rx = { .buffers = rx_buf, .count = 2 };
-
-    /* SPI Mode 1 erzwingen */
-    if (spi_transceive_dt(&config->bus, &tx, &rx) == 0) {
-        if (report[1] != 0 || report[2] != 0) {
-            input_report_rel(data->dev, INPUT_REL_X, (int8_t)report[1], false, K_FOREVER);
-            input_report_rel(data->dev, INPUT_REL_Y, -(int8_t)report[2], true, K_FOREVER);
+    // Wir loggen nur, wenn sich wirklich was bewegt, um den Bus nicht zu fluten
+    if (spi_transceive_dt(&cfg->bus, &(struct spi_buf_set){&tx_b, 1}, &(struct spi_buf_set){rx_b, 2}) == 0) {
+        if (res[1] != 0 || res[2] != 0) {
+            input_report_rel(data->dev, INPUT_REL_X, (int8_t)res[1], false, K_FOREVER);
+            input_report_rel(data->dev, INPUT_REL_Y, -(int8_t)res[2], true, K_FOREVER);
         }
     }
 }
 
-static void pinnacle_timer_handler(struct k_timer *dummy) {
-    struct pinnacle_data *data = CONTAINER_OF(dummy, struct pinnacle_data, timer);
+static void pinnacle_timer_handler(struct k_timer *t) {
+    struct pinnacle_data *data = CONTAINER_OF(t, struct pinnacle_data, timer);
     k_work_submit(&data->work);
 }
 
 static int pinnacle_init(const struct device *dev) {
-    const struct pinnacle_config *config = dev->config;
     struct pinnacle_data *data = dev->data;
     data->dev = dev;
-
-    if (!spi_is_ready_dt(&config->bus)) return -ENODEV;
-
     k_work_init(&data->work, pinnacle_work_handler);
     k_timer_init(&data->timer, pinnacle_timer_handler, NULL);
-
-    /* Initialisierung: Feed Enable */
-    uint8_t init_cmd[] = { 0x84, 0x01 }; // Write to Reg 0x04
-    struct spi_buf_set init_tx = { .buffers = &(struct spi_buf){ .buf = init_cmd, .len = 2 }, .count = 1 };
-    spi_write_dt(&config->bus, &init_tx);
-
-    k_timer_start(&data->timer, K_MSEC(10), K_MSEC(10));
+    
+    // Wir starten das Polling erst nach 5 Sekunden, damit USB stabil ist
+    k_timer_start(&data->timer, K_MSEC(5000), K_MSEC(20));
+    printk("Pinnacle: Treiber geladen, warte 5s auf Start...\n");
     return 0;
 }
 
@@ -71,8 +49,6 @@ static int pinnacle_init(const struct device *dev) {
     static const struct pinnacle_config pinnacle_config_##n = { \
         .bus = SPI_DT_SPEC_INST_GET(n, SPI_WORD_SET(8) | SPI_MODE_CPHA, 0), \
     }; \
-    DEVICE_DT_INST_DEFINE(n, pinnacle_init, NULL, \
-                         &pinnacle_data_##n, &pinnacle_config_##n, \
-                         APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY, NULL);
-
+    DEVICE_DT_INST_DEFINE(n, pinnacle_init, NULL, &pinnacle_data_##n, \
+                         &pinnacle_config_##n, APPLICATION, 90, NULL);
 DT_INST_FOREACH_STATUS_OKAY(PINNACLE_INST)
