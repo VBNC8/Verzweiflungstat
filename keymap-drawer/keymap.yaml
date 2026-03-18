@@ -65,7 +65,8 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - Sft+ \
+  - t: ▽
+    type: trans
   - '1'
   - '2'
   - t: '3'
@@ -99,8 +100,7 @@ layers:
     type: held
   - t: $$mdi:monitor$$
     s: Show
-  - t: ▽
-    type: trans
+  - ⌫
   raise:
   - F1
   - F2
