@@ -116,7 +116,7 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
-    "&lt_hp 3 C_PP": {t: "⏯", type: "ghost"}
+    "&lt_hp 3 C_PP": {t: "⏯", h: "Adjust", type: "ghost"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
