@@ -14,12 +14,12 @@ jobs:
         run: west update
       - name: West Zephyr Export
         run: west zephyr-export
-      - name: Build Left (Pur Kupfer-Edition)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Build Left
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}/zmk/app"
       - name: Save Left
         run: cp build/zephyr/zmk.uf2 left.uf2
       - name: Build Right (Pur Kupfer-Edition)
-        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}/zmk/app"
       - name: Save Right
         run: cp build/zephyr/zmk.uf2 right.uf2
       - name: Upload
