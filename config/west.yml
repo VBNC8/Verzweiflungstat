@@ -1,17 +1,11 @@
 manifest:
-  defaults:
-    revision: v0.3
   remotes:
     - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: infused-kim
-      url-base: https://github.com/infused-kim
+      url-https: https://github.com/zmkfirmware
   projects:
     - name: zmk
       remote: zmkfirmware
+      revision: main
       import: app/west.yml
-    - name: zmk-battery-status-led
-      remote: infused-kim
-      revision: main # Hier schauen wir, ob es abwärtskompatibel ist
   self:
-    path: config 
+    path: configconfig 
