@@ -5,7 +5,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: v0.19.0  # <--- Das ist der Trick! Eine stabile Version fixieren.
+      revision: main  # Wir bleiben bei main, aber ohne das defekte LED-Modul
       import: app/west.yml
   self:
-    path: configconfig
+    path: config
