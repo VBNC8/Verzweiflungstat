@@ -2,7 +2,6 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/pointing.h>
 
 / {
 
@@ -91,12 +90,6 @@
           bindings = <&mo>, <&kp>; 
         };
 
-        hw_scroll: hw_scroll {
-          compatible = "zmk,behavior-sensor-rotate-var";
-          #sensor-binding-cells = <2>; // Wir erlauben wieder 2 Parameter
-          bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
-          tap-ms = <20>;
-        };
         // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
           compatible = "zmk,behavior-hold-tap";
