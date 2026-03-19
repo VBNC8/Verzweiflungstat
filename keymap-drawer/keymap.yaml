@@ -124,7 +124,7 @@ layers:
   - t: ▽
     type: trans
   - 🖱 RMB
-  - 🖱 LMB
+  - ''
   - t: ▽
     type: trans
   - UP
