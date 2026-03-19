@@ -5,7 +5,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v0.19.0  # <--- Das ist der Trick! Eine stabile Version fixieren.
       import: app/west.yml
   self:
-    path: config
+    path: configconfig
