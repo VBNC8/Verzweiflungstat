@@ -7,6 +7,9 @@
             label = "Status LED";
         };
     };
+    chosen {
+        zmk,battery-led = &battery_led;
+    };
 };
 
 // Falls dein Encoder links ist:
