@@ -1,18 +1,19 @@
 / {
-    // Hier kannst du später deine LED definieren
     leds {
         compatible = "gpio-leds";
-        status_led: led_0 {
-            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>; // Jetzt gehört der Pin der LED!
-            label = "Status LED";
+        # Hier muss der Name mit dem unten übereinstimmen
+        battery_led: led_0 {
+            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>; 
+            label = "Battery Status LED";
         };
     };
+
     chosen {
+        # Jetzt zeigen beide auf 'battery_led'
         zmk,battery-led = &battery_led;
     };
 };
 
-// Falls dein Encoder links ist:
 &left_encoder {
     status = "okay";
 };
