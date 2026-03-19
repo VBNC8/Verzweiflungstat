@@ -2,15 +2,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: infused-kim
-      url-base: https://github.com/infused-kim # Der Autor des LED-Moduls
+    - name: nickconway
+      url-base: https://github.com/nickconway # Alternative Version
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
     - name: zmk-battery-status-led
-      remote: infused-kim
+      remote: nickconway
       revision: main
   self:
     path: config
