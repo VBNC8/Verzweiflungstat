@@ -116,6 +116,22 @@
      combos {
         compatible = "zmk,combos";
 
+        // TEST: Pin 20 (Draht) + Taste 0 (ganz oben links auf deinem Corne)
+        // Wenn du den Draht an GND hältst UND Taste 0 drückst, 
+        // sollte das Display auf BT 2 umspringen.
+        combo_bt2_test {
+            timeout-ms = <50>;
+            key-positions = <0 42>; 
+            bindings = <&bt BT_SEL 1>;
+        };
+
+        // TEST: Pin 2 (Draht) + Taste 0
+        combo_bt3_test {
+            timeout-ms = <50>;
+            key-positions = <0 43>;
+            bindings = <&bt BT_SEL 2>;
+        };
+
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
