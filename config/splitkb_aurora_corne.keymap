@@ -56,11 +56,6 @@
     };
 
     behaviors {
-        bt_p0: bt_pin_0 {
-            compatible = "zmk,behavior-sensor-rotate"; // Platzhalter oder direct key
-            #sensor-binding-cells = <0>;
-            bindings = <&kp F23>, <&kp F24>; 
-        };
         caps_wrd: caps_wrd {
           compatible = "zmk,behavior-caps-word";
           #binding-cells = <0>;
@@ -109,25 +104,29 @@
      combos {
         compatible = "zmk,combos";
 
-        // Wenn NUR Pin 20 (Bit 0) an GND liegt -> Profil 1
-        combo_bt1 {
-            timeout-ms = <50>;
-            key-positions = <36>; // Wir mappen Pin 20 auf eine virtuelle Position
-            bindings = <&bt BT_SEL 0>;
-        };
-
-        // Wenn NUR Pin 2 (Bit 1) an GND liegt -> Profil 2
+        // Wir definieren die Schalter-Logik über Combos, 
+        // BT Profil 2: Wenn Pin 20 (Bit 0) auf GND liegt
+        // Damit der Drawer nicht meckert, fügen wir eine "Dummy"-Taste 
+        // oder eine zweite Position hinzu, die wir eh nicht drücken.
         combo_bt2 {
             timeout-ms = <50>;
-            key-positions = <37>; // Wir mappen Pin 2 auf eine virtuelle Position
+            key-positions = <40 42>; // 40 ist ein Thumb-Key, 42 dein Pin
             bindings = <&bt BT_SEL 1>;
         };
 
-        // Wenn BEIDE an GND liegen -> Profil 3
+        // BT Profil 3: Wenn Pin 2 (Bit 1) auf GND liegt
         combo_bt3 {
             timeout-ms = <50>;
-            key-positions = <36 37>;
+            key-positions = <41 43>; // 41 ist ein Thumb-Key, 43 dein Pin
             bindings = <&bt BT_SEL 2>;
+        };
+
+        // USB Erzwingen: Wenn BEIDE Pins auf GND liegen
+        // Das ist eine echte Combo aus zwei Pins, das liebt der Drawer!
+        combo_usb_force {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&out OUT_USB>;
         };
         
         // ! (E + D) - Vertikal Mittelfinger
