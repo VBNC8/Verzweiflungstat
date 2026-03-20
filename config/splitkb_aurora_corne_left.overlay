@@ -1,4 +1,5 @@
 / {
+    // Deine vorhandene LED
     leds {
         compatible = "gpio-leds";
         status_led: led_0 {
@@ -7,21 +8,20 @@
         };
     };
 
-    // NEU: Die zwei Pins für den BT-Schalter
+    // NEU: Die zwei Pins für den BT-Schalter Test
+    // Wir nutzen erst mal die internen Pull-Ups (Stromfresser-Modus)
     bt_selector: gpio_keys {
         compatible = "gpio-keys";
         label = "BT Selector Pins";
         
-        // Bit 0 an P0.29 (Pro Micro Pin 20 / D21)
         bt_bit0: bt_bit0 {
             gpios = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-            label = "BT Bit 0";
+            label = "BT Bit 0 (P0.29)";
         };
 
-        // Bit 1 an P0.08 (Pro Micro Pin 2 / D0)
         bt_bit1: bt_bit1 {
             gpios = <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-            label = "BT Bit 1";
+            label = "BT Bit 1 (P0.08)";
         };
     };
 };
