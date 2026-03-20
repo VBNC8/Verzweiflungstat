@@ -101,7 +101,7 @@
         };
      };
 
-     combos {
+     /* KEYMAP_DRAWER_HIDE */combos {
         compatible = "zmk,combos";
 
         // BT Profil 2 (Pin 20 / Index 42)
@@ -125,7 +125,7 @@
             key-positions = <42 43>;
             bindings = <&out OUT_USB>;
         };
-        
+     /* KEYMAP_DRAWER_HIDE */   
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
