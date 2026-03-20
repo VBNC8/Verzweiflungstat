@@ -2,15 +2,10 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: nickconway
-      url-base: https://github.com/nickconway # Alternative Version
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-battery-status-led
-      remote: nickconway
-      revision: main
   self:
     path: config
