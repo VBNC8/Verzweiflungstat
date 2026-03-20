@@ -1,16 +1,10 @@
 / {
     leds {
         compatible = "gpio-leds";
-        # Hier muss der Name mit dem unten übereinstimmen
-        battery_led: led_0 {
-            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>; 
-            label = "Battery Status LED";
+        status_led: led_0 {
+            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+            label = "Status LED";
         };
-    };
-
-    chosen {
-        # Jetzt zeigen beide auf 'battery_led'
-        zmk,battery-led = &battery_led;
     };
 };
 
