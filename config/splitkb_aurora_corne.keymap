@@ -56,6 +56,11 @@
     };
 
     behaviors {
+        bt_p0: bt_pin_0 {
+            compatible = "zmk,behavior-sensor-rotate"; // Platzhalter oder direct key
+            #sensor-binding-cells = <0>;
+            bindings = <&kp F23>, <&kp F24>; 
+        };
         caps_wrd: caps_wrd {
           compatible = "zmk,behavior-caps-word";
           #binding-cells = <0>;
@@ -104,6 +109,27 @@
      combos {
         compatible = "zmk,combos";
 
+        // Wenn NUR Pin 20 (Bit 0) an GND liegt -> Profil 1
+        combo_bt1 {
+            timeout-ms = <50>;
+            key-positions = <36>; // Wir mappen Pin 20 auf eine virtuelle Position
+            bindings = <&bt BT_SEL 0>;
+        };
+
+        // Wenn NUR Pin 2 (Bit 1) an GND liegt -> Profil 2
+        combo_bt2 {
+            timeout-ms = <50>;
+            key-positions = <37>; // Wir mappen Pin 2 auf eine virtuelle Position
+            bindings = <&bt BT_SEL 1>;
+        };
+
+        // Wenn BEIDE an GND liegen -> Profil 3
+        combo_bt3 {
+            timeout-ms = <50>;
+            key-positions = <36 37>;
+            bindings = <&bt BT_SEL 2>;
+        };
+        
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
