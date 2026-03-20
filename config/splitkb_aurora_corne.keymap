@@ -104,28 +104,6 @@
      combos {
         compatible = "zmk,combos";
 
-        // BT Profil 2 (Pin 20 / Index 42)
-        // Wir nehmen hier nur EINE Taste, ZMK frisst das, der Drawer sieht es eh nicht
-        combo_bt2 {
-            timeout-ms = <50>;
-            key-positions = <0 42>; 
-            bindings = <&bt BT_SEL 1>;
-        };
-
-        // BT Profil 3 (Pin 2 / Index 43)
-        combo_bt3 {
-            timeout-ms = <50>;
-            key-positions = <0 43>;
-            bindings = <&bt BT_SEL 2>;
-        };
-
-        // USB Force
-        combo_usb_force {
-            timeout-ms = <50>;
-            key-positions = <42 43>;
-            bindings = <&out OUT_USB>;
-        };
-
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
