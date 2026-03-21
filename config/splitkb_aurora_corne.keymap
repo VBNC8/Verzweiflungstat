@@ -13,13 +13,14 @@
         device = <&bt_selector>;
 
         button_0 {
-            include-keys = <0>;
-            layers = <0 1 2 3>; // Hier die Layer eintragen, in denen der Schalter aktiv sein soll
+            // Wir nutzen die Codes, die wir im Overlay (linux,code) definiert haben
+            input-codes = <102>; 
+            layers = <0 1 2 3>;
             bindings = <&bt BT_SEL 1>;
         };
 
         button_1 {
-            include-keys = <1>;
+            input-codes = <103>;
             layers = <0 1 2 3>;
             bindings = <&bt BT_SEL 2>;
         };
