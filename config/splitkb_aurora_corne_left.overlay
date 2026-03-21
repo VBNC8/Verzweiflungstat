@@ -9,35 +9,32 @@
 };
 
 / {
-    // 1. Der chosen-Knoten (Definiert, welche Matrix genutzt wird)
     chosen {
         zmk,kscan = &kscan_composite;
     };
 
-    // 2. Mini-Matrix für die Schalter an Pin 20 und Pin 2
     kscan_buttons: kscan_buttons {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios
-            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Wird Index 48
-            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Wird Index 49
+            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 48
+            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 49
             ;
     };
 
-    // 3. Composite Matrix (Corne Matrix + Schalter Matrix)
     kscan_composite: kscan_composite {
         compatible = "zmk,kscan-composite";
-        rows = <5>;  // 4 Reihen Corne + 1 Reihe Schalter
+        rows = <5>; 
         columns = <12>;
 
         matrix {
-            kscan = <&kscan0>;
+            // Wir suchen uns das kscan-Device des Shields direkt
+            kscan = <&kscan>; 
         };
 
         buttons {
             kscan = <&kscan_buttons>;
-            row-offset = <4>; // Verschiebt die Schalter in die 5. Reihe
+            row-offset = <4>; 
             column-offset = <0>;
         };
     };
 };
-// HIER KEIN &chosen MEHR!
