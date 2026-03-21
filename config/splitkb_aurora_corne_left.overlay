@@ -3,36 +3,41 @@
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
-// Falls der zweite SPI-Block (soc) nötig ist, muss er so aussehen:
+&spi0 {
+    status = "okay";
+    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+};
+
 &{/soc/spi@40003000} {
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
 / {
-    // Mini-Matrix für die Schalter
+    // 1. Der chosen-Knoten muss hier rein, ohne das '&'-Zeichen davor
+    chosen {
+        zmk,kscan = &kscan_composite;
+    };
+
+    // 2. Mini-Matrix für die Schalter
     kscan_buttons: kscan_buttons {
         compatible = "zmk,kscan-gpio-direct";
-        label = "KSCAN_BUTTONS";
         input-gpios
             = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 0
             , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 1
             ;
     };
 
-    // Wir kleben die Haupt-Matrix und die Schalter zusammen
+    // 3. Composite Matrix
     kscan_composite: kscan_composite {
         compatible = "zmk,kscan-composite";
-        label = "KSCAN_COMPOSITE";
-        rows = <5>; // 4 Reihen vom Corne + 1 Reihe für Buttons
+        rows = <5>; 
         columns = <12>;
 
-        // Die normale Matrix (Corne)
         matrix {
             kscan = <&kscan0>;
         };
 
-        // Die Schalter hängen wir "virtuell" in Reihe 4
         buttons {
             kscan = <&kscan_buttons>;
             row-offset = <4>; 
