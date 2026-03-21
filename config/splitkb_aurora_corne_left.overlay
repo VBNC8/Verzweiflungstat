@@ -9,29 +9,32 @@
 };
 
 / {
-    kscan_extended: kscan_extended {
-        compatible = "zmk,kscan-gpio-matrix";
-        diode-direction = "col2row";
-
-        col-gpios
-            = <&gpio0 10 GPIO_ACTIVE_HIGH> // COL 0 (Pin 14)
-            , <&gpio0 9  GPIO_ACTIVE_HIGH> // COL 1 (Pin 13)
-            , <&gpio1 11 GPIO_ACTIVE_HIGH> // COL 2 (Pin 15)
-            , <&gpio1 13 GPIO_ACTIVE_HIGH> // COL 3 (Pin 16)
-            , <&gpio1 15 GPIO_ACTIVE_HIGH> // COL 4 (Pin 17)
-            , <&gpio0 2  GPIO_ACTIVE_HIGH> // COL 5 (Pin 18)
-            ;
-
-        row-gpios
-            = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 0 (Pin 9)
-            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 1 (Pin 10)
-            , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 2 (Pin 11)
-            , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 3 (Pin 12)
-            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 4 (Pin 20) - DEIN SCHALTER
+    kscan_direct: kscan_direct {
+        compatible = "zmk,kscan-gpio-direct";
+        input-gpios
+            = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 20
+            , <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 21 (F4 laut Bild)
+            , <&gpio0 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 18 (F6 laut Bild)
+            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 17 (F7 laut Bild)
             ;
     };
 
+    kscan_composite: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        rows = <5>;      
+        columns = <6>;   // 6 Spalten für die linke Seite
+
+        matrix {
+            kscan = <&kscan>; // Versuche &kscan, falls &kscan0 nicht geht
+        };
+
+        buttons {
+            kscan = <&kscan_direct>;
+            row-offset = <4>;
+        };
+    };
+
     chosen {
-        zmk,kscan = &kscan_extended;
+        zmk,kscan = &kscan_composite;
     };
 };
