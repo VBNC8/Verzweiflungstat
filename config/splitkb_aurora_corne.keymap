@@ -138,26 +138,26 @@
      combos {
         compatible = "zmk,combos";
 
-        // Wir nutzen hier Tasten-Indizes, die physisch existieren (z.B. 14 und 15)
-        // PLUS unsere virtuellen Pins 42 und 43.
-        
+        /* --- SCHALTER-COMBOS (Nur für Hardware, Drawer ignorieren) --- */
+        #ifndef KEYMAP_DRAWER
         combo_bt2 {
             timeout-ms = <50>;
-            key-positions = <14 42>; 
+            key-positions = <48>; // Pin 20
             bindings = <&bt BT_SEL 1>;
         };
 
         combo_bt3 {
             timeout-ms = <50>;
-            key-positions = <14 43>;
+            key-positions = <49>; // Pin 2
             bindings = <&bt BT_SEL 2>;
         };
 
-        combo_usb {
+        combo_usb_force {
             timeout-ms = <50>;
-            key-positions = <42 43>;
+            key-positions = <48 49>;
             bindings = <&out OUT_USB>;
         };
+        #endif
 
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
