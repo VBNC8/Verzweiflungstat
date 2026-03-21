@@ -118,11 +118,14 @@
 
         compatible = "zmk,combos";
         
-        combo_hardware_test {
+        #ifndef KEYMAP_DRAWER
+        // Dieser Teil wird NUR für die Hardware kompiliert
+        combo_hw_test {
             timeout-ms = <50>;
-            key-positions = <42 43>; // Wir testen erst mal die 42 und 43
-            bindings = <&kp A>;       // Wenn beide gebrückt werden -> Ein 'A' erscheint
+            key-positions = <36 37>; // Wir kapern testweise die Daumen-Indizes
+            bindings = <&kp A>; 
         };
+        #endif
 
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
