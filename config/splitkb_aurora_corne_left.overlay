@@ -8,19 +8,26 @@
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
-/ {
-    kscan_direct: kscan_direct {
-    compatible = "zmk,kscan-gpio-matrix"; // Geändert von direct auf matrix
-    diode-direction = "col2row";
-    row-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // Nur Pin 20 als Reihe
-    col-gpios 
-        = <&gpio0 10 GPIO_ACTIVE_HIGH> // COL 0
-        , <&gpio0 9  GPIO_ACTIVE_HIGH> // COL 1
-        , <&gpio1 11 GPIO_ACTIVE_HIGH> // COL 2
-        , <&gpio1 13 GPIO_ACTIVE_HIGH> // COL 3
-        , <&gpio1 15 GPIO_ACTIVE_HIGH> // COL 4
-        , <&gpio0 2  GPIO_ACTIVE_HIGH> // COL 5
+&kscan {
+    // Wir erhöhen die Anzahl der Reihen direkt im Original-Objekt
+    row-gpios
+        = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 0 (Pin 9)
+        , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 1 (Pin 10)
+        , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 2 (Pin 11)
+        , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 3 (Pin 12)
+        , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // DEINE NEUE ROW 4 (Pin 20)
         ;
+    
+    // Wir stellen sicher, dass die Spalten-Anzahl für ZMK konsistent bleibt
+    // (Das Corne Shield hat meistens 6 Spalten definiert)
+};
+
+/ {
+    // Wir löschen den ganzen kscan_composite Kram wieder raus!
+    // Wir brauchen nur den chosen-Knoten, der auf das Original zeigt
+    chosen {
+        zmk,kscan = &kscan;
+    };
 };
 
     kscan_composite: kscan_composite {
