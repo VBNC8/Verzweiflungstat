@@ -5,7 +5,6 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/pointing.h>
-#include <dt-bindings/zmk/input_sel.h>
 
 / {
     /* KEYMAP_DRAWER_HIDE_START */
@@ -137,6 +136,27 @@
 
      combos {
         compatible = "zmk,combos";
+
+        // Wir nutzen hier Tasten-Indizes, die physisch existieren (z.B. 14 und 15)
+        // PLUS unsere virtuellen Pins 42 und 43.
+        
+        combo_bt2 {
+            timeout-ms = <50>;
+            key-positions = <14 42>; 
+            bindings = <&bt BT_SEL 1>;
+        };
+
+        combo_bt3 {
+            timeout-ms = <50>;
+            key-positions = <14 43>;
+            bindings = <&bt BT_SEL 2>;
+        };
+
+        combo_usb {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&out OUT_USB>;
+        };
 
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
