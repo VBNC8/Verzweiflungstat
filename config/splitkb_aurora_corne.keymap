@@ -6,28 +6,6 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#ifndef KEYMAP_DRAWER
-/ {
-    bt_listener {
-        compatible = "zmk,input-listener";
-        device = <&bt_selector>;
-
-        button_0 {
-            // Wir nutzen die Codes, die wir im Overlay (linux,code) definiert haben
-            input-codes = <102>; 
-            layers = <0 1 2 3>;
-            bindings = <&bt BT_SEL 1>;
-        };
-
-        button_1 {
-            input-codes = <103>;
-            layers = <0 1 2 3>;
-            bindings = <&bt BT_SEL 2>;
-        };
-    };
-};
-#endif
-
 / {
     chosen {
         zmk,underglow = &led_strip;
