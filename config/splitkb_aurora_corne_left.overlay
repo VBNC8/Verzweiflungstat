@@ -16,24 +16,17 @@
     kscan_buttons: kscan_buttons {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios
-            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 48
-            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 49
-            ;
+            = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; 
     };
 
     kscan_composite: kscan_composite {
         compatible = "zmk,kscan-composite";
         rows = <5>; 
         columns = <12>;
-
-        matrix {
-            kscan = <&kscan>; 
-        };
-
+        matrix { kscan = <&kscan>; };
         buttons {
             kscan = <&kscan_buttons>;
-            row-offset = <4>; // 5. Reihe (Index 0-3 = Reihe 0-3)
-            column-offset = <0>;
+            row-offset = <4>; // Startet Reihe 4 (Index 48)
         };
     };
 };
