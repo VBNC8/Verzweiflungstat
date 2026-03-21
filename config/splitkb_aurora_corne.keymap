@@ -138,17 +138,18 @@
      combos {
         compatible = "zmk,combos";
 
-        /* --- SCHALTER-COMBOS (Nur für Hardware, Drawer ignorieren) --- */
+        /* --- HARDWARE-SCHALTER --- */
+        /* Wir verstecken diese vor dem Keymap-Drawer, damit er nicht abstürzt */
         #ifndef KEYMAP_DRAWER
         combo_bt2 {
             timeout-ms = <50>;
-            key-positions = <48>; // Pin 20
+            key-positions = <48>; // Pin 20 (Reihe 4, Spalte 0)
             bindings = <&bt BT_SEL 1>;
         };
 
         combo_bt3 {
             timeout-ms = <50>;
-            key-positions = <49>; // Pin 2
+            key-positions = <49>; // Pin 2 (Reihe 4, Spalte 1)
             bindings = <&bt BT_SEL 2>;
         };
 
