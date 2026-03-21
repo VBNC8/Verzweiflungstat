@@ -116,27 +116,17 @@
      combos {
         compatible = "zmk,combos";
 
-        /* --- HARDWARE-SCHALTER --- */
-        /* Wir verstecken diese vor dem Keymap-Drawer, damit er nicht abstürzt */
-        #ifndef KEYMAP_DRAWER
-        combo_bt2 {
+        combo_test_1 {
             timeout-ms = <50>;
-            key-positions = <48>; // Pin 20 (Reihe 4, Spalte 0)
-            bindings = <&bt BT_SEL 1>;
+            key-positions = <48>; 
+            bindings = <&kp A>; // Schickt ein 'A'
         };
 
-        combo_bt3 {
+        combo_test_2 {
             timeout-ms = <50>;
-            key-positions = <49>; // Pin 2 (Reihe 4, Spalte 1)
-            bindings = <&bt BT_SEL 2>;
+            key-positions = <49>;
+            bindings = <&kp B>; // Schickt ein 'B'
         };
-
-        combo_usb_force {
-            timeout-ms = <50>;
-            key-positions = <48 49>;
-            bindings = <&out OUT_USB>;
-        };
-        #endif
 
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
