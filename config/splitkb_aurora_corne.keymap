@@ -6,26 +6,26 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#ifndef KEYMAP_DRAWER
 / {
-    /* KEYMAP_DRAWER_HIDE_START */
     bt_listener {
         compatible = "zmk,input-listener";
-        device = <&bt_selector>; 
+        device = <&bt_selector>;
 
-        // Das hier sagt: "Wenn Pin 20 (Index 0 im gpio-keys) gedrückt wird..."
         button_0 {
-            include-keys = <0>; // Entspricht bt_bit0 im Overlay
+            include-keys = <0>;
+            layers = <0 1 2 3>; // Hier die Layer eintragen, in denen der Schalter aktiv sein soll
             bindings = <&bt BT_SEL 1>;
         };
 
-        // "...und wenn Pin 2 (Index 1 im gpio-keys) gedrückt wird."
         button_1 {
-            include-keys = <1>; // Entspricht bt_bit1 im Overlay
+            include-keys = <1>;
+            layers = <0 1 2 3>;
             bindings = <&bt BT_SEL 2>;
         };
     };
-    /* KEYMAP_DRAWER_HIDE_END */
 };
+#endif
 
 / {
     chosen {
