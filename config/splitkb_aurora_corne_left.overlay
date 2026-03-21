@@ -9,8 +9,6 @@
 };
 
 / {
-    /delete-node/ chosen;
-
     chosen {
         zmk,kscan = &kscan_composite;
     };
@@ -25,10 +23,12 @@
         compatible = "zmk,kscan-composite";
         rows = <5>; 
         columns = <12>;
-        matrix { kscan = <&kscan>; };
+        matrix {
+            kscan = <&kscan>; 
+        };
         buttons {
             kscan = <&kscan_buttons>;
-            row-offset = <4>; // Startet Reihe 4 (Index 48)
+            row-offset = <4>; 
         };
     };
 };
