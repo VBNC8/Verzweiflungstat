@@ -116,6 +116,37 @@
      combos {
         compatible = "zmk,combos";
 
+        // 150ms Pause nach dem letzten Tippen erforderlich (Sicherheit)
+        require-prior-idle-ms = <150>; 
+
+        // Pos 1: Col 0 (P0.10) + Row 0 & 2 -> Combo Index 0 & 24
+        combo_bt0 {
+            timeout-ms = <100>;
+            key-positions = <0 24>;
+            bindings = <&bt BT_SEL 0>;
+        };
+
+        // Pos 2: Col 1 (P0.09) + Row 0 & 2 -> Q + Y (Index 1 & 25)
+        combo_bt1 {
+            timeout-ms = <100>;
+            key-positions = <1 25>;
+            bindings = <&bt BT_SEL 1>;
+        };
+
+        // Pos 3: Col 2 (P1.11) + Row 0 & 2 -> W + X (Index 2 & 26)
+        combo_bt2 {
+            timeout-ms = <100>;
+            key-positions = <2 26>;
+            bindings = <&bt BT_SEL 2>;
+        };
+
+        // Pos 4: Col 3 (P1.13) + Row 0 & 2 -> E + C (Index 3 & 27)
+        combo_usb {
+            timeout-ms = <100>;
+            key-positions = <3 27>;
+            bindings = <&out OUT_USB>;
+        };
+
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
