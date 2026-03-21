@@ -117,17 +117,17 @@
         compatible = "zmk,combos";
 
         // Wenn Pin 20 auf GND geht -> BT Profil 2
-        // Wir nehmen eine existierende Taste (z.B. 0) als "Anker"
+        // Wir nehmen eine existierende Taste (z.B. 37) als "Anker"
         combo_bt2 {
             timeout-ms = <50>;
-            key-positions = <0 42>; 
+            key-positions = <37 42>; 
             bindings = <&bt BT_SEL 1>;
         };
 
         // Wenn Pin 2 auf GND geht -> BT Profil 3
         combo_bt3 {
             timeout-ms = <50>;
-            key-positions = <0 43>;
+            key-positions = <37 43>;
             bindings = <&bt BT_SEL 2>;
         };
 
