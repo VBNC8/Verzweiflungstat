@@ -9,26 +9,29 @@
 };
 
 / {
+    kscan_extended: kscan_extended {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+
+        col-gpios
+            = <&gpio0 10 GPIO_ACTIVE_HIGH> // COL 0 (Pin 14)
+            , <&gpio0 9  GPIO_ACTIVE_HIGH> // COL 1 (Pin 13)
+            , <&gpio1 11 GPIO_ACTIVE_HIGH> // COL 2 (Pin 15)
+            , <&gpio1 13 GPIO_ACTIVE_HIGH> // COL 3 (Pin 16)
+            , <&gpio1 15 GPIO_ACTIVE_HIGH> // COL 4 (Pin 17)
+            , <&gpio0 2  GPIO_ACTIVE_HIGH> // COL 5 (Pin 18)
+            ;
+
+        row-gpios
+            = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 0 (Pin 9)
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 1 (Pin 10)
+            , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 2 (Pin 11)
+            , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 3 (Pin 12)
+            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // ROW 4 (Pin 20) - DEIN SCHALTER
+            ;
+    };
+
     chosen {
-        zmk,kscan = &kscan_composite;
-    };
-
-    kscan_buttons: kscan_buttons {
-        compatible = "zmk,kscan-gpio-direct";
-        input-gpios
-            = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; 
-    };
-
-    kscan_composite: kscan_composite {
-        compatible = "zmk,kscan-composite";
-        rows = <5>; 
-        columns = <12>;
-        matrix {
-            kscan = <&kscan>; 
-        };
-        buttons {
-            kscan = <&kscan_buttons>;
-            row-offset = <4>; 
-        };
+        zmk,kscan = &kscan_extended;
     };
 };
