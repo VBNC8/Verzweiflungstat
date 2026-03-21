@@ -3,35 +3,30 @@
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
-&spi0 {
-    status = "okay";
-    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-};
-
 &{/soc/spi@40003000} {
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
 / {
-    // 1. Der chosen-Knoten muss hier rein, ohne das '&'-Zeichen davor
+    // 1. Der chosen-Knoten (Definiert, welche Matrix genutzt wird)
     chosen {
         zmk,kscan = &kscan_composite;
     };
 
-    // 2. Mini-Matrix für die Schalter
+    // 2. Mini-Matrix für die Schalter an Pin 20 und Pin 2
     kscan_buttons: kscan_buttons {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios
-            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 0
-            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 1
+            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Wird Index 48
+            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Wird Index 49
             ;
     };
 
-    // 3. Composite Matrix
+    // 3. Composite Matrix (Corne Matrix + Schalter Matrix)
     kscan_composite: kscan_composite {
         compatible = "zmk,kscan-composite";
-        rows = <5>; 
+        rows = <5>;  // 4 Reihen Corne + 1 Reihe Schalter
         columns = <12>;
 
         matrix {
@@ -40,13 +35,9 @@
 
         buttons {
             kscan = <&kscan_buttons>;
-            row-offset = <4>; 
+            row-offset = <4>; // Verschiebt die Schalter in die 5. Reihe
             column-offset = <0>;
         };
     };
 };
-
-// ZMK sagen, dass er die zusammengesetzte Matrix nutzen soll
-&chosen {
-    zmk,kscan = &kscan_composite;
-};
+// HIER KEIN &chosen MEHR!
