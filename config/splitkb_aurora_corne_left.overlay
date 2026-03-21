@@ -3,29 +3,26 @@
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
+// Falls der zweite SPI-Block (soc) nötig ist, muss er so aussehen:
 &{/soc/spi@40003000} {
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
 };
 
-// Wenn Pin 20 auf GND geht -> BT Profil 2
-        // Wir nehmen eine existierende Taste (z.B. 0) als "Anker"
-        combo_bt2 {
-            timeout-ms = <50>;
-            key-positions = <0 42>; 
-            bindings = <&bt BT_SEL 1>;
+/ {
+    // Hier fängt der Root-Knoten an
+    bt_selector: gpio_keys {
+        compatible = "gpio-keys";
+        label = "BT_Selector";
+        bt_bit0: bt_bit0 {
+            gpios = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            label = "BT_Bit_0";
         };
+        bt_bit1: bt_bit1 {
+            gpios = <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            label = "BT_Bit_1";
+        };
+    }; // Ende gpio_keys
 
-        // Wenn Pin 2 auf GND geht -> BT Profil 3
-        combo_bt3 {
-            timeout-ms = <50>;
-            key-positions = <0 43>;
-            bindings = <&bt BT_SEL 2>;
-        };
-
-        // Wenn beide auf GND gehen -> USB erzwingen
-        combo_usb {
-            timeout-ms = <50>;
-            key-positions = <42 43>;
-            bindings = <&out OUT_USB>;
-        };
+    // Falls du die LEDs noch drin hast, müssen sie AUCH in diesen / { ... } Block
+}; // Ende Root-Knoten
