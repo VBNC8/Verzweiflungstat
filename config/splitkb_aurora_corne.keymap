@@ -116,20 +116,26 @@
      combos {
         compatible = "zmk,combos";
 
-        // TEST: Pin 20 (Draht) + Taste 0 (ganz oben links auf deinem Corne)
-        // Wenn du den Draht an GND hältst UND Taste 0 drückst, 
-        // sollte das Display auf BT 2 umspringen.
-        combo_bt2_test {
+        // Wenn Pin 20 auf GND geht -> BT Profil 2
+        // Wir nehmen eine existierende Taste (z.B. 0) als "Anker"
+        combo_bt2 {
             timeout-ms = <50>;
             key-positions = <0 42>; 
             bindings = <&bt BT_SEL 1>;
         };
 
-        // TEST: Pin 2 (Draht) + Taste 0
-        combo_bt3_test {
+        // Wenn Pin 2 auf GND geht -> BT Profil 3
+        combo_bt3 {
             timeout-ms = <50>;
             key-positions = <0 43>;
             bindings = <&bt BT_SEL 2>;
+        };
+
+        // Wenn beide auf GND gehen -> USB erzwingen
+        combo_usb {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&out OUT_USB>;
         };
 
         // ! (E + D) - Vertikal Mittelfinger
