@@ -138,28 +138,6 @@
      combos {
         compatible = "zmk,combos";
 
-        // Wenn Pin 20 auf GND geht -> BT Profil 2
-        // Wir nehmen eine existierende Taste (z.B. 37) als "Anker"
-        combo_bt2 {
-            timeout-ms = <50>;
-            key-positions = <37 42>; 
-            bindings = <&bt BT_SEL 1>;
-        };
-
-        // Wenn Pin 2 auf GND geht -> BT Profil 3
-        combo_bt3 {
-            timeout-ms = <50>;
-            key-positions = <37 43>;
-            bindings = <&bt BT_SEL 2>;
-        };
-
-        // Wenn beide auf GND gehen -> USB erzwingen
-        combo_usb {
-            timeout-ms = <50>;
-            key-positions = <42 43>;
-            bindings = <&out OUT_USB>;
-        };
-
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
