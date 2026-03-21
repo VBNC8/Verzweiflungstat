@@ -116,16 +116,22 @@
      combos {
         compatible = "zmk,combos";
 
-        combo_test_1 {
+        combo_bt2 {
             timeout-ms = <50>;
-            key-positions = <48>; 
-            bindings = <&kp A>; // Schickt ein 'A'
+            key-positions = <42>; // Pin 20 (Erster Pin in kscan_buttons)
+            bindings = <&bt BT_SEL 1>;
         };
 
-        combo_test_2 {
+        combo_bt3 {
             timeout-ms = <50>;
-            key-positions = <49>;
-            bindings = <&kp B>; // Schickt ein 'B'
+            key-positions = <43>; // Pin 2 (Zweiter Pin in kscan_buttons)
+            bindings = <&bt BT_SEL 2>;
+        };
+
+        combo_usb_force {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&out OUT_USB>;
         };
 
         // ! (E + D) - Vertikal Mittelfinger
