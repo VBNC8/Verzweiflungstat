@@ -8,14 +8,24 @@
 #include <dt-bindings/zmk/input_sel.h>
 
 / {
-    // Dieser Block sagt ZMK: "Wenn Button_BT2 gedrückt wird, führ BT_SEL 1 aus"
+    /* KEYMAP_DRAWER_HIDE_START */
     bt_listener {
         compatible = "zmk,input-listener";
-        device = <&bt_selector>; // Referenz auf deinen gpio-keys Block
+        device = <&bt_selector>; 
 
-        // Hier binden wir die Hardware-Events direkt an die Funktionen
-        // Das ist etwas komplexer, aber extrem stabil!
+        // Das hier sagt: "Wenn Pin 20 (Index 0 im gpio-keys) gedrückt wird..."
+        button_0 {
+            include-keys = <0>; // Entspricht bt_bit0 im Overlay
+            bindings = <&bt BT_SEL 1>;
+        };
+
+        // "...und wenn Pin 2 (Index 1 im gpio-keys) gedrückt wird."
+        button_1 {
+            include-keys = <1>; // Entspricht bt_bit1 im Overlay
+            bindings = <&bt BT_SEL 2>;
+        };
     };
+    /* KEYMAP_DRAWER_HIDE_END */
 };
 
 / {
