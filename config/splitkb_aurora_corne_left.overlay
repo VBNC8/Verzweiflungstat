@@ -10,16 +10,18 @@
 
 / {
     kscan_direct: kscan_direct {
-        compatible = "zmk,kscan-gpio-direct";
-        input-gpios
-            = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 20
-            , <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 21
-            , <&gpio0 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 18
-            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 17
-            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 16
-            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Pin 15
-            ;
-    };
+    compatible = "zmk,kscan-gpio-matrix"; // Geändert von direct auf matrix
+    diode-direction = "col2row";
+    row-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // Nur Pin 20 als Reihe
+    col-gpios 
+        = <&gpio0 10 GPIO_ACTIVE_HIGH> // COL 0
+        , <&gpio0 9  GPIO_ACTIVE_HIGH> // COL 1
+        , <&gpio1 11 GPIO_ACTIVE_HIGH> // COL 2
+        , <&gpio1 13 GPIO_ACTIVE_HIGH> // COL 3
+        , <&gpio1 15 GPIO_ACTIVE_HIGH> // COL 4
+        , <&gpio0 2  GPIO_ACTIVE_HIGH> // COL 5
+        ;
+};
 
     kscan_composite: kscan_composite {
         compatible = "zmk,kscan-composite";
