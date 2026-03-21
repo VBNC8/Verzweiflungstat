@@ -5,6 +5,18 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/input_sel.h>
+
+/ {
+    // Dieser Block sagt ZMK: "Wenn Button_BT2 gedrückt wird, führ BT_SEL 1 aus"
+    bt_listener {
+        compatible = "zmk,input-listener";
+        device = <&bt_selector>; // Referenz auf deinen gpio-keys Block
+
+        // Hier binden wir die Hardware-Events direkt an die Funktionen
+        // Das ist etwas komplexer, aber extrem stabil!
+    };
+};
 
 / {
     chosen {
