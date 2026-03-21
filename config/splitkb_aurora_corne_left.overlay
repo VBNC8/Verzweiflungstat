@@ -10,19 +10,38 @@
 };
 
 / {
-    // Hier fängt der Root-Knoten an
-    bt_selector: gpio_keys {
-        compatible = "gpio-keys";
-        label = "BT_Selector";
-        bt_bit0: bt_bit0 {
-            gpios = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-            label = "BT_Bit_0";
-        };
-        bt_bit1: bt_bit1 {
-            gpios = <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-            label = "BT_Bit_1";
-        };
-    }; // Ende gpio_keys
+    // Mini-Matrix für die Schalter
+    kscan_buttons: kscan_buttons {
+        compatible = "zmk,kscan-gpio-direct";
+        label = "KSCAN_BUTTONS";
+        input-gpios
+            = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 0
+            , <&pro_micro 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Index 1
+            ;
+    };
 
-    // Falls du die LEDs noch drin hast, müssen sie AUCH in diesen / { ... } Block
-}; // Ende Root-Knoten
+    // Wir kleben die Haupt-Matrix und die Schalter zusammen
+    kscan_composite: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        label = "KSCAN_COMPOSITE";
+        rows = <5>; // 4 Reihen vom Corne + 1 Reihe für Buttons
+        columns = <12>;
+
+        // Die normale Matrix (Corne)
+        matrix {
+            kscan = <&kscan0>;
+        };
+
+        // Die Schalter hängen wir "virtuell" in Reihe 4
+        buttons {
+            kscan = <&kscan_buttons>;
+            row-offset = <4>; 
+            column-offset = <0>;
+        };
+    };
+};
+
+// ZMK sagen, dass er die zusammengesetzte Matrix nutzen soll
+&chosen {
+    zmk,kscan = &kscan_composite;
+};
