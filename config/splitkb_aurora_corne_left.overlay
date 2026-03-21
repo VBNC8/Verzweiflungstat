@@ -9,6 +9,8 @@
 };
 
 / {
+    /delete-node/ chosen;
+
     chosen {
         zmk,kscan = &kscan_composite;
     };
