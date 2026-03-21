@@ -27,13 +27,12 @@
         columns = <12>;
 
         matrix {
-            // Wir suchen uns das kscan-Device des Shields direkt
             kscan = <&kscan>; 
         };
 
         buttons {
             kscan = <&kscan_buttons>;
-            row-offset = <4>; 
+            row-offset = <4>; // 5. Reihe (Index 0-3 = Reihe 0-3)
             column-offset = <0>;
         };
     };
