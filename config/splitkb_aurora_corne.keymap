@@ -74,11 +74,6 @@
           #binding-cells = <0>; wait-ms = <30>; 
           tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
         };
-        macro_bt_clr: macro_bt_clr {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&bt BT_CLR>;
-        };
     };
 
     behaviors {
