@@ -1,14 +1,11 @@
 / {
-    // Hardware-Definition
-    leds {
-        compatible = "gpio-leds";
-        status_led: led_0 {
-            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
-            label = "Status LED";
-        };
+    // 1. Wir definieren den Pin als "output-pin", damit das Makro ihn versteht
+    status_led: status_led {
+        compatible = "zmk,output-behavior-generic";
+        #binding-cells = <0>;
+        gpio-pin = <&gpio0 29 GPIO_ACTIVE_HIGH>;
     };
 
-    // Das Makro für den Blink-Test (3x kurz)
     macros {
         led_test: led_test {
             compatible = "zmk,behavior-macro";
@@ -16,11 +13,13 @@
             wait-ms = <100>;
             tap-ms = <100>;
             bindings
-                = <&led_on &status_led>, <&wait_ms 100>, <&led_off &status_led>
+                = <&macro_param_1to1 &status_led 1> // Pin auf High (LED an)
                 , <&wait_ms 100>
-                , <&led_on &status_led>, <&wait_ms 100>, <&led_off &status_led>
+                , <&macro_param_1to1 &status_led 0> // Pin auf Low (LED aus)
                 , <&wait_ms 100>
-                , <&led_on &status_led>, <&wait_ms 100>, <&led_off &status_led>;
+                , <&macro_param_1to1 &status_led 1>
+                , <&wait_ms 100>
+                , <&macro_param_1to1 &status_led 0>;
         };
     };
 };
