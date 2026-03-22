@@ -22,7 +22,7 @@ layers:
   - t: F
     h: Shift
   - t: G
-    h: '&led_on_macro'
+    h: '&led_momentary_macro'
   - H
   - t: J
     h: Shift
