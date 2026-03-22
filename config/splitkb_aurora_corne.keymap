@@ -9,13 +9,13 @@
         led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&status_led_node 1>;
+            bindings = <&status_led 1>;
         };
 
         led_off_macro: led_off_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&status_led_node 0>;
+            bindings = <&status_led 0>;
         };
 
         macro_bt_clr: macro_bt_clr {
@@ -85,7 +85,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings = <&led_on_macro>, <&kp>; // Nutzt jetzt led_on_macro
+            bindings = <&led_on_macro>, <&kp>;
         };
 
         caps_wrd: caps_wrd {
