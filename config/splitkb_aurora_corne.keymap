@@ -9,13 +9,13 @@
         led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&status_led 1>;
+            bindings = <&my_status_led 1>; // Verweist auf das eindeutige Label
         };
 
         led_off_macro: led_off_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&status_led 0>;
+            bindings = <&my_status_led 0>;
         };
 
         macro_bt_clr: macro_bt_clr {
