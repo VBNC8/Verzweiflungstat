@@ -1,6 +1,5 @@
 / {
     behaviors {
-        // Das ist unser "Schalter"
         status_led_node: status_led_node {
             compatible = "zmk,output-behavior-generic";
             #binding-cells = <0>;
@@ -9,7 +8,6 @@
     };
 
     macros {
-        // Das Makro für die Keymap
         led_on_hold: led_on_hold {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
