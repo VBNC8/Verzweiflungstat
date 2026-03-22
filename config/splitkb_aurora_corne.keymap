@@ -14,13 +14,6 @@
                        <&macro_pause_for_release>, 
                        <&macro_release &my_led 0>;
         };
-        led_momentary_macro: led_momentary_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&macro_press &bl BL_ON>, 
-                       <&macro_pause_for_release>, 
-                       <&macro_release &bl BL_OFF>;
-        };
         led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
