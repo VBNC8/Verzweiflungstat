@@ -1,14 +1,20 @@
 / {
-    // Deine vorhandene LED
+    // 1. Wir definieren die LED als echtes Device
     leds {
         compatible = "gpio-leds";
         status_led: led_0 {
-            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
             label = "Status LED";
         };
     };
+
+    // 2. Wir stellen sicher, dass die Tastatur wieder die Standard-Matrix nutzt
+    chosen {
+        zmk,kscan = &kscan0;
+    };
 };
 
+// Falls dein Encoder links ist (P1.11 und P1.13 sind Standard beim Aurora)
 &left_encoder {
     status = "okay";
 };
