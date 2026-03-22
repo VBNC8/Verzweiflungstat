@@ -4,21 +4,32 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
+    // 1. Hardware-Knoten (Unverändert, aber wichtig: Außerhalb von behaviors!)
     status_led_node: status_led_node {
         compatible = "zmk,output-behavior-generic";
         #binding-cells = <1>;
-        gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+        gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
     };
+
     macros {
-         led_on_macro: led_on_macro {
+        // LED an
+        led_on: led_on {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_param_1to1 &status_led_node 1>;
         };
-        led_off_macro: led_off_macro {
+        // LED aus
+        led_off: led_off {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_param_1to1 &status_led_node 0>;
+        };
+
+        // FIX für BT Clear: Keine Parameter!
+        macro_bt_clr: macro_bt_clr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
         };
 
         pair_paren: pair_paren {  // Vorher 2_paren
@@ -72,6 +83,15 @@
 
     behaviors {
 
+        // Das LED behavior: Um es einfach zu halten, testen wir es erst mal so
+        led_momentary: led_momentary {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&led_on>, <&kp>; 
+        };
+
         // Dieses Teil erlaubt es uns, die LED wie eine Taste zu behandeln
         led_hold: led_hold {
             compatible = "zmk,behavior-hold-tap";
@@ -117,11 +137,11 @@
 
         // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
-          compatible = "zmk,behavior-hold-tap";
-          #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
-          tapping-term-ms = <5000>;  // Deine 5 Sekunden
-          flavor = "tap-preferred";
-          bindings = <&macro_bt_clr>, <&none>; 
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;      // Geändert auf 0
+            tapping-term-ms = <5000>;
+            flavor = "tap-preferred";
+            bindings = <&macro_bt_clr>, <&none>;
         };
      };
 
