@@ -4,11 +4,10 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-    // Dieser Knoten sagt ZMK, dass GPIO 29 ein schaltbarer Ausgang ist
     status_led_node: status_led_node {
         compatible = "zmk,output-behavior-generic";
-        #binding-cells = <0>;
-        gpio-pin = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+        #binding-cells = <1>;
+        gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
     };
     macros {
          led_on_macro: led_on_macro {
