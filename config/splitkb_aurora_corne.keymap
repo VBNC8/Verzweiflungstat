@@ -14,7 +14,23 @@
     };
 
     macros {
-         pair_paren: pair_paren {  // Vorher 2_paren
+         led_on: led_on {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_param_1to1 &status_led_node 1>; 
+        };
+
+        led_blink: led_blink {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <200>;
+            bindings 
+                = <&led_on>, <&wait_ms 200>
+                , <&led_off>, <&wait_ms 200> // led_off ist oft ein Alias oder muss definiert werden
+                , <&led_on>, <&wait_ms 200>
+                , <&led_off>;
+        };
+        pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
