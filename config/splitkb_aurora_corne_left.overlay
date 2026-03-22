@@ -1,11 +1,8 @@
 / {
-    chosen {
-        zmk,backlight = &backlight;
-    };
-
-    backlight: backlight {
-        compatible = "zmk,backlight-gpio"; // Geändert von "gpio-backlight"
-        gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+    my_led: my_led {
+        compatible = "zmk,output-behavior-generic";
+        #binding-cells = <1>;
+        gpio-pin = <&gpio0 29 GPIO_ACTIVE_HIGH>;
     };
 };
 
