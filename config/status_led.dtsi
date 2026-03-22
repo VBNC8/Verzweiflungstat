@@ -7,29 +7,27 @@
     };
 
     macros {
-        // Taste 1: Statischer Check (Leuchtet so lange man drückt)
+        // Taste 1: Statischer Check (Leuchtet solange man drückt)
         led_on_hold: led_on_hold {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_param_1to1 &status_led 1> // LED AN
-                , <&macro_pause_for_release>        // Warten auf Loslassen
-                , <&macro_param_1to1 &status_led 0>; // LED AUS
+                = <&macro_param_1to1 &status_led 1> 
+                , <&macro_pause_for_release>        
+                , <&macro_param_1to1 &status_led 0>; 
         };
 
         // Taste 2: Blink-Test (2x kurz blitzen)
         led_blink: led_blink {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <100>;
-            tap-ms = <100>;
+            // Wir definieren die Wartezeit haptisch über wait-ms als globale Eigenschaft des Makros
+            wait-ms = <150>; 
+            tap-ms = <150>;
             bindings
                 = <&macro_param_1to1 &status_led 1> 
-                , <&wait_ms 150>
                 , <&macro_param_1to1 &status_led 0> 
-                , <&wait_ms 150>
                 , <&macro_param_1to1 &status_led 1>
-                , <&wait_ms 150>
                 , <&macro_param_1to1 &status_led 0>;
         };
     };
