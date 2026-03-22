@@ -146,4 +146,4 @@ draw_config:
   dark_mode: true
   #n_columns: 1
   width: 1200
-  exclude_combos: ["combo_bt0", "combo_bt1", "combo_bt2", "combo_usb"]
+  exclude_combos: ["&bt BT_SEL 0", "&bt BT_SEL 1", "&bt BT_SEL 2", "&out OUT_USB"]
