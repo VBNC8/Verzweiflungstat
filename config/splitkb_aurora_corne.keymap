@@ -107,7 +107,7 @@
         // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
           compatible = "zmk,behavior-hold-tap";
-          label = "ENCODER_BT_CLEAR";
+          // label = "ENCODER_BT_CLEAR";
           #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
           tapping-term-ms = <5000>;  // Deine 5 Sekunden
           flavor = "tap-preferred";
