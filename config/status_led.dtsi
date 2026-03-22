@@ -1,5 +1,5 @@
 / {
-    // 1. Wir definieren den Pin als "output-pin", damit das Makro ihn versteht
+    // Definition des Pins als Output-Behavior
     status_led: status_led {
         compatible = "zmk,output-behavior-generic";
         #binding-cells = <0>;
@@ -10,12 +10,12 @@
         led_test: led_test {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <100>;
-            tap-ms = <100>;
+            // In Makros schreibt man wait-ms (mit Bindestrich) für die Standardpause
+            // oder nutzt wait_ms (ohne &) innerhalb der bindings
             bindings
-                = <&macro_param_1to1 &status_led 1> // Pin auf High (LED an)
-                , <&wait_ms 100>
-                , <&macro_param_1to1 &status_led 0> // Pin auf Low (LED aus)
+                = <&macro_param_1to1 &status_led 1> 
+                , <&wait_ms 100>                   // KEIN & davor!
+                , <&macro_param_1to1 &status_led 0> 
                 , <&wait_ms 100>
                 , <&macro_param_1to1 &status_led 1>
                 , <&wait_ms 100>
