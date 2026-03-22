@@ -82,7 +82,7 @@
             #binding-cells = <2>;
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
-            bindings = <&led_on>, <&kp>; 
+            bindings = <&led_on_macro>, <&kp>; // Hier das '_macro' ergänzt
         };
 
         // Dieses Teil erlaubt es uns, die LED wie eine Taste zu behandeln
