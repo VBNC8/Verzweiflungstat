@@ -12,20 +12,18 @@
     };
 
     macros {
-        // LED an
-        led_on: led_on {
+        led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_param_1to1 &status_led_node 1>;
-        };
-        // LED aus
-        led_off: led_off {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&macro_param_1to1 &status_led_node 0>;
+            bindings = <&status_led_node 1>;
         };
 
-        // FIX für BT Clear: Keine Parameter!
+        led_off_macro: led_off_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&status_led_node 0>;
+        };
+
         macro_bt_clr: macro_bt_clr {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -93,7 +91,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings = <&led_on_macro>, <&kp>; // Bei Halten LED an, bei Tap normale Taste
+            bindings = <&led_on_macro>, <&kp>; // Nutzt jetzt led_on_macro
         };
 
         caps_wrd: caps_wrd {
@@ -130,10 +128,9 @@
           bindings = <&mo>, <&kp>; 
         };
 
-        // Ein hold-tap, das zwei Behaviors als Parameter erwartet
         enc_bt_clr: enc_bt_clr {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;      // Geändert auf 0
+            #binding-cells = <2>;      // Zurück auf 2, da es vorher grün war
             tapping-term-ms = <5000>;
             flavor = "tap-preferred";
             bindings = <&macro_bt_clr>, <&none>;
