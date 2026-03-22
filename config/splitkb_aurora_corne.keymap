@@ -5,7 +5,6 @@
 #include <dt-bindings/zmk/backlight.h>
 
 / {
-
     macros {
         led_momentary_macro: led_momentary_macro {
             compatible = "zmk,behavior-macro";
