@@ -8,6 +8,15 @@
     };
 };
 
+// In deiner splitkb_aurora_corne_left.overlay
+/ {
+    status_led: status_led {
+        compatible = "zmk,output-behavior-generic";
+        #binding-cells = <1>;
+        gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+    };
+};
+
 // Falls dein Encoder links verbaut ist
 &left_encoder {
     status = "okay";
