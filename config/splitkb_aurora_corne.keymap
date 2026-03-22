@@ -279,7 +279,7 @@
 &none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley             &kp LS(GRAVE) &pair_paren      &pair_brc    &pair_bkt   &kp LS(BSLH)  &none
 &none  &kp N1        &kp N2           &kp N3               &kp N4        &kp N5              &kp N6        &kp N7           &kp N8       &kp N9      &kp N0        &none
 &none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH     &kp KP_PLUS   &kp KP_MULTIPLY  &kp COMMA    &kp DOT     &kp KP_EQUAL  &none
-                                      &enc_bt_clr 0 0      &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &trans
+                                      &enc_bt_clr          &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &trans
             >;
         };
 
