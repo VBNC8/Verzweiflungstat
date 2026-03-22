@@ -13,7 +13,7 @@
         zmk,underglow = &led_strip;
     };
 
-    // WICHTIG: Das Wort "macros" muss hier stehen!
+    // --- DIESER BLOCK HAT GEFEHLT ---
     macros {
         pair_paren: pair_paren {
             compatible = "zmk,behavior-macro";
@@ -37,33 +37,35 @@
         };
 
         usb_on: usb_on { 
-          compatible = "zmk,behavior-macro"; 
-          #binding-cells = <0>; 
-          bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
+            compatible = "zmk,behavior-macro"; 
+            #binding-cells = <0>; 
+            bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
         };
 
         bt_off: bt_off { 
-          compatible = "zmk,behavior-macro"; 
-          #binding-cells = <0>; 
-          bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
+            compatible = "zmk,behavior-macro"; 
+            #binding-cells = <0>; 
+            bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
         };
 
         durchmesser: durchmesser { 
-          compatible = "zmk,behavior-macro"; 
-          #binding-cells = <0>; 
-          bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
+            compatible = "zmk,behavior-macro"; 
+            #binding-cells = <0>; 
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
         };
 
         smiley: smiley { 
-          compatible = "zmk,behavior-macro";
-          #binding-cells = <0>; wait-ms = <20>; 
-          tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>; wait-ms = <20>; 
+            tap-ms = <20>; 
+            bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
         };
 
         nbsp: nbsp { 
-          compatible = "zmk,behavior-macro"; 
-          #binding-cells = <0>; wait-ms = <30>; 
-          tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
+            compatible = "zmk,behavior-macro"; 
+            #binding-cells = <0>; wait-ms = <30>; 
+            tap-ms = <30>; 
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
         };
 
         macro_bt_clr: macro_bt_clr {
@@ -71,59 +73,62 @@
             #binding-cells = <0>;
             bindings = <&bt BT_CLR>;
         };
-    }; // Ende des macros-Blocks
+    }; 
+    // --- ENDE DES MAKRO BLOCKS ---
 
     behaviors {
         caps_wrd: caps_wrd {
-          compatible = "zmk,behavior-caps-word";
-          #binding-cells = <0>;
-          continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
-          // incl. UNDERSCORE und MINUS 
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
         };
+
         hrm_safe: hrm_safe { 
-          compatible = "zmk,behavior-hold-tap"; 
-          #binding-cells = <2>; 
-          tapping-term-ms = <280>; 
-          quick-tap-ms = <175>; 
-          flavor = "balanced"; 
-          require-prior-idle-ms = <150>; 
-          bindings = <&kp>, <&kp>; 
-          hold-trigger-on-release; 
+            compatible = "zmk,behavior-hold-tap"; 
+            #binding-cells = <2>; 
+            tapping-term-ms = <280>; 
+            quick-tap-ms = <175>; 
+            flavor = "balanced"; 
+            require-prior-idle-ms = <150>; 
+            bindings = <&kp>, <&kp>; 
+            hold-trigger-on-release; 
         };
+
         hrm_shift: hrm_shift {
-          compatible = "zmk,behavior-hold-tap"; 
-          #binding-cells = <2>;
-          tapping-term-ms = <180>; 
-          quick-tap-ms = <150>; 
-          flavor = "balanced"; 
-          bindings = <&kp>, <&kp>; hold-trigger-on-release; 
+            compatible = "zmk,behavior-hold-tap"; 
+            #binding-cells = <2>;
+            tapping-term-ms = <180>; 
+            quick-tap-ms = <150>; 
+            flavor = "balanced"; 
+            bindings = <&kp>, <&kp>; 
+            hold-trigger-on-release; 
         };
+
         lt_hp: lt_hp {
-          compatible = "zmk,behavior-hold-tap"; 
-          #binding-cells = <2>; 
-          tapping-term-ms = <200>; 
-          quick-tap-ms = <200>;
-          flavor = "balanced";
-          retro-tap;
-          bindings = <&mo>, <&kp>; 
+            compatible = "zmk,behavior-hold-tap"; 
+            #binding-cells = <2>; 
+            tapping-term-ms = <200>; 
+            quick-tap-ms = <200>;
+            flavor = "balanced";
+            retro-tap;
+            bindings = <&mo>, <&kp>; 
         };
 
         hw_scroll: hw_scroll {
-          compatible = "zmk,behavior-sensor-rotate-var";
-          #sensor-binding-cells = <2>; // Wir erlauben wieder 2 Parameter
-          bindings = <&msc>, <&msc>;   // Diese nehmen die Parameter entgegen
-          tap-ms = <20>;
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>; 
+            tap-ms = <20>;
         };
-        // Ein hold-tap, das zwei Behaviors als Parameter erwartet
+
         enc_bt_clr: enc_bt_clr {
-          compatible = "zmk,behavior-hold-tap";
-          // label = "ENCODER_BT_CLEAR";
-          #binding-cells = <2>;      // ZMK Gesetz: Muss 2 sein für hold-tap
-          tapping-term-ms = <5000>;  // Deine 5 Sekunden
-          flavor = "tap-preferred";
-          bindings = <&macro_bt_clr>, <&none>; 
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>; 
+            tapping-term-ms = <5000>; 
+            flavor = "tap-preferred";
+            bindings = <&macro_bt_clr>, <&none>; 
         };
-     };
+    }; // Semikolon nach behaviors war wichtig!
 
      combos {
         compatible = "zmk,combos";
