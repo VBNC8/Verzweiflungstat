@@ -227,7 +227,7 @@
             layers = <0 1>;
         };
        
-        // Ä (A + Z) - Vertikal linker pinkie
+        // Ä (A + Q) - Vertikal linker pinkie
         combo_ae {
             timeout-ms = <55>;
             key-positions = <1 13>; // A=13, Q=1
