@@ -1,12 +1,15 @@
 / {
-    /* Das hier hat gefehlt: Die Zuweisung */
     chosen {
         zmk,backlight = &backlight;
     };
 
     backlight: backlight {
         compatible = "gpio-backlight";
-        gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>; 
+        // Hier KEIN GPIO-Pin direkt im Hauptknoten
+        
+        led_0 {
+            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+        };
     };
 };
 
