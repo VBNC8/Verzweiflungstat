@@ -21,7 +21,8 @@ layers:
     h: CTRL
   - t: F
     h: Shift
-  - G
+  - t: G
+    h: '&led_on_macro'
   - H
   - t: J
     h: Shift
