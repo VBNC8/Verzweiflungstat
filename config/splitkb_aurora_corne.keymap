@@ -13,7 +13,8 @@
         zmk,underglow = &led_strip;
     };
 
-        pair_paren: pair_paren {  // Vorher 2_paren
+    macros {
+       pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
