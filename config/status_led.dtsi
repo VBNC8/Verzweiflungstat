@@ -1,15 +1,12 @@
 / {
-    // Hardware-Definition: Wir sagen Zephyr, dass an P0.29 eine LED hängt.
     leds {
         compatible = "gpio-leds";
         status_led_node: led_0 {
             gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
-            label = "Status LED";
         };
     };
 
     macros {
-        // Nur ein Makro: LED an beim Drücken, Pause bis zum Loslassen, LED aus.
         led_on_hold: led_on_hold {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
