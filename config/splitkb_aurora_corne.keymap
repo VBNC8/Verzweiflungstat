@@ -13,55 +13,65 @@
         zmk,underglow = &led_strip;
     };
 
+    // WICHTIG: Das Wort "macros" muss hier stehen!
     macros {
-       pair_paren: pair_paren {  // Vorher 2_paren
+        pair_paren: pair_paren {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
             bindings = <&kp LS(N8)>, <&kp LS(N9)>, <&kp LEFT>;
         };
-        pair_brc: pair_brc {      // Vorher 2_brc
+
+        pair_brc: pair_brc {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
             bindings = <&kp RA(N7)>, <&kp RA(N0)>, <&kp LEFT>;
         };
-        pair_bkt: pair_bkt {      // Vorher 2_bkt
+
+        pair_bkt: pair_bkt {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
             bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
         };
+
         usb_on: usb_on { 
           compatible = "zmk,behavior-macro"; 
           #binding-cells = <0>; 
           bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
         };
+
         bt_off: bt_off { 
           compatible = "zmk,behavior-macro"; 
           #binding-cells = <0>; 
           bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
         };
+
         durchmesser: durchmesser { 
           compatible = "zmk,behavior-macro"; 
           #binding-cells = <0>; 
           bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>; 
         };
+
         smiley: smiley { 
           compatible = "zmk,behavior-macro";
           #binding-cells = <0>; wait-ms = <20>; 
           tap-ms = <20>; bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>; 
         };
-        nbsp: nbsp { compatible = "zmk,behavior-macro"; 
+
+        nbsp: nbsp { 
+          compatible = "zmk,behavior-macro"; 
           #binding-cells = <0>; wait-ms = <30>; 
           tap-ms = <30>; bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>; 
         };
+
         macro_bt_clr: macro_bt_clr {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&bt BT_CLR>;
         };
-    };
+    }; // Ende des macros-Blocks
 
     behaviors {
         caps_wrd: caps_wrd {
