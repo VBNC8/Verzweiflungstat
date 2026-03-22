@@ -235,31 +235,6 @@ layers:
     type: held
 combos:
 - p:
-  - 0
-  - 20
-  k:
-    t: $$mdi:bluetooth$$
-    h: PC
-    s: ⓵
-- p:
-  - 0
-  - 20
-  k:
-    t: $$mdi:bluetooth$$
-    h: S8
-    s: ⓶
-- p:
-  - 1
-  - 21
-  k:
-    t: $$mdi:bluetooth$$
-    h: Zbook
-    s: ⓷
-- p:
-  - 2
-  - 22
-  k: OUT USB
-- p:
   - 2
   - 12
   k: '!'
