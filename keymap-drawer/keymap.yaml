@@ -132,8 +132,7 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - t: ▽
-    type: trans
+  - '&led_on_hold'
   - t: ▽
     type: trans
   - t: ▽
