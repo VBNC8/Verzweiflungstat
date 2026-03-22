@@ -119,7 +119,7 @@ layers:
   - F8
   - F9
   - F10
-  - '&led_blink'
+  - '&led_on_hold'
   - t: ▽
     type: trans
   - 🖱 RMB
