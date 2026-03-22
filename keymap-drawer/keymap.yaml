@@ -132,8 +132,7 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - t: ▽
-    type: trans
+  - '&led_test'
   - t: ▽
     type: trans
   - t: ▽
