@@ -119,7 +119,8 @@ layers:
   - F8
   - F9
   - F10
-  - '&led_on_hold'
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - 🖱 RMB
@@ -131,7 +132,8 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - '&led_on_hold'
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
