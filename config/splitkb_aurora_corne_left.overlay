@@ -1,7 +1,12 @@
 / {
+    /* Das hier hat gefehlt: Die Zuweisung */
+    chosen {
+        zmk,backlight = &backlight;
+    };
+
     backlight: backlight {
         compatible = "gpio-backlight";
-        gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>; // Jetzt der echte Pin
+        gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>; 
     };
 };
 
