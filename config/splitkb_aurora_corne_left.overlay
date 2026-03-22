@@ -1,23 +1,13 @@
 / {
-    leds {
-        compatible = "gpio-leds";
-        status_led: led_0 {
-            gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-            label = "Status LED";
-        };
-    };
-};
-
-/ {
-    // Einzigartiger Name für die Hardware-Definition
-    my_status_led: my_status_led_node {
+    // NUR dieser Teil ist für die schaltbare LED wichtig
+    my_status_led: my_status_led {
         compatible = "zmk,output-behavior-generic";
+        status = "okay";
         #binding-cells = <1>;
         gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
     };
 };
 
-// Falls dein Encoder links verbaut ist
 &left_encoder {
     status = "okay";
 };
