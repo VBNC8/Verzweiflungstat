@@ -14,8 +14,14 @@
          led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&status_led_on>; // Wir brauchen hier noch die Definition
+            bindings = <&macro_param_1to1 &status_led_node 1>;
         };
+        led_off_macro: led_off_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_param_1to1 &status_led_node 0>;
+        };
+
         pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
