@@ -1,14 +1,15 @@
 / {
-    // 1. Hardware-Definition (Das versteht Zephyr immer)
+    // Hardware-Definition: Wir sagen Zephyr, dass an P0.29 eine LED hängt.
     leds {
         compatible = "gpio-leds";
         status_led_node: led_0 {
             gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+            label = "Status LED";
         };
     };
 
-    // 2. Die Makros (Wir nutzen den internen Macro-Timer)
     macros {
+        // Nur ein Makro: LED an beim Drücken, Pause bis zum Loslassen, LED aus.
         led_on_hold: led_on_hold {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -18,18 +19,6 @@
                 = <&macro_param_1to1 &status_led_node 1> 
                 , <&macro_pause_for_release>        
                 , <&macro_param_1to1 &status_led_node 0>; 
-        };
-
-        led_blink: led_blink {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <200>; // Das Makro wartet AUTOMATISCH 200ms zwischen jedem Schritt
-            tap-ms = <200>;
-            bindings
-                = <&macro_param_1to1 &status_led_node 1> 
-                , <&macro_param_1to1 &status_led_node 0> 
-                , <&macro_param_1to1 &status_led_node 1>
-                , <&macro_param_1to1 &status_led_node 0>;
         };
     };
 };
