@@ -6,7 +6,12 @@
 / {
 
     macros {
-         pair_paren: pair_paren {  // Vorher 2_paren
+         led_on_macro: led_on_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&status_led_on>; // Wir brauchen hier noch die Definition
+        };
+        pair_paren: pair_paren {  // Vorher 2_paren
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>; tap-ms = <10>;
@@ -56,6 +61,16 @@
     };
 
     behaviors {
+
+        // Dieses Teil erlaubt es uns, die LED wie eine Taste zu behandeln
+        led_hold: led_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&led_on_macro>, <&kp>; // Bei Halten LED an, bei Tap normale Taste
+        };
+
         caps_wrd: caps_wrd {
           compatible = "zmk,behavior-caps-word";
           #binding-cells = <0>;
