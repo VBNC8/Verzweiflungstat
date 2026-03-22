@@ -1,10 +1,8 @@
 / {
-    // NUR dieser Teil ist für die schaltbare LED wichtig
-    my_status_led: my_status_led {
-        compatible = "zmk,output-behavior-generic";
-        status = "okay";
-        #binding-cells = <1>;
-        gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+    // Wir nutzen das Backlight-Modul, das ist extrem stabil
+    backlight: backlight {
+        compatible = "gpio-backlight";
+        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
     };
 };
 
