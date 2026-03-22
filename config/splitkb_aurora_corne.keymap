@@ -6,6 +6,8 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#include "status_led.dtsi"
+
 / {
     chosen {
         zmk,underglow = &led_strip;
@@ -291,7 +293,7 @@
             bindings = <
 &none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7        &kp F8      &kp F9     &kp F10       &none
 &none  &trans        &trans           &mkp RCLK            &mkp LCLK        &trans           &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS      &none
-&none  &trans        &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
+&none  &led_test     &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
                                       &kp F14              &kp LC(LS(ESC))  &trans           &trans       &nbsp         &trans
             >;
         };
