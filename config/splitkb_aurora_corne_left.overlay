@@ -8,9 +8,9 @@
     };
 };
 
-// In deiner splitkb_aurora_corne_left.overlay
 / {
-    status_led: status_led {
+    // Einzigartiger Name für die Hardware-Definition
+    my_status_led: my_status_led_node {
         compatible = "zmk,output-behavior-generic";
         #binding-cells = <1>;
         gpio-pin = <&gpio0 6 GPIO_ACTIVE_HIGH>;
