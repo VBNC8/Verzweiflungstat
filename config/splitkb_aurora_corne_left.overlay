@@ -1,15 +1,14 @@
-&spi0 {
-    status = "okay";
-    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-};
-
-&{/soc/spi@40003000} {
-    status = "okay";
-    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-};
-
 / {
+    leds {
+        compatible = "gpio-leds";
+        status_led: led_0 {
+            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+            label = "Status LED";
+        };
+    };
+
+    /* Wir sagen ZMK, dass dies die 'Haupt-LED' für Statusmeldungen ist */
     chosen {
-        zmk,kscan = &kscan_composite;
+        zmk,status-led = &status_led;
     };
 };
