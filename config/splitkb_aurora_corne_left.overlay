@@ -2,19 +2,26 @@
     chosen {
         zmk,underglow = &led_strip;
     };
+
+    /* Wir definieren einen virtuellen Stromschalter, 
+       damit der RGB-Code nicht ins Leere greift */
+    ext-power {
+        compatible = "zmk,ext-power-generic";
+        label = "EXT_POWER";
+        control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; // Dummy oder Real-Pin
+    };
 };
 
-/* Das hier erzwingt, dass der Name 'led_strip' existiert, 
-   egal wie das Shield ihn intern nennt */
 &spi3 {
+    status = "okay";
     led_strip: ws2812@0 {
         compatible = "worldsemi,ws2812-spi";
         reg = <0>;
         spi-max-frequency = <4000000>;
-        chain-length = <27>; /* 21 Per-Key + 6 Underglow beim Aurora Corne */
+        chain-length = <27>; 
         spi-one-frame = <0x70>;
         spi-zero-frame = <0x40>;
-        color-mapping = <2 1 3>; /* GRB Format */
+        color-mapping = <2 1 3>;
     };
 };
 
