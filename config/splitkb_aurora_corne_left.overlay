@@ -1,8 +1,8 @@
 / {
-    my_led: my_led {
-        compatible = "zmk,output-behavior-generic";
-        #binding-cells = <1>;
-        gpio-pin = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+    ext_power: ext_power {
+        compatible = "zmk,ext-power-generic";
+        control-gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+        init-delay-ms = <0>;
     };
 };
 
