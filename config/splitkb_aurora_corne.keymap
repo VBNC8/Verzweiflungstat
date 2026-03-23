@@ -9,9 +9,9 @@
         led_momentary_macro: led_momentary_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &my_led 1>, 
+            bindings = <&macro_press &ext_power EP_ON>, 
                        <&macro_pause_for_release>, 
-                       <&macro_release &my_led 0>;
+                       <&macro_release &ext_power EP_OFF>;
         };
         led_on_macro: led_on_macro {
             compatible = "zmk,behavior-macro";
