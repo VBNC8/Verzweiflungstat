@@ -10,7 +10,8 @@
         led_momentary_macro: led_momentary_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <0>;
+            wait-ms = <1>;
+            tap-ms = <1>;
             bindings = <&macro_press &rgb_ug RGB_ON>,
                        <&macro_tap &rgb_ug RGB_COLOR_HSB(0,100,50)>, // Rot (0° Hue)
                        <&macro_pause_for_release>, 
