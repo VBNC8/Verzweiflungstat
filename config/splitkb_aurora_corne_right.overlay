@@ -1,14 +1,17 @@
 / {
     leds {
         compatible = "gpio-leds";
-        side_led: led_0 {
+        side_indicator: led_0 {
             gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
-            label = "Side Indicator";
+            label = "Side LED";
         };
     };
 
-    /* Wir verknüpfen die GPIO-LED mit dem Backlight-Modul */
-    chosen {
-        zmk,backlight = &side_led;
+    /* Das hier ist der entscheidende Teil für den Compiler */
+    status_leds {
+        compatible = "zmk,status-leds";
+        status_led_0 {
+            led = <&side_indicator>;
+        };
     };
 };
