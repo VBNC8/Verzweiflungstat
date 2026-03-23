@@ -131,8 +131,7 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - t: ▽
-    type: trans
+  - '&battery_status'
   - t: ▽
     type: trans
   - t: ▽
