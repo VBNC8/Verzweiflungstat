@@ -1,1 +1,15 @@
+/ {
+    /* Schritt A: Die LED-Hardware definieren */
+    leds {
+        compatible = "gpio-leds";
+        led_batt: led_0 {
+            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+            label = "Battery Critical LED";
+        };
+    };
 
+    /* Schritt B: ZMK sagen, dass DIESE LED für den Akku zuständig ist */
+    chosen {
+        zmk,battery-led = &led_batt;
+    };
+};
