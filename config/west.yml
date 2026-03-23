@@ -8,8 +8,5 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: zmk-battery-status-led
-      url: https://github.com/infused-kim/zmk-battery-status-led
-      revision: main
   self:
     path: config
