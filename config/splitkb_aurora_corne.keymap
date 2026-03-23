@@ -6,6 +6,12 @@
 #include <dt-bindings/zmk/rgb.h>
 
 / {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+};
+
+/ {
     macros {
         led_momentary_macro: led_momentary_macro {
             compatible = "zmk,behavior-macro";
