@@ -9,39 +9,6 @@
 };
 
 / {
-    // 1. Wir definieren deine Zusatz-Reihe als eigene Mini-Matrix
-    kscan_extra: kscan_extra {
-        compatible = "zmk,kscan-gpio-matrix";
-        diode-direction = "col2row";
-        row-gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // Pin 20
-        col-gpios
-            = <&gpio0 10 GPIO_ACTIVE_HIGH> // COL 0 (Pin 14)
-            , <&gpio0 9  GPIO_ACTIVE_HIGH> // COL 1 (Pin 13)
-            , <&gpio1 11 GPIO_ACTIVE_HIGH> // COL 2 (Pin 15)
-            , <&gpio1 13 GPIO_ACTIVE_HIGH> // COL 3 (Pin 16)
-            , <&gpio1 15 GPIO_ACTIVE_HIGH> // COL 4 (Pin 17)
-            , <&gpio0 2  GPIO_ACTIVE_HIGH> // COL 5 (Pin 18)
-            ;
-    };
-
-    // 2. Wir bauen den Composite, nutzen aber den absoluten Pfad zur Standard-Matrix
-    // Bei Aurora Corne Shields ist das fast immer dieser Pfad:
-    kscan_composite: kscan_composite {
-        compatible = "zmk,kscan-composite";
-        rows = <5>;
-        columns = <6>;
-
-        matrix {
-            // Dieser Pfad umgeht das Label-Problem ("kscan" im kscan-Knoten)
-            kscan = <&{/kscan}>; 
-        };
-
-        extra {
-            kscan = <&kscan_extra>;
-            row-offset = <4>;
-        };
-    };
-
     chosen {
         zmk,kscan = &kscan_composite;
     };
