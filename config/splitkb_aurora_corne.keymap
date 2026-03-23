@@ -8,6 +8,14 @@
 
 / {
     macros {
+        battery_status: battery_status {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                <&rgb_ug RGB_COLOR_HSB(120,100,50)>, // Kurz Grün leuchten
+                <&macro_pause_for_release>,
+                <&rgb_ug RGB_OFF>; // Wieder aus beim Loslassen
+        };
         led_momentary_macro: led_momentary_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -264,9 +272,9 @@
         raise_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
             bindings = <
-&none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7        &kp F8      &kp F9     &kp F10       &none
-&none  &trans        &trans           &none                &none            &trans           &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS      &none
-&none  &trans        &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
+&none  &kp F1            &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7        &kp F8      &kp F9     &kp F10       &none
+&none  &trans            &trans           &none                &none            &trans           &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS      &none
+&none  &battery_status   &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
                                       &kp F14              &kp LC(LS(ESC))  &trans           &trans       &nbsp         &trans
             >;
         };
