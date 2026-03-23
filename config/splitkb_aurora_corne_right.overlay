@@ -1,28 +1,23 @@
 / {
-    backlight: pwmleds {
-        compatible = "pwm-leds";
-        led_status: pwm_led_0 {
-            /* Wir nutzen PWM-Kanal 0, Pin 29 */
-            pwms = <&pwm0 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
-            label = "Status LED";
-        };
+    /* Wir definieren P0.29 als simplen "One-LED-Strip" */
+    led_strip: nrf_led_strip {
+        compatible = "nordic,nrf-spim";
+        /* Hier nutzen wir den Pin P0.29 direkt */
+        status = "okay";
+        pinctrl-0 = <&spi1_default>;
+        pinctrl-names = "default";
     };
 
+    /* ZMK sagen: Das hier ist unser Status-Licht */
     chosen {
-        zmk,backlight = &led_status;
+        zmk,underglow = &led_strip;
     };
-};
-
-&pwm0 {
-    status = "okay";
-    pinctrl-0 = <&pwm0_29>; // Dieser Verweis muss exakt matchen!
-    pinctrl-names = "default";
 };
 
 &pinctrl {
-    pwm0_29: pwm0_29 {
+    spi1_default: spi1_default {
         group1 {
-            psels = <NRF_PSEL(PWM_OUT0, 0, 29)>;
+            psels = <NRF_PSEL(SPIM_MOSI, 0, 29)>;
         };
     };
 };
