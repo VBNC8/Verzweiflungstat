@@ -132,12 +132,9 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - '&bl BL_TOG'
+  - '&bl BL_INC'
+  - '&bl BL_DEC'
   - t: ▽
     type: trans
   - t: ▽
