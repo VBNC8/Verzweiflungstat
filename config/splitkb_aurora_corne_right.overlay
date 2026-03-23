@@ -1,23 +1,14 @@
 / {
-    /* Wir definieren P0.29 als simplen "One-LED-Strip" */
-    led_strip: nrf_led_strip {
-        compatible = "nordic,nrf-spim";
-        /* Hier nutzen wir den Pin P0.29 direkt */
-        status = "okay";
-        pinctrl-0 = <&spi1_default>;
-        pinctrl-names = "default";
-    };
-
-    /* ZMK sagen: Das hier ist unser Status-Licht */
-    chosen {
-        zmk,underglow = &led_strip;
-    };
-};
-
-&pinctrl {
-    spi1_default: spi1_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_MOSI, 0, 29)>;
+    leds {
+        compatible = "gpio-leds";
+        side_led: led_0 {
+            gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+            label = "Side Indicator";
         };
+    };
+
+    /* Wir verknüpfen die GPIO-LED mit dem Backlight-Modul */
+    chosen {
+        zmk,backlight = &side_led;
     };
 };
