@@ -1,6 +1,30 @@
 / {
     chosen {
-        zmk,underglow = &rgb_ug;
+        zmk,underglow = &led_strip;
+    };
+
+    /* Wir definieren den led_strip hier händisch, damit chain-length existiert */
+    led_strip: led_strip {
+        compatible = "worldsemi,ws2812-spi";
+        label = "WS2812_STRIP";
+        chain-length = <27>; /* 21 Tasten + 6 Underglow beim Aurora Corne */
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+        color-mapping = <2 1 3>;
+    };
+};
+
+&spi3 {
+    status = "okay";
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-1 = <&spi3_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    /* Wir verknüpfen unseren händischen led_strip mit dem SPI Bus */
+    ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+        spi-max-frequency = <4000000>;
     };
 };
 
