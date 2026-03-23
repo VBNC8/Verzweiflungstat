@@ -10,8 +10,8 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-#    - name: zmk-battery-status-led
-#      remote: infused-kim
- #     revision: main # Hier schauen wir, ob es abwärtskompatibel ist
+     - name: zmk-battery-status-led
+       remote: infused-kim
+       revision: main # Hier schauen wir, ob es abwärtskompatibel ist
   self:
     path: config 
