@@ -1,15 +1,14 @@
 / {
-    /* Schritt A: Die LED-Hardware definieren */
     leds {
         compatible = "gpio-leds";
-        led_batt: led_0 {
+        status_led: led_0 {
             gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
-            label = "Battery Critical LED";
+            label = "Status LED";
         };
     };
 
-    /* Schritt B: ZMK sagen, dass DIESE LED für den Akku zuständig ist */
+    /* Wir sagen ZMK, dass dies die 'Haupt-LED' für Statusmeldungen ist */
     chosen {
-        zmk,battery-led = &led_batt;
+        zmk,status-led = &status_led;
     };
 };
