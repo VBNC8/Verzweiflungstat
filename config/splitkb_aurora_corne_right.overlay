@@ -1,10 +1,10 @@
 / {
-    /* Wir definieren den Pin P0.29 als einfaches Backlight */
     backlight: pwmleds {
         compatible = "pwm-leds";
         led_status: pwm_led_0 {
+            /* Wir nutzen PWM-Kanal 0, Pin 29 */
             pwms = <&pwm0 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
-            label = "Manual Status LED";
+            label = "Status LED";
         };
     };
 
@@ -13,15 +13,14 @@
     };
 };
 
-/* Wir müssen den PWM-Controller aktivieren */
 &pwm0 {
     status = "okay";
-    pinctrl-0 = <&pwm0_default>;
+    pinctrl-0 = <&pwm0_29>; // Dieser Verweis muss exakt matchen!
     pinctrl-names = "default";
 };
 
 &pinctrl {
-    pwm0_default: pwm0_default {
+    pwm0_29: pwm0_29 {
         group1 {
             psels = <NRF_PSEL(PWM_OUT0, 0, 29)>;
         };
