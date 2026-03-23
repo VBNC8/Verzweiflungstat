@@ -1,17 +1,10 @@
 / {
-    leds {
+    /* Einfach nur die Hardware anmelden, keine Verknüpfung zu 'chosen' */
+    my_leds {
         compatible = "gpio-leds";
-        side_indicator: led_0 {
+        side_led: led_0 {
             gpios = <&gpio0 29 GPIO_ACTIVE_HIGH>;
-            label = "Side LED";
-        };
-    };
-
-    /* Das hier ist der entscheidende Teil für den Compiler */
-    status_leds {
-        compatible = "zmk,status-leds";
-        status_led_0 {
-            led = <&side_indicator>;
+            label = "Side Indicator";
         };
     };
 };
