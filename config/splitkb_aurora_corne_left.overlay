@@ -22,9 +22,9 @@
         zmk,underglow = &my_led_strip; // Name geändert zur Sicherheit
     };
 
-    ext_power: ext_power {
+    vcc_cut: vcc_cut {
         compatible = "zmk,ext-power-generic";
-        label = "EXT_POWER";
+        label = "VCC_CUT";
         control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
     };
 
