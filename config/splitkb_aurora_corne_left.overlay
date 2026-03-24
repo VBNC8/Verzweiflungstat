@@ -1,3 +1,5 @@
+#include <dt-bindings/led/led.h>
+
 &spi0 {
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
@@ -11,5 +13,25 @@
 / {
     chosen {
         zmk,kscan = &kscan_composite;
+        // ZMK sagen, dass dies unser LED-Streifen ist
+        zmk,underglow = &led_strip;
+    };
+
+    // 1. Stromschalter (External Power) für Aurora Corne
+    // Dieser Pin (0.13) aktiviert den Saft für Display UND LEDs
+    ext_power: ext_power {
+        compatible = "zmk,ext-power-generic";
+        label = "EXT_POWER";
+        control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+    };
+
+    // 2. LED-Streifen Definition (GPIO Modus auf Pin 0.06 / D3)
+    // Wir nutzen hier NICHT SPI, um die Matrix nicht zu stören!
+    led_strip: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        label = "WS2812_GPIO";
+        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
+        chain-length = <27>; 
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 };
