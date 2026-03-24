@@ -7,6 +7,10 @@
 
 
 / {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+
     macros {
         battery_status: battery_status {
             compatible = "zmk,behavior-macro";
