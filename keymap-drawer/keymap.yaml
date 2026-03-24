@@ -171,7 +171,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - '&batt_print'
+  - t: ▽
+    type: trans
   - t: $$mdi:cosine-wave$$
     s: Mode
   - t: $$mdi:brightness-7$$
