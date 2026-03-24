@@ -10,17 +10,16 @@
         zmk,underglow = &my_led_strip;
     };
 
-    // Eigener Stromschalter für die linke Seite (Pin 20 -> P0.31)
+    // Name 'ext_power' vermeiden, 'vcc_cut' nutzen
     vcc_cut: vcc_cut {
         compatible = "zmk,ext-power-generic";
-        label = "VCC_CUT";
         control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
     };
 
     my_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
-        label = "WS2812_GPIO_LEFT";
-        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
+        // HIER DIE ÄNDERUNG: 'in-gpios' statt 'gpios'
+        in-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
         chain-length = <27>; 
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
