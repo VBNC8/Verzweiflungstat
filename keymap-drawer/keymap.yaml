@@ -207,8 +207,7 @@ layers:
     type: trans
   - $$mdi:usb$$
   - Pwr±
-  - t: ▽
-    type: trans
+  - '&light_on'
   - t: ▽
     type: trans
   - t: ▽
