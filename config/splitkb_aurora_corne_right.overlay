@@ -1,1 +1,31 @@
 
+#include <dt-bindings/led/led.h>
+
+&spi0 {
+    status = "okay";
+    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+};
+
+&{/soc/spi@40003000} {
+    status = "okay";
+    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+};
+
+/ {
+    chosen {
+        zmk,kscan = &kscan_composite;
+        zmk,underglow = &led_strip;
+    };
+
+    // Rechts steuern wir den Strom meist nicht direkt, 
+    // sondern beziehen ihn vom linken Board über das TRRS-Kabel.
+    // Falls die LEDs rechts dunkel bleiben, muss &gpio0 31 hier auch rein.
+    
+    led_strip: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        label = "WS2812_GPIO_RIGHT";
+        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
+        chain-length = <27>; 
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
+    };
+};
