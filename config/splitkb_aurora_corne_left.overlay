@@ -13,7 +13,7 @@
     // Name 'ext_power' vermeiden, 'vcc_cut' nutzen
     vcc_cut: vcc_cut {
         compatible = "zmk,ext-power-generic";
-        control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
+        control-gpios = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
     };
 
     my_led_strip: ws2812 {
