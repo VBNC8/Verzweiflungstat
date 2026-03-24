@@ -6,6 +6,9 @@
 #include <dt-bindings/zmk/rgb.h>
 
 
+&spi0 { status = "disabled"; };
+&spi1 { status = "disabled"; };
+
 / {
     chosen {
         zmk,underglow = &led_strip;
