@@ -13,6 +13,24 @@
 
     // --- DIESER BLOCK HAT GEFEHLT ---
     macros {
+        // Dieses Makro simuliert das Tippen des Wortes "BAT" 
+        // und löst dann die Status-Anzeige aus (falls vom OS unterstützt)
+        // oder sendet eine Tastenkombination.
+        batt_print: batt_print {
+            label = "BATT_STATUS_TEXT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&kp B &kp A &kp T &kp T &kp SPACE>
+                , <&kp EQUAL &kp SPACE>
+                // Hier gibt es eine Einschränkung: ZMK kann den %-Wert 
+                // nicht direkt als Text "tippen". 
+                // Das Makro dient hier als Platzhalter für die manuelle Prüfung.
+                ;
+        };
+        
         pair_paren: pair_paren {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
