@@ -1,5 +1,11 @@
 #include <dt-bindings/led/led.h>
 
+// 1. Wir löschen die originale SPI-LED-Definition des Shields
+&spi3 {
+    /delete-node/ ws2812@0;
+    status = "disabled"; // Wir brauchen SPI3 gar nicht
+};
+
 &spi0 {
     status = "okay";
     cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
@@ -13,21 +19,17 @@
 / {
     chosen {
         zmk,kscan = &kscan_composite;
-        // ZMK sagen, dass dies unser LED-Streifen ist
-        zmk,underglow = &led_strip;
+        zmk,underglow = &my_led_strip; // Name geändert zur Sicherheit
     };
 
-    // 1. Stromschalter (External Power) für Aurora Corne
-    // Dieser Pin (0.13) aktiviert den Saft für Display UND LEDs
     ext_power: ext_power {
         compatible = "zmk,ext-power-generic";
         label = "EXT_POWER";
-        control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+        control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
     };
 
-    // 2. LED-Streifen Definition (GPIO Modus auf Pin 0.06 / D3)
-    // Wir nutzen hier NICHT SPI, um die Matrix nicht zu stören!
-    led_strip: ws2812 {
+    // Wir nennen den Knoten zur Sicherheit 'my_led_strip'
+    my_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
         label = "WS2812_GPIO";
         gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
