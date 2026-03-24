@@ -14,7 +14,7 @@
     // --- DIESER BLOCK HAT GEFEHLT ---
     macros {
                
-        / Schaltet Strom AN und sendet sofort einen LED-Refresh
+        // Schaltet Strom AN und sendet sofort einen LED-Refresh
         light_on: light_on {
              compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
