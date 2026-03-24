@@ -19,7 +19,7 @@
     my_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
         in-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
-        chain-length = <27>; 
+        chain-length = <3>; 
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 };
