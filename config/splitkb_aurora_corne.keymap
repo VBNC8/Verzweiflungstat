@@ -16,7 +16,7 @@
                
         // Schaltet Strom AN und sendet sofort einen LED-Refresh
         light_on: light_on {
-             compatible = "zmk,behavior-macro";
+            compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&ext_power EP_ON>, <&rgb_ug RGB_ON>, <&rgb_ug RGB_BRI>;
         };
