@@ -13,7 +13,7 @@
     // Auch rechts brauchen wir den Schalter, da Wireless
     vcc_cut_right: vcc_cut_right {
         compatible = "zmk,ext-power-generic";
-        control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
+        control-gpios = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
     };
 
     my_led_strip: ws2812 {
