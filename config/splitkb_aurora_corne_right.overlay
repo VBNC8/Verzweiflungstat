@@ -1,5 +1,10 @@
-
 #include <dt-bindings/led/led.h>
+
+// 1. Wir löschen auch hier die originale SPI-LED-Definition
+&spi3 {
+    /delete-node/ ws2812@0;
+    status = "disabled";
+};
 
 &spi0 {
     status = "okay";
@@ -14,17 +19,16 @@
 / {
     chosen {
         zmk,kscan = &kscan_composite;
-        zmk,underglow = &led_strip;
+        zmk,underglow = &my_led_strip; 
     };
 
-    // Rechts steuern wir den Strom meist nicht direkt, 
-    // sondern beziehen ihn vom linken Board über das TRRS-Kabel.
-    // Falls die LEDs rechts dunkel bleiben, muss &gpio0 31 hier auch rein.
-    
-    led_strip: ws2812 {
+    // Hinweis: ext_power lassen wir rechts meist weg, 
+    // da die Spannung über das TRRS/USB-C Kabel von links kommt.
+
+    my_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
         label = "WS2812_GPIO_RIGHT";
-        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
+        gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; // Pin 1 (D3) laut deinem Bild
         chain-length = <27>; 
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
