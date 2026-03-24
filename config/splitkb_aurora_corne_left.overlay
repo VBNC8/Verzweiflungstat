@@ -1,37 +1,25 @@
 #include <dt-bindings/led/led.h>
 
-// 1. Wir löschen die originale SPI-LED-Definition des Shields
 &spi3 {
     /delete-node/ ws2812@0;
-    status = "disabled"; // Wir brauchen SPI3 gar nicht
-};
-
-&spi0 {
-    status = "okay";
-    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-};
-
-&{/soc/spi@40003000} {
-    status = "okay";
-    cs-gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+    status = "disabled";
 };
 
 / {
     chosen {
-        zmk,kscan = &kscan_composite;
-        zmk,underglow = &my_led_strip; // Name geändert zur Sicherheit
+        zmk,underglow = &my_led_strip;
     };
 
+    // Eigener Stromschalter für die linke Seite (Pin 20 -> P0.31)
     vcc_cut: vcc_cut {
         compatible = "zmk,ext-power-generic";
         label = "VCC_CUT";
         control-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; 
     };
 
-    // Wir nennen den Knoten zur Sicherheit 'my_led_strip'
     my_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
-        label = "WS2812_GPIO";
+        label = "WS2812_GPIO_LEFT";
         gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
         chain-length = <27>; 
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
