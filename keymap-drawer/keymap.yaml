@@ -173,14 +173,13 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: $$mdi:cosine-wave$$
-    s: Mode
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - '&transI'
   - ✕
   - t: $$mdi:bluetooth$$
     h: PC
@@ -195,14 +194,14 @@ layers:
     s: ⓸
   - t: $$mdi:bluetooth$$
     s: ⓹
-  - t: $$mdi:cosine-wave$$
-    s: Rev
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - t: $$mdi:palette-outline$$
-    s: Sat-
-  - t: $$mdi:palette-swatch-outline$$
-    s: Hue-
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - $$mdi:usb$$
@@ -227,8 +226,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: $$mdi:lightbulb-on$$
-    s: OnOff
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ' '
