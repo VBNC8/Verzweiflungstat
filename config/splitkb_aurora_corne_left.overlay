@@ -2,9 +2,3 @@
     /delete-node/ ws2812@0;
     status = "disabled";
 };
-
-/ {
-    chosen {
-        zmk,underglow = &my_led_strip;
-    };
-};
