@@ -1,4 +1,1 @@
-&spi3 {
-    /delete-node/ ws2812@0;
-    status = "disabled";
-};
+
