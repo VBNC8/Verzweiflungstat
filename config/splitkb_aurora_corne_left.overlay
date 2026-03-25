@@ -1,5 +1,3 @@
-#include <dt-bindings/led/led.h>
-
 &spi3 {
     /delete-node/ ws2812@0;
     status = "disabled";
@@ -8,19 +6,5 @@
 / {
     chosen {
         zmk,underglow = &my_led_strip;
-    };
-
-    // Name 'ext_power' vermeiden, 'vcc_cut' nutzen
-    vcc_cut: vcc_cut {
-        compatible = "zmk,ext-power-generic";
-        control-gpios = <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; 
-    };
-
-    my_led_strip: ws2812 {
-        compatible = "worldsemi,ws2812-gpio";
-        // HIER DIE ÄNDERUNG: 'in-gpios' statt 'gpios'
-        in-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>; 
-        chain-length = <3>; 
-        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 };
