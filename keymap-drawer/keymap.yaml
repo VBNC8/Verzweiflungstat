@@ -207,9 +207,12 @@ layers:
     type: trans
   - $$mdi:usb$$
   - Pwr±
-  - '&light_on'
-  - '&check_batt_l'
-  - '&check_batt_r'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
