@@ -33,13 +33,13 @@
         usb_on: usb_on { 
             compatible = "zmk,behavior-macro"; 
             #binding-cells = <0>; 
-            bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>; 
+            bindings = <&out OUT_USB>; 
         };
 
         bt_off: bt_off { 
             compatible = "zmk,behavior-macro"; 
             #binding-cells = <0>; 
-            bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>; 
+            bindings = <&out OUT_BLE>; 
         };
 
         durchmesser: durchmesser { 
