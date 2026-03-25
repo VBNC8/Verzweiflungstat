@@ -1,10 +1,23 @@
-&nice_view_spi {
+&spi0 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    
+    // Hier biegen wir den Chip Select (CS) auf deinen LED-Pin um
     cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+
+    nice_view: ls0xx@0 {
+        compatible = "sharp,ls0xx";
+        reg = <0>; /* Entspricht dem ersten CS-Pin in der Liste oben */
+        spi-max-frequency = <1000000>;
+        width = <160>;
+        height = <68>;
+    };
 };
 
 / {
-    // Falls du den chosen-Block gelöscht hast, 
-    // stelle sicher, dass das Display noch da ist:
     chosen {
         zmk,display = &nice_view;
     };
