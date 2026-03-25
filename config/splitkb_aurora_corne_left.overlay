@@ -1,4 +1,11 @@
-&spi3 {
-    /delete-node/ ws2812@0;
-    status = "disabled";
+&nice_view_spi {
+    cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+};
+
+/ {
+    // Falls du den chosen-Block gelöscht hast, 
+    // stelle sicher, dass das Display noch da ist:
+    chosen {
+        zmk,display = &nice_view;
+    };
 };
