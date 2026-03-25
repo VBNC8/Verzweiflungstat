@@ -208,10 +208,8 @@ layers:
   - $$mdi:usb$$
   - Pwr±
   - '&light_on'
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - '&check_batt_l'
+  - '&check_batt_r'
   - t: ▽
     type: trans
   - t: ▽
