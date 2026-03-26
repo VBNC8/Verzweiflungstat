@@ -1,6 +1,10 @@
 / {
+    /* Wir löschen die Suche nach dem Pro-Micro I2C, die den Fehler verursacht */
+    /delete-node/ &pro_micro_i2c;
+
     chosen {
         zmk,kscan = &kscan0;
+        /* Wir deaktivieren den Standard-Transform, da wir direkt mappen */
         /delete-property/ zmk,matrix-transform;
     };
 
@@ -25,20 +29,18 @@
     };
 };
 
-/* Wir deaktivieren die Standard-I2C Suche, die den Fehler verursacht */
-&pinctrl {
-    /delete-node/ uart0_default;
-};
-
+/* UART für Split-Kommunikation neu definieren ohne Pro-Micro-Labels */
 &uart0 {
     status = "okay";
     current-speed = <115200>;
-    pinctrl-0 = <&my_uart0_pins>;
+    /delete-property/ pinctrl-0;
+    /delete-property/ pinctrl-names;
+    pinctrl-0 = <&uart0_default>;
     pinctrl-names = "default";
 };
 
 &pinctrl {
-    my_uart0_pins: my_uart0_pins {
+    uart0_default: uart0_default {
         group1 {
             pinmux = <UART0_TX_P8>, <UART0_RX_P9>;
         };
