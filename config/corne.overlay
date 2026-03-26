@@ -1,0 +1,19 @@
+&kscan0 {
+    compatible = "zmk,kscan-gpio-matrix";
+    label = "KSCAN";
+    diode-direction = "col2row"; // Wichtig: Passend zu deinem Dioden-Schaltplan!
+
+    col-gpios
+        = <&gpio0 4 GPIO_ACTIVE_HIGH>  // COL0 -> GP4
+        , <&gpio0 5 GPIO_ACTIVE_HIGH>  // COL1 -> GP5
+        , <&gpio0 6 GPIO_ACTIVE_HIGH>  // COL2 -> GP6
+        , <&gpio0 7 GPIO_ACTIVE_HIGH>  // COL3 -> GP7
+        , <&gpio0 26 GPIO_ACTIVE_HIGH> // COL4 -> GP26
+        , <&gpio0 27 GPIO_ACTIVE_HIGH>;// COL5 -> GP27
+
+    row-gpios
+        = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW0 -> GP0
+        , <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW1 -> GP1
+        , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW2 -> GP2
+        , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // ROW3 -> GP3
+};
