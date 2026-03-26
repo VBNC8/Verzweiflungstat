@@ -1,6 +1,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
+        /delete-property/ zmk,matrix-transform;
     };
 
     kscan0: kscan_0 {
@@ -9,32 +10,35 @@
         diode-direction = "col2row";
 
         col-gpios
-            = <&gpio0 4 GPIO_ACTIVE_HIGH>  // COL 0 -> GP4
-            , <&gpio0 5 GPIO_ACTIVE_HIGH>  // COL 1 -> GP5
-            , <&gpio0 6 GPIO_ACTIVE_HIGH>  // COL 2 -> GP6
-            , <&gpio0 7 GPIO_ACTIVE_HIGH>  // COL 3 -> GP7
-            , <&gpio0 26 GPIO_ACTIVE_HIGH> // COL 4 -> GP26
-            , <&gpio0 27 GPIO_ACTIVE_HIGH>;// COL 5 -> GP27
+            = <&gpio0 4 GPIO_ACTIVE_HIGH>  // GP4
+            , <&gpio0 5 GPIO_ACTIVE_HIGH>  // GP5
+            , <&gpio0 6 GPIO_ACTIVE_HIGH>  // GP6
+            , <&gpio0 7 GPIO_ACTIVE_HIGH>  // GP7
+            , <&gpio0 26 GPIO_ACTIVE_HIGH> // GP26
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>;// GP27
 
         row-gpios
-            = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW 0 -> GP0
-            , <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW 1 -> GP1
-            , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // ROW 2 -> GP2
-            , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // ROW 3 -> GP3
+            = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // GP0
+            , <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // GP1
+            , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // GP2
+            , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // GP3
     };
 };
 
-/* UART für die kabelgebundene Kommunikation zwischen den Hälften */
+/* Wir deaktivieren die Standard-I2C Suche, die den Fehler verursacht */
+&pinctrl {
+    /delete-node/ uart0_default;
+};
+
 &uart0 {
     status = "okay";
     current-speed = <115200>;
-    pinctrl-0 = <&uart0_default>;
+    pinctrl-0 = <&my_uart0_pins>;
     pinctrl-names = "default";
 };
 
-/* Definition der UART-Pins am RP2040 (TX an GP8, RX an GP9) */
 &pinctrl {
-    uart0_default: uart0_default {
+    my_uart0_pins: my_uart0_pins {
         group1 {
             pinmux = <UART0_TX_P8>, <UART0_RX_P9>;
         };
