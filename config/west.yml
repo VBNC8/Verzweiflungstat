@@ -1,5 +1,0 @@
-include:
-  - board: waveshare_rp2040_zero
-    shield: corne_left
-  - board: waveshare_rp2040_zero
-    shield: corne_right
