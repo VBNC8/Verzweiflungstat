@@ -15,16 +15,14 @@ jobs:
       - name: West Zephyr Export
         run: west zephyr-export
       
-      # Build Left (RP2040-Zero als Master)
+      # Build Left
       - name: Build Left
-        run: west build -s zmk/app -b waveshare_rp2040_zero -- -DSHIELD="corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Save Left
+        run: west build -s zmk/app -b waveshare_rp2040_zero -- -DSHIELD="corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}/zmk/app"      - name: Save Left
         run: cp build/zephyr/zmk.uf2 left.uf2
         
-      # Build Right (RP2040-Zero als Slave)
+      # Build Right
       - name: Build Right
-        run: west build -p -s zmk/app -b waveshare_rp2040_zero -- -DSHIELD="corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Save Right
+        run: west build -p -s zmk/app -b waveshare_rp2040_zero -- -DSHIELD="corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}/zmk/app"      - name: Save Right
         run: cp build/zephyr/zmk.uf2 right.uf2
         
       - name: Upload
