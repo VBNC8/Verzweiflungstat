@@ -5,7 +5,6 @@
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         diode-direction = "col2row";
 
         col-gpios
@@ -24,7 +23,7 @@
     };
 };
 
-/* UART für die Kommunikation (Wired Split) */
+/* UART für die kabelgebundene Split-Kommunikation */
 &uart0 {
     status = "okay";
     current-speed = <115200>;
@@ -34,11 +33,11 @@
 
 &pinctrl {
     uart0_default: uart0_default {
-        /* RP2040_PInmux(PIN, FUNCTION) 
-           UART0 TX auf Pin 8, UART0 RX auf Pin 9
-           Funktion 2 ist UART für diese Pins beim RP2040
-        */
         group1 {
+            /* Pinmux für RP2040:
+               0x00000208 -> GPIO 8, Funktion 2 (UART TX)
+               0x00000209 -> GPIO 9, Funktion 2 (UART RX)
+            */
             pinmux = <0x00000208>, <0x00000209>;
         };
     };
