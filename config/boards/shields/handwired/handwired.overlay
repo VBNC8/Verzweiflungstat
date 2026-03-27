@@ -5,15 +5,16 @@
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
         diode-direction = "col2row";
 
         col-gpios
-            = <&gpio0 4  GPIO_ACTIVE_HIGH> // Spalte 0 (Ganz links: Pinky außen/Nummer)
-            , <&gpio0 5  GPIO_ACTIVE_HIGH> // Spalte 1 (Pinky: Q, A, Z)
-            , <&gpio0 6  GPIO_ACTIVE_HIGH> // Spalte 2 (Ring: W, S, X)
-            , <&gpio0 7  GPIO_ACTIVE_HIGH> // Spalte 3 (Mittel: E, D, C)
-            , <&gpio0 27 GPIO_ACTIVE_HIGH> // Spalte 4 (Zeige: R, F, V)
-            , <&gpio0 28 GPIO_ACTIVE_HIGH>; // Spalte 5 (Zeige-Innen: T, G, B)
+            = <&gpio0 4 GPIO_ACTIVE_HIGH> 
+            , <&gpio0 5 GPIO_ACTIVE_HIGH> 
+            , <&gpio0 6 GPIO_ACTIVE_HIGH> 
+            , <&gpio0 7 GPIO_ACTIVE_HIGH> 
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>
+            , <&gpio0 28 GPIO_ACTIVE_HIGH>;
 
         row-gpios
             = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
