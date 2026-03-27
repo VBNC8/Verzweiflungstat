@@ -1,0 +1,5 @@
+// Updated configuration for UART on GPIO 8 and 9 for split keyboard
+#define UART_TX_PIN 8
+#define UART_RX_PIN 9
+
+// Additional configuration specific to the split keyboard can be added here.
