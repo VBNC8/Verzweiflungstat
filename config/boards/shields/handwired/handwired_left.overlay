@@ -2,18 +2,21 @@
  * Copyright (c) 2024 VBNC8
  * SPDX-License-Identifier: MIT
  *
- * Handwired Corne-like keyboard – standalone left half (for testing without right side)
+ * Handwired Corne-like keyboard – LEFT HALF  (wired split central)
  * Board: Waveshare RP2040 Zero
  *
  * Matrix: 4 rows × 6 columns
  *   col-gpios : GPIO4, GPIO5, GPIO6, GPIO7, GPIO27, GPIO28
  *   row-gpios : GPIO0, GPIO1, GPIO2, GPIO3  (PULL_DOWN, active-high)
  *
- * In standalone mode (CONFIG_ZMK_SPLIT=n) only left-side keys are active.
- * For full split operation build with the handwired_left / handwired_right shields.
+ * UART split transport : TX = GPIO8, RX = GPIO9  (UART1, 115200 baud)
+ *   – Left side is the USB-connected central.
+ *   – Connect GPIO8 (TX-left) → GPIO9 (RX-right) and
+ *            GPIO9 (RX-left) → GPIO8 (TX-right).
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/pinctrl/rp2040-pinctrl.h>
 
 / {
     chosen {
@@ -22,15 +25,12 @@
     };
 
     /*
-     * Full 42-key virtual transform (12 virtual columns × 4 rows).
-     * Physical kscan covers cols 0-5 (left half only).
-     * Keys at RC(r,6..11) belong to the right half – they fire when a
-     * split peripheral is connected; in standalone mode they stay silent.
+     * Full 42-key virtual transform.
+     * Left physical kscan provides RC(r, 0-5); right peripheral
+     * provides RC(r, 6-11) via UART transport (col-offset = <6>).
      *
-     * Row 3 (thumbs): left uses RC(3,0..2), right uses RC(3,6..8).
-     * RC(3,6..8) are unreachable in standalone mode but correct for
-     * future split use; the existing keymap bindings at positions 39-41
-     * (RET, SPACE, BSPC) already expect this virtual column layout.
+     * Row 3 (thumbs): left at RC(3,0..2), right at RC(3,6..8).
+     * Physical right-thumb cols 0-2 with col-offset=6 → RC(3,6..8) ✓
      */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -64,4 +64,24 @@
             , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
+};
+
+/* ── UART1 for wired split communication ──────────────────────────── */
+&pinctrl {
+    uart1_default: uart1_default {
+        group1 {
+            pinmux = <UART1_TX_P8>;
+        };
+        group2 {
+            pinmux = <UART1_RX_P9>;
+            input-enable;
+        };
+    };
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart1_default>;
+    pinctrl-names = "default";
 };

@@ -1,6 +1,13 @@
-if SHIELD_HANDWIRED
+if SHIELD_HANDWIRED || SHIELD_HANDWIRED_LEFT || SHIELD_HANDWIRED_RIGHT
 
 config ZMK_KEYBOARD_NAME
     default "Handwired"
+
+endif
+
+if SHIELD_HANDWIRED_LEFT
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
 
 endif
