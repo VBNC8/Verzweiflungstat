@@ -1,3 +1,5 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+
 / {
     chosen {
         zmk,kscan = &kscan0;
@@ -39,22 +41,4 @@
     };
 };
 
-/* UART für die kabelgebundene Split-Kommunikation */
-&uart0 {
-    status = "okay";
-    current-speed = <115200>;
-    pinctrl-0 = <&uart0_default>;
-    pinctrl-names = "default";
-};
 
-&pinctrl {
-    uart0_default: uart0_default {
-        group1 {
-            /* Pinmux für RP2040:
-               0x00000208 -> GPIO 8, Funktion 2 (UART TX)
-               0x00000209 -> GPIO 9, Funktion 2 (UART RX)
-            */
-            pinmux = <0x00000208>, <0x00000209>;
-        };
-    };
-};
