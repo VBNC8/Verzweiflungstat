@@ -6,7 +6,6 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
-    // --- DIESER BLOCK HAT GEFEHLT ---
     macros {
  
         pair_paren: pair_paren {
