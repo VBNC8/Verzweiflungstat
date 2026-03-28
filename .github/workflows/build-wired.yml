@@ -1,5 +1,5 @@
 name: Build RP2040 Wired
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
