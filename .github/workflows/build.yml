@@ -1,10 +1,10 @@
-name: Build
+name: Build Aurora Corne
 on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: zmkfirmware/zmk-build-arm:stable
+      image: zmkfirmware/zmk-build-arm:4.1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -14,28 +14,20 @@ jobs:
 
       - name: West Update
         run: west update
-
-      - name: Build Left
-        run: |
-          # Wir erzwingen den Pfad zum Board-Verzeichnis manuell
-          west build -s zmk/app -b nice_nano_v2 -- \
-            -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
-            -DBOARD_ROOT="${GITHUB_WORKSPACE}/zmk"
-          cp build/zephyr/zmk.uf2 left.uf2
-
-      - name: Build Right
-        run: |
-          west build -s zmk/app -b nice_nano_v2 -- \
-            -DSHIELD="splitkb_aurora_corne_right" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
-            -DBOARD_ROOT="${GITHUB_WORKSPACE}/zmk"
-          cp build/zephyr/zmk.uf2 right.uf2
-
-      - name: Archive artifacts
+      - name: West Zephyr Export
+        run: west zephyr-export
+      - name: Build Left (mit Display)
+        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Save Left
+        run: cp build/zephyr/zmk.uf2 left.uf2
+      - name: Build Right (ohne Display)
+        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Save Right
+        run: cp build/zephyr/zmk.uf2 right.uf2
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: aurora-corne-firmware
           path: |
             left.uf2
             right.uf2
