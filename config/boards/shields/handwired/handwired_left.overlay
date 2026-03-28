@@ -1,9 +1,12 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
 
 / {
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
+        zephyr,display = &nice_view;
+        zmk,split-uart = &uart0;
     };
 
     default_transform: keymap_transform_0 {
@@ -37,5 +40,67 @@
             , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
+    };
+
+    /* EC11 rotary encoder — A: GP22, B: GP26 (adjust to your wiring) */
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <80>;
+        status = "okay";
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder>;
+        triggers-per-rotation = <20>;
+    };
+};
+
+/* ── UART serial split (GP8 = TX, GP9 = RX) ─────────────────────────── */
+&pinctrl {
+    uart0_default: uart0_default {
+        group1 { pinmux = <UART0_TX_P8>; };
+        group2 { pinmux = <UART0_RX_P9>; input-enable; };
+    };
+    uart0_sleep: uart0_sleep {
+        group1 { pinmux = <UART0_TX_P8>; };
+        group2 { pinmux = <UART0_RX_P9>; input-enable; };
+    };
+
+    /* ── SPI0 for nice!view display (GP10 = SCK, GP11 = MOSI) ───────── */
+    spi0_default: spi0_default {
+        group1 { pinmux = <SPI0_SCK_P10>, <SPI0_TX_P11>; };
+    };
+    spi0_sleep: spi0_sleep {
+        group1 { pinmux = <SPI0_SCK_P10>, <SPI0_TX_P11>; };
+    };
+};
+
+&uart0 {
+    current-speed = <921600>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-1 = <&uart0_sleep>;
+    pinctrl-names = "default", "sleep";
+    status = "okay";
+};
+
+/* ── nice!view Sharp Memory LCD (SPI0, CS: GP13, EXTCOMIN: GP12) ─────── */
+&spi0 {
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+
+    nice_view: ls0xx@0 {
+        compatible = "sharp,ls0xx";
+        spi-max-frequency = <2000000>;
+        reg = <0>;
+        width = <160>;
+        height = <68>;
+        extcomin-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+        extcomin-period-ms = <1500>;
     };
 };

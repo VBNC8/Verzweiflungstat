@@ -1,9 +1,11 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
 
 / {
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
+        zmk,split-uart = &uart0;
     };
 
     default_transform: keymap_transform_0 {
@@ -38,4 +40,24 @@
             , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
+};
+
+/* ── UART serial split (GP8 = TX, GP9 = RX) ─────────────────────────── */
+&pinctrl {
+    uart0_default: uart0_default {
+        group1 { pinmux = <UART0_TX_P8>; };
+        group2 { pinmux = <UART0_RX_P9>; input-enable; };
+    };
+    uart0_sleep: uart0_sleep {
+        group1 { pinmux = <UART0_TX_P8>; };
+        group2 { pinmux = <UART0_RX_P9>; input-enable; };
+    };
+};
+
+&uart0 {
+    current-speed = <921600>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-1 = <&uart0_sleep>;
+    pinctrl-names = "default", "sleep";
+    status = "okay";
 };
