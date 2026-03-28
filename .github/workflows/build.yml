@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: zmkfirmware/zmk-build-arm:stable
+      image: zmkfirmware/zmk-build-arm:4.1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,11 +15,11 @@ jobs:
       - name: West Zephyr Export
         run: west zephyr-export
       - name: Build Left (mit Display)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
         run: cp build/zephyr/zmk.uf2 left.uf2
       - name: Build Right (ohne Display)
-        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Right
         run: cp build/zephyr/zmk.uf2 right.uf2
       - name: Upload
