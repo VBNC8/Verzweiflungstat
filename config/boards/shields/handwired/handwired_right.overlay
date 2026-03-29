@@ -42,15 +42,15 @@
     };
 };
 
-/* ── UART serial split (GP14 = TX, GP15 = RX) ───────────────────────── */
+/* ── UART serial split (GP12 = TX, GP13 = RX) ───────────────────────── */
 &pinctrl {
     uart0_default: uart0_default {
-        group1 { pinmux = <UART0_TX_P14>; };
-        group2 { pinmux = <UART0_RX_P15>; input-enable; };
+        group1 { pinmux = <UART0_TX_P12>; };
+        group2 { pinmux = <UART0_RX_P13>; input-enable; };
     };
     uart0_sleep: uart0_sleep {
-        group1 { pinmux = <UART0_TX_P14>; };
-        group2 { pinmux = <UART0_RX_P15>; input-enable; };
+        group1 { pinmux = <UART0_TX_P12>; };
+        group2 { pinmux = <UART0_RX_P13>; input-enable; };
     };
 };
 
