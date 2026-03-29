@@ -25,8 +25,8 @@
         diode-direction = "col2row";
 
         col-gpios
-            = <&gpio0 4  GPIO_ACTIVE_HIGH>
-            , <&gpio0 5  GPIO_ACTIVE_HIGH>
+            = <&gpio0 14 GPIO_ACTIVE_HIGH>
+            , <&gpio0 15 GPIO_ACTIVE_HIGH>
             , <&gpio0 6  GPIO_ACTIVE_HIGH>
             , <&gpio0 7  GPIO_ACTIVE_HIGH>
             , <&gpio0 27 GPIO_ACTIVE_HIGH>
@@ -42,15 +42,15 @@
     };
 };
 
-/* ── UART serial split (GP8 = TX, GP9 = RX) ───────────────────────── */
+/* ── UART serial split (GP4 = TX, GP5 = RX) ───────────────────────── */
 &pinctrl {
     uart1_default: uart1_default {
-        group1 { pinmux = <UART1_TX_P8>; };
-        group2 { pinmux = <UART1_RX_P9>; input-enable; };
+        group1 { pinmux = <UART1_TX_P4>; };
+        group2 { pinmux = <UART1_RX_P5>; input-enable; };
     };
     uart1_sleep: uart1_sleep {
-        group1 { pinmux = <UART1_TX_P8>; };
-        group2 { pinmux = <UART1_RX_P9>; input-enable; };
+        group1 { pinmux = <UART1_TX_P4>; };
+        group2 { pinmux = <UART1_RX_P5>; input-enable; };
     };
 };
 
