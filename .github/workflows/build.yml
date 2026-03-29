@@ -17,7 +17,7 @@ jobs:
 
       # Build Left
       - name: Build Left
-        run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSPLIT_ROLE="central"
+        run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSPLIT_ROLE="central" -DUART_0_TX_PIN=14 -DUART_0_RX_PIN=15
       - name: Save Left
         run: cp build/left/zephyr/zmk.uf2 left.uf2
         
