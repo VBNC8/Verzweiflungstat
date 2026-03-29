@@ -38,8 +38,14 @@ jobs:
       - name: Build Right
         run: west build -s zmk/app -b rpi_pico -d build/right -- -DSHIELD="handwired" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: Upload artifacts
+      - name: Upload Left firmware
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
-          path: build/*/zephyr/zmk.uf2
+          name: left-firmware
+          path: build/left/zephyr/zmk.uf2
+
+      - name: Upload Right firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: right-firmware
+          path: build/right/zephyr/zmk.uf2build/*/zephyr/zmk.uf2
