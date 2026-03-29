@@ -19,19 +19,22 @@
     };
 
     kscan0: kscan {
-        compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        row-gpios
-            = <&gpio0 0 GPIO_ACTIVE_HIGH>
-            , <&gpio0 1 GPIO_ACTIVE_HIGH>
-            , <&gpio0 2 GPIO_ACTIVE_HIGH>
-            , <&gpio0 3 GPIO_ACTIVE_HIGH>;
-        col-gpios
-            = <&gpio0 4 GPIO_ACTIVE_HIGH>
-            , <&gpio0 5 GPIO_ACTIVE_HIGH>
-            , <&gpio0 6 GPIO_ACTIVE_HIGH>
-            , <&gpio0 7 GPIO_ACTIVE_HIGH>
-            , <&gpio0 27 GPIO_ACTIVE_HIGH>
-            , <&gpio0 28 GPIO_ACTIVE_HIGH>;
+    compatible = "zmk,kscan-gpio-matrix";
+    wakeup-source;
+    debounce-press-ms = <5>;
+    debounce-release-ms = <5>;
+    
+    row-gpios
+        = <&gpio0 0 GPIO_ACTIVE_HIGH>
+        , <&gpio0 1 GPIO_ACTIVE_HIGH>
+        , <&gpio0 2 GPIO_ACTIVE_HIGH>
+        , <&gpio0 3 GPIO_ACTIVE_HIGH>;
+    col-gpios
+        = <&gpio0 4 GPIO_ACTIVE_HIGH>
+        , <&gpio0 5 GPIO_ACTIVE_HIGH>
+        , <&gpio0 6 GPIO_ACTIVE_HIGH>
+        , <&gpio0 7 GPIO_ACTIVE_HIGH>
+        , <&gpio0 27 GPIO_ACTIVE_HIGH>
+        , <&gpio0 28 GPIO_ACTIVE_HIGH>;
     };
 };
