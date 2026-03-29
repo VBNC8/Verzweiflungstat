@@ -1,5 +1,4 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <dt-bindings/pinctrl/rpi_pico-pinctrl.h>
 
 / {
     chosen {
@@ -34,20 +33,5 @@
             , <&gpio0 7 GPIO_ACTIVE_HIGH>
             , <&gpio0 27 GPIO_ACTIVE_HIGH>
             , <&gpio0 28 GPIO_ACTIVE_HIGH>;
-    };
-};
-
-&uart0 {
-    status = "okay";
-    current-speed = <115200>;
-    pinctrl-0 = <&uart0_default>;
-    pinctrl-names = "default";
-};
-
-&pinctrl {
-    uart0_default: uart0_default {
-        group1 {
-            pinmux = <UART0_TX_P14>, <UART0_RX_P15>;
-        };
     };
 };
