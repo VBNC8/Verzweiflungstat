@@ -1,3 +1,3 @@
 build:
-  cmake: CMakeLists.txt
+  cmake: .
   kconfig: Kconfig
