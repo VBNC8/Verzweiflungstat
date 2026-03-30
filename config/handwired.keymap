@@ -283,7 +283,7 @@
 &kp N1  &kp Q  &kp W             &kp E              &kp R                &kp T                &kp Y       &kp U                 &kp I               &kp O                &kp P                &none
 &kp N2  &kp A  &kp S             &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G                &kp H       &hrm_shift RSHIFT J   &hrm_safe RCTRL K   &kp L                &kp LS(NON_US_HASH)  &none
 &kp N3  &kp Z  &hrm_safe LALT X  &kp C              &kp V                &kp B                &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT   &kp DEL              &none
-                                 &lt 1 RET          &lt_hp 2 SPACE       &lt_hp 3 BSPC        &kp C_PP    &lt 2 ESC             &lt 1 TAB
+                                 &kp C_PP           &lt 2 ESC            &lt 1 TAB            &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
         };
 
@@ -293,7 +293,7 @@
 &none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley             &kp LS(GRAVE) &pair_paren      &pair_brc    &pair_bkt   &kp LS(BSLH)  &none
 &none  &kp N1        &kp N2           &kp N3               &kp N4        &kp N5              &kp N6        &kp N7           &kp N8       &kp N9      &kp N0        &none
 &none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH     &kp KP_PLUS   &kp KP_MULTIPLY  &kp COMMA    &kp DOT     &kp KP_EQUAL  &none
-                                      &kp END       &kp LG(D)        &trans              &enc_bt_clr 0 0  &kp LGUI      &kp HOME
+                                      &enc_bt_clr 0 0  &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &trans
             >;
         };
 
@@ -303,7 +303,7 @@
 &none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7        &kp F8      &kp F9     &kp F10       &none
 &none  &trans        &trans           &mkp RCLK            &mkp LCLK        &trans           &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS      &none
 &none  &trans        &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
-                                      &trans       &nbsp         &trans           &kp F14              &kp LC(LS(ESC))  &trans
+                                      &kp F14              &kp LC(LS(ESC))  &trans           &trans       &nbsp         &trans
             >;
         };
 
@@ -313,7 +313,7 @@
 &none  &bt_off       &trans             &trans            &trans         &trans              &trans  &trans  &trans       &trans      &kp LA(F4)  &none
 &none  &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4        &trans  &trans  &trans       &trans       &trans      &none
 &none  &usb_on       &ext_power EP_TOG  &trans            &trans         &trans              &trans  &trans  &kp C_PREV   &kp C_NEXT   &trans      &none
-                                        &trans  &trans  &kp F12           &kp F14           &trans         &trans
+                                        &kp F14           &trans         &trans              &trans  &trans  &kp F12
             >;
         };
     };
