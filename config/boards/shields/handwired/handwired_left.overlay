@@ -88,8 +88,7 @@
     status = "okay";
 };
 
-&pio0 {
-    status = "okay";
+&pio0 {    status = "okay";
 
     pio-ws2812 {
         compatible = "worldsemi,ws2812-rpi_pico-pio";
@@ -109,4 +108,8 @@
             frequency = <800000>;
         };
     };
+};
+
+&uart0 {
+    status = "disabled";
 };
