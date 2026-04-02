@@ -30,17 +30,6 @@
             bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
         };
 
-        usb_on: usb_on { 
-            compatible = "zmk,behavior-macro"; 
-            #binding-cells = <0>; 
-            bindings = <&out OUT_USB>; 
-        };
-
-        bt_off: bt_off { 
-            compatible = "zmk,behavior-macro"; 
-            #binding-cells = <0>; 
-            bindings = <&out OUT_BLE>; 
-        };
 
         durchmesser: durchmesser { 
             compatible = "zmk,behavior-macro"; 
