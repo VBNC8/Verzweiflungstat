@@ -1,16 +1,13 @@
 config HEARTBEAT_LED
-    bool "Onboard LED heartbeat and key-activity indicator"
+    bool "RGB status indicator via onboard WS2812 NeoPixel"
     default n
     help
-      Blinks the onboard LED (led0 alias, GP25 on Raspberry Pi Pico) at 1 Hz
-      as a power/heartbeat indicator, and briefly flashes it for 100 ms on
-      every key-position change event as a proxy for UART data activity.
+      Uses the Waveshare RP2040-Zero onboard WS2812 NeoPixel (GP16, aliased as
+      'led-strip' in the board DTS) to show three distinct status colours:
 
-      The Raspberry Pi Pico has only a single green LED, so three distinct
-      colours are not possible without additional hardware (e.g. an external
-      WS2812 RGB LED).  Three states are indicated by different patterns:
-        - 1 Hz blink          = board is powered and ZMK is running
-        - 100 ms flash        = key event detected (UART TX/RX activity proxy)
-        - LED off             = keyboard is in ZMK idle/sleep state
+        Blue  1 Hz blink  = board is powered and ZMK is running (heartbeat)
+        Green 150 ms flash = key detected on THIS half (UART TX proxy)
+        Red   150 ms flash = key received from the OTHER half (UART RX proxy)
+                             Central (left) only: position col >= 6
 
-      Requires the target board to define a 'led0' GPIO alias.
+      Requires CONFIG_LED_STRIP=y and the 'led-strip' DTS alias to be defined.
