@@ -7,10 +7,7 @@
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
         zmk,split-uart = &uart1;
-    };
-
-    aliases {
-        led-strip = &ws2812;
+        zmk,underglow = &ws2812;
     };
 
     default_transform: keymap_transform_0 {
