@@ -1,11 +1,16 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
+#include <dt-bindings/led/led.h>
 
 / {
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
         zmk,split-uart = &uart1;
+    };
+
+    aliases {
+        led-strip = &ws2812;
     };
 
     default_transform: keymap_transform_0 {
@@ -43,8 +48,15 @@
     };
 };
 
-/* ── UART serial split (GP4 = TX, GP5 = RX) ───────────────────────── */
+/* ── WS2812 RGB NeoPixel (GP16) via PIO0 ────────────────────────────── */
 &pinctrl {
+    ws2812_pio0_default: ws2812_pio0_default {
+        group1 {
+            pinmux = <PIO0_P16>;
+            output-enable;
+        };
+    };
+
     uart1_default: uart1_default {
         group1 { pinmux = <UART1_TX_P4>; };
         group2 { pinmux = <UART1_RX_P5>; input-enable; };
@@ -61,4 +73,27 @@
     pinctrl-1 = <&uart1_sleep>;
     pinctrl-names = "default", "sleep";
     status = "okay";
+};
+
+&pio0 {
+    status = "okay";
+
+    pio-ws2812 {
+        compatible = "worldsemi,ws2812-rpi_pico-pio";
+        status = "okay";
+        pinctrl-0 = <&ws2812_pio0_default>;
+        pinctrl-names = "default";
+        bit-waveform = <3>, <3>, <4>;
+
+        ws2812: ws2812 {
+            status = "okay";
+            gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+            chain-length = <1>;
+            color-mapping = <LED_COLOR_ID_GREEN
+                             LED_COLOR_ID_RED
+                             LED_COLOR_ID_BLUE>;
+            reset-delay = <280>;
+            frequency = <800000>;
+        };
+    };
 };

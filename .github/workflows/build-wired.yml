@@ -19,13 +19,13 @@ jobs:
 
       # Build Left
       - name: Build Left
-        run: west build -s zmk/app -b waveshare_rp2040_zero -d build/left -- -DSHIELD="handwired_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
+        run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
       - name: Save Left
         run: cp build/left/zephyr/zmk.uf2 left.uf2
 
       # Build Right
       - name: Build Right
-        run: west build -s zmk/app -b waveshare_rp2040_zero -d build/right -- -DSHIELD="handwired_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
+        run: west build -s zmk/app -b rpi_pico -d build/right -- -DSHIELD="handwired_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
       - name: Save Right
         run: cp build/right/zephyr/zmk.uf2 right.uf2
 
