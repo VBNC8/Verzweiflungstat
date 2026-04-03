@@ -1,1 +1,323 @@
-#include "handwired.keymap"
+/*
+ * handwired_left.keymap
+ *
+ * 48 bindings per layer  (4 rows × 12 logical columns)
+ * position = row*12 + col
+ *
+ * Row 0 (0-11):  LCol0  Q   W   E   R   T  | Y   U   I   O   P   RCol0
+ * Row 1 (12-23): LCol0  A   S   D   F   G  | H   J   K   L   ;   RCol0
+ * Row 2 (24-35): EC11L  Z   X   C   V   B  | N   M   ,   .  DEL  EC11R
+ * Row 3 (36-47): –  –  –  LT3 LT2 LT1 | RT1 RT2 RT3  –  –  –
+ *
+ * LCol0/RCol0 rows 0-1: no physical switch → &trans
+ * EC11L (pos 24) / EC11R (pos 35): encoder push-button
+ * LT = left thumb (outer→inner: LT3 LT2 LT1 at cols 3,4,5)
+ * RT = right thumb (inner→outer: RT1 RT2 RT3 at global cols 6,7,8)
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
+
+/ {
+    /* ------------------------------------------------------------------ */
+    /* Macros                                                               */
+    /* ------------------------------------------------------------------ */
+    macros {
+        pair_paren: pair_paren {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp LS(N8)>, <&kp LS(N9)>, <&kp LEFT>;
+        };
+
+        pair_brc: pair_brc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp RA(N7)>, <&kp RA(N0)>, <&kp LEFT>;
+        };
+
+        pair_bkt: pair_bkt {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>; tap-ms = <10>;
+            bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
+        };
+
+        durchmesser: durchmesser {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press   &kp LALT>
+                , <&macro_tap     &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>
+                , <&macro_release &kp LALT>;
+        };
+
+        smiley: smiley {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <20>; tap-ms = <20>;
+            bindings
+                = <&macro_press   &kp LSHFT>
+                , <&macro_tap     &kp COMMA>
+                , <&macro_release &kp LSHFT>
+                , <&macro_tap     &kp SLASH>
+                , <&macro_press   &kp LSHFT>
+                , <&macro_tap     &kp N9>
+                , <&macro_release &kp LSHFT>;
+        };
+
+        nbsp: nbsp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>; tap-ms = <30>;
+            bindings
+                = <&macro_press   &kp LALT>
+                , <&macro_tap     &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>
+                , <&macro_release &kp LALT>;
+        };
+
+        macro_bt_clr: macro_bt_clr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+    };
+
+    /* ------------------------------------------------------------------ */
+    /* Behaviors                                                            */
+    /* ------------------------------------------------------------------ */
+    behaviors {
+        caps_wrd: caps_wrd {
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>;
+        };
+
+        hrm_safe: hrm_safe {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-on-release;
+        };
+
+        hrm_shift: hrm_shift {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <180>;
+            quick-tap-ms = <150>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-on-release;
+        };
+
+        lt_hp: lt_hp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "balanced";
+            retro-tap;
+            bindings = <&mo>, <&kp>;
+        };
+
+        hw_scroll: hw_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+            tap-ms = <20>;
+        };
+
+        /* Hold 5 s to clear BT; tap = no-op */
+        enc_bt_clr: enc_bt_clr {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <5000>;
+            flavor = "tap-preferred";
+            bindings = <&macro_bt_clr>, <&none>;
+        };
+    };
+
+    /* ------------------------------------------------------------------ */
+    /* Combos  (positions unchanged from original 12-col layout)           */
+    /* ------------------------------------------------------------------ */
+    combos {
+        compatible = "zmk,combos";
+        require-prior-idle-ms = <150>;
+
+        /* ! – E(3) + D(15) vertical middle finger */
+        combo_excl {
+            timeout-ms = <40>;
+            key-positions = <3 15>;
+            bindings = <&kp LS(N1)>;
+            layers = <0 1>;
+        };
+
+        /* : – ,(32) + .(33) */
+        combo_colon {
+            timeout-ms = <50>;
+            key-positions = <32 33>;
+            bindings = <&kp LS(DOT)>;
+            layers = <0 1>;
+        };
+
+        /* Ctrl+Alt – X(26) + C(27) */
+        combo_creo_mod {
+            timeout-ms = <50>;
+            key-positions = <26 27>;
+            bindings = <&kp LC(LALT)>;
+            layers = <0>;
+        };
+
+        /* \ – K(20) + L(21) */
+        combo_backslash {
+            timeout-ms = <40>;
+            key-positions = <20 21>;
+            bindings = <&kp RA(MINUS)>;
+            layers = <0 1>;
+        };
+
+        /* / – S(14) + D(15) */
+        combo_slash {
+            timeout-ms = <40>;
+            key-positions = <14 15>;
+            bindings = <&kp KP_DIVIDE>;
+            layers = <0 1>;
+        };
+
+        /* - – L(21) + ;(22) */
+        combo_minus {
+            timeout-ms = <50>;
+            key-positions = <21 22>;
+            bindings = <&kp SLASH>;
+            layers = <0 1>;
+        };
+
+        /* _ – A(13) + S(14) */
+        combo_underscore {
+            timeout-ms = <40>;
+            key-positions = <13 14>;
+            bindings = <&kp LS(SLASH)>;
+            layers = <0 1>;
+        };
+
+        /* Caps-Word – F(16) + J(19) */
+        combo_caps_word {
+            timeout-ms = <40>;
+            key-positions = <16 19>;
+            bindings = <&caps_wrd>;
+            layers = <0>;
+        };
+
+        /* " – D(15) + F(16) */
+        combo_quote {
+            timeout-ms = <50>;
+            key-positions = <15 16>;
+            bindings = <&kp LS(N2)>;
+            layers = <0 1>;
+        };
+
+        /* ? – J(19) + K(20) */
+        combo_question {
+            timeout-ms = <50>;
+            key-positions = <19 20>;
+            bindings = <&kp LS(MINUS)>;
+            layers = <0 1>;
+        };
+
+        /* Ä – Q(1) + A(13) vertical left pinkie */
+        combo_ae {
+            timeout-ms = <55>;
+            key-positions = <1 13>;
+            bindings = <&kp SQT>;
+            layers = <0>;
+        };
+
+        /* Ö – O(9) + L(21) vertical right ring */
+        combo_oe {
+            timeout-ms = <50>;
+            key-positions = <9 21>;
+            bindings = <&kp SEMI>;
+            layers = <0>;
+        };
+
+        /* Ü – U(7) + J(19) vertical right index */
+        combo_ue {
+            timeout-ms = <50>;
+            key-positions = <7 19>;
+            bindings = <&kp LBKT>;
+            layers = <0>;
+        };
+
+        /* ß – W(2) + S(14) vertical left ring */
+        combo_ss {
+            timeout-ms = <50>;
+            key-positions = <2 14>;
+            bindings = <&kp MINUS>;
+            layers = <0>;
+        };
+    };
+
+    /* ------------------------------------------------------------------ */
+    /* Keymap                                                               */
+    /* ------------------------------------------------------------------ */
+    keymap {
+        compatible = "zmk,keymap";
+
+        /* Layer 0 – Default */
+        default_layer {
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            bindings = <
+/* pos  0       1        2                3                  4                   5               6           7                     8                   9                   10                  11    */
+   &trans   &kp Q    &kp W            &kp E              &kp R               &kp T           &kp Y       &kp U                 &kp I               &kp O               &kp P               &trans
+/* pos  12      13       14               15                 16                  17              18          19                    20                  21                  22                  23    */
+   &trans   &kp A    &kp S            &hrm_safe LCTRL D  &hrm_shift LSHIFT F &kp G           &kp H       &hrm_shift RSHIFT J   &hrm_safe RCTRL K   &kp L               &kp LS(NON_US_HASH) &trans
+/* pos  24      25       26               27                 28                  29              30          31                    32                  33                  34                  35    */
+   &kp C_PP &kp Z    &hrm_safe LALT X &kp C              &kp V               &kp B           &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT  &kp DEL             &kp C_PP
+/* pos  36      37       38               39                 40                  41              42          43                    44                  45                  46                  47    */
+   &trans   &trans   &trans           &lt_hp 3 BSPC      &lt 2 ESC           &lt 1 TAB       &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC       &trans              &trans              &trans
+            >;
+        };
+
+        /* Layer 1 – Lower (symbols / numbers) */
+        lower_layer {
+            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>;
+            bindings = <
+   &trans   &kp GRAVE    &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser      &smiley          &kp LS(GRAVE)  &pair_paren       &pair_brc   &pair_bkt   &kp LS(BSLH)  &trans
+   &trans   &kp N1       &kp N2           &kp N3               &kp N4            &kp N5           &kp N6         &kp N7            &kp N8      &kp N9      &kp N0        &trans
+   &trans   &kp RA(RBKT) &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)        &kp NON_US_HASH  &kp KP_PLUS    &kp KP_MULTIPLY   &kp COMMA   &kp DOT     &kp KP_EQUAL  &trans
+   &trans   &trans       &trans           &enc_bt_clr 0 0      &kp LGUI          &kp HOME         &kp END        &kp LG(D)         &trans      &trans      &trans        &trans
+            >;
+        };
+
+        /* Layer 2 – Raise (navigation / function) */
+        raise_layer {
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
+            bindings = <
+   &trans   &kp F1   &kp F2   &kp F3           &kp F4           &kp F5   &kp F6   &kp F7    &kp F8   &kp F9      &kp F10    &trans
+   &trans   &trans   &trans   &mkp RCLK        &mkp LCLK        &trans   &kp UP   &kp LEFT  &kp DOWN &kp RIGHT   &kp PLUS   &trans
+   &trans   &trans   &trans   &trans           &trans           &trans   &trans   &trans    &trans   &trans      &kp EQUAL  &trans
+   &trans   &trans   &trans   &kp F14          &kp LC(LS(ESC))  &trans   &trans   &nbsp     &trans   &trans      &trans     &trans
+            >;
+        };
+
+        /* Layer 3 – Adjust */
+        adjust_layer {
+            sensor-bindings = <&inc_dec_kp UP DOWN>;
+            bindings = <
+   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &trans      &trans      &kp LA(F4)  &trans
+   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &trans      &trans      &trans      &trans
+   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &kp C_PREV  &kp C_NEXT  &trans      &trans
+   &trans   &trans   &trans   &kp F14  &trans   &trans   &trans   &trans      &kp F12     &trans      &trans      &trans
+            >;
+        };
+    };
+};

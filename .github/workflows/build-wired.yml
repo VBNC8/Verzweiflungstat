@@ -1,5 +1,6 @@
 name: Build RP2040 Wired
 on: [push, workflow_dispatch]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,27 +11,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: West Init
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-zmk-${{ hashFiles('**/west.yml') }}
+          restore-keys: ${{ runner.os }}-zmk-
+
+      - name: Initialize West
         run: west init -l config
-      - name: West Update
+
+      - name: Update West
         run: west update
-      - name: West Zephyr Export
+
+      - name: Export Zephyr
         run: west zephyr-export
 
-      # Build Left
       - name: Build Left
         run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
-      - name: Save Left
-        run: cp build/left/zephyr/zmk.uf2 left.uf2
 
-      # Build Right
       - name: Build Right
         run: west build -s zmk/app -b rpi_pico -d build/right -- -DSHIELD="handwired_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
-      - name: Save Right
-        run: cp build/right/zephyr/zmk.uf2 right.uf2
 
-      - name: Upload
+      - name: Upload Left firmware
         uses: actions/upload-artifact@v4
         with:
-          name: rp2040-corne-wired
-          path: ./*.uf2
+          name: left-firmware
+          path: build/left/zephyr/zmk.uf2
+
+      - name: Upload Right firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: right-firmware
+          path: build/right/zephyr/zmk.uf2
