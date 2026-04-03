@@ -1,4 +1,4 @@
 ## Keymap
 
 
-![Keymap](./keymap-drawer/splitkb_aurora_corne.svg?v=1)
+![Keymap](./keymap-drawer/handwired.svg?v=1)
