@@ -1,5 +1,8 @@
 <svg width="788" height="1379" viewBox="0 0 788 1379" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>/* start glyphs */
+<svg id="mdi:bluetooth-off">
+<svg xmlns="http://www.w3.org/2000/svg" id="mdi-bluetooth-off" viewBox="0 0 24 24"><path d="M13,5.83L14.88,7.71L13.28,9.31L14.69,10.72L17.71,7.7L12,2H11V7.03L13,9.03M5.41,4L4,5.41L10.59,12L5,17.59L6.41,19L11,14.41V22H12L16.29,17.71L18.59,20L20,18.59M13,18.17V14.41L14.88,16.29" /></svg>
+</svg>
 <svg id="mdi:brightness-4">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-brightness-4" viewBox="0 0 24 24"><path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
 </svg>
@@ -519,9 +522,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">=</text>
 </g>
-<g transform="translate(168, 205)" class="key trans keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(168, 205)" class="key ghost keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
+<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key ghost tap glyph mdi:bluetooth-off"/>
+<text x="0" y="-24" class="key ghost shifted">CLR 5s</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -746,23 +750,23 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(84, 35)" class="key keypos-1">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:cosine-wave" xlink:href="#mdi:cosine-wave" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:cosine-wave"/>
-<text x="0" y="-24" class="key shifted">Mode</text>
+<use href="#mdi:brightness-7" xlink:href="#mdi:brightness-7" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:brightness-7"/>
+<text x="0" y="-24" class="key shifted">Bri+</text>
 </g>
 <g transform="translate(140, 28)" class="key keypos-2">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:cosine-wave" xlink:href="#mdi:cosine-wave" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:cosine-wave"/>
-<text x="0" y="-24" class="key shifted">Rev</text>
+<use href="#mdi:palette-swatch" xlink:href="#mdi:palette-swatch" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-swatch"/>
+<text x="0" y="-24" class="key shifted">Hue+</text>
 </g>
 <g transform="translate(196, 35)" class="key keypos-3">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">SPI</tspan>
-</text>
+<use href="#mdi:palette" xlink:href="#mdi:palette" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette"/>
+<text x="0" y="-24" class="key shifted">Sat+</text>
 </g>
-<g transform="translate(252, 42)" class="key trans keypos-4">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(252, 42)" class="key keypos-4">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#mdi:cosine-wave" xlink:href="#mdi:cosine-wave" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:cosine-wave"/>
+<text x="0" y="-24" class="key shifted">Mode</text>
 </g>
 <g transform="translate(476, 42)" class="key trans keypos-5">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -786,28 +790,29 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(28, 105)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:palette-swatch" xlink:href="#mdi:palette-swatch" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-swatch"/>
-<text x="0" y="-24" class="key shifted">Hue+</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">ON</tspan>
+</text>
 </g>
 <g transform="translate(84, 91)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:palette" xlink:href="#mdi:palette" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette"/>
-<text x="0" y="-24" class="key shifted">Sat+</text>
+<use href="#mdi:brightness-4" xlink:href="#mdi:brightness-4" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:brightness-4"/>
+<text x="0" y="-24" class="key shifted">Bri-</text>
 </g>
 <g transform="translate(140, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:brightness-7" xlink:href="#mdi:brightness-7" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:brightness-7"/>
-<text x="0" y="-24" class="key shifted">Bri+</text>
+<use href="#mdi:palette-swatch-outline" xlink:href="#mdi:palette-swatch-outline" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-swatch-outline"/>
+<text x="0" y="-24" class="key shifted">Hue-</text>
 </g>
 <g transform="translate(196, 91)" class="key keypos-13">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">SPD</tspan>
-</text>
+<use href="#mdi:palette-outline" xlink:href="#mdi:palette-outline" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-outline"/>
+<text x="0" y="-24" class="key shifted">Sat-</text>
 </g>
-<g transform="translate(252, 98)" class="key trans keypos-14">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(252, 98)" class="key keypos-14">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#mdi:cosine-wave" xlink:href="#mdi:cosine-wave" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:cosine-wave"/>
+<text x="0" y="-24" class="key shifted">Rev</text>
 </g>
 <g transform="translate(476, 98)" class="key trans keypos-15">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -831,24 +836,21 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(28, 161)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:palette-swatch-outline" xlink:href="#mdi:palette-swatch-outline" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-swatch-outline"/>
-<text x="0" y="-24" class="key shifted">Hue-</text>
-</g>
-<g transform="translate(84, 147)" class="key keypos-21">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:palette-outline" xlink:href="#mdi:palette-outline" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:palette-outline"/>
-<text x="0" y="-24" class="key shifted">Sat-</text>
-</g>
-<g transform="translate(140, 140)" class="key keypos-22">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:brightness-4" xlink:href="#mdi:brightness-4" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:brightness-4"/>
-<text x="0" y="-24" class="key shifted">Bri-</text>
-</g>
-<g transform="translate(196, 147)" class="key keypos-23">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-1.2em" style="font-size: 64%">RGB</tspan><tspan x="0" dy="1.2em" style="font-size: 64%">COLOR</tspan><tspan x="0" dy="1.2em" style="font-size: 64%">HSB(0,100,…</tspan>
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">OFF</tspan>
 </text>
+</g>
+<g transform="translate(84, 147)" class="key trans keypos-21">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
+</g>
+<g transform="translate(140, 140)" class="key trans keypos-22">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
+</g>
+<g transform="translate(196, 147)" class="key trans keypos-23">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(252, 154)" class="key trans keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>

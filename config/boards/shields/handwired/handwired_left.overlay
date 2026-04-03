@@ -17,8 +17,12 @@
     chosen {
         zmk,kscan            = &kscan0;
         zmk,matrix-transform = &default_transform;
-        zmk,split-uart       = &uart1;
         zmk,underglow        = &ws2812;
+    };
+
+    split_wired: split_wired {
+        compatible = "zmk,wired-split";
+        device = <&uart1>;
     };
 
     sensors: sensors {
@@ -41,9 +45,8 @@
             /* row 2 */
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
             RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9)
-            /* row 3 – thumb keys at cols 3,4,5; cols 0,1,2 unused (&trans) */
-            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
-            RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /* row 3 – LT3/LT2/LT1 at positions 36-38; cols 0-2 have no switch (phantom 39-41) */
+            RC(3,3) RC(3,4) RC(3,5) RC(3,0) RC(3,1) RC(3,2)
         >;
     };
 
@@ -93,13 +96,18 @@
             input-enable;
         };
     };
+    uart1_sleep: uart1_sleep {
+        group1 { pinmux = <UART1_TX_P4>; };
+        group2 { pinmux = <UART1_RX_P5>; input-enable; };
+    };
 };
 
 &uart1 {
-    status = "okay";
     current-speed = <115200>;
     pinctrl-0 = <&uart1_default>;
-    pinctrl-names = "default";
+    pinctrl-1 = <&uart1_sleep>;
+    pinctrl-names = "default", "sleep";
+    status = "okay";
 };
 
 &pio0 {
@@ -116,11 +124,15 @@
             status = "okay";
             gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
             chain-length = <1>;
-            color-mapping = <LED_COLOR_ID_RED
-                             LED_COLOR_ID_GREEN
+            color-mapping = <LED_COLOR_ID_GREEN
+                             LED_COLOR_ID_RED
                              LED_COLOR_ID_BLUE>;
             reset-delay = <280>;
             frequency = <800000>;
         };
     };
+};
+
+&uart0 {
+    status = "disabled";
 };

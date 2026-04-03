@@ -1,18 +1,18 @@
 /*
  * handwired_left.keymap
  *
- * 48 bindings per layer  (4 rows × 12 logical columns)
- * position = row*12 + col
+ * 42 bindings per layer  (3 rows × 12 + 6 thumb keys)
+ * position = row*12 + col  (rows 0-2); positions 36-41 for thumb row
  *
  * Row 0 (0-11):  LCol0  Q   W   E   R   T  | Y   U   I   O   P   RCol0
  * Row 1 (12-23): LCol0  A   S   D   F   G  | H   J   K   L   ;   RCol0
  * Row 2 (24-35): EC11L  Z   X   C   V   B  | N   M   ,   .  DEL  EC11R
- * Row 3 (36-47): –  –  –  LT3 LT2 LT1 | RT1 RT2 RT3  –  –  –
+ * Row 3 (36-41): LT3 LT2 LT1 | RT1 RT2 RT3
  *
  * LCol0/RCol0 rows 0-1: no physical switch → &trans
  * EC11L (pos 24) / EC11R (pos 35): encoder push-button
- * LT = left thumb (outer→inner: LT3 LT2 LT1 at cols 3,4,5)
- * RT = right thumb (inner→outer: RT1 RT2 RT3 at global cols 6,7,8)
+ * LT = left thumb (outer→inner: LT3 LT2 LT1 at positions 36,37,38)
+ * RT = right thumb (inner→outer: RT1 RT2 RT3 at positions 39,40,41)
  */
 
 #include <behaviors.dtsi>
@@ -82,6 +82,12 @@
                 , <&macro_release &kp LALT>;
         };
 
+        macro_bt_clr: macro_bt_clr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+
     };
 
     /* ------------------------------------------------------------------ */
@@ -123,6 +129,14 @@
             flavor = "balanced";
             retro-tap;
             bindings = <&mo>, <&kp>;
+        };
+
+        enc_bt_clr: enc_bt_clr {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <5000>;
+            flavor = "tap-preferred";
+            bindings = <&macro_bt_clr>, <&none>;
         };
 
         hw_scroll: hw_scroll {
@@ -261,7 +275,7 @@
 
         /* Layer 0 – Default */
         default_layer {
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
             bindings = <
 /* pos  0       1        2                3                  4                   5               6           7                     8                   9                   10                  11    */
    &trans   &kp Q    &kp W            &kp E              &kp R               &kp T           &kp Y       &kp U                 &kp I               &kp O               &kp P               &trans
@@ -269,8 +283,8 @@
    &trans   &kp A    &kp S            &hrm_safe LCTRL D  &hrm_shift LSHIFT F &kp G           &kp H       &hrm_shift RSHIFT J   &hrm_safe RCTRL K   &kp L               &kp LS(NON_US_HASH) &trans
 /* pos  24      25       26               27                 28                  29              30          31                    32                  33                  34                  35    */
    &kp C_PP &kp Z    &hrm_safe LALT X &kp C              &kp V               &kp B           &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT  &kp DEL             &kp C_PP
-/* pos  36      37       38               39                 40                  41              42          43                    44                  45                  46                  47    */
-   &trans   &trans   &trans           &lt_hp 3 BSPC      &lt 2 ESC           &lt 1 TAB       &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC       &trans              &trans              &trans
+/* pos  36          37               38                39          40                    41            */
+   &lt_hp 3 BSPC  &lt 2 ESC        &lt 1 TAB         &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
             >;
         };
 
@@ -281,7 +295,7 @@
    &trans   &kp GRAVE    &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser      &smiley          &kp LS(GRAVE)  &pair_paren       &pair_brc   &pair_bkt   &kp LS(BSLH)  &trans
    &trans   &kp N1       &kp N2           &kp N3               &kp N4            &kp N5           &kp N6         &kp N7            &kp N8      &kp N9      &kp N0        &trans
    &trans   &kp RA(RBKT) &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)        &kp NON_US_HASH  &kp KP_PLUS    &kp KP_MULTIPLY   &kp COMMA   &kp DOT     &kp KP_EQUAL  &trans
-   &trans   &trans       &trans           &trans               &kp LGUI          &kp HOME         &kp END        &kp LG(D)         &trans      &trans      &trans        &trans
+   &enc_bt_clr 0 0      &kp LGUI          &kp HOME         &kp END        &kp LG(D)         &trans
             >;
         };
 
@@ -292,7 +306,7 @@
    &trans   &kp F1   &kp F2   &kp F3           &kp F4           &kp F5   &kp F6   &kp F7    &kp F8   &kp F9      &kp F10    &trans
    &trans   &trans   &trans   &mkp RCLK        &mkp LCLK        &trans   &kp UP   &kp LEFT  &kp DOWN &kp RIGHT   &kp PLUS   &trans
    &trans   &trans   &trans   &trans           &trans           &trans   &trans   &trans    &trans   &trans      &kp EQUAL  &trans
-   &trans   &trans   &trans   &kp F14          &kp LC(LS(ESC))  &trans   &trans   &nbsp     &trans   &trans      &trans     &trans
+   &kp F14          &kp LC(LS(ESC))  &trans   &trans   &nbsp     &trans
             >;
         };
 
@@ -300,10 +314,10 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-    &trans  &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &rgb_ug RGB_EFR  &rgb_ug RGB_SPI                  &trans  &trans  &trans   &trans      &trans      &kp LA(F4)  &trans
-    &trans  &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &rgb_ug RGB_BRI  &rgb_ug RGB_SPD                  &trans  &trans  &trans   &trans      &trans      &trans      &trans
-    &trans  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_BRD  &rgb_ug RGB_COLOR_HSB(0,100,50)  &trans  &trans  &trans   &kp C_PREV  &kp C_NEXT  &trans      &trans
-    &trans  &trans           &trans           &kp F14          &trans                           &trans  &trans  &trans   &kp F12     &trans      &trans      &trans
+   &none  &rgb_ug RGB_TOG  &rgb_ug RGB_BRI  &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF     &trans  &trans  &trans       &trans      &kp LA(F4)  &none
+   &none  &rgb_ug RGB_ON   &rgb_ug RGB_BRD  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_EFR     &trans  &trans  &trans       &trans      &trans      &none
+   &none  &rgb_ug RGB_OFF  &trans           &trans           &trans           &trans              &trans  &trans  &kp C_PREV   &kp C_NEXT  &trans      &none
+   &kp F14  &trans   &trans   &trans   &trans      &kp F12
             >;
         };
     };
