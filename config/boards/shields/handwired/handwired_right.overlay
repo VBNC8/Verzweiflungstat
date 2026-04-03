@@ -1,0 +1,106 @@
+/*
+ * Right half (peripheral / slave)
+ *
+ * Same physical pins as left, but the matrix transform reverses column
+ * order so that the mirrored PCB produces the correct global positions.
+ *
+ *   Physical col 0 (GP14) = right-side outermost  →  logical col 11
+ *   Physical col 5 (GP28) = right-side innermost  →  logical col  6
+ *   Cols  : Col0=GP14 Col1=GP15 Col2=GP6  Col3=GP7  Col4=GP27 Col5=GP28
+ *
+ * EC11 button: (Row2, Col0) physical → global position 35
+ * Right thumbs (inner→outer): Row3 physical cols 5,4,3 → global 42,43,44
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
+
+/ {
+    chosen {
+        zmk,kscan           = &kscan0;
+        zmk,matrix-transform = &default_transform;
+        zmk,split-uart      = &uart1;
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&encoder0>;
+        triggers-per-rotation = <20>;
+    };
+
+    /*
+     * Right-side transform: physical col 0 maps to logical col 11,
+     * physical col 5 maps to logical col 6 (reversed for mirrored PCB).
+     */
+    default_transform: matrix_transform {
+        compatible = "zmk,matrix-transform";
+        columns = <12>;
+        rows = <4>;
+        map = <
+            /* row 0 – reversed: phys col0→col11, col1→col10 … col5→col6 */
+            RC(0,11) RC(0,10) RC(0,9) RC(0,8) RC(0,7) RC(0,6)
+            RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /* row 1 */
+            RC(1,11) RC(1,10) RC(1,9) RC(1,8) RC(1,7) RC(1,6)
+            RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /* row 2 – EC11 button at phys col0 → RC(2,11) → pos 35 */
+            RC(2,11) RC(2,10) RC(2,9) RC(2,8) RC(2,7) RC(2,6)
+            RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /*
+             * row 3 – right thumbs at phys cols 5,4,3 → global 42,43,44
+             * phys col5→RC(3,6)→42, col4→RC(3,7)→43, col3→RC(3,8)→44
+             * phys cols 0,1,2 → no switches (&trans via unused positions)
+             */
+            RC(3,11) RC(3,10) RC(3,9) RC(3,8) RC(3,7) RC(3,6)
+            RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+        >;
+    };
+
+    kscan0: kscan_0 {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+
+        col-gpios
+            = <&gpio0 14 GPIO_ACTIVE_HIGH>   /* Col0 */
+            , <&gpio0 15 GPIO_ACTIVE_HIGH>   /* Col1 */
+            , <&gpio0  6 GPIO_ACTIVE_HIGH>   /* Col2 */
+            , <&gpio0  7 GPIO_ACTIVE_HIGH>   /* Col3 */
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>   /* Col4 */
+            , <&gpio0 28 GPIO_ACTIVE_HIGH>   /* Col5 */
+            ;
+
+        row-gpios
+            = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
+
+    encoder0: encoder_0 {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0  8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <80>;
+        status = "okay";
+    };
+};
+
+&pinctrl {
+    uart1_default: uart1_default {
+        group1 {
+            pinmux = <UART1_TX_P4>;
+        };
+        group2 {
+            pinmux = <UART1_RX_P5>;
+            input-enable;
+        };
+    };
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart1_default>;
+    pinctrl-names = "default";
+};
