@@ -93,8 +93,9 @@ layers:
   - ','
   - .
   - '='
-  - t: ▽
-    type: trans
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: ghost
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
@@ -162,13 +163,14 @@ layers:
   adjust:
   - t: $$mdi:lightbulb-on$$
     s: OnOff
+  - t: $$mdi:brightness-7$$
+    s: Bri+
+  - t: $$mdi:palette-swatch$$
+    s: Hue+
+  - t: $$mdi:palette$$
+    s: Sat+
   - t: $$mdi:cosine-wave$$
     s: Mode
-  - t: $$mdi:cosine-wave$$
-    s: Rev
-  - RGB SPI
-  - t: ▽
-    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -178,32 +180,32 @@ layers:
   - t: ▽
     type: trans
   - ✕
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - RGB SPD
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - RGB ON
+  - t: $$mdi:brightness-4$$
+    s: Bri-
   - t: $$mdi:palette-swatch-outline$$
     s: Hue-
   - t: $$mdi:palette-outline$$
     s: Sat-
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - RGB COLOR HSB(0,100,50)
+  - t: $$mdi:cosine-wave$$
+    s: Rev
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - RGB OFF
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
