@@ -1,5 +1,0 @@
-// Left-side overlay for splitkb aurora corne.
-// The nice!view display is configured automatically by the
-// "nice_view_adapter nice_view" shields — no SPI node is needed here.
-// The EC11 encoder is defined by the splitkb_aurora_corne_left shield.
-
