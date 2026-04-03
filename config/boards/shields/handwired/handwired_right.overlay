@@ -28,10 +28,6 @@
         triggers-per-rotation = <20>;
     };
 
-    /*
-     * Right-side transform: physical col 0 maps to logical col 11,
-     * physical col 5 maps to logical col 6 (reversed for mirrored PCB).
-     */
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         columns = <12>;
@@ -46,9 +42,8 @@
             /* row 2 – EC11 button at phys col0 → RC(2,11) → pos 35 */
             RC(2,11) RC(2,10) RC(2,9) RC(2,8) RC(2,7) RC(2,6)
             RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
-            /* row 3 – right thumbs: phys col5→RC(3,6), col4→RC(3,7), col3→RC(3,8) */
-            RC(3,11) RC(3,10) RC(3,9) RC(3,8) RC(3,7) RC(3,6)
-            RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /* row 3 – phantoms 36-38; RT1/RT2/RT3 at positions 39-41 (phys col5/col4/col3) */
+            RC(3,9) RC(3,9) RC(3,9) RC(3,5) RC(3,4) RC(3,3)
         >;
     };
 

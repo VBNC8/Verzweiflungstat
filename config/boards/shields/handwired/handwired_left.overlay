@@ -41,9 +41,8 @@
             /* row 2 */
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
             RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9)
-            /* row 3 – thumb keys at cols 3,4,5; cols 0,1,2 unused (&trans) */
-            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
-            RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9) RC(3,9)
+            /* row 3 – LT3/LT2/LT1 at positions 36-38; cols 0-2 have no switch (phantom 39-41) */
+            RC(3,3) RC(3,4) RC(3,5) RC(3,0) RC(3,1) RC(3,2)
         >;
     };
 
