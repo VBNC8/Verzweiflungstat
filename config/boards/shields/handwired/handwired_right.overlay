@@ -42,7 +42,10 @@
             /* row 2 – EC11 button at phys col0 → RC(2,11) → pos 35 */
             RC(2,11) RC(2,10) RC(2,9) RC(2,8) RC(2,7) RC(2,6)
             RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
-            /* row 3 – phantoms 36-38; RT1/RT2/RT3 at positions 39-41 (phys col5/col4/col3) */
+            /* row 3 – phantoms 36-38; RT1/RT2/RT3 at positions 39-41.
+             * Physical col5(GP28)=RT1, col4(GP27)=RT2, col3(GP7)=RT3.
+             * RC(3,col) uses the *physical* scan column so the lookup table
+             * entry for physical row3/colN resolves to map index 39/40/41. */
             RC(3,9) RC(3,9) RC(3,9) RC(3,5) RC(3,4) RC(3,3)
         >;
     };
