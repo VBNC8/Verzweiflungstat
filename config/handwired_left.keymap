@@ -280,7 +280,7 @@
    &trans   &kp GRAVE    &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser      &smiley          &kp LS(GRAVE)  &pair_paren       &pair_brc   &pair_bkt   &kp LS(BSLH)  &trans
    &trans   &kp N1       &kp N2           &kp N3               &kp N4            &kp N5           &kp N6         &kp N7            &kp N8      &kp N9      &kp N0        &trans
    &trans   &kp RA(RBKT) &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)        &kp NON_US_HASH  &kp KP_PLUS    &kp KP_MULTIPLY   &kp COMMA   &kp DOT     &kp KP_EQUAL  &trans
-   &trans   &trans       &trans           &enc_bt_clr 0 0      &kp LGUI          &kp HOME         &kp END        &kp LG(D)         &trans      &trans      &trans        &trans
+   &trans   &trans       &trans           &trans               &kp LGUI          &kp HOME         &kp END        &kp LG(D)         &trans      &trans      &trans        &trans
             >;
         };
 
@@ -299,10 +299,10 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &trans      &trans      &kp LA(F4)  &trans
-   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &trans      &trans      &trans      &trans
-   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans      &kp C_PREV  &kp C_NEXT  &trans      &trans
-   &trans   &trans   &trans   &kp F14  &trans   &trans   &trans   &trans      &kp F12     &trans      &trans      &trans
+    &trans  &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &rgb_ug RGB_EFR  &rgb_ug RGB_SPI                  &trans  &trans  &trans   &trans      &trans      &kp LA(F4)  &trans
+    &trans  &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &rgb_ug RGB_BRI  &rgb_ug RGB_SPD                  &trans  &trans  &trans   &trans      &trans      &trans      &trans
+    &trans  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_BRD  &rgb_ug RGB_COLOR_HSB(0,100,50)  &trans  &trans  &trans   &kp C_PREV  &kp C_NEXT  &trans      &trans
+    &trans  &trans           &trans           &kp F14          &trans                           &trans  &trans  &trans   &kp F12     &trans      &trans      &trans
             >;
         };
     };
