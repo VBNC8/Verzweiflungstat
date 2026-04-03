@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/handwired.keymap"
+      - "config/handwired_left.keymap"
       - "config/keymap_drawer.config.yaml"
 
 jobs:
@@ -23,8 +23,8 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/handwired.keymap > raw_keymap.yaml
+          # 1. Parsen (erzeugt raw_keymap.yaml mit 48 Tasten)
+          keymap -c config/keymap_drawer.config.yaml parse -z config/handwired_left.keymap > raw_keymap.yaml
           
           python3 - <<EOF
           import yaml
@@ -34,10 +34,15 @@ jobs:
           # Layout-Wechsel auf das schmale 3x5_3
           data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
           
-          # Definition der zu löschenden Indizes (Randtasten)
-          deleted_indices = [0, 11, 12, 23, 24, 35]
+          # Definition der zu löschenden Indizes
+          # Row0: 0 (LCol0), 11 (RCol0)
+          # Row1: 12 (LCol0), 23 (RCol0)
+          # Row2: 24 (EC11L encoder btn), 35 (EC11R encoder btn)
+          # Row3: 36,37,38 (left padding &trans), 45,46,47 (right padding &trans)
+          # 48 - 12 = 36 keys → LAYOUT_split_3x5_3
+          deleted_indices = [0, 11, 12, 23, 24, 35, 36, 37, 38, 45, 46, 47]
           
-          # 2. Layer-Tasten löschen (42 -> 36)
+          # 2. Layer-Tasten löschen (48 -> 36)
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
