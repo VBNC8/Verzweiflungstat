@@ -281,7 +281,7 @@
 /* pos  12      13       14               15                 16                  17              18          19                    20                  21                  22                  23    */
    &trans   &kp A    &kp S            &hrm_safe LCTRL D  &hrm_shift LSHIFT F &kp G           &kp H       &hrm_shift RSHIFT J   &hrm_safe RCTRL K   &kp L               &kp LS(NON_US_HASH) &trans
 /* pos  24      25       26               27                 28                  29              30          31                    32                  33                  34                  35    */
-   &kp C_PP &kp Y    &hrm_safe LALT X &kp C              &kp V               &kp B           &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT  &kp DEL             &kp C_PP
+   &kp C_PP &kp Z    &hrm_safe LALT X &kp C              &kp V               &kp B           &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT  &kp DEL             &kp C_PP
 /* pos  36      37       38               39                 40                  41              42          43                    44                  45                  46                  47    */
    &trans   &trans   &trans           &lt_hp 3 BSPC      &lt 2 ESC           &lt 1 TAB       &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC       &trans              &trans              &trans
             >;
