@@ -5,12 +5,11 @@
  * order so that the mirrored PCB produces the correct global positions.
  *
  *   Physical col 0 (GP14) = right-side outermost  →  logical col 11
- *   Physical col 5 (GP9)  = right-side innermost  →  logical col  6
+ *   Physical col 5 (GP28) = right-side innermost  →  logical col  6
+ *   Cols  : Col0=GP14 Col1=GP15 Col2=GP6  Col3=GP7  Col4=GP27 Col5=GP28
  *
  * EC11 button: (Row2, Col0) physical → global position 35
  * Right thumbs (inner→outer): Row3 physical cols 5,4,3 → global 42,43,44
- *
- * NOTE: Col5 is assumed to be GP9. Adjust if your wiring differs.
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -63,11 +62,11 @@
 
         col-gpios
             = <&gpio0 14 GPIO_ACTIVE_HIGH>   /* Col0 */
-            , <&gpio0  6 GPIO_ACTIVE_HIGH>   /* Col1 */
-            , <&gpio0  7 GPIO_ACTIVE_HIGH>   /* Col2 */
-            , <&gpio0 27 GPIO_ACTIVE_HIGH>   /* Col3 */
-            , <&gpio0 28 GPIO_ACTIVE_HIGH>   /* Col4 */
-            , <&gpio0  9 GPIO_ACTIVE_HIGH>   /* Col5 (confirm pin!) */
+            , <&gpio0 15 GPIO_ACTIVE_HIGH>   /* Col1 */
+            , <&gpio0  6 GPIO_ACTIVE_HIGH>   /* Col2 */
+            , <&gpio0  7 GPIO_ACTIVE_HIGH>   /* Col3 */
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>   /* Col4 */
+            , <&gpio0 28 GPIO_ACTIVE_HIGH>   /* Col5 */
             ;
 
         row-gpios

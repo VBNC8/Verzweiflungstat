@@ -3,7 +3,7 @@
  *
  * Physical pin mapping
  *   Rows  : Row0=GP0  Row1=GP1  Row2=GP2  Row3=GP3
- *   Cols  : Col0=GP14 Col1=GP6  Col2=GP7  Col3=GP27 Col4=GP28 Col5=GP9
+ *   Cols  : Col0=GP14 Col1=GP15 Col2=GP6  Col3=GP7  Col4=GP27 Col5=GP28
  *   UART1 : TX=GP4   RX=GP5
  *   EC11  : ENCa=GP8  ENCb=GP26  button wired to matrix (Row2, Col0)
  *
@@ -67,11 +67,11 @@
 
         col-gpios
             = <&gpio0 14 GPIO_ACTIVE_HIGH>   /* Col0 */
-            , <&gpio0  6 GPIO_ACTIVE_HIGH>   /* Col1 – Q/A/Y(Z) */
-            , <&gpio0  7 GPIO_ACTIVE_HIGH>   /* Col2 */
-            , <&gpio0 27 GPIO_ACTIVE_HIGH>   /* Col3 */
-            , <&gpio0 28 GPIO_ACTIVE_HIGH>   /* Col4 */
-            , <&gpio0  9 GPIO_ACTIVE_HIGH>   /* Col5 – T/G/B/inner-thumb (confirm pin!) */
+            , <&gpio0 15 GPIO_ACTIVE_HIGH>   /* Col1 – Q/A/Z */
+            , <&gpio0  6 GPIO_ACTIVE_HIGH>   /* Col2 */
+            , <&gpio0  7 GPIO_ACTIVE_HIGH>   /* Col3 */
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>   /* Col4 */
+            , <&gpio0 28 GPIO_ACTIVE_HIGH>   /* Col5 – T/G/B/inner-thumb */
             ;
 
         row-gpios
