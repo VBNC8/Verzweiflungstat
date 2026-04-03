@@ -96,13 +96,18 @@
             input-enable;
         };
     };
+    uart1_sleep: uart1_sleep {
+        group1 { pinmux = <UART1_TX_P4>; };
+        group2 { pinmux = <UART1_RX_P5>; input-enable; };
+    };
 };
 
 &uart1 {
-    status = "okay";
     current-speed = <115200>;
     pinctrl-0 = <&uart1_default>;
-    pinctrl-names = "default";
+    pinctrl-1 = <&uart1_sleep>;
+    pinctrl-names = "default", "sleep";
+    status = "okay";
 };
 
 &pio0 {
@@ -126,4 +131,8 @@
             frequency = <800000>;
         };
     };
+};
+
+&uart0 {
+    status = "disabled";
 };
