@@ -161,16 +161,16 @@ layers:
   - t: ▽
     type: trans
   adjust:
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: $$mdi:lightbulb-on$$
+    s: OnOff
+  - t: $$mdi:brightness-7$$
+    s: Bri+
+  - t: $$mdi:palette-swatch$$
+    s: Hue+
+  - t: $$mdi:palette$$
+    s: Sat+
+  - t: $$mdi:cosine-wave$$
+    s: Mode
   - t: ▽
     type: trans
   - t: ▽
@@ -180,6 +180,15 @@ layers:
   - t: ▽
     type: trans
   - ✕
+  - RGB ON
+  - t: $$mdi:brightness-4$$
+    s: Bri-
+  - t: $$mdi:palette-swatch-outline$$
+    s: Hue-
+  - t: $$mdi:palette-outline$$
+    s: Sat-
+  - t: $$mdi:cosine-wave$$
+    s: Rev
   - t: ▽
     type: trans
   - t: ▽
@@ -190,18 +199,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - RGB OFF
   - t: ▽
     type: trans
   - t: ▽
