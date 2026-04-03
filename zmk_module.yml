@@ -1,6 +1,0 @@
-name: verzweiflungstat_pinnacle
-zephyr_module: true
-# Sagt ZMK, dass es hier nach Bindings und Treibern suchen soll
-nested_config:
-  config:
-    - drivers/input/Kconfig
