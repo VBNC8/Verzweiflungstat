@@ -39,7 +39,8 @@ layers:
   - t: .
     s: AltGr
   - ⌦
-  - ''
+  - t: ⌫
+    h: Adjust
   - t: ESC
     h: Raise
   - t: ⇥
@@ -92,8 +93,9 @@ layers:
   - ','
   - .
   - '='
-  - t: ▽
-    type: trans
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: ghost
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
@@ -159,16 +161,6 @@ layers:
   - t: ▽
     type: trans
   adjust:
-  - t: $$mdi:lightbulb-on$$
-    s: OnOff
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:cosine-wave$$
-    s: Mode
   - t: ▽
     type: trans
   - t: ▽
@@ -177,16 +169,6 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - ✕
-  - RGB ON
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - t: $$mdi:palette-swatch-outline$$
-    s: Hue-
-  - t: $$mdi:palette-outline$$
-    s: Sat-
-  - t: $$mdi:cosine-wave$$
-    s: Rev
   - t: ▽
     type: trans
   - t: ▽
@@ -197,7 +179,29 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - RGB OFF
+  - ✕
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
