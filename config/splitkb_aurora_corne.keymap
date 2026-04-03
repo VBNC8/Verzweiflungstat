@@ -106,13 +106,6 @@
             bindings = <&mo>, <&kp>; 
         };
 
-        hw_scroll: hw_scroll {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&inc_dec_kp PG_DN PG_UP>, <&inc_dec_kp PG_DN PG_UP>;
-            tap-ms = <20>;
-        };
-
         enc_bt_clr: enc_bt_clr {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>; 
