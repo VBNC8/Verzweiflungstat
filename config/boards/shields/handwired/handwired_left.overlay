@@ -6,27 +6,19 @@
  *   Cols  : Col0=GP14 Col1=GP15 Col2=GP6  Col3=GP7  Col4=GP27 Col5=GP28
  *   UART1 : TX=GP4   RX=GP5
  *   EC11  : ENCa=GP8  ENCb=GP26  button wired to matrix (Row2, Col0)
- *
- * Global 12-column keymap layout (position = row*12 + col)
- *   Left  uses logical cols 0-5   (physical scan order = outer→inner)
- *   Right uses logical cols 6-11  (physical scan order = outer→inner, reversed in transform)
- *
- *   Row0 (0-11):  LCol0  Q  W  E  R  T | Y  U  I  O  P  RCol0
- *   Row1 (12-23): LCol0  A  S  D  F  G | H  J  K  L  ;  RCol0
- *   Row2 (24-35): EC11L  Z  X  C  V  B | N  M  ,  .  DEL EC11R
- *   Row3 (36-47): –  –  –  LT3 LT2 LT1 | RT1 RT2 RT3 –  –  –
- *
- * NOTE: Col5 is assumed to be GP9. Adjust if your wiring differs.
+ *   WS2812: GP16 via PIO0
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
+#include <dt-bindings/led/led.h>
 
 / {
     chosen {
-        zmk,kscan           = &kscan0;
+        zmk,kscan            = &kscan0;
         zmk,matrix-transform = &default_transform;
-        zmk,split-uart      = &uart1;
+        zmk,split-uart       = &uart1;
+        zmk,underglow        = &ws2812;
     };
 
     sensors: sensors {
@@ -35,12 +27,6 @@
         triggers-per-rotation = <20>;
     };
 
-    /*
-     * Transform: columns=12 so position = decoded_row*12 + decoded_col.
-     * The map is indexed by (physical_row * 12 + physical_col); only
-     * indices [row*12 + 0..5] are ever reached (6 physical cols).
-     * The remaining 6 entries per row are dummy padding (RC(0,0)).
-     */
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         columns = <12>;
@@ -92,6 +78,12 @@
 };
 
 &pinctrl {
+    ws2812_pio0_default: ws2812_pio0_default {
+        group1 {
+            pinmux = <PIO0_P16>;
+        };
+    };
+
     uart1_default: uart1_default {
         group1 {
             pinmux = <UART1_TX_P4>;
@@ -108,4 +100,27 @@
     current-speed = <115200>;
     pinctrl-0 = <&uart1_default>;
     pinctrl-names = "default";
+};
+
+&pio0 {
+    status = "okay";
+
+    pio-ws2812 {
+        compatible = "worldsemi,ws2812-rpi_pico-pio";
+        status = "okay";
+        pinctrl-0 = <&ws2812_pio0_default>;
+        pinctrl-names = "default";
+        bit-waveform = <3>, <3>, <4>;
+
+        ws2812: ws2812 {
+            status = "okay";
+            gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+            chain-length = <1>;
+            color-mapping = <LED_COLOR_ID_RED
+                             LED_COLOR_ID_GREEN
+                             LED_COLOR_ID_BLUE>;
+            reset-delay = <280>;
+            frequency = <800000>;
+        };
+    };
 };

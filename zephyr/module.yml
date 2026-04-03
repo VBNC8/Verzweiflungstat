@@ -1,0 +1,4 @@
+name: verzweiflungstat_extra
+build:
+  cmake: .
+  kconfig: Kconfig

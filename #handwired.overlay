@@ -1,5 +1,6 @@
-// Updated configuration for UART on GPIO 8 and 9 for split keyboard
-#define UART_TX_PIN 14
-#define UART_RX_PIN 15
-
-// Additional configuration specific to the split keyboard can be added here.
+// Root overlay — reference / documentation only.
+// The actual UART DTS configuration lives in the per-side shield overlays
+// (handwired_left.overlay and handwired_right.overlay).
+//
+// GP8 = UART0 TX  (connect to the other half's RX)
+// GP9 = UART0 RX  (connect to the other half's TX)

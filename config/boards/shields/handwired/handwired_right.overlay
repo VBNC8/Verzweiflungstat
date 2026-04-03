@@ -7,19 +7,19 @@
  *   Physical col 0 (GP14) = right-side outermost  →  logical col 11
  *   Physical col 5 (GP28) = right-side innermost  →  logical col  6
  *   Cols  : Col0=GP14 Col1=GP15 Col2=GP6  Col3=GP7  Col4=GP27 Col5=GP28
- *
- * EC11 button: (Row2, Col0) physical → global position 35
- * Right thumbs (inner→outer): Row3 physical cols 5,4,3 → global 42,43,44
+ *   WS2812: GP16 via PIO0
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
+#include <dt-bindings/led/led.h>
 
 / {
     chosen {
-        zmk,kscan           = &kscan0;
+        zmk,kscan            = &kscan0;
         zmk,matrix-transform = &default_transform;
-        zmk,split-uart      = &uart1;
+        zmk,split-uart       = &uart1;
+        zmk,underglow        = &ws2812;
     };
 
     sensors: sensors {
@@ -46,11 +46,7 @@
             /* row 2 – EC11 button at phys col0 → RC(2,11) → pos 35 */
             RC(2,11) RC(2,10) RC(2,9) RC(2,8) RC(2,7) RC(2,6)
             RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
-            /*
-             * row 3 – right thumbs at phys cols 5,4,3 → global 42,43,44
-             * phys col5→RC(3,6)→42, col4→RC(3,7)→43, col3→RC(3,8)→44
-             * phys cols 0,1,2 → no switches (&trans via unused positions)
-             */
+            /* row 3 – right thumbs: phys col5→RC(3,6), col4→RC(3,7), col3→RC(3,8) */
             RC(3,11) RC(3,10) RC(3,9) RC(3,8) RC(3,7) RC(3,6)
             RC(3,9)  RC(3,9)  RC(3,9) RC(3,9) RC(3,9) RC(3,9)
         >;
@@ -87,6 +83,12 @@
 };
 
 &pinctrl {
+    ws2812_pio0_default: ws2812_pio0_default {
+        group1 {
+            pinmux = <PIO0_P16>;
+        };
+    };
+
     uart1_default: uart1_default {
         group1 {
             pinmux = <UART1_TX_P4>;
@@ -103,4 +105,27 @@
     current-speed = <115200>;
     pinctrl-0 = <&uart1_default>;
     pinctrl-names = "default";
+};
+
+&pio0 {
+    status = "okay";
+
+    pio-ws2812 {
+        compatible = "worldsemi,ws2812-rpi_pico-pio";
+        status = "okay";
+        pinctrl-0 = <&ws2812_pio0_default>;
+        pinctrl-names = "default";
+        bit-waveform = <3>, <3>, <4>;
+
+        ws2812: ws2812 {
+            status = "okay";
+            gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+            chain-length = <1>;
+            color-mapping = <LED_COLOR_ID_RED
+                             LED_COLOR_ID_GREEN
+                             LED_COLOR_ID_BLUE>;
+            reset-delay = <280>;
+            frequency = <800000>;
+        };
+    };
 };

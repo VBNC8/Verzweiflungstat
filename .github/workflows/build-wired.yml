@@ -1,10 +1,11 @@
-name: Build ZMK
-
-on: [push]
+name: Build RP2040 Wired
+on: [push, workflow_dispatch]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     container:
       image: zmkfirmware/zmk-build-arm:stable
     steps:
@@ -33,10 +34,10 @@ jobs:
         run: west zephyr-export
 
       - name: Build Left
-        run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b rpi_pico -d build/left -- -DSHIELD="handwired_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
 
       - name: Build Right
-        run: west build -s zmk/app -b rpi_pico -d build/right -- -DSHIELD="handwired_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b rpi_pico -d build/right -- -DSHIELD="handwired_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
 
       - name: Upload Left firmware
         uses: actions/upload-artifact@v4

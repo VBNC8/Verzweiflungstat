@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/splitkb_aurora_corne.keymap"
+      - "config/handwired.keymap"
       - "config/keymap_drawer.config.yaml"
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       - name: Parse and Transform
         run: |
           # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
+          keymap -c config/keymap_drawer.config.yaml parse -z config/handwired.keymap > raw_keymap.yaml
           
           python3 - <<EOF
           import yaml
@@ -63,12 +63,12 @@ jobs:
           EOF
       - name: Draw SVG
         run: |
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/handwired.svg
 
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
+          git add keymap-drawer/keymap.yaml keymap-drawer/handwired.svg
           git commit -m "Automated 3x5_3 crop and draw" || exit 0
           git push
