@@ -31,32 +31,44 @@ jobs:
           with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
           
-          # Layout-Wechsel auf das schmale 3x5_3
-          data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
+          # Layout-Wechsel: 37-key custom layout (36 crkbd keys + EC11 encoder button)
+          # The layout.json adds the encoder btn between the halves at x=5 y=1.75
+          # (right of G/B column, vertically centered between rows 1 and 2)
+          data['layout'] = {'qmk_info_json': 'keymap-drawer/layout.json'}
           
           # Definition der zu löschenden Indizes
           # Row0: 0 (LCol0), 11 (RCol0)
           # Row1: 12 (LCol0), 23 (RCol0)
-          # Row2: 24 (EC11L encoder btn), 35 (EC11R encoder btn)
-          # 42 - 6 = 36 keys → LAYOUT_split_3x5_3
-          deleted_indices = [0, 11, 12, 23, 24, 35]
+          # Row2: 35 (EC11R encoder btn) — EC11L (24) is kept and moved to end (index 36)
+          # 42 - 5 = 37 keys -> custom layout with encoder
+          deleted_indices = [0, 11, 12, 23, 35]
           
-          # 2. Layer-Tasten löschen (42 -> 36)
+          # 2. Layer-Tasten löschen (42 -> 37) und EC11L ans Ende verschieben
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
               for idx in sorted(deleted_indices, reverse=True):
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
+              # EC11L (originally at pos 24) is now at index 20 after the deletions above.
+              # Move it to the end so it matches the encoder key at index 36 in layout.json.
+              if len(keys_list) > 20:
+                  keys_list.append(keys_list.pop(20))
           
           # 3. NEU: Combos umrechnen
-          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
+          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet.
+          # deleted_indices still drives the offset; EC11L (24) is moved not deleted,
+          # which produces the same net shift for all non-encoder combo positions.
           if 'combos' in data:
               for combo in data['combos']:
                   new_positions = []
                   for pos in combo['p']:
                       # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
                       offset = sum(1 for d in deleted_indices if d < pos)
+                      # Positions after EC11L (original 24) shift one extra down because
+                      # EC11L was moved (not deleted) from its post-deletion index 20.
+                      if pos > 24:
+                          offset += 1
                       new_positions.append(pos - offset)
                   combo['p'] = new_positions
           

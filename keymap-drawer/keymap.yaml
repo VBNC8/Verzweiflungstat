@@ -51,6 +51,7 @@ layers:
     h: Raise
   - t: ⌫
     h: Adjust
+  - ⏯
   lower:
   - ^
   - <
@@ -102,6 +103,8 @@ layers:
     type: held
   - t: $$mdi:monitor$$
     s: Show
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   raise:
@@ -157,6 +160,8 @@ layers:
     type: trans
   - t: '&nbsp'
     type: held
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   adjust:
@@ -227,6 +232,7 @@ layers:
     type: trans
   - t: ' '
     type: held
+  - ''
 combos:
 - p:
   - 2
@@ -325,5 +331,4 @@ combos:
   l:
   - default
 layout:
-  qmk_keyboard: crkbd/rev1
-  qmk_layout: LAYOUT_split_3x5_3
+  qmk_info_json: keymap-drawer/layout.json
