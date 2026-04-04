@@ -155,6 +155,9 @@ g.keypos-30 rect.key {
   rx: 50%;
   ry: 50%;
 }
+g.layer-lower rect.held { fill: #854747; }
+g.layer-raise rect.held { fill: #3a7a3a; }
+g.layer-adjust rect.held { fill: #3a4a8a; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
