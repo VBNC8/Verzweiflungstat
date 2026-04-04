@@ -173,6 +173,15 @@ g.keypos-36 rect.key {
   rx: 50%;
   ry: 50%;
 }
+g.layer-lower rect.held { fill: #854747; }
+g.layer-raise rect.held { fill: #3a7a3a; }
+g.layer-adjust rect.held { fill: #3a4a8a; }
+g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
+g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
+g.layer-default g.keypos-32 rect.key { fill: #854747; }
+g.layer-default g.keypos-33 rect.key { fill: #854747; }
+g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
+g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
@@ -516,7 +525,6 @@ g.keypos-36 rect.key {
 <g transform="translate(252, 154)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">#</text>
-<text x="0" y="-24" class="key shifted">&#x27;</text>
 </g>
 <g transform="translate(476, 154)" class="key keypos-25">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
