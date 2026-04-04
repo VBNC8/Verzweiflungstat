@@ -107,6 +107,7 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
+    "&kp C_PP": "⏯"
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
@@ -154,4 +155,8 @@ draw_config:
     }
     text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
       font-size: 13px;
+    }
+    g.keypos-36 rect.key {
+      rx: 50%;
+      ry: 50%;
     }
