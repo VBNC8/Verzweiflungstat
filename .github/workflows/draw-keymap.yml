@@ -50,10 +50,12 @@ jobs:
               for idx in sorted(deleted_indices, reverse=True):
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
-              # EC11L (originally at pos 24) is now at index 20 after the deletions above.
+              # EC11L (originally at pos 24) is now at index 20 after the deletions above:
+              # 4 indices smaller than 24 were removed (0, 11, 12, 23) => 24 - 4 = 20.
               # Move it to the end so it matches the encoder key at index 36 in layout.json.
-              if len(keys_list) > 20:
-                  keys_list.append(keys_list.pop(20))
+              ec11l_new_idx = 24 - sum(1 for d in deleted_indices if d < 24)
+              if len(keys_list) > ec11l_new_idx:
+                  keys_list.append(keys_list.pop(ec11l_new_idx))
           
           # 3. NEU: Combos umrechnen
           # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet.
@@ -63,10 +65,12 @@ jobs:
               for combo in data['combos']:
                   new_positions = []
                   for pos in combo['p']:
-                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
+                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen.
+                      # pos is the original ZMK 42-key position.
                       offset = sum(1 for d in deleted_indices if d < pos)
-                      # Positions after EC11L (original 24) shift one extra down because
-                      # EC11L was moved (not deleted) from its post-deletion index 20.
+                      # For positions originally after EC11L (original pos 24): add 1 more,
+                      # because EC11L was moved to the end (not deleted), so it still
+                      # occupies a slot that shifts everything behind it by 1 extra.
                       if pos > 24:
                           offset += 1
                       new_positions.append(pos - offset)
