@@ -162,3 +162,6 @@ draw_config:
       rx: 50%;
       ry: 50%;
     }
+    g.layer-lower rect.held { fill: #854747; }
+    g.layer-raise rect.held { fill: #3a7a3a; }
+    g.layer-adjust rect.held { fill: #3a4a8a; }
