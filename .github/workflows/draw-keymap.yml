@@ -5,6 +5,8 @@ on:
     paths:
       - "config/splitkb_aurora_corne.keymap"
       - "config/keymap_drawer.config.yaml"
+      - "keymap-drawer/keymap.yaml"
+      - ".github/workflows/draw-keymap.yml"
 
 jobs:
   draw:
