@@ -43,7 +43,7 @@ layers:
     s: AltGr
   - ⌦
   - t: ⏯
-    type: round
+    type: ghost
   - t: ESC
     h: Raise
   - t: ⇥
