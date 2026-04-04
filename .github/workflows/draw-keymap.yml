@@ -5,6 +5,8 @@ on:
     paths:
       - "config/splitkb_aurora_corne.keymap"
       - "config/keymap_drawer.config.yaml"
+      - "keymap-drawer/keymap.yaml"
+      - ".github/workflows/draw-keymap.yml"
 
 jobs:
   draw:
@@ -45,7 +47,17 @@ jobs:
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
           
-          # 3. NEU: Combos umrechnen
+          # 3. EC11-Encoder-Taste (linker Daumen, Position 30) in allen Layern als Kreis anzeigen
+          for name, layer in layers.items():
+              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
+              if len(keys_list) > 30:
+                  key = keys_list[30]
+                  if isinstance(key, dict):
+                      key['type'] = 'round'
+                  else:
+                      keys_list[30] = {'t': str(key), 'type': 'round'}
+
+          # 4. NEU: Combos umrechnen
           # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
           if 'combos' in data:
               for combo in data['combos']:
