@@ -165,3 +165,8 @@ draw_config:
     g.layer-lower rect.held { fill: #854747; }
     g.layer-raise rect.held { fill: #3a7a3a; }
     g.layer-adjust rect.held { fill: #3a4a8a; }
+    g.layer-default g.keypos-31 rect.held { fill: #3a7a3a; }
+    g.layer-default g.keypos-32 rect.held { fill: #854747; }
+    g.layer-default g.keypos-33 rect.held { fill: #854747; }
+    g.layer-default g.keypos-34 rect.held { fill: #3a7a3a; }
+    g.layer-default g.keypos-35 rect.held { fill: #3a4a8a; }
