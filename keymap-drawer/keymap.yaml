@@ -147,7 +147,8 @@ layers:
   - t: ▽
     type: trans
   - ´
-  - ' '
+  - t: ▽
+    type: trans
   - t: Task Mgr
     type: held
   - t: ▽
@@ -214,7 +215,8 @@ layers:
   - ⏭
   - t: ▽
     type: trans
-  - ' '
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
