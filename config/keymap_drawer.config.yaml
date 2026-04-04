@@ -15,7 +15,7 @@ parse_config:
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
-    "&kp F14": {t: " ", type: "ghost"}
+    "&kp F14": {t: " "}
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
@@ -34,6 +34,7 @@ parse_config:
     "&kp LS(MINUS)": "?"
     "&kp LS(DOT)": ":"
     "&kp LS(NON_US_HASH)": "'"
+    "&kp LS(BSLH)": "'"
      
     # --- MATH CODES (NUMPAD) ---
     "&kp KP_PLUS": "+"
@@ -132,7 +133,7 @@ parse_config:
     "&rgb_ug RGB_HUD": {t: "$$mdi:palette-swatch-outline$$", s: "Hue-"}
 
     # --- BLUETOOTH & SYSTEM ---
-    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
+    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s"}
     "&bt_off": {t: "$$mdi:bluetooth-off$$"}
     "&usb_on": "$$mdi:usb$$"
     "&kp LA(F4)": "✕"
@@ -147,3 +148,13 @@ draw_config:
   #n_columns: 1
   width: 1200
   exclude_combos: ["&bt BT_SEL 0", "&bt BT_SEL 1", "&bt BT_SEL 2", "&out OUT_USB"]
+  svg_extra_style: |
+    svg.keymap {
+      font-size: 16px;
+    }
+    text.tap {
+      font-size: 20px;
+    }
+    text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
+      font-size: 13px;
+    }

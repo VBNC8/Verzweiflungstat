@@ -159,6 +159,16 @@ rect.held, rect.combo.held { fill: #854747; }
 text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
+
+svg.keymap {
+  font-size: 16px;
+}
+text.tap {
+  font-size: 20px;
+}
+text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
+  font-size: 13px;
+}
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
@@ -427,9 +437,7 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(700, 49)" class="key keypos-9">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">\</tspan>
-</text>
+<text x="0" y="0" class="key tap">&#x27;</text>
 </g>
 <g transform="translate(28, 105)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -522,10 +530,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">=</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
-<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key ghost tap glyph mdi:bluetooth-off"/>
-<text x="0" y="-24" class="key ghost shifted">CLR 5s</text>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth-off"/>
+<text x="0" y="-24" class="key shifted">CLR 5s</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -713,8 +721,8 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">´</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key held keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
@@ -876,8 +884,8 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key trans keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
