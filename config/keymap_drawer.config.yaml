@@ -15,7 +15,6 @@ parse_config:
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
-    "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
     "&pair_paren": "()"
@@ -108,7 +107,6 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
-    "&kp C_PP": {t: "⏯", type: "ghost"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
