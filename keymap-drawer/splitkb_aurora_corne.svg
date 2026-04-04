@@ -151,6 +151,10 @@ text.tap {
 text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
   font-size: 13px;
 }
+g.keypos-30 rect.key {
+  rx: 50%;
+  ry: 50%;
+}
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
