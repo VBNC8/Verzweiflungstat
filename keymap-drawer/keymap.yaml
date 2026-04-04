@@ -122,10 +122,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - 🖱 RMB
+  - 🖱 LMB
   - t: ▽
     type: trans
   - UP
