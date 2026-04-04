@@ -141,6 +141,16 @@ rect.held, rect.combo.held { fill: #854747; }
 text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
+
+svg.keymap {
+  font-size: 16px;
+}
+text.tap {
+  font-size: 20px;
+}
+text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
+  font-size: 13px;
+}
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
@@ -408,9 +418,7 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(700, 49)" class="key keypos-9">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">\</tspan>
-</text>
+<text x="0" y="0" class="key tap">&#x27;</text>
 </g>
 <g transform="translate(28, 105)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
