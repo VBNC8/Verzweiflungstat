@@ -98,7 +98,7 @@ layers:
   - '='
   - t: $$mdi:bluetooth-off$$
     s: CLR 5s
-    type: ghost
+    type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
@@ -154,7 +154,7 @@ layers:
     type: trans
   - ´
   - t: ' '
-    type: ghost
+    type: round
   - t: Task Mgr
     type: held
   - t: ▽
@@ -224,7 +224,7 @@ layers:
   - t: ▽
     type: trans
   - t: ' '
-    type: ghost
+    type: round
   - t: ▽
     type: trans
   - t: ▽
