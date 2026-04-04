@@ -151,6 +151,9 @@ draw_config:
     svg.keymap {
       font-size: 16px;
     }
+    text.tap {
+      font-size: 20px;
+    }
     text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
       font-size: 13px;
     }
