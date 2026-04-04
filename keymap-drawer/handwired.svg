@@ -530,10 +530,10 @@ text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, te
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">=</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
-<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key ghost tap glyph mdi:bluetooth-off"/>
-<text x="0" y="-24" class="key ghost shifted">CLR 5s</text>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth-off"/>
+<text x="0" y="-24" class="key shifted">CLR 5s</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -721,8 +721,8 @@ text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, te
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">´</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key held keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
@@ -884,8 +884,8 @@ text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, te
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(168, 205)" class="key ghost keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key ghost"/>
+<g transform="translate(168, 205)" class="key keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key trans keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
