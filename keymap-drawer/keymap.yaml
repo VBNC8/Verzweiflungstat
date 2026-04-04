@@ -96,8 +96,8 @@ layers:
   - ','
   - .
   - '='
-  - t: CLR 5s
-    s: $$mdi:bluetooth-off$$
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
     type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
