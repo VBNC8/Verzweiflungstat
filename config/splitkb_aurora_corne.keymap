@@ -118,7 +118,7 @@
      combos {
         compatible = "zmk,combos";
 
-        #if 0
+        #if 1
 
         // Pos 1: Col 0 (P0.10) + Row 0 & 2 -> Combo Index 0 & 24
         combo_bt0 {
