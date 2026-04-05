@@ -118,8 +118,6 @@
      combos {
         compatible = "zmk,combos";
 
-        #if 0
-
         // Pos 1: Col 0 (P0.10) + Row 0 & 2 -> Combo Index 0 & 24
         combo_bt0 {
             timeout-ms = <100>;
@@ -147,8 +145,6 @@
             key-positions = <3 27>;
             bindings = <&out OUT_USB>;
         };
-
-        #endif
 
         // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
