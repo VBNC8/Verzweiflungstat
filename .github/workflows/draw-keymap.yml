@@ -57,7 +57,13 @@ jobs:
                   else:
                       keys_list[30] = {'t': str(key), 'type': 'round'}
 
-          # 4. NEU: Combos umrechnen
+          # 4. BT/USB-Combos ausfiltern (sollen nicht gezeichnet werden)
+          bt_usb_positions = [{0, 24}, {1, 25}, {2, 26}, {3, 27}]
+          if 'combos' in data:
+              data['combos'] = [c for c in data['combos']
+                                if set(c['p']) not in bt_usb_positions]
+
+          # 5. NEU: Combos umrechnen
           # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
           if 'combos' in data:
               for combo in data['combos']:
