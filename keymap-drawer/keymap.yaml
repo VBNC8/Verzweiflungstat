@@ -43,6 +43,7 @@ layers:
     s: AltGr
   - ⌦
   - t: ⏯
+    h: Adjust
     type: round
   - t: ESC
     h: Raise
