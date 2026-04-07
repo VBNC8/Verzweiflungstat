@@ -1,6 +1,0 @@
-if SHIELD_HANDWIRED_LEFT || SHIELD_HANDWIRED_RIGHT
-
-config ZMK_KEYBOARD_NAME
-    default "Handwired"
-
-endif
