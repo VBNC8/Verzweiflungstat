@@ -166,7 +166,8 @@ layers:
   - t: ▽
     type: trans
   adjust:
-  - $$mdi:bluetooth-off$$
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -184,19 +185,11 @@ layers:
   - t: ▽
     type: trans
   - ✕
-  - t: $$mdi:bluetooth$$
-    h: PC
-    s: ⓵
-  - t: $$mdi:bluetooth$$
-    h: S8
-    s: ⓶
-  - t: $$mdi:bluetooth$$
-    h: Zbook
-    s: ⓷
-  - t: $$mdi:bluetooth$$
-    s: ⓸
-  - t: $$mdi:bluetooth$$
-    s: ⓹
+  - '&bt_sel_0'
+  - '&bt_sel_1'
+  - '&bt_sel_2'
+  - '&bt_sel_3'
+  - '&bt_sel_4'
   - t: ▽
     type: trans
   - t: ▽
