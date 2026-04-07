@@ -166,7 +166,8 @@ layers:
   - t: ▽
     type: trans
   adjust:
-  - $$mdi:bluetooth-off$$
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
