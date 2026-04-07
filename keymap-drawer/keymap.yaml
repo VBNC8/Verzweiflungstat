@@ -186,14 +186,14 @@ layers:
     type: trans
   - ✕
   - t: $$mdi:bluetooth$$
-    s: ⓵
     h: PC
+    s: ⓵
   - t: $$mdi:bluetooth$$
-    s: ⓶
     h: S8
+    s: ⓶
   - t: $$mdi:bluetooth$$
-    s: ⓷
     h: Zbook
+    s: ⓷
   - t: $$mdi:bluetooth$$
     s: ⓸
   - t: $$mdi:bluetooth$$
