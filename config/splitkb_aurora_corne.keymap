@@ -33,10 +33,34 @@
             bindings = <&out OUT_USB>; 
         };
 
-        bt_off: bt_off { 
-            compatible = "zmk,behavior-macro"; 
-            #binding-cells = <0>; 
-            bindings = <&out OUT_BLE>; 
+        bt_sel_0: bt_sel_0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>;
+        };
+
+        bt_sel_1: bt_sel_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>;
+        };
+
+        bt_sel_2: bt_sel_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
+        };
+
+        bt_sel_3: bt_sel_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>;
+        };
+
+        bt_sel_4: bt_sel_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 4>;
         };
 
         durchmesser: durchmesser { 
@@ -121,21 +145,21 @@
         combo_bt0 {
             timeout-ms = <100>;
             key-positions = <0 24>;
-            bindings = <&bt BT_SEL 0>;
+            bindings = <&bt_sel_0>;
         };
 
         // Pos 2: Col 1 (P0.09) + Row 0 & 2 -> Q + Y (Index 1 & 25)
         combo_bt1 {
             timeout-ms = <100>;
             key-positions = <1 25>;
-            bindings = <&bt BT_SEL 1>;
+            bindings = <&bt_sel_1>;
         };
 
         // Pos 3: Col 2 (P1.11) + Row 0 & 2 -> W + X (Index 2 & 26)
         combo_bt2 {
             timeout-ms = <100>;
             key-positions = <2 26>;
-            bindings = <&bt BT_SEL 2>;
+            bindings = <&bt_sel_2>;
         };
 
         // Pos 4: Col 3 (P1.13) + Row 0 & 2 -> E + C (Index 3 & 27)
@@ -293,8 +317,8 @@
         adjust_layer {
            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
            bindings = <
-&none  &bt_off       &trans             &trans            &trans         &trans              &trans  &trans  &trans       &trans      &kp LA(F4)  &none
-&none  &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4        &trans  &trans  &trans       &trans       &trans      &none
+&none  &trans        &trans             &trans            &trans         &trans              &trans  &trans  &trans       &trans      &kp LA(F4)  &none
+&none  &bt_sel_0     &bt_sel_1          &bt_sel_2         &bt_sel_3      &bt_sel_4           &trans  &trans  &trans       &trans       &trans      &none
 &none  &usb_on       &ext_power EP_TOG  &trans            &trans         &trans              &trans  &trans  &kp C_PREV   &kp C_NEXT   &trans      &none
                                         &kp F14           &trans         &trans              &trans  &trans  &kp F12
             >;
