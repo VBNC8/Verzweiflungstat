@@ -33,21 +33,24 @@
         pair_paren: pair_paren {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>; tap-ms = <10>;
+            wait-ms = <10>;
+            tap-ms = <10>;
             bindings = <&kp LS(N8)>, <&kp LS(N9)>, <&kp LEFT>;
         };
 
         pair_brc: pair_brc {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>; tap-ms = <10>;
+            wait-ms = <10>;
+            tap-ms = <10>;
             bindings = <&kp RA(N7)>, <&kp RA(N0)>, <&kp LEFT>;
         };
 
         pair_bkt: pair_bkt {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>; tap-ms = <10>;
+            wait-ms = <10>;
+            tap-ms = <10>;
             bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
         };
 
