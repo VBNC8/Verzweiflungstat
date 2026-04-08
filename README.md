@@ -1,5 +1,4 @@
-Firmware for wireless splitkb Aurora Corne with nice!nanos. Left EC11 encoder on outer left thumb key position, left nice!view display.
-Gateron Melodic MX switches and Drop MT3 keycaps.
+Firmware for wireless 5x3 split keyboard with SuperMinis. Left 5way encoder and 'mechanical' BT-selector switch.
 
 ## Keymap
 
