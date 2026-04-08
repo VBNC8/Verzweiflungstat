@@ -30,17 +30,21 @@
  *   Special pin ("switcher row"):
  *     P1.07 — row output driven LOW when scanning BT-switcher contacts
  *
- *   4 special switches (BT-switcher), each wired between a key GPIO and
- *   the special pin.  Uses the first 4 key GPIOs (keys 0–3):
- *     BT0     → P0.02 + P1.15
- *     BT1     → P0.03 + P1.15
- *     BT2     → P0.04 + P1.15
- *     USB_OUT → P0.05 + P1.15
+ *   9 special switches wired between a key GPIO and the special pin:
+ *     BT0     → P0.02 + P1.07   (col 0)
+ *     BT1     → P0.03 + P1.07   (col 1)
+ *     BT2     → P0.04 + P1.07   (col 2)
+ *     USB_OUT → P0.05 + P1.07   (col 3)
+ *     Nav Up  → P0.06 + P1.07   (col 4)
+ *     Nav Dn  → P0.07 + P1.07   (col 5)
+ *     Nav Lt  → P0.08 + P1.07   (col 6)
+ *     Nav Rt  → P0.09 + P1.07   (col 7)
+ *     Nav OK  → P0.10 + P1.07   (col 8)
  *
  * Key-position map (used in keymap / combos):
  *   Left regular keys  : 0–17   (18 direct)
- *   Left special keys  : 18–21  (BT0, BT1, BT2, USB_OUT via special pin)
- *   Right regular keys : 22–39  (sent by peripheral, offset +22)
+ *   Left special keys  : 18–26  (BT0–2, USB_OUT, Up, Down, Left, Right, Enter via P1.07)
+ *   Right regular keys : 27–44  (sent by peripheral, offset +27)
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -99,8 +103,8 @@
     };
 
     /*
-     * Special-pin matrix (1 row = P1.15, 9 cols = shared key GPIOs).
-     * row2col: P1.15 driven LOW → col GPIO reads LOW when switch closed.
+     * Special-pin matrix (1 row = P1.07, 9 cols = shared key GPIOs).
+     * row2col: P1.07 driven LOW → col GPIO reads LOW when switch closed.
      * Diodeless: a simultaneously pressed regular key on the same GPIO
      * also reads LOW.  BT/5-way presses should not coincide with typing.
      */
@@ -114,10 +118,15 @@
             ;
 
         col-gpios
-            = <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT0     P0.02 */
-            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT1     P0.03 */
-            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT2     P0.04 */
-            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* USB_OUT P0.05 */
+            = <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT0     P0.02 col 0 */
+            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT1     P0.03 col 1 */
+            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT2     P0.04 col 2 */
+            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* USB_OUT P0.05 col 3 */
+            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Up  P0.06 col 4 */
+            , <&gpio0  7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Dn  P0.07 col 5 */
+            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Lt  P0.08 col 6 */
+            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Rt  P0.09 col 7 */
+            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav OK  P0.10 col 8 */
             ;
     };
 
@@ -137,14 +146,15 @@
     };
 
     /*
-     * Matrix transform: 2 rows × 18 cols, 22 entries total.
+     * Matrix transform: 2 rows × 18 cols, 27 central entries.
      *
      *   Pos  0– 4 : left top row    RC(0,0)–RC(0,4)
      *   Pos  5– 9 : left mid row    RC(0,5)–RC(0,9)
      *   Pos 10–14 : left bot row    RC(0,10)–RC(0,14)
      *   Pos 15–17 : left thumbs     RC(0,15)–RC(0,17)
-     *   Pos 18–21 : BT sel + USB   RC(1,0)–RC(1,3)
-     *   Pos 22–39 : right keys      (peripheral offset +22)
+     *   Pos 18–21 : BT sel + USB    RC(1,0)–RC(1,3)
+     *   Pos 22–26 : 5-way nav       RC(1,4)–RC(1,8)
+     *   Pos 27–44 : right keys      (peripheral offset +27)
      */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -159,8 +169,10 @@
             RC(0,10) RC(0,11) RC(0,12) RC(0,13) RC(0,14)
             /* left thumbs */
             RC(0,15) RC(0,16) RC(0,17)
-            /* BT selector (hardware switch via special pin) */
+            /* BT selector (hardware switch via special pin P1.07) */
             RC(1,0)  RC(1,1)  RC(1,2)  RC(1,3)
+            /* 5-way nav switch (hardware switch via special pin P1.07) */
+            RC(1,4)  RC(1,5)  RC(1,6)  RC(1,7)  RC(1,8)
         >;
     };
 };

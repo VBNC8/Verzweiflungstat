@@ -1,7 +1,7 @@
 /*
  * Supermini Split keymap — Corne keymap with outer pinky columns removed.
  *
- * Key position reference (40 positions total):
+ * Key position reference (45 positions total):
  *
  *   Left 5×3 (pos 0–14):
  *     0  1  2  3  4   ← top row  (Q  W  E  R  T)
@@ -11,16 +11,17 @@
  *   Left thumbs (pos 15–17):
  *    15 16 17
  *
- *   BT-switcher via special pin P1.15 (pos 18–21):
+ *   Special pin P1.07 virtual row (pos 18–26):
  *    18=BT0  19=BT1  20=BT2  21=USB_OUT
+ *    22=Up   23=Down 24=Left 25=Right 26=Enter
  *
- *   Right 5×3 (pos 22–36, peripheral offset +22):
- *    22 23 24 25 26   ← top row  (Y  U  I  O  P)
- *    27 28 29 30 31   ← mid row  (H  J  K  L  ö)
- *    32 33 34 35 36   ← bot row  (N  M  ,  .  DEL)
+ *   Right 5×3 (pos 27–41, peripheral offset +27):
+ *    27 28 29 30 31   ← top row  (Y  U  I  O  P)
+ *    32 33 34 35 36   ← mid row  (H  J  K  L  ö)
+ *    37 38 39 40 41   ← bot row  (N  M  ,  .  DEL)
  *
- *   Right thumbs (pos 37–39):
- *    37 38 39
+ *   Right thumbs (pos 42–44):
+ *    42 43 44
  */
 
 #include <behaviors.dtsi>
@@ -169,7 +170,7 @@
         // Doppelpunkt (:) auf , und .
         combo_colon {
             timeout-ms = <50>;
-            key-positions = <34 35>; // ,=34, .=35
+            key-positions = <39 40>; // ,=39, .=40
             bindings = <&kp LS(DOT)>;
             layers = <0 1>;
         };
@@ -185,7 +186,7 @@
         // Backslash (\) auf K und L
         combo_backslash {
             timeout-ms = <40>;
-            key-positions = <29 30>; // K=29, L=30
+            key-positions = <34 35>; // K=34, L=35
             bindings = <&kp RA(MINUS)>;
             layers = <0 1>;
         };
@@ -201,7 +202,7 @@
         // Minus/Bindestrich (-) auf L und Ö
         combo_minus {
             timeout-ms = <50>;
-            key-positions = <30 31>; // L=30, ö=31
+            key-positions = <35 36>; // L=35, ö=36
             bindings = <&kp SLASH>;
             layers = <0 1>;
         };
@@ -217,7 +218,7 @@
         // Caps Word auf F und J
         combo_caps_word {
             timeout-ms = <40>;
-            key-positions = <8 28>; // F=8, J=28
+            key-positions = <8 33>; // F=8, J=33
             bindings = <&caps_wrd>;
             layers = <0>;
         };
@@ -233,7 +234,7 @@
         // Fragezeichen (?) auf J und K
         combo_question {
             timeout-ms = <50>;
-            key-positions = <28 29>; // J=28, K=29
+            key-positions = <33 34>; // J=33, K=34
             bindings = <&kp LS(MINUS)>;
             layers = <0 1>;
         };
@@ -249,7 +250,7 @@
         // Ö (O + L) - Vertikal rechter Ringfinger
         combo_oe {
             timeout-ms = <50>;
-            key-positions = <25 30>; // O=25, L=30
+            key-positions = <30 35>; // O=30, L=35
             bindings = <&kp SEMI>;
             layers = <0>;
         };
@@ -257,7 +258,7 @@
         // Ü (U + J) - Vertikal rechter Zeigefinger
         combo_ue {
             timeout-ms = <50>;
-            key-positions = <23 28>; // U=23, J=28
+            key-positions = <28 33>; // U=28, J=33
             bindings = <&kp LBKT>;
             layers = <0>;
         };
@@ -275,11 +276,11 @@
         compatible = "zmk,keymap";
 
         /*
-         * Each layer has exactly 40 bindings.
+         * Each layer has exactly 45 bindings.
          * Order: left top (0–4), left mid (5–9), left bot (10–14),
-         *        left thumbs (15–17), BT sel (18–21),
-         *        right top (22–26), right mid (27–31), right bot (32–36),
-         *        right thumbs (37–39).
+         *        left thumbs (15–17), BT sel (18–21), 5-way nav (22–26),
+         *        right top (27–31), right mid (32–36), right bot (37–41),
+         *        right thumbs (42–44).
          */
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
@@ -289,6 +290,7 @@
 /* left bot  */   &kp Z          &hrm_safe LALT X  &kp C              &kp V                &kp B
 /* left tmb  */   &lt_hp 3 C_PP  &lt 2 ESC         &lt 1 TAB
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2          &usb_on
+/* 5-way nav */   &kp UP         &kp DOWN          &kp LEFT           &kp RIGHT            &kp RET
 /* right top */   &kp Y          &kp U             &kp I              &kp O                &kp P
 /* right mid */   &kp H          &hrm_shift RSHIFT J  &hrm_safe RCTRL K  &kp L            &kp LS(NON_US_HASH)
 /* right bot */   &kp N          &kp M             &kp COMMA          &hrm_safe RALT DOT   &kp DEL
@@ -304,6 +306,7 @@
 /* left bot  */   &kp RA(RBKT)   &kp LS(N5)        &kp RA(NON_US_BSLH)  &kp LS(N4)     &kp NON_US_HASH
 /* left tmb  */   &enc_bt_clr 0 0  &kp LGUI        &kp HOME
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
+/* 5-way nav */   &kp PG_UP      &kp PG_DN         &kp HOME             &kp END         &kp RET
 /* right top */   &kp LS(GRAVE)  &pair_paren       &pair_brc            &pair_bkt       &kp LS(BSLH)
 /* right mid */   &kp N6         &kp N7            &kp N8               &kp N9          &kp N0
 /* right bot */   &kp KP_PLUS    &kp KP_MULTIPLY   &kp COMMA            &kp DOT         &kp LS(N0)
@@ -319,6 +322,7 @@
 /* left bot  */   &trans         &trans            &trans               &trans          &trans
 /* left tmb  */   &kp F14        &kp LC(LS(ESC))   &trans
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
+/* 5-way nav */   &trans         &trans            &trans               &trans          &trans
 /* right top */   &kp F6         &kp F7            &kp F8               &kp F9          &kp F10
 /* right mid */   &kp UP         &kp LEFT          &kp DOWN             &kp RIGHT       &kp PLUS
 /* right bot */   &trans         &trans            &trans               &trans          &kp EQUAL
@@ -334,6 +338,7 @@
 /* left bot  */   &usb_on        &ext_power EP_TOG &trans               &trans          &trans
 /* left tmb  */   &kp F14        &trans            &trans
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
+/* 5-way nav */   &trans         &trans            &trans               &trans          &trans
 /* right top */   &trans         &trans            &trans               &trans          &kp LA(F4)
 /* right mid */   &trans         &trans            &trans               &trans          &trans
 /* right bot */   &trans         &trans            &kp C_PREV           &kp C_NEXT      &trans
