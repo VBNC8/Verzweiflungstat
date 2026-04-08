@@ -23,12 +23,12 @@
  *     Key 16  P0.01 — left thumb 2 (ESC / layer)
  *     Key 17  P0.21 — left thumb 3 (TAB / layer)
  *
- *   Encoder (5-way rotary on left):
- *     A   P1.11
- *     B   P1.13
+ *   Encoder (rotary, centre bottom pads):
+ *     A   P1.01
+ *     B   P1.02
  *
- *   Special pin ("second GND"):
- *     P1.15 — row output driven LOW when scanning BT-switcher & 5-way switch
+ *   Special pin ("switcher row"):
+ *     P1.07 — row output driven LOW when scanning BT-switcher contacts
  *
  *   4 special switches (BT-switcher), each wired between a key GPIO and
  *   the special pin.  Uses the first 4 key GPIOs (keys 0–3):
@@ -110,7 +110,7 @@
         diode-direction = "row2col";
 
         row-gpios
-            = <&gpio1 15 GPIO_ACTIVE_LOW>                    /* P1.15 special pin */
+            = <&gpio1  7 GPIO_ACTIVE_LOW>                    /* P1.07 special pin */
             ;
 
         col-gpios
@@ -121,11 +121,11 @@
             ;
     };
 
-    /* 5-way rotary encoder (A = P1.11, B = P1.13) */
+    /* rotary encoder (A = P1.01, B = P1.02 — centre bottom pads) */
     encoder_left: encoder_left {
         compatible = "alps,ec11";
-        a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        a-gpios = <&gpio1  1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio1  2 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <80>;
         status = "okay";
     };
