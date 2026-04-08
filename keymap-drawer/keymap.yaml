@@ -1,0 +1,336 @@
+layers:
+  default:
+  - t: Q
+    s: '@'
+  - W
+  - t: E
+    s: €
+  - R
+  - T
+  - A
+  - S
+  - t: D
+    h: CTRL
+  - t: F
+    h: Shift
+  - G
+  - Z
+  - t: X
+    h: Alt
+  - C
+  - V
+  - B
+  - t: ⏯
+    h: Adjust
+    type: round
+  - t: ESC
+    h: Raise
+  - t: ⇥
+    h: Lower
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - H
+  - t: J
+    h: Shift
+  - t: K
+    h: CTRL
+  - L
+  - ''''
+  - N
+  - t: M
+    s: µ
+  - ','
+  - t: .
+    s: AltGr
+  - ⌦
+  - t: ↵
+    h: Lower
+  - t: ␣
+    h: Raise
+  - t: ⌫
+    h: Adjust
+  lower:
+  - ^
+  - <
+  - '>'
+  - Ø
+  - ☻
+  - t: '1'
+    s: '!'
+  - t: '2'
+    s: '"'
+  - t: '3'
+    s: §
+  - t: '4'
+    s: $
+  - t: '5'
+    s: '%'
+  - '~'
+  - '%'
+  - '|'
+  - $
+  - '#'
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: round
+  - $$mdi:microsoft-windows-classic$$
+  - t: ⤒ Pos1
+    type: held
+  - °
+  - ()
+  - '{}'
+  - '[]'
+  - ''''
+  - t: '6'
+    s: '&'
+  - t: '7'
+    s: /
+  - t: '8'
+    s: (
+  - t: '9'
+    s: )
+  - t: '0'
+    s: '='
+  - +
+  - '*'
+  - ','
+  - .
+  - '='
+  - t: ⤓ End
+    type: held
+  - t: $$mdi:monitor$$
+    s: Show
+  - t: ▽
+    type: trans
+  raise:
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ' '
+    type: round
+  - t: Task Mgr
+    type: held
+  - t: ▽
+    type: trans
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - UP
+  - LEFT
+  - DOWN
+  - RIGHT
+  - '`'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - ´
+  - t: ▽
+    type: trans
+  - t: '&nbsp'
+    type: held
+  - t: ▽
+    type: trans
+  adjust:
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: $$mdi:bluetooth$$
+    h: PC
+    s: ⓵
+  - t: $$mdi:bluetooth$$
+    h: S8
+    s: ⓶
+  - t: $$mdi:bluetooth$$
+    h: Zbook
+    s: ⓷
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - $$mdi:usb$$
+  - Pwr±
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ' '
+    type: round
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ✕
+    s: Alt F4
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - ⏮
+  - ⏭
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ' '
+    type: held
+combos:
+- p:
+  - 2
+  - 7
+  k: '!'
+  l:
+  - default
+  - lower
+- p:
+  - 30
+  - 31
+  k: ':'
+  l:
+  - default
+  - lower
+- p:
+  - 11
+  - 12
+  k: 'CREO
+
+    (C+A)'
+  l:
+  - default
+- p:
+  - 25
+  - 26
+  k: \
+  l:
+  - default
+  - lower
+- p:
+  - 6
+  - 7
+  k: /
+  l:
+  - default
+  - lower
+- p:
+  - 26
+  - 27
+  k: '-'
+  l:
+  - default
+  - lower
+- p:
+  - 5
+  - 6
+  k: _
+  l:
+  - default
+  - lower
+- p:
+  - 8
+  - 24
+  k: 'CAPS
+
+    WORD'
+  l:
+  - default
+- p:
+  - 7
+  - 8
+  k: '"'
+  l:
+  - default
+  - lower
+- p:
+  - 24
+  - 25
+  k: '?'
+  l:
+  - default
+  - lower
+- p:
+  - 0
+  - 5
+  k: Ä
+  l:
+  - default
+- p:
+  - 21
+  - 26
+  k: Ö
+  l:
+  - default
+- p:
+  - 19
+  - 24
+  k: Ü
+  l:
+  - default
+- p:
+  - 1
+  - 6
+  k: ß
+  l:
+  - default
+layout:
+  qmk_keyboard: crkbd/rev1
+  qmk_layout: LAYOUT_split_3x5_3
