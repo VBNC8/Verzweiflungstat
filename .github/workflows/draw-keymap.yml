@@ -3,9 +3,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/splitkb_aurora_corne.keymap"
+      - "config/supermini_split.keymap"
       - "config/keymap_drawer.config.yaml"
-      - "keymap-drawer/keymap.yaml"
       - ".github/workflows/draw-keymap.yml"
 
 jobs:
@@ -25,68 +24,61 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
-          
-          python3 - <<EOF
-          import yaml
+          # Parse supermini_split keymap.
+          # The keymap has 40 positions: 0-17 left keys, 18-21 BT-switcher (special pin), 22-39 right keys.
+          # For drawing we strip the 4 special positions (18-21) to get a clean 36-key 5x3+3 layout.
+          keymap -c config/keymap_drawer.config.yaml parse -z config/supermini_split.keymap > raw_keymap.yaml
+
+          python3 - <<'PYEOF'
+          import yaml, os
+
           with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
-          
-          # Layout-Wechsel auf das schmale 3x5_3
+
+          # 5x3 + 3 thumbs split layout
           data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
-          
-          # Definition der zu löschenden Indizes (Randtasten)
-          deleted_indices = [0, 11, 12, 23, 24, 35]
-          
-          # 2. Layer-Tasten löschen (42 -> 36)
+
+          # Remove special positions 18-21 (BT-switcher) from every layer
+          special_indices = list(range(18, 22))  # 4 positions
+
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              for idx in sorted(deleted_indices, reverse=True):
+              for idx in sorted(special_indices, reverse=True):
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
-          
-          # 3. EC11-Encoder-Taste (linker Daumen, Position 30) in allen Layern als Kreis anzeigen
+
+          # Mark encoder button (left thumb 1, position 15) as round in all layers
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              if len(keys_list) > 30:
-                  key = keys_list[30]
+              if len(keys_list) > 15:
+                  key = keys_list[15]
                   if isinstance(key, dict):
                       key['type'] = 'round'
                   else:
-                      keys_list[30] = {'t': str(key), 'type': 'round'}
+                      keys_list[15] = {'t': str(key), 'type': 'round'}
 
-          # 4. BT/USB-Combos ausfiltern (sollen nicht gezeichnet werden)
-          bt_usb_positions = [{0, 24}, {1, 25}, {2, 26}, {3, 27}]
+          # Recalculate combo positions: strip combos that touch special range,
+          # then shift right-side positions (>=22) down by 4.
           if 'combos' in data:
               data['combos'] = [c for c in data['combos']
-                                if set(c['p']) not in bt_usb_positions]
-
-          # 5. NEU: Combos umrechnen
-          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
-          if 'combos' in data:
+                                if not any(18 <= p <= 21 for p in c['p'])]
               for combo in data['combos']:
-                  new_positions = []
-                  for pos in combo['p']:
-                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
-                      offset = sum(1 for d in deleted_indices if d < pos)
-                      new_positions.append(pos - offset)
-                  combo['p'] = new_positions
-          
-          import os
+                  combo['p'] = [p if p < 18 else p - 4 for p in combo['p']]
+
           os.makedirs('keymap-drawer', exist_ok=True)
           with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
-          EOF
+          PYEOF
+
       - name: Draw SVG
         run: |
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/supermini_split.svg
 
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
-          git commit -m "Automated 3x5_3 crop and draw" || exit 0
+          git add keymap-drawer/keymap.yaml keymap-drawer/supermini_split.svg
+          git commit -m "Automated keymap draw for supermini_split" || exit 0
           git push
