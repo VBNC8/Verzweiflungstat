@@ -1,25 +1,26 @@
 /*
- * Supermini Split keymap — copied from splitkb_aurora_corne and adapted
- * for the 5×3+3 layout (18 keys per half = 36 regular) plus 9 special
- * positions for the hardware BT-switcher and 5-way switch.
+ * Supermini Split keymap — Corne keymap with outer pinky columns removed.
  *
- * Key position reference (see overlay for pin details):
+ * Key position reference (40 positions total):
  *
- *   Left regular (pos 0–17):
- *     0  1  2  3  4        ← top row
- *     5  6  7  8  9        ← mid row
- *    10 11 12 13 14        ← bot row
- *    15 16 17              ← thumbs
+ *   Left 5×3 (pos 0–14):
+ *     0  1  2  3  4   ← top row  (Q  W  E  R  T)
+ *     5  6  7  8  9   ← mid row  (A  S  D  F  G)
+ *    10 11 12 13 14   ← bot row  (Z  X  C  V  B)
  *
- *   Special (pos 18–26, via special pin P1.15):
+ *   Left thumbs (pos 15–17):
+ *    15 16 17
+ *
+ *   BT-switcher via special pin P1.15 (pos 18–21):
  *    18=BT0  19=BT1  20=BT2  21=USB_OUT
- *    22=5w↑  23=5w↓  24=5w←  25=5w→  26=5w●
  *
- *   Right regular (pos 27–44, peripheral offset +27):
- *    27 28 29 30 31        ← top row
- *    32 33 34 35 36        ← mid row
- *    37 38 39 40 41        ← bot row
- *    42 43 44              ← thumbs
+ *   Right 5×3 (pos 22–36, peripheral offset +22):
+ *    22 23 24 25 26   ← top row  (Y  U  I  O  P)
+ *    27 28 29 30 31   ← mid row  (H  J  K  L  ö)
+ *    32 33 34 35 36   ← bot row  (N  M  ,  .  DEL)
+ *
+ *   Right thumbs (pos 37–39):
+ *    37 38 39
  */
 
 #include <behaviors.dtsi>
@@ -86,13 +87,17 @@
 
         smiley: smiley {
             compatible = "zmk,behavior-macro";
-            #binding-cells = <0>; wait-ms = <20>; tap-ms = <20>;
+            #binding-cells = <0>;
+            wait-ms = <20>;
+            tap-ms = <20>;
             bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>;
         };
 
         nbsp: nbsp {
             compatible = "zmk,behavior-macro";
-            #binding-cells = <0>; wait-ms = <30>; tap-ms = <30>;
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
             bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>;
         };
 
@@ -153,120 +158,114 @@
     combos {
         compatible = "zmk,combos";
 
-        /*
-         * Positions use the NEW layout numbers (see header comment).
-         * BT channel selection is now handled by the hardware BT-switcher
-         * (positions 18–21) — software combos for BT are removed.
-         */
-
-        /* ! on E+D */
+        // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
-            key-positions = <2 7>;
+            key-positions = <2 7>; // E=2, D=7
             bindings = <&kp LS(N1)>;
             layers = <0 1>;
         };
 
-        /* : on , + . */
+        // Doppelpunkt (:) auf , und .
         combo_colon {
             timeout-ms = <50>;
-            key-positions = <39 40>;
+            key-positions = <34 35>; // ,=34, .=35
             bindings = <&kp LS(DOT)>;
             layers = <0 1>;
         };
 
-        /* Ctrl+Alt on X+C */
+        // CREO: Ctrl+Alt auf X und C (Links unten)
         combo_creo_mod {
             timeout-ms = <50>;
-            key-positions = <11 12>;
+            key-positions = <11 12>; // X=11, C=12
             bindings = <&kp LC(LALT)>;
             layers = <0>;
         };
 
-        /* \ on K+L */
+        // Backslash (\) auf K und L
         combo_backslash {
             timeout-ms = <40>;
-            key-positions = <34 35>;
+            key-positions = <29 30>; // K=29, L=30
             bindings = <&kp RA(MINUS)>;
             layers = <0 1>;
         };
 
-        /* / on S+D */
+        // Slash (/) auf S und D
         combo_slash {
             timeout-ms = <40>;
-            key-positions = <6 7>;
+            key-positions = <6 7>; // S=6, D=7
             bindings = <&kp KP_DIVIDE>;
             layers = <0 1>;
         };
 
-        /* - on L+Ö */
+        // Minus/Bindestrich (-) auf L und Ö
         combo_minus {
             timeout-ms = <50>;
-            key-positions = <35 36>;
+            key-positions = <30 31>; // L=30, ö=31
             bindings = <&kp SLASH>;
             layers = <0 1>;
         };
 
-        /* _ on A+S */
+        // Unterstrich (_) auf A und S
         combo_underscore {
             timeout-ms = <40>;
-            key-positions = <5 6>;
+            key-positions = <5 6>; // A=5, S=6
             bindings = <&kp LS(SLASH)>;
             layers = <0 1>;
         };
 
-        /* CapsWord on F+J */
+        // Caps Word auf F und J
         combo_caps_word {
             timeout-ms = <40>;
-            key-positions = <8 33>;
+            key-positions = <8 28>; // F=8, J=28
             bindings = <&caps_wrd>;
             layers = <0>;
         };
 
-        /* " on D+F */
+        // Gänsefüßchen (") auf D und F
         combo_quote {
             timeout-ms = <50>;
-            key-positions = <7 8>;
+            key-positions = <7 8>; // D=7, F=8
             bindings = <&kp LS(N2)>;
             layers = <0 1>;
         };
 
-        /* ? on J+K */
+        // Fragezeichen (?) auf J und K
         combo_question {
             timeout-ms = <50>;
-            key-positions = <33 34>;
+            key-positions = <28 29>; // J=28, K=29
             bindings = <&kp LS(MINUS)>;
             layers = <0 1>;
         };
 
-        /* Ä on Q+A */
+        // Ä (Q + A) - Vertikal linker Zeigefinger
         combo_ae {
             timeout-ms = <55>;
-            key-positions = <0 5>;
+            key-positions = <0 5>; // Q=0, A=5
             bindings = <&kp SQT>;
             layers = <0>;
         };
 
-        /* Ö on O+L */
+        // Ö (O + L) - Vertikal rechter Ringfinger
         combo_oe {
             timeout-ms = <50>;
-            key-positions = <30 35>;
+            key-positions = <25 30>; // O=25, L=30
             bindings = <&kp SEMI>;
             layers = <0>;
         };
 
-        /* Ü on U+J */
+        // Ü (U + J) - Vertikal rechter Zeigefinger
         combo_ue {
             timeout-ms = <50>;
-            key-positions = <28 33>;
+            key-positions = <23 28>; // U=23, J=28
             bindings = <&kp LBKT>;
             layers = <0>;
         };
 
-        /* ß on W+S */
+        // ß (W + S) - Vertikal linker Ringfinger
         combo_ss {
             timeout-ms = <50>;
-            key-positions = <1 6>;
+            key-positions = <1 6>; // W=1, S=6
             bindings = <&kp MINUS>;
             layers = <0>;
         };
@@ -276,21 +275,20 @@
         compatible = "zmk,keymap";
 
         /*
-         * Each layer needs exactly 45 bindings (pos 0–44).
+         * Each layer has exactly 40 bindings.
          * Order: left top (0–4), left mid (5–9), left bot (10–14),
-         *        left thumbs (15–17), BT sel (18–21), 5-way (22–26),
-         *        right top (27–31), right mid (32–36), right bot (37–41),
-         *        right thumbs (42–44).
+         *        left thumbs (15–17), BT sel (18–21),
+         *        right top (22–26), right mid (27–31), right bot (32–36),
+         *        right thumbs (37–39).
          */
         default_layer {
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
             bindings = <
 /* left top  */   &kp Q          &kp W             &kp E              &kp R                &kp T
 /* left mid  */   &kp A          &kp S             &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G
 /* left bot  */   &kp Z          &hrm_safe LALT X  &kp C              &kp V                &kp B
 /* left tmb  */   &lt_hp 3 C_PP  &lt 2 ESC         &lt 1 TAB
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2          &usb_on
-/* 5-way sw  */   &kp UP         &kp DOWN          &kp LEFT           &kp RIGHT            &kp RET
 /* right top */   &kp Y          &kp U             &kp I              &kp O                &kp P
 /* right mid */   &kp H          &hrm_shift RSHIFT J  &hrm_safe RCTRL K  &kp L            &kp LS(NON_US_HASH)
 /* right bot */   &kp N          &kp M             &kp COMMA          &hrm_safe RALT DOT   &kp DEL
@@ -299,14 +297,13 @@
         };
 
         lower_layer {
-            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>;
+            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>, <&inc_dec_kp PG_DN PG_UP>;
             bindings = <
 /* left top  */   &kp GRAVE      &kp NON_US_BSLH   &kp LS(NON_US_BSLH)  &durchmesser   &smiley
 /* left mid  */   &kp N1         &kp N2            &kp N3               &kp N4         &kp N5
 /* left bot  */   &kp RA(RBKT)   &kp LS(N5)        &kp RA(NON_US_BSLH)  &kp LS(N4)     &kp NON_US_HASH
 /* left tmb  */   &enc_bt_clr 0 0  &kp LGUI        &kp HOME
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
-/* 5-way sw  */   &kp UP         &kp DOWN          &kp LEFT             &kp RIGHT       &kp RET
 /* right top */   &kp LS(GRAVE)  &pair_paren       &pair_brc            &pair_bkt       &kp LS(BSLH)
 /* right mid */   &kp N6         &kp N7            &kp N8               &kp N9          &kp N0
 /* right bot */   &kp KP_PLUS    &kp KP_MULTIPLY   &kp COMMA            &kp DOT         &kp LS(N0)
@@ -315,14 +312,13 @@
         };
 
         raise_layer {
-            sensor-bindings = <&inc_dec_kp UP DOWN>;
+            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
             bindings = <
 /* left top  */   &kp F1         &kp F2            &kp F3               &kp F4          &kp F5
 /* left mid  */   &trans         &trans            &trans               &trans          &trans
 /* left bot  */   &trans         &trans            &trans               &trans          &trans
 /* left tmb  */   &kp F14        &kp LC(LS(ESC))   &trans
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
-/* 5-way sw  */   &kp UP         &kp DOWN          &kp LEFT             &kp RIGHT       &kp RET
 /* right top */   &kp F6         &kp F7            &kp F8               &kp F9          &kp F10
 /* right mid */   &kp UP         &kp LEFT          &kp DOWN             &kp RIGHT       &kp PLUS
 /* right bot */   &trans         &trans            &trans               &trans          &kp EQUAL
@@ -331,14 +327,13 @@
         };
 
         adjust_layer {
-            sensor-bindings = <&inc_dec_kp UP DOWN>;
+            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
             bindings = <
 /* left top  */   &trans         &trans            &trans               &trans          &trans
 /* left mid  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &trans          &trans
 /* left bot  */   &usb_on        &ext_power EP_TOG &trans               &trans          &trans
 /* left tmb  */   &kp F14        &trans            &trans
 /* BT sel    */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &usb_on
-/* 5-way sw  */   &kp UP         &kp DOWN          &kp LEFT             &kp RIGHT       &kp RET
 /* right top */   &trans         &trans            &trans               &trans          &kp LA(F4)
 /* right mid */   &trans         &trans            &trans               &trans          &trans
 /* right bot */   &trans         &trans            &kp C_PREV           &kp C_NEXT      &trans

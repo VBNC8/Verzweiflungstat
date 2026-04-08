@@ -30,22 +30,17 @@
  *   Special pin ("second GND"):
  *     P1.15 — row output driven LOW when scanning BT-switcher & 5-way switch
  *
- *   9 special switches (BT-switcher 4 + 5-way 5), each wired between a key
- *   GPIO and the special pin.  Shares the first 9 key GPIOs (keys 0–8):
- *     BT0       → P0.02 + P1.15
- *     BT1       → P0.03 + P1.15
- *     BT2       → P0.04 + P1.15
- *     USB_OUT   → P0.05 + P1.15
- *     5way UP   → P0.06 + P1.15
- *     5way DOWN → P0.07 + P1.15
- *     5way LEFT → P0.08 + P1.15
- *     5way RIGHT→ P0.09 + P1.15
- *     5way CTR  → P0.10 + P1.15
+ *   4 special switches (BT-switcher), each wired between a key GPIO and
+ *   the special pin.  Uses the first 4 key GPIOs (keys 0–3):
+ *     BT0     → P0.02 + P1.15
+ *     BT1     → P0.03 + P1.15
+ *     BT2     → P0.04 + P1.15
+ *     USB_OUT → P0.05 + P1.15
  *
  * Key-position map (used in keymap / combos):
- *   Left regular keys  : 0–17
- *   Left special keys  : 18–26  (BT0–USB, 5way×5)
- *   Right regular keys : 27–44  (sent by peripheral, offset +27)
+ *   Left regular keys  : 0–17   (18 direct)
+ *   Left special keys  : 18–21  (BT0, BT1, BT2, USB_OUT via special pin)
+ *   Right regular keys : 22–39  (sent by peripheral, offset +22)
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -119,15 +114,10 @@
             ;
 
         col-gpios
-            = <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT0       P0.02 */
-            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT1       P0.03 */
-            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT2       P0.04 */
-            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* USB_OUT   P0.05 */
-            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* 5way UP   P0.06 */
-            , <&gpio0  7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* 5way DOWN P0.07 */
-            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* 5way LEFT P0.08 */
-            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* 5way RIGHT P0.09 */
-            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* 5way CTR  P0.10 */
+            = <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT0     P0.02 */
+            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT1     P0.03 */
+            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT2     P0.04 */
+            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* USB_OUT P0.05 */
             ;
     };
 
@@ -147,44 +137,30 @@
     };
 
     /*
-     * Matrix transform: 5 rows × 10 cols, 45 entries total.
+     * Matrix transform: 2 rows × 18 cols, 22 entries total.
      *
      *   Pos  0– 4 : left top row    RC(0,0)–RC(0,4)
-     *   Pos  5– 9 : left mid row    RC(1,0)–RC(1,4)
-     *   Pos 10–14 : left bot row    RC(2,0)–RC(2,4)
-     *   Pos 15–17 : left thumbs     RC(3,0)–RC(3,2)
-     *   Pos 18–21 : BT sel          RC(4,0)–RC(4,3)
-     *   Pos 22–26 : 5-way switch    RC(4,4)–RC(4,8)
-     *   Pos 27–31 : right top row   RC(0,5)–RC(0,9)
-     *   Pos 32–36 : right mid row   RC(1,5)–RC(1,9)
-     *   Pos 37–41 : right bot row   RC(2,5)–RC(2,9)
-     *   Pos 42–44 : right thumbs    RC(3,7)–RC(3,9)
+     *   Pos  5– 9 : left mid row    RC(0,5)–RC(0,9)
+     *   Pos 10–14 : left bot row    RC(0,10)–RC(0,14)
+     *   Pos 15–17 : left thumbs     RC(0,15)–RC(0,17)
+     *   Pos 18–21 : BT sel + USB   RC(1,0)–RC(1,3)
+     *   Pos 22–39 : right keys      (peripheral offset +22)
      */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
-        columns = <10>;
-        rows = <5>;
+        columns = <18>;
+        rows = <2>;
         map = <
             /* left top */
-            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)
+            RC(0,0)  RC(0,1)  RC(0,2)  RC(0,3)  RC(0,4)
             /* left mid */
-            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)
+            RC(0,5)  RC(0,6)  RC(0,7)  RC(0,8)  RC(0,9)
             /* left bot */
-            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)
+            RC(0,10) RC(0,11) RC(0,12) RC(0,13) RC(0,14)
             /* left thumbs */
-            RC(3,0) RC(3,1) RC(3,2)
+            RC(0,15) RC(0,16) RC(0,17)
             /* BT selector (hardware switch via special pin) */
-            RC(4,0) RC(4,1) RC(4,2) RC(4,3)
-            /* 5-way switch (via special pin) */
-            RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8)
-            /* right top (peripheral offset +27) */
-            RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
-            /* right mid */
-            RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9)
-            /* right bot */
-            RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
-            /* right thumbs */
-            RC(3,7) RC(3,8) RC(3,9)
+            RC(1,0)  RC(1,1)  RC(1,2)  RC(1,3)
         >;
     };
 };
