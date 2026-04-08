@@ -1,0 +1,5 @@
+config SHIELD_SUPERMINI_SPLIT_LEFT
+	def_bool $(shields_list_contains,supermini_split_left)
+
+config SHIELD_SUPERMINI_SPLIT_RIGHT
+	def_bool $(shields_list_contains,supermini_split_right)
