@@ -112,7 +112,7 @@
         hrm_shift: hrm_shift {
             compatible = "zmk,behavior-hold-tap"; 
             #binding-cells = <2>;
-            tapping-term-ms = <200>;         // Etwas mehr Puffer
+            tapping-term-ms = <170>;         // Etwas mehr Puffer
             quick-tap-ms = <100>;            // Deutlich unter tapping-term
             flavor = "balanced"; // Reagiert sofort bei Tastenkombinationen
             bindings = <&kp>, <&kp>; 
