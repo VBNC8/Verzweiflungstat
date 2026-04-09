@@ -309,6 +309,12 @@ combos:
   - default
   - lower
 - p:
+  - 0
+  - 10
+  k: Ä
+  l:
+  - default
+- p:
   - 8
   - 18
   k: Ö
@@ -324,12 +330,6 @@ combos:
   - 1
   - 11
   k: ß
-  l:
-  - default
-- p:
-  - 0
-  - 10
-  k: Ä
   l:
   - default
 layout:
