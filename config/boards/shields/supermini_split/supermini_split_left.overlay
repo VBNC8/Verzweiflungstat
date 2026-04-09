@@ -148,13 +148,22 @@
     /*
      * Matrix transform: 2 rows × 18 cols, 27 central entries.
      *
-     *   Pos  0– 4 : left top row    RC(0,0)–RC(0,4)
-     *   Pos  5– 9 : left mid row    RC(0,5)–RC(0,9)
-     *   Pos 10–14 : left bot row    RC(0,10)–RC(0,14)
-     *   Pos 15–17 : left thumbs     RC(0,15)–RC(0,17)
-     *   Pos 18–21 : BT sel + USB    RC(1,0)–RC(1,3)
-     *   Pos 22–26 : 5-way nav       RC(1,4)–RC(1,8)
-     *   Pos 27–44 : right keys      (peripheral offset +27)
+     * Logical 30/6/9 grouping (draw order — see draw-keymap workflow):
+     *   ALPHA  (30): pos  0–14 left  +  pos 27–41 right (peripheral)
+     *   THUMBS  (6): pos 15–17 left  +  pos 42–44 right (peripheral)
+     *   SPECIAL (9): pos 18–26 (BT0–3, 5-way nav via P1.07)
+     *
+     * Central entries (positions 0–26):
+     *   Pos  0– 4 : left top    RC(0,0)–RC(0,4)
+     *   Pos  5– 9 : left mid    RC(0,5)–RC(0,9)
+     *   Pos 10–14 : left bot    RC(0,10)–RC(0,14)
+     *   Pos 15–17 : left thumbs RC(0,15)–RC(0,17)
+     *   Pos 18–21 : BT sel      RC(1,0)–RC(1,3)
+     *   Pos 22–26 : 5-way nav   RC(1,4)–RC(1,8)
+     * Peripheral offset = 27  →  right keys at pos 27–44.
+     *
+     * NOTE: The exact sequential layout 0–29 / 30–35 / 36–44 is not
+     * achievable in ZMK BLE split (peripheral offset is fixed at 27).
      */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";

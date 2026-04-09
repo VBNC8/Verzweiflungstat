@@ -1,27 +1,33 @@
 /*
  * Supermini Split keymap — Corne keymap with outer pinky columns removed.
  *
- * Key position reference (45 positions total):
+ * Logical grouping (30 / 6 / 9):
+ *   ┌──────────────────────────────────────────────────────────────────────┐
+ *   │  ALPHA keys (30)                                                     │
+ *   │    Left  5×3  : pos  0–14   Right 5×3  : pos 27–41                  │
+ *   │     0  1  2  3  4  (Q W E R T)    27 28 29 30 31  (Y U I O P)       │
+ *   │     5  6  7  8  9  (A S D F G)    32 33 34 35 36  (H J K L ö)       │
+ *   │    10 11 12 13 14  (Z X C V B)    37 38 39 40 41  (N M , . DEL)     │
+ *   ├──────────────────────────────────────────────────────────────────────┤
+ *   │  THUMB keys (6)                                                      │
+ *   │    Left  3    : pos 15–17   Right 3    : pos 42–44                  │
+ *   │    15 16 17                 42 43 44                                 │
+ *   ├──────────────────────────────────────────────────────────────────────┤
+ *   │  SPECIAL keys (9) — BT-Switcher + 5-way nav via P1.07               │
+ *   │    pos 18–26                                                         │
+ *   │    18=BT0  19=BT1  20=BT2  21=USB_OUT                               │
+ *   │    22=Up   23=Down 24=Left 25=Right 26=OK                           │
+ *   └──────────────────────────────────────────────────────────────────────┘
  *
- *   Left 5×3 (pos 0–14):
- *     0  1  2  3  4   ← top row  (Q  W  E  R  T)
- *     5  6  7  8  9   ← mid row  (A  S  D  F  G)
- *    10 11 12 13 14   ← bot row  (Z  X  C  V  B)
- *
- *   Left thumbs (pos 15–17):
- *    15 16 17
- *
- *   Special pin P1.07 virtual row (pos 18–26):
- *    18=BT0  19=BT1  20=BT2  21=USB_OUT
- *    22=Up   23=Down 24=Left 25=Right 26=Enter
- *
- *   Right 5×3 (pos 27–41, peripheral offset +27):
- *    27 28 29 30 31   ← top row  (Y  U  I  O  P)
- *    32 33 34 35 36   ← mid row  (H  J  K  L  ö)
- *    37 38 39 40 41   ← bot row  (N  M  ,  .  DEL)
- *
- *   Right thumbs (pos 42–44):
- *    42 43 44
+ * NOTE — ZMK BLE-split constraint:
+ *   The peripheral offset equals the number of central transform entries (27).
+ *   Right-side keys therefore always occupy positions 27–44; they cannot be
+ *   placed at 15–29 without dropping left thumbs and special from the keymap.
+ *   The desired fully-sequential layout (alpha 0–29, thumbs 30–35, special 36–44)
+ *   is not achievable in ZMK BLE wireless split.  The actual firmware positions
+ *   are: alpha [0–14] + [27–41], thumbs [15–17] + [42–44], special [18–26].
+ *   The draw-keymap workflow compensates by re-ordering keys visually into
+ *   the 30 / 6 / 9 groups before drawing.
  */
 
 #include <behaviors.dtsi>
@@ -276,11 +282,18 @@
         compatible = "zmk,keymap";
 
         /*
-         * Each layer has exactly 45 bindings.
-         * Order: left top (0–4), left mid (5–9), left bot (10–14),
-         *        left thumbs (15–17), BT sel (18–21), 5-way nav (22–26),
-         *        right top (27–31), right mid (32–36), right bot (37–41),
-         *        right thumbs (42–44).
+         * Each layer has exactly 45 bindings in this position order:
+         *   Pos  0– 4 : left top    (alpha)     Pos 27–31 : right top    (alpha)
+         *   Pos  5– 9 : left mid    (alpha)     Pos 32–36 : right mid    (alpha)
+         *   Pos 10–14 : left bot    (alpha)     Pos 37–41 : right bot    (alpha)
+         *   Pos 15–17 : left thumbs             Pos 42–44 : right thumbs
+         *   Pos 18–21 : BT sel (special)
+         *   Pos 22–26 : 5-way nav (special)
+         *
+         * Logical draw order (30 alpha / 6 thumbs / 9 special):
+         *   alpha  : [0–14] + [27–41]
+         *   thumbs : [15–17] + [42–44]
+         *   special: [18–26]
          */
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
