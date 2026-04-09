@@ -33,7 +33,11 @@ jobs:
           # crkbd LAYOUT_split_3x5_3 numbers keys row-by-row across both halves,
           # so a reorder step is needed before passing to keymap-drawer.
 
-          keymap -c config/keymap_drawer.config.yaml parse -z config/supermini_split.keymap > raw_keymap.yaml
+          # keymap-drawer's get_array regex expects "key-positions" (hyphen).
+          # The keymap source uses "key_positions" (underscore), so normalise
+          # to a temp copy before parsing.
+          sed 's/key_positions/key-positions/g' config/supermini_split.keymap > /tmp/supermini_split_normalized.keymap
+          keymap -c config/keymap_drawer.config.yaml parse -z /tmp/supermini_split_normalized.keymap > raw_keymap.yaml
 
           python3 - <<'PYEOF'
           import yaml, os
@@ -111,14 +115,19 @@ jobs:
           ]
           remapped_combos = []
           for combo in data.get('combos', []):
-              positions = combo.get('key_positions', [])
+              # keymap-drawer serialises key positions under the short alias "p"
+              positions = combo.get('p', combo.get('key_positions', []))
               # Skip BT-switcher (T+A/S/D/F) combos — firmware pos 4 (T key).
               if 4 in positions:
                   continue
               # Skip 5-way-nav (Q+Y/X/C/V/B) combos — firmware pos 0 (Q key).
               if 0 in positions:
                   continue
-              combo['key_positions'] = [FW_POS_TO_QMK_POS[p] for p in positions]
+              remapped = [FW_POS_TO_QMK_POS[pos] for pos in positions]
+              if 'p' in combo:
+                  combo['p'] = remapped
+              else:
+                  combo['key_positions'] = remapped
               remapped_combos.append(combo)
           data['combos'] = remapped_combos
 
