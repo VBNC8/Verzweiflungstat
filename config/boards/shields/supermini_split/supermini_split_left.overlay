@@ -1,50 +1,46 @@
 /*
  * Left half overlay — Super mini nrf52840
  *
- * Pin assignment (verify against your PCB):
+ * Pin assignment:
  *
- *   18 key GPIOs (P0.xx, right edge + left edge):
- *     Key  0  P0.02 — top row, col 0
- *     Key  1  P0.03 — top row, col 1
- *     Key  2  P0.04 — top row, col 2
- *     Key  3  P0.05 — top row, col 3
- *     Key  4  P0.06 — top row, col 4
- *     Key  5  P0.07 — mid row, col 0
- *     Key  6  P0.08 — mid row, col 1
- *     Key  7  P0.09 — mid row, col 2
- *     Key  8  P0.10 — mid row, col 3
- *     Key  9  P0.14 — mid row, col 4
- *     Key 10  P0.15 — bot row, col 0
- *     Key 11  P0.16 — bot row, col 1
- *     Key 12  P0.18 — bot row, col 2
- *     Key 13  P0.19 — bot row, col 3
- *     Key 14  P0.20 — bot row, col 4
- *     Key 15  P0.00 — left thumb 1 (encoder push / layer)
- *     Key 16  P0.01 — left thumb 2 (ESC / layer)
- *     Key 17  P0.21 — left thumb 3 (TAB / layer)
+ *   18 key GPIOs (P0.xx):
+ *     Key  0  P0.02 — top row, col 0  (Q)
+ *     Key  1  P0.03 — top row, col 1  (W)
+ *     Key  2  P0.04 — top row, col 2  (E)
+ *     Key  3  P0.05 — top row, col 3  (R)
+ *     Key  4  P0.06 — top row, col 4  (T)
+ *     Key  5  P0.07 — mid row, col 0  (A)
+ *     Key  6  P0.08 — mid row, col 1  (S)
+ *     Key  7  P0.09 — mid row, col 2  (D)
+ *     Key  8  P0.10 — mid row, col 3  (F)
+ *     Key  9  P0.14 — mid row, col 4  (G)
+ *     Key 10  P0.15 — bot row, col 0  (Z)
+ *     Key 11  P0.16 — bot row, col 1  (X)
+ *     Key 12  P0.18 — bot row, col 2  (C)
+ *     Key 13  P0.19 — bot row, col 3  (V)
+ *     Key 14  P0.20 — bot row, col 4  (B)
+ *     Key 15  P0.00 — left thumb 1    (encoder push / layer)
+ *     Key 16  P0.01 — left thumb 2    (ESC / layer)
+ *     Key 17  P0.21 — left thumb 3    (TAB / layer)
  *
  *   Encoder (rotary, centre bottom pads):
  *     A   P1.01
  *     B   P1.02
  *
- *   Special pin ("switcher row"):
- *     P1.07 — row output driven LOW when scanning BT-switcher contacts
- *
- *   9 special switches wired between a key GPIO and the special pin:
- *     BT0     → P0.02 + P1.07   (col 0)
- *     BT1     → P0.03 + P1.07   (col 1)
- *     BT2     → P0.04 + P1.07   (col 2)
- *     USB_OUT → P0.05 + P1.07   (col 3)
- *     Nav Up  → P0.06 + P1.07   (col 4)
- *     Nav Dn  → P0.07 + P1.07   (col 5)
- *     Nav Lt  → P0.08 + P1.07   (col 6)
- *     Nav Rt  → P0.09 + P1.07   (col 7)
- *     Nav OK  → P0.10 + P1.07   (col 8)
+ *   9 special-function switches wired in parallel to T + partner key:
+ *     BT0     → T (P0.06) + A (P0.07)   → combo T+A fires bt_sel_0
+ *     BT1     → T (P0.06) + S (P0.08)   → combo T+S fires bt_sel_1
+ *     BT2     → T (P0.06) + D (P0.09)   → combo T+D fires bt_sel_2
+ *     USB_OUT → T (P0.06) + F (P0.10)   → combo T+F fires usb_on
+ *     Nav Up  → T (P0.06) + Y (right)   → combo T+Y fires &kp UP
+ *     Nav Dn  → T (P0.06) + X (P0.16)   → combo T+X fires &kp DOWN
+ *     Nav Lt  → T (P0.06) + C (P0.18)   → combo T+C fires &kp LEFT
+ *     Nav Rt  → T (P0.06) + V (P0.19)   → combo T+V fires &kp RIGHT
+ *     Nav OK  → T (P0.06) + B (P0.20)   → combo T+B fires &kp RET
  *
  * Key-position map (used in keymap / combos):
- *   Left regular keys  : 0–17   (18 direct)
- *   Left special keys  : 18–26  (BT0–2, USB_OUT, Up, Down, Left, Right, Enter via P1.07)
- *   Right regular keys : 27–44  (sent by peripheral, offset +27)
+ *   Left  keys : 0–17   (18 direct, this half)
+ *   Right keys : 18–35  (sent by peripheral, offset +18)
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -55,29 +51,8 @@
         zmk,matrix-transform = &default_transform;
     };
 
-    /*
-     * Composite kscan:
-     *   row 0 (offset 0) — 18 direct keys to GND
-     *   row 1 (offset 1) — 9 special switches to special_pin
-     */
-    kscan0: kscan_composite {
-        compatible = "zmk,kscan-composite";
-        rows = <2>;
-        columns = <18>;
-
-        direct_keys {
-            kscan = <&kscan_direct>;
-            row-offset = <0>;
-        };
-
-        special_keys {
-            kscan = <&kscan_special>;
-            row-offset = <1>;
-        };
-    };
-
     /* 18 direct keys — each switch: GPIO pin → GND */
-    kscan_direct: kscan_direct {
+    kscan0: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios
@@ -102,34 +77,6 @@
             ;
     };
 
-    /*
-     * Special-pin matrix (1 row = P1.07, 9 cols = shared key GPIOs).
-     * row2col: P1.07 driven LOW → col GPIO reads LOW when switch closed.
-     * Diodeless: a simultaneously pressed regular key on the same GPIO
-     * also reads LOW.  BT/5-way presses should not coincide with typing.
-     */
-    kscan_special: kscan_special {
-        compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        diode-direction = "row2col";
-
-        row-gpios
-            = <&gpio1  7 GPIO_ACTIVE_LOW>                    /* P1.07 special pin */
-            ;
-
-        col-gpios
-            = <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT0     P0.02 col 0 */
-            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT1     P0.03 col 1 */
-            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* BT2     P0.04 col 2 */
-            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* USB_OUT P0.05 col 3 */
-            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Up  P0.06 col 4 */
-            , <&gpio0  7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Dn  P0.07 col 5 */
-            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Lt  P0.08 col 6 */
-            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav Rt  P0.09 col 7 */
-            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* Nav OK  P0.10 col 8 */
-            ;
-    };
-
     /* rotary encoder (A = P1.01, B = P1.02 — centre bottom pads) */
     encoder_left: encoder_left {
         compatible = "alps,ec11";
@@ -146,29 +93,17 @@
     };
 
     /*
-     * Matrix transform: 2 rows × 18 cols, 27 central entries.
-     *
-     * Logical 30/6/9 grouping (draw order — see draw-keymap workflow):
-     *   ALPHA  (30): pos  0–14 left  +  pos 27–41 right (peripheral)
-     *   THUMBS  (6): pos 15–17 left  +  pos 42–44 right (peripheral)
-     *   SPECIAL (9): pos 18–26 (BT0–3, 5-way nav via P1.07)
-     *
-     * Central entries (positions 0–26):
+     * Matrix transform: 1 row × 18 cols, 18 central entries.
      *   Pos  0– 4 : left top    RC(0,0)–RC(0,4)
      *   Pos  5– 9 : left mid    RC(0,5)–RC(0,9)
      *   Pos 10–14 : left bot    RC(0,10)–RC(0,14)
      *   Pos 15–17 : left thumbs RC(0,15)–RC(0,17)
-     *   Pos 18–21 : BT sel      RC(1,0)–RC(1,3)
-     *   Pos 22–26 : 5-way nav   RC(1,4)–RC(1,8)
-     * Peripheral offset = 27  →  right keys at pos 27–44.
-     *
-     * NOTE: The exact sequential layout 0–29 / 30–35 / 36–44 is not
-     * achievable in ZMK BLE split (peripheral offset is fixed at 27).
+     * Peripheral offset = 18  →  right keys at pos 18–35.
      */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <18>;
-        rows = <2>;
+        rows = <1>;
         map = <
             /* left top */
             RC(0,0)  RC(0,1)  RC(0,2)  RC(0,3)  RC(0,4)
@@ -178,10 +113,6 @@
             RC(0,10) RC(0,11) RC(0,12) RC(0,13) RC(0,14)
             /* left thumbs */
             RC(0,15) RC(0,16) RC(0,17)
-            /* BT selector (hardware switch via special pin P1.07) */
-            RC(1,0)  RC(1,1)  RC(1,2)  RC(1,3)
-            /* 5-way nav switch (hardware switch via special pin P1.07) */
-            RC(1,4)  RC(1,5)  RC(1,6)  RC(1,7)  RC(1,8)
         >;
     };
 };
