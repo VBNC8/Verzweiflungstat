@@ -192,10 +192,10 @@ layers:
   - t: $$mdi:bluetooth$$
     h: Zbook
     s: ⓷
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: $$mdi:bluetooth$$
+    s: ⓸
+  - t: $$mdi:bluetooth$$
+    s: ⓹
   - t: ▽
     type: trans
   - t: ▽
@@ -239,58 +239,84 @@ combos:
   - 2
   - 12
   k: '!'
+  l:
+  - default
 - p:
   - 27
   - 28
   k: ':'
+  l:
+  - default
 - p:
   - 21
   - 22
   k: 'CREO
 
     (C+A)'
+  l:
+  - default
 - p:
   - 17
   - 18
   k: \
+  l:
+  - default
 - p:
   - 11
   - 12
   k: /
+  l:
+  - default
 - p:
   - 18
   - 19
   k: '-'
+  l:
+  - default
 - p:
   - 10
   - 11
   k: _
+  l:
+  - default
 - p:
   - 13
   - 16
   k: 'CAPS
 
     WORD'
+  l:
+  - default
 - p:
   - 12
   - 13
   k: '"'
+  l:
+  - default
 - p:
   - 16
   - 17
   k: '?'
+  l:
+  - default
 - p:
   - 8
   - 18
   k: Ö
+  l:
+  - default
 - p:
   - 6
   - 16
   k: Ü
+  l:
+  - default
 - p:
   - 1
   - 11
   k: ß
+  l:
+  - default
 layout:
   qmk_keyboard: crkbd/rev1
   qmk_layout: LAYOUT_split_3x5_3
