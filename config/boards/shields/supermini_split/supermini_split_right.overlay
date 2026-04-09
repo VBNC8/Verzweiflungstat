@@ -12,7 +12,7 @@
  *   Key 17  P0.21 (right thumb 3)
  *
  * Positions 0–17 on the peripheral are transmitted to the central
- * and mapped to keymap positions 27–44 (central offset = 27).
+ * and mapped to keymap positions 18–35 (central offset = 18).
  */
 
 / {
