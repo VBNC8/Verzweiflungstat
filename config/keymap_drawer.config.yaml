@@ -95,6 +95,8 @@ parse_config:
     "&bt_sel_0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
     "&bt_sel_1": {t: "$$mdi:bluetooth$$", s: "⓶", h: "S8"}
     "&bt_sel_2": {t: "$$mdi:bluetooth$$", s: "⓷", h: "Zbook"}
+    "&bt BT_SEL 3": {t: "$$mdi:bluetooth$$", s: "⓸"}
+    "&bt BT_SEL 4": {t: "$$mdi:bluetooth$$", s: "⓹"}
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
 
     # --- MISC ---
@@ -142,3 +144,9 @@ draw_config:
     g.layer-default g.keypos-33 rect.key { fill: #854747; }
     g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
+    g.layer-lower g.keypos-17 rect.key { fill: #854747; }
+    g.layer-lower g.keypos-33 rect.key { fill: #854747; }
+    g.layer-raise g.keypos-16 rect.key { fill: #3a7a3a; }
+    g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
+    g.layer-adjust g.keypos-15 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
