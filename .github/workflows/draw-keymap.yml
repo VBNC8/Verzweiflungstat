@@ -110,12 +110,12 @@ jobs:
           ]
           remapped_combos = []
           for combo in data.get('combos', []):
-              positions = combo.get('key-positions', [])
+              positions = combo.get('key_positions', [])
               # Skip BT-switcher (T+A/S/D/F) and 5-way-nav (T+Y/X/C/V/B) combos —
               # they all share firmware pos 4 (T key).
               if 4 in positions:
                   continue
-              combo['key-positions'] = [FW_POS_TO_QMK_POS[p] for p in positions]
+              combo['key_positions'] = [FW_POS_TO_QMK_POS[p] for p in positions]
               remapped_combos.append(combo)
           data['combos'] = remapped_combos
 
