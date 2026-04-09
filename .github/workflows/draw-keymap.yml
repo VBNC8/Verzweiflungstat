@@ -88,6 +88,37 @@ jobs:
                   else:
                       keys_list[30] = {'t': str(key), 'type': 'round'}
 
+          # Remap combo key-positions from firmware order to QMK row-by-row order,
+          # and drop BT-switcher / 5-way-nav combos (all use T = firmware pos 4).
+          #   fw 0-4  → qmk 0-4    (left  top row, unchanged)
+          #   fw 5-9  → qmk 10-14  (left  mid row)
+          #   fw 10-14 → qmk 20-24 (left  bot row)
+          #   fw 15-17 → qmk 30-32 (left  thumbs)
+          #   fw 18-22 → qmk 5-9   (right top row)
+          #   fw 23-27 → qmk 15-19 (right mid row)
+          #   fw 28-32 → qmk 25-29 (right bot row)
+          #   fw 33-35 → qmk 33-35 (right thumbs)
+          FW_POS_TO_QMK_POS = [
+               0,  1,  2,  3,  4,   # fw  0- 4 → qmk  0- 4
+              10, 11, 12, 13, 14,   # fw  5- 9 → qmk 10-14
+              20, 21, 22, 23, 24,   # fw 10-14 → qmk 20-24
+              30, 31, 32,           # fw 15-17 → qmk 30-32
+               5,  6,  7,  8,  9,   # fw 18-22 → qmk  5- 9
+              15, 16, 17, 18, 19,   # fw 23-27 → qmk 15-19
+              25, 26, 27, 28, 29,   # fw 28-32 → qmk 25-29
+              33, 34, 35,           # fw 33-35 → qmk 33-35
+          ]
+          remapped_combos = []
+          for combo in data.get('combos', []):
+              positions = combo.get('key-positions', [])
+              # Skip BT-switcher (T+A/S/D/F) and 5-way-nav (T+Y/X/C/V/B) combos —
+              # they all share firmware pos 4 (T key).
+              if 4 in positions:
+                  continue
+              combo['key-positions'] = [FW_POS_TO_QMK_POS[p] for p in positions]
+              remapped_combos.append(combo)
+          data['combos'] = remapped_combos
+
           os.makedirs('keymap-drawer', exist_ok=True)
           with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
