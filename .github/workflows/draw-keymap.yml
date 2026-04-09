@@ -73,4 +73,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git add keymap-drawer/keymap.yaml keymap-drawer/supermini_split.svg
           git commit -m "Automated keymap draw for supermini_split" || exit 0
+          git pull --rebase
           git push
