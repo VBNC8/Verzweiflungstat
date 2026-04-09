@@ -237,145 +237,60 @@ layers:
 combos:
 - p:
   - 2
-  - 7
-  k: '!'
-  l:
-  - default
-  - lower
-- p:
-  - 30
-  - 31
-  k: ':'
-  l:
-  - default
-  - lower
-- p:
-  - 11
   - 12
+  k: '!'
+- p:
+  - 27
+  - 28
+  k: ':'
+- p:
+  - 21
+  - 22
   k: 'CREO
 
     (C+A)'
-  l:
-  - default
 - p:
-  - 25
-  - 26
+  - 17
+  - 18
   k: \
-  l:
-  - default
-  - lower
 - p:
-  - 6
-  - 7
+  - 11
+  - 12
   k: /
-  l:
-  - default
-  - lower
 - p:
-  - 26
-  - 27
+  - 18
+  - 19
   k: '-'
-  l:
-  - default
-  - lower
 - p:
-  - 5
-  - 6
+  - 10
+  - 11
   k: _
-  l:
-  - default
-  - lower
 - p:
-  - 8
-  - 24
+  - 13
+  - 16
   k: 'CAPS
 
     WORD'
-  l:
-  - default
 - p:
-  - 7
-  - 8
+  - 12
+  - 13
   k: '"'
-  l:
-  - default
-  - lower
 - p:
-  - 24
-  - 25
+  - 16
+  - 17
   k: '?'
-  l:
-  - default
-  - lower
 - p:
-  - 0
-  - 5
-  k: Ä
-  l:
-  - default
-- p:
-  - 21
-  - 26
+  - 8
+  - 18
   k: Ö
-  l:
-  - default
 - p:
-  - 19
-  - 24
+  - 6
+  - 16
   k: Ü
-  l:
-  - default
 - p:
   - 1
-  - 6
-  k: ß
-  l:
-  - default
-- p:
-  - 4
-  - 5
-  k:
-    t: $$mdi:bluetooth$$
-    h: PC
-    s: ⓵
-- p:
-  - 4
-  - 6
-  k:
-    t: $$mdi:bluetooth$$
-    h: S8
-    s: ⓶
-- p:
-  - 4
-  - 7
-  k:
-    t: $$mdi:bluetooth$$
-    h: Zbook
-    s: ⓷
-- p:
-  - 4
-  - 8
-  k: $$mdi:usb$$
-- p:
-  - 4
-  - 18
-  k: UP
-- p:
-  - 4
   - 11
-  k: DOWN
-- p:
-  - 4
-  - 12
-  k: LEFT
-- p:
-  - 4
-  - 13
-  k: RIGHT
-- p:
-  - 4
-  - 14
-  k: RET
+  k: ß
 layout:
   qmk_keyboard: crkbd/rev1
   qmk_layout: LAYOUT_split_3x5_3
