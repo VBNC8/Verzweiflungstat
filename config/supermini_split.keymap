@@ -180,7 +180,7 @@
         combo_slash { timeout-ms = <40>; key_positions = <6 7>; bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
         combo_minus { timeout-ms = <50>; key_positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
         combo_underscore { timeout-ms = <40>; key_positions = <5 6>; bindings = <&kp LS(SLASH)>; layers = <0 1>; };
-        combo_caps_word { timeout-ms = <40>; key_positions = <8 24>; bindings = <&caps_wrd>; layers = <0 1>; };
+        combo_caps_word { timeout-ms = <40>; key_positions = <8 24>; bindings = <&caps_wrd>; layers = <0>; };
         combo_quote { timeout-ms = <50>; key_positions = <7 8>; bindings = <&kp LS(N2)>; layers = <0 1>; };
         combo_question { timeout-ms = <50>; key_positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
         combo_ae { timeout-ms = <55>; key_positions = <0 5>; bindings = <&kp SQT>; layers = <0>; };

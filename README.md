@@ -3,4 +3,4 @@ Firmware for wireless 5x3 split keyboard with SuperMinis. Left 5way encoder and 
 ## Keymap
 
 
-![Keymap](./keymap-drawer/splitkb_aurora_corne.svg?v=1)
+![Keymap](./keymap-drawer/supermini_split.svg)
