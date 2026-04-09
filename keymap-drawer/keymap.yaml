@@ -294,7 +294,6 @@ combos:
     WORD'
   l:
   - default
-  - lower
 - p:
   - 12
   - 13

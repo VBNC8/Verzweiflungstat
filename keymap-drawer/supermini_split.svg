@@ -151,17 +151,17 @@ text.tap {
 text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
   font-size: 13px;
 }
-g.layer-default g.keypos-15 rect.key { fill: #3a4a8a; }
-g.layer-default g.keypos-16 rect.key { fill: #3a7a3a; }
-g.layer-default g.keypos-17 rect.key { fill: #854747; }
+g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
+g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
+g.layer-default g.keypos-32 rect.key { fill: #854747; }
 g.layer-default g.keypos-33 rect.key { fill: #854747; }
 g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
 g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
-g.layer-lower g.keypos-17 rect.key { fill: #854747; }
+g.layer-lower g.keypos-32 rect.key { fill: #854747; }
 g.layer-lower g.keypos-33 rect.key { fill: #854747; }
-g.layer-raise g.keypos-16 rect.key { fill: #3a7a3a; }
+g.layer-raise g.keypos-31 rect.key { fill: #3a7a3a; }
 g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
-g.layer-adjust g.keypos-15 rect.key { fill: #3a4a8a; }
+g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
@@ -580,18 +580,10 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <text x="56" y="98" class="combo tap">_</text>
 </g>
 <g class="combo combopos-7">
-<path d="M364,91 l-149,0" class="combo"/>
-<path d="M364,91 l149,0" class="combo"/>
-<rect rx="6" ry="6" x="350" y="78" width="28" height="26" class="combo"/>
-<text x="364" y="91" class="combo tap">
-<tspan x="364" dy="-0.6em">CAPS</tspan><tspan x="364" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-8">
 <rect rx="6" ry="6" x="154" y="74" width="28" height="26" class="combo"/>
 <text x="168" y="88" class="combo tap">&quot;</text>
 </g>
-<g class="combo combopos-9">
+<g class="combo combopos-8">
 <rect rx="6" ry="6" x="546" y="74" width="28" height="26" class="combo"/>
 <text x="560" y="88" class="combo tap">?</text>
 </g>
