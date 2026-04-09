@@ -7,6 +7,11 @@ layers:
     s: €
   - R
   - T
+  - Y
+  - U
+  - I
+  - O
+  - P
   - A
   - S
   - t: D
@@ -14,24 +19,6 @@ layers:
   - t: F
     h: Shift
   - G
-  - Z
-  - t: X
-    h: Alt
-  - C
-  - V
-  - B
-  - t: ⏯
-    h: Adjust
-    type: round
-  - t: ESC
-    h: Raise
-  - t: ⇥
-    h: Lower
-  - Y
-  - U
-  - I
-  - O
-  - P
   - H
   - t: J
     h: Shift
@@ -39,6 +26,12 @@ layers:
     h: CTRL
   - L
   - ''''
+  - Z
+  - t: X
+    h: Alt
+  - C
+  - V
+  - B
   - N
   - t: M
     s: µ
@@ -46,6 +39,13 @@ layers:
   - t: .
     s: AltGr
   - ⌦
+  - t: ⏯
+    h: Adjust
+    type: round
+  - t: ESC
+    h: Raise
+  - t: ⇥
+    h: Lower
   - t: ↵
     h: Lower
   - t: ␣
@@ -58,6 +58,11 @@ layers:
   - '>'
   - Ø
   - ☻
+  - °
+  - ()
+  - '{}'
+  - '[]'
+  - ''''
   - t: '1'
     s: '!'
   - t: '2'
@@ -68,22 +73,6 @@ layers:
     s: $
   - t: '5'
     s: '%'
-  - '~'
-  - '%'
-  - '|'
-  - $
-  - '#'
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
-    type: round
-  - $$mdi:microsoft-windows-classic$$
-  - t: ⤒ Pos1
-    type: held
-  - °
-  - ()
-  - '{}'
-  - '[]'
-  - ''''
   - t: '6'
     s: '&'
   - t: '7'
@@ -94,11 +83,22 @@ layers:
     s: )
   - t: '0'
     s: '='
+  - '~'
+  - '%'
+  - '|'
+  - $
+  - '#'
   - +
   - '*'
   - ','
   - .
   - '='
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: round
+  - $$mdi:microsoft-windows-classic$$
+  - t: ⤒ Pos1
+    type: held
   - t: ⤓ End
     type: held
   - t: $$mdi:monitor$$
@@ -111,37 +111,21 @@ layers:
   - F3
   - F4
   - F5
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ' '
-    type: round
-  - t: Task Mgr
-    type: held
-  - t: ▽
-    type: trans
   - F6
   - F7
   - F8
   - F9
   - F10
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - UP
   - LEFT
   - DOWN
@@ -155,7 +139,23 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - ´
+  - t: ' '
+    type: round
+  - t: Task Mgr
+    type: held
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: '&nbsp'
@@ -173,6 +173,16 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ✕
+    s: Alt F4
   - t: $$mdi:bluetooth$$
     h: PC
     s: ⓵
@@ -186,34 +196,18 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - $$mdi:usb$$
   - Pwr±
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ' '
-    type: round
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ✕
-    s: Alt F4
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -226,6 +220,12 @@ layers:
     type: trans
   - ⏮
   - ⏭
+  - t: ▽
+    type: trans
+  - t: ' '
+    type: round
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
