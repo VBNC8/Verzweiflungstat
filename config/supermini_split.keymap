@@ -170,191 +170,165 @@
     combos {
         compatible = "zmk,combos";
 
-        // ! (E + D) - Vertikal Mittelfinger
         combo_excl {
             timeout-ms = <40>;
-            key-positions = <2 7>; // E=2, D=7
+            key-positions = <2 7>;
             bindings = <&kp LS(N1)>;
             layers = <0 1>;
         };
 
-        // Doppelpunkt (:) auf , und .
         combo_colon {
             timeout-ms = <50>;
-            key-positions = <30 31>; // ,=30, .=31
+            key-positions = <30 31>;
             bindings = <&kp LS(DOT)>;
             layers = <0 1>;
         };
 
-        // CREO: Ctrl+Alt auf X und C (Links unten)
         combo_creo_mod {
             timeout-ms = <50>;
-            key-positions = <11 12>; // X=11, C=12
+            key-positions = <11 12>;
             bindings = <&kp LC(LALT)>;
             layers = <0>;
         };
 
-        // Backslash (\) auf K und L
         combo_backslash {
             timeout-ms = <40>;
-            key-positions = <25 26>; // K=25, L=26
+            key-positions = <25 26>;
             bindings = <&kp RA(MINUS)>;
             layers = <0 1>;
         };
 
-        // Slash (/) auf S und D
         combo_slash {
             timeout-ms = <40>;
-            key-positions = <6 7>; // S=6, D=7
+            key-positions = <6 7>;
             bindings = <&kp KP_DIVIDE>;
             layers = <0 1>;
         };
 
-        // Minus/Bindestrich (-) auf L und Ö
         combo_minus {
             timeout-ms = <50>;
-            key-positions = <26 27>; // L=26, ö=27
+            key-positions = <26 27>;
             bindings = <&kp SLASH>;
             layers = <0 1>;
         };
 
-        // Unterstrich (_) auf A und S
         combo_underscore {
             timeout-ms = <40>;
-            key-positions = <5 6>; // A=5, S=6
+            key-positions = <5 6>;
             bindings = <&kp LS(SLASH)>;
             layers = <0 1>;
         };
 
-        // Caps Word auf F und J
         combo_caps_word {
             timeout-ms = <40>;
-            key-positions = <8 24>; // F=8, J=24
+            key-positions = <8 24>;
             bindings = <&caps_wrd>;
             layers = <0>;
         };
 
-        // Gänsefüßchen (") auf D und F
         combo_quote {
             timeout-ms = <50>;
-            key-positions = <7 8>; // D=7, F=8
+            key-positions = <7 8>;
             bindings = <&kp LS(N2)>;
             layers = <0 1>;
         };
 
-        // Fragezeichen (?) auf J und K
         combo_question {
             timeout-ms = <50>;
-            key-positions = <24 25>; // J=24, K=25
+            key-positions = <24 25>;
             bindings = <&kp LS(MINUS)>;
             layers = <0 1>;
         };
 
-        // Ä (Q + A) - Vertikal linker Zeigefinger
         combo_ae {
             timeout-ms = <55>;
-            key-positions = <0 5>; // Q=0, A=5
+            key-positions = <0 5>;
             bindings = <&kp SQT>;
             layers = <0>;
         };
 
-        // Ö (O + L) - Vertikal rechter Ringfinger
         combo_oe {
             timeout-ms = <50>;
-            key-positions = <21 26>; // O=21, L=26
+            key-positions = <21 26>;
             bindings = <&kp SEMI>;
             layers = <0>;
         };
 
-        // Ü (U + J) - Vertikal rechter Zeigefinger
         combo_ue {
             timeout-ms = <50>;
-            key-positions = <19 24>; // U=19, J=24
+            key-positions = <19 24>;
             bindings = <&kp LBKT>;
             layers = <0>;
         };
 
-        // ß (W + S) - Vertikal linker Ringfinger
         combo_ss {
             timeout-ms = <50>;
-            key-positions = <1 6>; // W=1, S=6
+            key-positions = <1 6>;
             bindings = <&kp MINUS>;
             layers = <0>;
         };
 
-        // --- Special-function T-chord combos ---
-        // Physical switch wired in parallel to T (pos 4) AND the partner key.
-        // require-prior-idle-ms prevents accidental firing while typing.
-
-        // BT0: T + A
+        // BT/Nav Combos (Special Switches)
         combo_bt0 {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 5>; // T=4, A=5
+            key-positions = <4 5>;
             bindings = <&bt_sel_0>;
         };
 
-        // BT1: T + S
         combo_bt1 {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 6>; // T=4, S=6
+            key-positions = <4 6>;
             bindings = <&bt_sel_1>;
         };
 
-        // BT2: T + D
         combo_bt2 {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 7>; // T=4, D=7
+            key-positions = <4 7>;
             bindings = <&bt_sel_2>;
         };
 
-        // USB: T + F
         combo_usb {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 8>; // T=4, F=8
+            key-positions = <4 8>;
             bindings = <&usb_on>;
         };
 
-        // Nav Up: Q + Y
         combo_nav_up {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <0 18>; // Q=0, Y=18
+            key-positions = <0 18>;
             bindings = <&kp UP>;
         };
 
-        // Nav Down: Q + X
         combo_nav_down {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <0 11>; // Q=0, X=11
+            key-positions = <0 11>;
             bindings = <&kp DOWN>;
         };
 
-        // Nav Left: Q + C
         combo_nav_left {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <0 12>; // Q=0, C=12
+            key-positions = <0 12>;
             bindings = <&kp LEFT>;
         };
 
-        // Nav Right: Q + V
         combo_nav_right {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <0 13>; // Q=0, V=13
+            key-positions = <0 13>;
             bindings = <&kp RIGHT>;
         };
 
-        // Nav OK: Q + B
         combo_nav_ok {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <0 14>; // Q=0, B=14
+            key-positions = <0 14>;
             bindings = <&kp RET>;
         };
     };
