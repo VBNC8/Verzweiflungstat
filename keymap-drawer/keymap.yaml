@@ -241,12 +241,14 @@ combos:
   k: '!'
   l:
   - default
+  - lower
 - p:
   - 27
   - 28
   k: ':'
   l:
   - default
+  - lower
 - p:
   - 21
   - 22
@@ -255,30 +257,35 @@ combos:
     (C+A)'
   l:
   - default
+  - lower
 - p:
   - 17
   - 18
   k: \
   l:
   - default
+  - lower
 - p:
   - 11
   - 12
   k: /
   l:
   - default
+  - lower
 - p:
   - 18
   - 19
   k: '-'
   l:
   - default
+  - lower
 - p:
   - 10
   - 11
   k: _
   l:
   - default
+  - lower
 - p:
   - 13
   - 16
@@ -287,18 +294,21 @@ combos:
     WORD'
   l:
   - default
+  - lower
 - p:
   - 12
   - 13
   k: '"'
   l:
   - default
+  - lower
 - p:
   - 16
   - 17
   k: '?'
   l:
   - default
+  - lower
 - p:
   - 8
   - 18
