@@ -173,16 +173,16 @@
         /* Wir nutzen hier den Unterstrich bei key_positions, 
            da dies oft die Pydantic-Validierung im Drawer fixiert */
 
-        combo_excl { timeout-ms = <40>; key_positions = <2 7>; bindings = <&kp LS(N1)>; layers = <0>; };
-        combo_colon { timeout-ms = <50>; key_positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0>; };
-        combo_creo_mod { timeout-ms = <50>; key_positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0>; };
-        combo_backslash { timeout-ms = <40>; key_positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0>; };
-        combo_slash { timeout-ms = <40>; key_positions = <6 7>; bindings = <&kp KP_DIVIDE>; layers = <0>; };
-        combo_minus { timeout-ms = <50>; key_positions = <26 27>; bindings = <&kp SLASH>; layers = <0>; };
-        combo_underscore { timeout-ms = <40>; key_positions = <5 6>; bindings = <&kp LS(SLASH)>; layers = <0>; };
-        combo_caps_word { timeout-ms = <40>; key_positions = <8 24>; bindings = <&caps_wrd>; layers = <0>; };
-        combo_quote { timeout-ms = <50>; key_positions = <7 8>; bindings = <&kp LS(N2)>; layers = <0>; };
-        combo_question { timeout-ms = <50>; key_positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0>; };
+        combo_excl { timeout-ms = <40>; key_positions = <2 7>; bindings = <&kp LS(N1)>; layers = <0 1>; };
+        combo_colon { timeout-ms = <50>; key_positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0 1>; };
+        combo_creo_mod { timeout-ms = <50>; key_positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0 1>; };
+        combo_backslash { timeout-ms = <40>; key_positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
+        combo_slash { timeout-ms = <40>; key_positions = <6 7>; bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
+        combo_minus { timeout-ms = <50>; key_positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
+        combo_underscore { timeout-ms = <40>; key_positions = <5 6>; bindings = <&kp LS(SLASH)>; layers = <0 1>; };
+        combo_caps_word { timeout-ms = <40>; key_positions = <8 24>; bindings = <&caps_wrd>; layers = <0 1>; };
+        combo_quote { timeout-ms = <50>; key_positions = <7 8>; bindings = <&kp LS(N2)>; layers = <0 1>; };
+        combo_question { timeout-ms = <50>; key_positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
         combo_ae { timeout-ms = <55>; key_positions = <0 5>; bindings = <&kp SQT>; layers = <0>; };
         combo_oe { timeout-ms = <50>; key_positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };
         combo_ue { timeout-ms = <50>; key_positions = <19 24>; bindings = <&kp LBKT>; layers = <0>; };
