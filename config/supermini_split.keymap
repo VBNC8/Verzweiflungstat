@@ -19,13 +19,19 @@
  *   Right thumbs (pos 33–35):
  *    33 34 35
  *
- * Special functions via T-chord combos (special switches wired in parallel
- * to T=pos 4 AND the partner key):
- *   T+A(5)  = BT0      T+Y(18) = Nav Up
- *   T+S(6)  = BT1      T+X(11) = Nav Down
- *   T+D(7)  = BT2      T+C(12) = Nav Left
- *   T+F(8)  = USB      T+V(13) = Nav Right
- *                      T+B(14) = Nav OK
+ * Special functions via chord combos (special switches wired in parallel
+ * to the common key AND the partner key):
+ *   BT / USB  — common key T (pos 4):
+ *     T+A(5)  = BT0
+ *     T+S(6)  = BT1
+ *     T+D(7)  = BT2
+ *     T+F(8)  = USB
+ *   5-way nav — common key Q (pos 0):
+ *     Q+Y(18) = Nav Up
+ *     Q+X(11) = Nav Down
+ *     Q+C(12) = Nav Left
+ *     Q+V(13) = Nav Right
+ *     Q+B(14) = Nav OK
  */
 
 #include <behaviors.dtsi>
@@ -311,43 +317,43 @@
             bindings = <&usb_on>;
         };
 
-        // Nav Up: T + Y
+        // Nav Up: Q + Y
         combo_nav_up {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 18>; // T=4, Y=18
+            key-positions = <0 18>; // Q=0, Y=18
             bindings = <&kp UP>;
         };
 
-        // Nav Down: T + X
+        // Nav Down: Q + X
         combo_nav_down {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 11>; // T=4, X=11
+            key-positions = <0 11>; // Q=0, X=11
             bindings = <&kp DOWN>;
         };
 
-        // Nav Left: T + C
+        // Nav Left: Q + C
         combo_nav_left {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 12>; // T=4, C=12
+            key-positions = <0 12>; // Q=0, C=12
             bindings = <&kp LEFT>;
         };
 
-        // Nav Right: T + V
+        // Nav Right: Q + V
         combo_nav_right {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 13>; // T=4, V=13
+            key-positions = <0 13>; // Q=0, V=13
             bindings = <&kp RIGHT>;
         };
 
-        // Nav OK: T + B
+        // Nav OK: Q + B
         combo_nav_ok {
             timeout-ms = <50>;
             require-prior-idle-ms = <500>;
-            key-positions = <4 14>; // T=4, B=14
+            key-positions = <0 14>; // Q=0, B=14
             bindings = <&kp RET>;
         };
     };

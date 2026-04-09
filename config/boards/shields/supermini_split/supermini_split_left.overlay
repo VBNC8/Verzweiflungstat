@@ -27,16 +27,18 @@
  *     A   P1.01
  *     B   P1.02
  *
- *   9 special-function switches wired in parallel to T + partner key:
+ *   9 special-function switches:
+ *     BT / USB — wired in parallel to T (P0.06) + partner key:
  *     BT0     → T (P0.06) + A (P0.07)   → combo T+A fires bt_sel_0
  *     BT1     → T (P0.06) + S (P0.08)   → combo T+S fires bt_sel_1
  *     BT2     → T (P0.06) + D (P0.09)   → combo T+D fires bt_sel_2
  *     USB_OUT → T (P0.06) + F (P0.10)   → combo T+F fires usb_on
- *     Nav Up  → T (P0.06) + Y (right)   → combo T+Y fires &kp UP
- *     Nav Dn  → T (P0.06) + X (P0.16)   → combo T+X fires &kp DOWN
- *     Nav Lt  → T (P0.06) + C (P0.18)   → combo T+C fires &kp LEFT
- *     Nav Rt  → T (P0.06) + V (P0.19)   → combo T+V fires &kp RIGHT
- *     Nav OK  → T (P0.06) + B (P0.20)   → combo T+B fires &kp RET
+ *     5-way nav — wired in parallel to Q (P0.02) + partner key:
+ *     Nav Up  → Q (P0.02) + Y (right)   → combo Q+Y fires &kp UP
+ *     Nav Dn  → Q (P0.02) + X (P0.16)   → combo Q+X fires &kp DOWN
+ *     Nav Lt  → Q (P0.02) + C (P0.18)   → combo Q+C fires &kp LEFT
+ *     Nav Rt  → Q (P0.02) + V (P0.19)   → combo Q+V fires &kp RIGHT
+ *     Nav OK  → Q (P0.02) + B (P0.20)   → combo Q+B fires &kp RET
  *
  * Key-position map (used in keymap / combos):
  *   Left  keys : 0–17   (18 direct, this half)
