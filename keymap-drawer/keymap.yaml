@@ -65,7 +65,7 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - ''''
+  - ✕
   - t: '1'
     s: '!'
   - t: '2'
@@ -184,7 +184,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - ✕
+  - t: ▽
+    type: trans
   - t: $$mdi:bluetooth$$
     h: PC
     s: ⓵
