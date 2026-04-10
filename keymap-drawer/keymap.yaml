@@ -62,7 +62,8 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - ''''
+  - t: ✕
+    s: Alt F4
   - t: '1'
     s: '!'
   - t: '2'
@@ -181,8 +182,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ✕
-    s: Alt F4
+  - t: ▽
+    type: trans
   - t: $$mdi:bluetooth$$
     h: PC
     s: ⓵
