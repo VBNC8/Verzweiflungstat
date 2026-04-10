@@ -219,7 +219,8 @@
 
         // Unterstrich (_) auf A und S (Links)
         combo_underscore {
-            timeout-ms = <40>;
+            timeout-ms = <39>;
+            require-prior-idle-ms = <100>;
             key-positions = <13 14>; // A=13, S=14
             bindings = <&kp LS(SLASH)>; // Ergibt im DE-Layout den Unterstrich (_)
             layers = <0 1>;
