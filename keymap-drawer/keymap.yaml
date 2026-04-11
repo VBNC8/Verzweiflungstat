@@ -92,8 +92,7 @@ layers:
   - '*'
   - ','
   - .
-  - t: +
-    s: '*'
+  - '='
   - t: $$mdi:bluetooth-off$$
     s: CLR 5s
   - $$mdi:microsoft-windows-classic$$
