@@ -27,7 +27,7 @@
  *     T+D(7)  = BT2
  *     T+F(8)  = USB
  *   5-way nav — common key Q (pos 0):
- *     Q+Y(18) = Nav Up
+ *     Q+Z(10) = Nav Up
  *     Q+X(11) = Nav Down
  *     Q+C(12) = Nav Left
  *     Q+V(13) = Nav Right
@@ -193,7 +193,7 @@
         combo_bt1 { timeout-ms = <50>; key_positions = <4 6>; bindings = <&bt_sel_1>; };
         combo_bt2 { timeout-ms = <50>; key_positions = <4 7>; bindings = <&bt_sel_2>; };
         combo_usb { timeout-ms = <50>; key_positions = <4 8>; bindings = <&usb_on>; };
-        combo_nav_up { timeout-ms = <50>; key_positions = <0 18>; bindings = <&kp UP>; };
+        combo_nav_up { timeout-ms = <50>; key_positions = <0 10>; bindings = <&kp UP>; };
         combo_nav_down { timeout-ms = <50>; key_positions = <0 11>; bindings = <&kp DOWN>; };
         combo_nav_left { timeout-ms = <50>; key_positions = <0 12>; bindings = <&kp LEFT>; };
         combo_nav_right { timeout-ms = <50>; key_positions = <0 13>; bindings = <&kp RIGHT>; };

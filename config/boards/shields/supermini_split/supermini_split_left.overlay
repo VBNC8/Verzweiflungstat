@@ -33,7 +33,7 @@
  *     BT2     → T (P0.31) + D (P0.10)   → combo T+D fires bt_sel_2
  *     USB_OUT → T (P0.31) + F (P0.09)   → combo T+F fires usb_on
  *     5-way nav — wired in parallel to Q (P0.11) + partner key:
- *     Nav Up  → Q (P0.11) + Y (right)   → combo Q+Y fires &kp UP
+ *     Nav Up  → Q (P0.11) + Z (P0.17)   → combo Q+Z fires &kp UP
  *     Nav Dn  → Q (P0.11) + X (P0.20)   → combo Q+X fires &kp DOWN
  *     Nav Lt  → Q (P0.11) + C (P0.22)   → combo Q+C fires &kp LEFT
  *     Nav Rt  → Q (P0.11) + V (P0.24)   → combo Q+V fires &kp RIGHT
