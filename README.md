@@ -3,6 +3,8 @@ Matrix Col/Row scan.
 UART connection via USB-C cable.
 2x EC11 support but only left side is installed.
 Full LED lighting with onboard RGB LED.
+Greywood switches and MT3 keycaps
+500g copper tenting wedge each side
 
 ## Keymap
 
