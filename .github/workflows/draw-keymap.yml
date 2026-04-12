@@ -57,24 +57,9 @@ jobs:
               if len(keys_list) > ec11l_new_idx:
                   keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. NEU: Combos umrechnen
-          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet.
-          # deleted_indices still drives the offset; EC11L (24) is moved not deleted,
-          # which produces the same net shift for all non-encoder combo positions.
-          if 'combos' in data:
-              for combo in data['combos']:
-                  new_positions = []
-                  for pos in combo['p']:
-                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen.
-                      # pos is the original ZMK 42-key position.
-                      offset = sum(1 for d in deleted_indices if d < pos)
-                      # For positions originally after EC11L (original pos 24): add 1 more,
-                      # because EC11L was moved to the end (not deleted), so it still
-                      # occupies a slot that shifts everything behind it by 1 extra.
-                      if pos > 24:
-                          offset += 1
-                      new_positions.append(pos - offset)
-                  combo['p'] = new_positions
+          # 3. Alle Combos entfernen – 4-Tasten-Combos (Alps 5-way) bringen den Drawer
+          #    zum Absturz, daher werden sie komplett aus der Zeichnung ausgeschlossen.
+          data.pop('combos', None)
           
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
