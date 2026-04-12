@@ -2,7 +2,7 @@
  * handwired_left.keymap
  *
  * 42 bindings per layer  (3 rows × 12 + 6 thumb keys)
- * position = row*12 + col  (rows 0-2); positions 36-41 for thumb row
+ * position = row*12 + col  (rows 0–2); positions 36-41 for thumb row
  *
  * Row 0 (0-11):  LCol0  Q   W   E   R   T  | Y   U   I   O   P   RCol0
  * Row 1 (12-23): LCol0  A   S   D   F   G  | H   J   K   L   ;   RCol0
