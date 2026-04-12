@@ -86,11 +86,11 @@ jobs:
                   new_combos.append(combo)
               data['combos'] = new_combos
           
-          # 4. Alps circle (index 36) – show direction labels on the round key instead
-          #    of combo connectors. default layer gets ↑↓←→ / ⏯ as tap/shift labels;
-          #    other layers inherit &none (empty) which keeps the circle visually present.
+          # 4. Alps circle (index 36) – show actual functions per direction on the round
+          #    key in the default layer (tl=UP↑, tr=⏭ Next, bl=⏮ Prev, br=DOWN↓, t=⏯ PP).
+          #    Other layers keep the circle visually present but empty.
           layer_labels = {
-              'default': {'t': '↑↓←→', 's': '⏯', 'type': 'round'},
+              'default': {'t': '⏯', 'tl': '↑', 'tr': '⏭', 'bl': '⏮', 'br': '↓', 'type': 'round'},
           }
           for layer_name, keys_list in layers.items():
               if not isinstance(keys_list, list):
