@@ -57,10 +57,12 @@ jobs:
               if len(keys_list) > ec11l_new_idx:
                   keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. 4-Tasten-Combos (Alps 5-way) entfernen – sie bringen den Drawer zum Absturz.
-          #    2-Tasten-Combos bleiben erhalten.
+          # 3. Alps-Combos entfernen (alps_right/left/up/down/enter) – sie bringen den
+          #    Drawer zum Absturz. Erkennungsmerkmal: beide Alps-Rail-Positionen 5 und 29
+          #    sind enthalten. Alle anderen Combos bleiben erhalten.
+          ALPS_RAILS = {5, 29}
           if 'combos' in data:
-              data['combos'] = [c for c in data['combos'] if len(c.get('p', [])) != 4]
+              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(c.get('p', []))]
           
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
