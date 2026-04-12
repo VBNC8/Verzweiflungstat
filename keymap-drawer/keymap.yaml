@@ -330,33 +330,5 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 0
-  - 4
-  - 20
-  - 24
-  k: ⏭
-- p:
-  - 1
-  - 4
-  - 21
-  - 24
-  k: ⏮
-- p:
-  - 2
-  - 4
-  - 22
-  - 24
-  k: UP
-- p:
-  - 3
-  - 4
-  - 23
-  - 24
-  k: DOWN
-- p:
-  - 4
-  - 24
-  k: ⏯
 layout:
   qmk_info_json: keymap-drawer/layout.json
