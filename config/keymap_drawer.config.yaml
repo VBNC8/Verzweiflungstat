@@ -15,8 +15,6 @@ parse_config:
     "&nbsp": {t: "&nbsp", type: "held"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
-    "&kp F14": {t: " ", type: "ghost"}
-    "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
     "&pair_paren": "()"
@@ -96,11 +94,12 @@ parse_config:
 
     # --- SYSTEM & BT ---
     "&usb_on": {t: "ψ USB", s: "☀ ON"}
-    "&bt_sel_0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
-    "&bt_sel_1": {t: "$$mdi:bluetooth$$", s: "⓶", h: "S8"}
-    "&bt_sel_2": {t: "$$mdi:bluetooth$$", s: "⓷", h: "Zbook"}
-    "&bt_sel_3": {t: "$$mdi:bluetooth$$", s: "⓸"}
-    "&bt_sel_4": {t: "$$mdi:bluetooth$$", s: "⓹"}
+    "&bt_off": {t: "$$mdi:bluetooth$$", s: "☀ OFF"}
+    "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
+    "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "⓶", h: "S8"}
+    "&bt BT_SEL 2": {t: "$$mdi:bluetooth$$", s: "⓷", h: "Zbook"}
+    "&bt BT_SEL 3": {t: "$$mdi:bluetooth$$", s: "⓸"}
+    "&bt BT_SEL 4": {t: "$$mdi:bluetooth$$", s: "⓹"}
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
 
     # --- SONSTIGES ---
@@ -108,7 +107,7 @@ parse_config:
     "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
-    "&kp C_PP": {t: "⏯", type: "ghost"}
+    "&kp C_PP": "⏯"
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
@@ -132,7 +131,8 @@ parse_config:
     "&rgb_ug RGB_HUD": {t: "$$mdi:palette-swatch-outline$$", s: "Hue-"}
 
     # --- BLUETOOTH & SYSTEM ---
-    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
+    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s"}
+    "&bt_off": {t: "$$mdi:bluetooth-off$$"}
     "&usb_on": "$$mdi:usb$$"
     "&kp LA(F4)": "✕"
     "&ext_power EP_TOG": "Pwr±"
@@ -145,7 +145,7 @@ draw_config:
   dark_mode: true
   #n_columns: 1
   width: 1200
-  exclude_combos: ["&bt_sel_0", "&bt_sel_1", "&bt_sel_2", "&out OUT_USB"]
+  exclude_combos: ["&bt BT_SEL 0", "&bt BT_SEL 1", "&bt BT_SEL 2", "&out OUT_USB"]
   svg_extra_style: |
     svg.keymap {
       font-size: 16px;
@@ -156,17 +156,16 @@ draw_config:
     text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
       font-size: 13px;
     }
-    g.keypos-30 rect.key {
+    g.keypos-36 rect.key {
       rx: 50%;
       ry: 50%;
     }
     g.layer-lower rect.held { fill: #854747; }
     g.layer-raise rect.held { fill: #3a7a3a; }
     g.layer-adjust rect.held { fill: #3a4a8a; }
+    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
     g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-32 rect.key { fill: #854747; }
     g.layer-default g.keypos-33 rect.key { fill: #854747; }
     g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
-    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
