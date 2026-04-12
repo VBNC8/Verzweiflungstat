@@ -2,13 +2,12 @@ name: Draw ZMK keymaps
 on:
   workflow_dispatch:
   push:
-    paths:
-      - "config/handwired_left.keymap"
-      - "config/keymap_drawer.config.yaml"
+  pull_request:
 
 jobs:
   draw:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'Automated 3x5_3 crop and draw')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,10 +15,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install tree-sitter==0.21.3 keymap-drawer PyYAML
+        run: pip install keymap-drawer==0.23.0 PyYAML
 
       - name: Parse and Transform
         run: |
@@ -57,12 +56,39 @@ jobs:
               if len(keys_list) > ec11l_new_idx:
                   keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. Alps-Combos entfernen (alps_right/left/up/down/enter) – sie bringen den
-          #    Drawer zum Absturz. Erkennungsmerkmal: beide Alps-Rail-Positionen 5 und 29
-          #    sind enthalten. Alle anderen Combos bleiben erhalten.
+          # 3. Combos umrechnen: raw ZMK 42-key positions -> 37-key layout positions.
+          # deleted_indices drives the offset; EC11L (pos 24) is moved not deleted,
+          # which produces an extra +1 shift for all positions originally after it.
+          # Alps rail combos (all contain T=5 and B=29) are filtered out: their
+          # functions are already shown as labels on the encoder circle (index 36).
           ALPS_RAILS = {5, 29}
           if 'combos' in data:
-              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(c.get('p', []))]
+              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(set(c['p']))]
+              for combo in data['combos']:
+                  new_positions = []
+                  for pos in combo['p']:
+                      offset = sum(1 for d in deleted_indices if d < pos)
+                      if pos > 24:
+                          offset += 1
+                      new_positions.append(pos - offset)
+                  combo['p'] = new_positions
+          
+          # 4. Alps circle (index 36) – show Alpine functions as key labels.
+          #    center press = C_PP (⏯), tilts: ⏭ right, ⏮ left, ↑ up, ↓ down.
+          #    t = main label, s = secondary label (upper area of key).
+          #    tl/br = encoder rotation labels (CW/CCW, layer-specific sensor-bindings).
+          layer_labels = {
+              'default': {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'tl': '🔊', 'br': '🔉', 'type': 'round'},
+              'lower':   {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'tl': '⏩',  'br': '⏪',  'type': 'round'},
+              'raise':   {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'tl': '⇞',  'br': '⇟',  'type': 'round'},
+              'adjust':  {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'tl': '↑',  'br': '↓',  'type': 'round'},
+          }
+          for layer_name, keys_list in layers.items():
+              if not isinstance(keys_list, list):
+                  keys_list = keys_list.get('keys', [])
+              if len(keys_list) > 36:
+                  label = layer_labels.get(layer_name, {'type': 'round'})
+                  keys_list[36] = label
           
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
@@ -73,7 +99,17 @@ jobs:
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/handwired.svg
 
+      - name: Upload SVG artifact (pull_request only)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: handwired-keymap-svg
+          path: |
+            keymap-drawer/handwired.svg
+            keymap-drawer/keymap.yaml
+
       - name: Commit and push
+        if: github.event_name != 'pull_request'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"

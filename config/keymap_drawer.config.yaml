@@ -108,6 +108,8 @@ parse_config:
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": "⏯"
+    "&kp C_RW": {t: "⏪", s: "Rew"}
+    "&kp C_FF": {t: "⏩", s: "FF"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
@@ -169,3 +171,6 @@ draw_config:
     g.layer-default g.keypos-33 rect.key { fill: #854747; }
     g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
+
+
+
