@@ -79,7 +79,7 @@ jobs:
           #    t = main label, s = secondary label (upper area of key).
           #    Other layers keep the circle empty (type: round only).
           layer_labels = {
-              'default': {'t': '⏯', 's': '⏭⏮↑↓', 'type': 'round'},
+              'default': {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'type': 'round'},
           }
           for layer_name, keys_list in layers.items():
               if not isinstance(keys_list, list):

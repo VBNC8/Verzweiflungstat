@@ -1,5 +1,5 @@
 /*
- * handwired_left.keymap
+ * handwired_left.keymap  // ci-touch-2
  *
  * 42 bindings per layer  (3 rows × 12 + 6 thumb keys)
  * position = row*12 + col  (rows 0–2); positions 36-41 for thumb row
