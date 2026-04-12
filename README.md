@@ -1,5 +1,5 @@
 
-Firmware for wireless splitkb Aurora Corne with nice!nanos.  
+Firmware for wireless hotswap 5x3+3 splitkb Aurora Corne with two nice!nano V2 controllers.  
 Left EC11 encoder on outer left thumb key position.  
 Left nice!view display.  
 Gateron Melodic MX switches and Drop MT3 Jasmine keycaps.  
