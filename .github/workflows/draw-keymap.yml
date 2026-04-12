@@ -60,7 +60,11 @@ jobs:
           # 3. Combos umrechnen: raw ZMK 42-key positions -> 37-key layout positions.
           # deleted_indices drives the offset; EC11L (pos 24) is moved not deleted,
           # which produces an extra +1 shift for all positions originally after it.
+          # Alps rail combos (all contain T=5 and B=29) are filtered out: their
+          # functions are already shown as labels on the encoder circle (index 36).
+          ALPS_RAILS = {5, 29}
           if 'combos' in data:
+              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(set(c['p']))]
               for combo in data['combos']:
                   new_positions = []
                   for pos in combo['p']:
