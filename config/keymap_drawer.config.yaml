@@ -108,6 +108,8 @@ parse_config:
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": "⏯"
+    "&kp C_RW": {t: "⏪", s: "Rew"}
+    "&kp C_FF": {t: "⏩", s: "FF"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
 
