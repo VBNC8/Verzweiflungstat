@@ -15,7 +15,7 @@
  * RT = right thumb (inner→outer: RT1 RT2 RT3 at positions 39,40,41)
  *
  * Alps 5-way combos (Row0+Row2 same column, adjustable below):
- *   Q(1)+Z(25)=C_NEXT  W(2)+X(26)=C_PREV  E(3)+C(27)=C_AL_MEDIA  R(4)+V(28)=DOWN  T(5)+B(29)=C_PP
+ *   Q(1)+Z(25)=C_NEXT  W(2)+X(26)=C_PREV  E(3)+C(27)=UP  R(4)+V(28)=DOWN  T(5)+B(29)=C_PP
  */
 
 #include <behaviors.dtsi>
@@ -287,11 +287,11 @@
             bindings = <&kp C_PREV>;
         };
 
-        /* C_AL_MEDIA (switch media app) – E(3) + C(27) */
+        /* UP arrow – E(3) + C(27) */
         alps_up {
             timeout-ms = <50>;
             key-positions = <3 27>;
-            bindings = <&kp C_AL_MEDIA>;
+            bindings = <&kp UP>;
         };
 
         /* DOWN  – R(4) + V(28) */
