@@ -44,7 +44,7 @@ jobs:
           mkdir -p firmware
           cp build/left/zephyr/zmk.uf2 firmware/handwired_left.uf2
           cp build/right/zephyr/zmk.uf2 firmware/handwired_right.uf2
-          echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "SHORT_SHA=$(echo "$GITHUB_SHA" | cut -c1-7)" >> $GITHUB_ENV
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
