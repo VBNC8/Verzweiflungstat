@@ -81,9 +81,12 @@ jobs:
           # 4. Alps circle (index 36) – show Alpine functions as key labels.
           #    center press = C_PP (⏯), tilts: ⏭ right, ⏮ left, ↑ up, ↓ down.
           #    t = main label, s = secondary label (upper area of key).
-          #    Other layers keep the circle empty (type: round only).
+          #    top/bottom = encoder rotation labels (layer-specific sensor-bindings).
           layer_labels = {
-              'default': {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'type': 'round'},
+              'default': {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'top': '🔊', 'bottom': '🔉', 'type': 'round'},
+              'lower':   {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'top': '⏩',  'bottom': '⏪',  'type': 'round'},
+              'raise':   {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'top': '⇞',  'bottom': '⇟',  'type': 'round'},
+              'adjust':  {'t': '⏯', 's': '↑', 'h': '↓', 'left': '⏮', 'right': '⏭', 'top': '↑',  'bottom': '↓',  'type': 'round'},
           }
           for layer_name, keys_list in layers.items():
               if not isinstance(keys_list, list):
