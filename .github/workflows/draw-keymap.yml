@@ -3,10 +3,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/splitkb_aurora_corne.keymap"
+      - "config/handwired_left.keymap"
       - "config/keymap_drawer.config.yaml"
-      - "keymap-drawer/keymap.yaml"
-      - ".github/workflows/draw-keymap.yml"
 
 jobs:
   draw:
@@ -26,53 +24,45 @@ jobs:
       - name: Parse and Transform
         run: |
           # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
+          keymap -c config/keymap_drawer.config.yaml parse -z config/handwired_left.keymap > raw_keymap.yaml
           
           python3 - <<EOF
           import yaml
           with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
           
-          # Layout-Wechsel auf das schmale 3x5_3
-          data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
+          # Layout-Wechsel: 37-key custom layout (36 crkbd keys + EC11 encoder button)
+          # The layout.json adds the encoder btn between the halves at x=5 y=1.75
+          # (right of G/B column, vertically centered between rows 1 and 2)
+          data['layout'] = {'qmk_info_json': 'keymap-drawer/layout.json'}
           
-          # Definition der zu löschenden Indizes (Randtasten)
-          deleted_indices = [0, 11, 12, 23, 24, 35]
+          # Definition der zu löschenden Indizes
+          # Row0: 0 (LCol0), 11 (RCol0)
+          # Row1: 12 (LCol0), 23 (RCol0)
+          # Row2: 35 (EC11R encoder btn) — EC11L (24) is kept and moved to end (index 36)
+          # 42 - 5 = 37 keys -> custom layout with encoder
+          deleted_indices = [0, 11, 12, 23, 35]
           
-          # 2. Layer-Tasten löschen (42 -> 36)
+          # 2. Layer-Tasten löschen (42 -> 37) und EC11L ans Ende verschieben
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
               for idx in sorted(deleted_indices, reverse=True):
                   if len(keys_list) > idx:
                       keys_list.pop(idx)
+              # EC11L (originally at pos 24) is now at index 20 after the deletions above:
+              # 4 indices smaller than 24 were removed (0, 11, 12, 23) => 24 - 4 = 20.
+              # Move it to the end so it matches the encoder key at index 36 in layout.json.
+              ec11l_new_idx = 24 - sum(1 for d in deleted_indices if d < 24)
+              if len(keys_list) > ec11l_new_idx:
+                  keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. EC11-Encoder-Taste (linker Daumen, Position 30) in allen Layern als Kreis anzeigen
-          for name, layer in layers.items():
-              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              if len(keys_list) > 30:
-                  key = keys_list[30]
-                  if isinstance(key, dict):
-                      key['type'] = 'round'
-                  else:
-                      keys_list[30] = {'t': str(key), 'type': 'round'}
-
-          # 4. BT/USB-Combos ausfiltern (sollen nicht gezeichnet werden)
-          bt_usb_positions = [{0, 24}, {1, 25}, {2, 26}, {3, 27}]
+          # 3. Alps-Combos entfernen (alps_right/left/up/down/enter) – sie bringen den
+          #    Drawer zum Absturz. Erkennungsmerkmal: beide Alps-Rail-Positionen 5 und 29
+          #    sind enthalten. Alle anderen Combos bleiben erhalten.
+          ALPS_RAILS = {5, 29}
           if 'combos' in data:
-              data['combos'] = [c for c in data['combos']
-                                if set(c['p']) not in bt_usb_positions]
-
-          # 5. NEU: Combos umrechnen
-          # Damit Key-Position 15 (D) im 36er-Layout an Position 13 landet
-          if 'combos' in data:
-              for combo in data['combos']:
-                  new_positions = []
-                  for pos in combo['p']:
-                      # Wir zählen, wie viele gelöschte Tasten vor dieser Position lagen
-                      offset = sum(1 for d in deleted_indices if d < pos)
-                      new_positions.append(pos - offset)
-                  combo['p'] = new_positions
+              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(c.get('p', []))]
           
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
@@ -81,12 +71,12 @@ jobs:
           EOF
       - name: Draw SVG
         run: |
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/handwired.svg
 
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
+          git add keymap-drawer/keymap.yaml keymap-drawer/handwired.svg
           git commit -m "Automated 3x5_3 crop and draw" || exit 0
           git push
