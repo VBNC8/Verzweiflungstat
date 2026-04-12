@@ -58,6 +58,8 @@ layers:
     h: ↓
     left: ⏮
     right: ⏭
+    tl: 🔊
+    br: 🔉
     type: round
   lower:
   - ^
@@ -111,7 +113,14 @@ layers:
     s: Show
   - t: ▽
     type: trans
-  - type: round
+  - t: ⏯
+    s: ↑
+    h: ↓
+    left: ⏮
+    right: ⏭
+    tl: ⏩
+    br: ⏪
+    type: round
   raise:
   - F1
   - F2
@@ -167,7 +176,14 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - type: round
+  - t: ⏯
+    s: ↑
+    h: ↓
+    left: ⏮
+    right: ⏭
+    tl: ⇞
+    br: ⇟
+    type: round
   adjust:
   - t: $$mdi:lightbulb-on$$
     s: OnOff
@@ -237,7 +253,14 @@ layers:
     type: trans
   - t: ' '
     type: held
-  - type: round
+  - t: ⏯
+    s: ↑
+    h: ↓
+    left: ⏮
+    right: ⏭
+    tl: ↑
+    br: ↓
+    type: round
 combos:
 - p:
   - 2
