@@ -57,12 +57,18 @@ jobs:
               if len(keys_list) > ec11l_new_idx:
                   keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. Alps-Combos entfernen (alps_right/left/up/down/enter).
-          # Erkennungsmerkmal: beide Rail-Positionen T(5) und B(29) sind enthalten.
-          # Alle anderen Combos bleiben mit ihren Original-ZMK-Positionen erhalten.
-          ALPS_RAILS = {5, 29}
+          # 3. Combos umrechnen: raw ZMK 42-key positions -> 37-key layout positions.
+          # deleted_indices drives the offset; EC11L (pos 24) is moved not deleted,
+          # which produces an extra +1 shift for all positions originally after it.
           if 'combos' in data:
-              data['combos'] = [c for c in data['combos'] if not ALPS_RAILS.issubset(set(c.get('p', [])))]
+              for combo in data['combos']:
+                  new_positions = []
+                  for pos in combo['p']:
+                      offset = sum(1 for d in deleted_indices if d < pos)
+                      if pos > 24:
+                          offset += 1
+                      new_positions.append(pos - offset)
+                  combo['p'] = new_positions
           
           # 4. Alps circle (index 36) – show Alpine functions as key labels.
           #    center press = C_PP (⏯), tilts: ⏭ right, ⏮ left, ↑ up, ↓ down.
