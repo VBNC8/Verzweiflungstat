@@ -1,6 +1,9 @@
 name: Draw ZMK keymaps
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Build RP2040 Wired"]
+    types: [completed]
   push:
     paths:
       - "config/handwired_left.keymap"
