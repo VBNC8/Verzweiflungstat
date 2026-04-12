@@ -1,0 +1,13 @@
+config HEARTBEAT_LED
+    bool "RGB status indicator via onboard WS2812 NeoPixel"
+    default n
+    help
+      Uses the Waveshare RP2040-Zero onboard WS2812 NeoPixel (GP16, aliased as
+      'led-strip' in the board DTS) to show three distinct status colours:
+
+        Blue  1 Hz blink  = board is powered and ZMK is running (heartbeat)
+        Green 150 ms flash = key detected on THIS half (UART TX proxy)
+        Red   150 ms flash = key received from the OTHER half (UART RX proxy)
+                             Central (left) only: position col >= 6
+
+      Requires CONFIG_LED_STRIP=y and the 'led-strip' DTS alias to be defined.

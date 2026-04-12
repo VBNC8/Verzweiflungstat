@@ -1,0 +1,7 @@
+/*
+ * handwired_right.keymap
+ *
+ * The peripheral side must compile the same keymap so that all behaviour
+ * nodes are available.  At runtime only the central (left) side uses it.
+ */
+#include "handwired_left.keymap"
