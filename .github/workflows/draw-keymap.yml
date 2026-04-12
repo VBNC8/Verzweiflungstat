@@ -5,6 +5,10 @@ on:
     paths:
       - "config/handwired_left.keymap"
       - "config/keymap_drawer.config.yaml"
+  pull_request:
+    paths:
+      - "config/handwired_left.keymap"
+      - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
@@ -97,7 +101,17 @@ jobs:
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/handwired.svg
 
+      - name: Upload SVG artifact (pull_request only)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: handwired-keymap-svg
+          path: |
+            keymap-drawer/handwired.svg
+            keymap-drawer/keymap.yaml
+
       - name: Commit and push
+        if: github.event_name != 'pull_request'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
