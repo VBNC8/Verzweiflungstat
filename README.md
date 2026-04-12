@@ -6,7 +6,12 @@ Full LED lighting with onboard RGB LED.
 Alps switches and MT3 keycaps
 500g copper tenting wedge each side
 
-## Keymap
 
+
+
+
+![20260412_212411](https://github.com/user-attachments/assets/d1b6166d-67e4-4714-aea2-f4d342f29385)
+
+## Keymap
 
 ![Keymap](./keymap-drawer/handwired.svg?v=1)
