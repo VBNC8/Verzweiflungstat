@@ -52,10 +52,7 @@ layers:
   - t: ⌫
     h: Adjust
   - t: ⏯
-    tl: ↑
-    tr: ⏭
-    bl: ⏮
-    br: ↓
+    h: ↑↓←→
     type: round
   lower:
   - ^
