@@ -1,21 +1,13 @@
 name: Draw ZMK keymaps
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Build RP2040 Wired"]
-    types: [completed]
   push:
-    paths:
-      - "config/handwired_left.keymap"
-      - "config/keymap_drawer.config.yaml"
   pull_request:
-    paths:
-      - "config/handwired_left.keymap"
-      - "config/keymap_drawer.config.yaml"
 
 jobs:
   draw:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'Automated 3x5_3 crop and draw')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
