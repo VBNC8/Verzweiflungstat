@@ -51,7 +51,9 @@ layers:
     h: Raise
   - t: ⌫
     h: Adjust
-  - ''
+  - t: ↑↓←→
+    s: ⏯
+    type: round
   lower:
   - ^
   - <
@@ -104,8 +106,7 @@ layers:
     s: Show
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - type: round
   raise:
   - F1
   - F2
@@ -161,8 +162,7 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - type: round
   adjust:
   - t: $$mdi:lightbulb-on$$
     s: OnOff
@@ -232,101 +232,101 @@ layers:
     type: trans
   - t: ' '
     type: held
-  - ''
+  - type: round
 combos:
 - p:
-  - 3
-  - 15
+  - 2
+  - 12
   k: '!'
   l:
   - default
   - lower
 - p:
-  - 32
-  - 33
-  k: ':'
-  l:
-  - default
-  - lower
-- p:
-  - 26
   - 27
-  k: 'CREO
-
-    (C+A)'
-  l:
-  - default
-- p:
-  - 20
-  - 21
-  k: \
-  l:
-  - default
-  - lower
-- p:
-  - 14
-  - 15
-  k: /
+  - 28
+  k: ':'
   l:
   - default
   - lower
 - p:
   - 21
   - 22
+  k: 'CREO
+
+    (C+A)'
+  l:
+  - default
+- p:
+  - 17
+  - 18
+  k: \
+  l:
+  - default
+  - lower
+- p:
+  - 11
+  - 12
+  k: /
+  l:
+  - default
+  - lower
+- p:
+  - 18
+  - 19
   k: '-'
   l:
   - default
   - lower
 - p:
-  - 13
-  - 14
+  - 10
+  - 11
   k: _
   l:
   - default
   - lower
 - p:
+  - 13
   - 16
-  - 19
   k: 'CAPS
 
     WORD'
   l:
   - default
 - p:
-  - 15
-  - 16
+  - 12
+  - 13
   k: '"'
   l:
   - default
   - lower
 - p:
-  - 19
-  - 20
+  - 16
+  - 17
   k: '?'
   l:
   - default
   - lower
 - p:
-  - 1
-  - 13
+  - 0
+  - 10
   k: Ä
   l:
   - default
 - p:
-  - 9
-  - 21
+  - 8
+  - 18
   k: Ö
   l:
   - default
 - p:
-  - 7
-  - 19
+  - 6
+  - 16
   k: Ü
   l:
   - default
 - p:
-  - 2
-  - 14
+  - 1
+  - 11
   k: ß
   l:
   - default
