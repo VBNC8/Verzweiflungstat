@@ -1,12 +1,7 @@
-Firmware for handwired 3x5+3 Corne style split wired mechanical keyboard with an RP2040 Zero for each side.
-Matrix Col/Row scan.
-UART connection via USB-C cable.
-2x EC11 support but only left side is installed.
-Full LED lighting with onboard RGB LED.
-Alps switches and MT3 keycaps
-500g copper tenting wedge each side
+Firmware for wireless splitkb Aurora Corne with nice!nanos. Left EC11 encoder on outer left thumb key position, left nice!view display.
+Gateron Melodic MX switches and Drop MT3 keycaps.
 
 ## Keymap
 
 
-![Keymap](./keymap-drawer/handwired.svg?v=1)
+![Keymap](./keymap-drawer/splitkb_aurora_corne.svg?v=1)
