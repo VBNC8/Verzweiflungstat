@@ -342,7 +342,7 @@
 
         /* Layer 1 – Lower (symbols / numbers) */
         lower_layer {
-            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>;
+            sensor-bindings = <&inc_dec_kp C_PREV C_NEXT>;
             bindings = <
    &trans   &kp GRAVE    &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser   &smiley               &kp LS(GRAVE)  &pair_paren       &pair_brc   &pair_bkt   &kp LA(F4)    &trans
    &trans   &kp N1       &kp N2           &kp N3               &kp N4         &kp N5                &kp N6         &kp N7            &kp N8      &kp N9      &kp N0        &trans
