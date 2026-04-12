@@ -57,9 +57,10 @@ jobs:
               if len(keys_list) > ec11l_new_idx:
                   keys_list.append(keys_list.pop(ec11l_new_idx))
           
-          # 3. Alle Combos entfernen – 4-Tasten-Combos (Alps 5-way) bringen den Drawer
-          #    zum Absturz, daher werden sie komplett aus der Zeichnung ausgeschlossen.
-          data.pop('combos', None)
+          # 3. 4-Tasten-Combos (Alps 5-way) entfernen – sie bringen den Drawer zum Absturz.
+          #    2-Tasten-Combos bleiben erhalten.
+          if 'combos' in data:
+              data['combos'] = [c for c in data['combos'] if len(c.get('p', [])) != 4]
           
           import os
           os.makedirs('keymap-drawer', exist_ok=True)
