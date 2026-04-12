@@ -1,5 +1,6 @@
 layout:
-  qmk_info_json: keymap-drawer/layout.json
+  qmk_keyboard: crkbd/rev1
+  qmk_layout: LAYOUT_split_3x5_3
 layers:
   default:
   - t: Q
@@ -41,8 +42,9 @@ layers:
   - t: .
     s: AltGr
   - ⌦
-  - t: ⌫
+  - t: ⏯
     h: Adjust
+    type: round
   - t: ESC
     h: Raise
   - t: ⇥
@@ -53,14 +55,6 @@ layers:
     h: Raise
   - t: ⌫
     h: Adjust
-  - t: ⏯
-    s: ↑
-    h: ↓
-    left: ⏮
-    right: ⏭
-    tl: 🔊
-    br: 🔉
-    type: round
   lower:
   - ^
   - <
@@ -104,6 +98,7 @@ layers:
   - '='
   - t: $$mdi:bluetooth-off$$
     s: CLR 5s
+    type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
@@ -113,14 +108,6 @@ layers:
     s: Show
   - t: ▽
     type: trans
-  - t: ⏯
-    s: ↑
-    h: ↓
-    left: ⏮
-    right: ⏭
-    tl: ⏩
-    br: ⏪
-    type: round
   raise:
   - F1
   - F2
@@ -136,8 +123,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - 🖱 RMB
-  - 🖱 LMB
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - UP
@@ -164,8 +153,8 @@ layers:
   - t: ▽
     type: trans
   - ´
-  - t: ▽
-    type: trans
+  - t: ' '
+    type: round
   - t: Task Mgr
     type: held
   - t: ▽
@@ -176,25 +165,7 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - t: ⏯
-    s: ↑
-    h: ↓
-    left: ⏮
-    right: ⏭
-    tl: ⇞
-    br: ⇟
-    type: round
   adjust:
-  - t: $$mdi:lightbulb-on$$
-    s: OnOff
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:cosine-wave$$
-    s: Mode
   - t: ▽
     type: trans
   - t: ▽
@@ -205,15 +176,6 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - RGB ON
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - t: $$mdi:palette-swatch-outline$$
-    s: Hue-
-  - t: $$mdi:palette-outline$$
-    s: Sat-
-  - t: $$mdi:cosine-wave$$
-    s: Rev
   - t: ▽
     type: trans
   - t: ▽
@@ -224,9 +186,31 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - RGB OFF
+  - t: $$mdi:bluetooth$$
+    h: PC
+    s: ⓵
+  - t: $$mdi:bluetooth$$
+    h: S8
+    s: ⓶
+  - t: $$mdi:bluetooth$$
+    h: Zbook
+    s: ⓷
+  - t: $$mdi:bluetooth$$
+    s: ⓸
+  - t: $$mdi:bluetooth$$
+    s: ⓹
   - t: ▽
     type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - $$mdi:usb$$
+  - Pwr±
   - t: ▽
     type: trans
   - t: ▽
@@ -242,7 +226,7 @@ layers:
   - t: ▽
     type: trans
   - t: ' '
-    type: held
+    type: round
   - t: ▽
     type: trans
   - t: ▽
@@ -253,14 +237,6 @@ layers:
     type: trans
   - t: ' '
     type: held
-  - t: ⏯
-    s: ↑
-    h: ↓
-    left: ⏮
-    right: ⏭
-    tl: ↑
-    br: ↓
-    type: round
 combos:
 - p:
   - 2
