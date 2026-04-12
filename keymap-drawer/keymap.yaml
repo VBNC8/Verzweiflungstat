@@ -1,3 +1,5 @@
+layout:
+  qmk_info_json: keymap-drawer/layout.json
 layers:
   default:
   - t: Q
@@ -52,7 +54,10 @@ layers:
   - t: ⌫
     h: Adjust
   - t: ⏯
-    s: ⏭⏮↑↓
+    s: ↑
+    h: ↓
+    left: ⏮
+    right: ⏭
     type: round
   lower:
   - ^
@@ -330,5 +335,3 @@ combos:
   k: ß
   l:
   - default
-layout:
-  qmk_info_json: keymap-drawer/layout.json
