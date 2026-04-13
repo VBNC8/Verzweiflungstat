@@ -333,10 +333,6 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 0
-  - 20
-  k: UP
 layout:
   qmk_keyboard: crkbd/rev1
   qmk_layout: LAYOUT_split_3x5_3

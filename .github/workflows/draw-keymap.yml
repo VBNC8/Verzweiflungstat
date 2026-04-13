@@ -120,10 +120,10 @@ jobs:
               # Skip BT-switcher (T+A/S/D/F) combos — firmware pos 4 (T key).
               if 4 in positions:
                   continue
-              # Skip 5-way-nav (Q+Y/X/C/V/B) combos — firmware pos 0 (Q key)
-              # paired with bot-left (11-14) or right-top (18) partner keys only.
+              # Skip 5-way-nav (Q+Z/X/C/V/B) combos — firmware pos 0 (Q key)
+              # paired with bot-left (10-14) partner keys only.
               # combo_ae uses Q(0)+A(5) and must NOT be filtered out.
-              NAV_PARTNERS = {11, 12, 13, 14, 18}
+              NAV_PARTNERS = {10, 11, 12, 13, 14}
               if 0 in positions and any(p in NAV_PARTNERS for p in positions):
                   continue
               remapped = [FW_POS_TO_QMK_POS[pos] for pos in positions]
