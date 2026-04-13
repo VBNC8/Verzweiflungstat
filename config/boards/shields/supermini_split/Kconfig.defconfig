@@ -1,7 +1,7 @@
 if SHIELD_SUPERMINI_SPLIT_LEFT || SHIELD_SUPERMINI_SPLIT_RIGHT
 
 config ZMK_KEYBOARD_NAME
-	default "Supermini Split"
+	default "Hector-wireless"
 
 config ZMK_SPLIT
 	default y
