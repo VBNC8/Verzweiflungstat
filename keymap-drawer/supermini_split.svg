@@ -388,12 +388,6 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="70" y="50" width="28" height="26" class="combo"/>
 <text x="84" y="63" class="combo tap">ß</text>
 </g>
-<g class="combo combopos-14">
-<path d="M28,105 l0,-37" class="combo"/>
-<path d="M28,105 l0,37" class="combo"/>
-<rect rx="6" ry="6" x="14" y="92" width="28" height="26" class="combo"/>
-<text x="28" y="105" class="combo tap">UP</text>
-</g>
 </g>
 </g>
 <g transform="translate(30, 331)" class="layer-lower">
@@ -598,12 +592,6 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="546" y="74" width="28" height="26" class="combo"/>
 <text x="560" y="88" class="combo tap">?</text>
 </g>
-<g class="combo combopos-9">
-<path d="M28,105 l0,-37" class="combo"/>
-<path d="M28,105 l0,37" class="combo"/>
-<rect rx="6" ry="6" x="14" y="92" width="28" height="26" class="combo"/>
-<text x="28" y="105" class="combo tap">UP</text>
-</g>
 </g>
 </g>
 <g transform="translate(30, 661)" class="layer-raise">
@@ -753,12 +741,6 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <g transform="translate(560, 205)" class="key trans keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
-</g>
-<g class="combo combopos-0">
-<path d="M28,105 l0,-37" class="combo"/>
-<path d="M28,105 l0,37" class="combo"/>
-<rect rx="6" ry="6" x="14" y="92" width="28" height="26" class="combo"/>
-<text x="28" y="105" class="combo tap">UP</text>
 </g>
 </g>
 </g>
@@ -914,12 +896,6 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(560, 205)" class="key held keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-</g>
-<g class="combo combopos-0">
-<path d="M28,105 l0,-37" class="combo"/>
-<path d="M28,105 l0,37" class="combo"/>
-<rect rx="6" ry="6" x="14" y="92" width="28" height="26" class="combo"/>
-<text x="28" y="105" class="combo tap">UP</text>
 </g>
 </g>
 </g>
