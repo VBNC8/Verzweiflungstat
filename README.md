@@ -4,7 +4,7 @@ Matrix Col/Row scan.
 UART connection via USB-C cable.  
 Alps RKJXT1F42001 5-way encoder switch.   
 Full LED lighting with onboard RGB LED.  
-LEOBOG Greywood V3 switches and MT3 keycaps.  
+LEOBOG Greywood V3 switches and DROP MT3 keycaps.  
 500g stacked copper tenting wedge each side.  
 
 
