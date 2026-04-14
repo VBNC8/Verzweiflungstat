@@ -203,7 +203,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - $$mdi:package-down$$
+  - $$tabler:square-arrow-down$$
   - RGB ON
   - t: $$mdi:brightness-4$$
     s: Bri-
@@ -238,7 +238,7 @@ layers:
     type: trans
   - ⏮
   - ⏭
-  - $$mdi:package-up$$
+  - $$tabler:square-arrow-up$$
   - t: ' '
     type: held
   - t: ▽
