@@ -33,18 +33,18 @@
     /* ------------------------------------------------------------------ */
     macros {
 
-        // Schaltet Scroll Lock Dauer-An (Jiggler Start)
+        // Simuliert exakt das Verhalten deines Makropads
         jiggle_on: jiggle_on {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp SCROLLLOCK>; 
+            bindings = <&macro_press &kp LCTRL>;
         };
 
-        // Schaltet Scroll Lock Dauer-Aus (Jiggler Stopp)
+        // Der Not-Aus, um die Taste wieder loszulassen
         jiggle_off: jiggle_off {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_release &kp SCROLLLOCK>;
+            bindings = <&macro_release &kp LCTRL>;
         };
         
         pair_paren: pair_paren {
