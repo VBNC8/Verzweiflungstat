@@ -112,8 +112,8 @@ parse_config:
     "&kp C_FF": {t: "⏩", s: "FF"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
-    "&jiggle_on": "$$tabler:square-arrow-down$$"
-    "&jiggle_off": "$$tabler:square-arrow-up$$"
+    "&jiggle_on": "$$mdi:box-arrow-up$$"
+    "&jiggle_off": "$$tabler:square-arrow-down$$"
 
     # --- MODIFIERS ---
     "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
