@@ -71,14 +71,14 @@ jobs:
               33, 34, 35,           # right thumbs   → QMK 33-35
           ]
 
-          # Alps 5-way encoder circle: center=↵, top=↑, bottom=↓, left=←, right=→.
-          # tl = encoder CW, br = encoder CCW (layer-specific).
-          NAV_BASE = {'t': '↵', 's': '↑', 'h': '↓', 'left': '←', 'right': '→', 'type': 'round'}
+          # Alps 5-way encoder circle: t=center(↵), s=↑↓, h=←→.
+          # Encoder CW/CCW labels appended to s field (layer-specific).
+          NAV_BASE = {'t': '↵', 's': '↑ ↓', 'h': '← →', 'type': 'round'}
           ENCODER_LABELS = {
-              'default_layer': {'tl': '🔊', 'br': '🔉'},
-              'lower_layer':   {'tl': '⇤',  'br': '⇥'},
-              'raise_layer':   {'tl': '↑',  'br': '↓'},
-              'adjust_layer':  {'tl': '↑',  'br': '↓'},
+              'default_layer': {'s': '🔊 🔉'},
+              'lower_layer':   {'s': '⇤ ⇥'},
+              'raise_layer':   {'s': '↑ ↓'},
+              'adjust_layer':  {'s': '↑ ↓'},
           }
 
           layers = data.get('layers', {})
