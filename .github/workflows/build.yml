@@ -18,7 +18,7 @@ jobs:
         run: west zephyr-export
       - name: Set short SHA
         id: vars
-        run: echo "SHA_SHORT=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+        run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - name: Build Left
         run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="supermini_split_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
