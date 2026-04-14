@@ -16,18 +16,21 @@ jobs:
         run: west update
       - name: West Zephyr Export
         run: west zephyr-export
+      - name: Set short SHA
+        id: vars
+        run: echo "SHA_SHORT=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
       - name: Build Left
         run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="supermini_split_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
-        run: cp build/zephyr/zmk.uf2 hector-wireless-left.uf2
+        run: cp build/zephyr/zmk.uf2 hector-wireless-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
       - name: Build Right
         run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="supermini_split_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Right
-        run: cp build/zephyr/zmk.uf2 hector-wireless-right.uf2
+        run: cp build/zephyr/zmk.uf2 hector-wireless-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: hector-wireless-firmware
+          name: hector-wireless-firmware-${{ steps.vars.outputs.SHA_SHORT }}
           path: |
-            hector-wireless-left.uf2
-            hector-wireless-right.uf2
+            hector-wireless-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+            hector-wireless-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
