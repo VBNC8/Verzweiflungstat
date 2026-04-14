@@ -238,7 +238,7 @@ layers:
     type: trans
   - ⏮
   - ⏭
-  - $$mdi:export$$
+  - $$mdi:package-up$$
   - t: ' '
     type: held
   - t: ▽
