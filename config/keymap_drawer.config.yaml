@@ -112,6 +112,8 @@ parse_config:
     "&kp C_FF": {t: "⏩", s: "FF"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
+    "&jiggle_on": "$$mdi:package-down$$"
+    "&jiggle_off": "$$mdi:export$$"
 
     # --- MODIFIERS ---
     "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
