@@ -117,3 +117,19 @@
         >;
     };
 };
+
+/*
+ * Disable the onboard blue LED (P0.15) so no subsystem can blink it.
+ * The gpio-hog keeps the pin driven low (LED off) from early GPIO init.
+ */
+/ {
+    leds { status = "disabled"; };
+};
+
+&gpio0 {
+    led_off: led-off {
+        gpio-hog;
+        gpios = <15 0>;
+        output-low;
+    };
+};

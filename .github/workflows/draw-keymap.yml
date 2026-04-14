@@ -6,6 +6,7 @@ on:
       - "config/supermini_split.keymap"
       - "config/keymap_drawer.config.yaml"
       - ".github/workflows/draw-keymap.yml"
+      - "keymap-drawer/layout.json"
 
 jobs:
   draw:
@@ -45,11 +46,11 @@ jobs:
           with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
 
-          # Use crkbd split-3x5+3 layout (36 keys).
-          data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
+          # Use custom layout.json: crkbd 5×3+3 with Alps circle (37 keys, pos 36 = circle).
+          data['layout'] = {'qmk_info_json': 'keymap-drawer/layout.json', 'qmk_layout': 'LAYOUT'}
 
           # Firmware stores keys left-half-first (pos 0-17 left, 18-35 right).
-          # crkbd QMK layout numbers keys row-by-row across both halves:
+          # Custom layout numbers keys row-by-row across both halves:
           #   QMK  0- 4 = fw  0- 4  (left  top row)
           #   QMK  5- 9 = fw 18-22  (right top row)
           #   QMK 10-14 = fw  5- 9  (left  mid row)
@@ -58,51 +59,52 @@ jobs:
           #   QMK 25-29 = fw 28-32  (right bot row)
           #   QMK 30-32 = fw 15-17  (left  thumbs)
           #   QMK 33-35 = fw 33-35  (right thumbs)
+          #   QMK 36    = Alps nav circle (appended per layer)
           FW_TO_QMK = [
-              0,  1,  2,  3,  4,   # left  top row  → QMK  0- 4
-             18, 19, 20, 21, 22,   # right top row  → QMK  5- 9
-              5,  6,  7,  8,  9,   # left  mid row  → QMK 10-14
-             23, 24, 25, 26, 27,   # right mid row  → QMK 15-19
-             10, 11, 12, 13, 14,   # left  bot row  → QMK 20-24
-             28, 29, 30, 31, 32,   # right bot row  → QMK 25-29
-             15, 16, 17,           # left  thumbs   → QMK 30-32
-             33, 34, 35,           # right thumbs   → QMK 33-35
+               0,  1,  2,  3,  4,   # left  top row  → QMK  0- 4
+              18, 19, 20, 21, 22,   # right top row  → QMK  5- 9
+               5,  6,  7,  8,  9,   # left  mid row  → QMK 10-14
+              23, 24, 25, 26, 27,   # right mid row  → QMK 15-19
+              10, 11, 12, 13, 14,   # left  bot row  → QMK 20-24
+              28, 29, 30, 31, 32,   # right bot row  → QMK 25-29
+              15, 16, 17,           # left  thumbs   → QMK 30-32
+              33, 34, 35,           # right thumbs   → QMK 33-35
           ]
 
-          layers = data.get('layers', {})
-          for name, layer in layers.items():
-              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              if len(keys_list) == 36:
-                  reordered = [keys_list[i] for i in FW_TO_QMK]
-                  if isinstance(layer, list):
-                      data['layers'][name] = reordered
-                      keys_list = reordered
-                  else:
-                      layer['keys'] = reordered
-                      keys_list = reordered
+          # Alps 5-way encoder circle: center=↵, top=↑, bottom=↓, left=←, right=→.
+          # tl = encoder CW, br = encoder CCW (layer-specific).
+          NAV_BASE = {'t': '↵', 's': '↑', 'h': '↓', 'left': '←', 'right': '→', 'type': 'round'}
+          ENCODER_LABELS = {
+              'default_layer': {'tl': '🔊', 'br': '🔉'},
+              'lower_layer':   {'tl': '⇤',  'br': '⇥'},
+              'raise_layer':   {'tl': '↑',  'br': '↓'},
+              'adjust_layer':  {'tl': '↑',  'br': '↓'},
+          }
 
-          # Mark encoder button (left thumb 1, firmware pos 15 → QMK pos 30) as round.
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              if len(keys_list) > 30:
-                  key = keys_list[30]
-                  if isinstance(key, dict):
-                      key['type'] = 'round'
-                  else:
-                      keys_list[30] = {'t': str(key), 'type': 'round'}
+              if len(keys_list) != 36:
+                  continue
+              # 1. Reorder from firmware order to QMK row-by-row order.
+              reordered = [keys_list[i] for i in FW_TO_QMK]
+              # 2. Mark encoder push button (QMK pos 30 = fw pos 15) as round.
+              key = reordered[30]
+              if isinstance(key, dict):
+                  key['type'] = 'round'
+              else:
+                  reordered[30] = {'t': str(key), 'type': 'round'}
+              # 3. Append Alps nav circle as key 36.
+              enc = ENCODER_LABELS.get(name, {'tl': '', 'br': ''})
+              reordered.append({**NAV_BASE, **enc})
+              if isinstance(layer, list):
+                  data['layers'][name] = reordered
+              else:
+                  layer['keys'] = reordered
 
           # Remap combo key-positions from firmware order to QMK row-by-row order,
           # and drop BT-switcher combos (T = firmware pos 4) and
-          # 5-way-nav combos (Q = firmware pos 0).
-          #   fw 0-4  → qmk 0-4    (left  top row, unchanged)
-          #   fw 5-9  → qmk 10-14  (left  mid row)
-          #   fw 10-14 → qmk 20-24 (left  bot row)
-          #   fw 15-17 → qmk 30-32 (left  thumbs)
-          #   fw 18-22 → qmk 5-9   (right top row)
-          #   fw 23-27 → qmk 15-19 (right mid row)
-          #   fw 28-32 → qmk 25-29 (right bot row)
-          #   fw 33-35 → qmk 33-35 (right thumbs)
+          # 5-way-nav combos (Q = firmware pos 0 paired with bot-left 10-14).
           FW_POS_TO_QMK_POS = [
                0,  1,  2,  3,  4,   # fw  0- 4 → qmk  0- 4
               10, 11, 12, 13, 14,   # fw  5- 9 → qmk 10-14
