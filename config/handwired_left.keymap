@@ -39,7 +39,6 @@
             wait-ms = <10>;
             tap-ms = <10>;
             bindings = <&macro_press &kp F24>; 
-            label = "$$mdi:package-down$$";
         };
 
         // Schaltet den Jiggler explizit AUS
