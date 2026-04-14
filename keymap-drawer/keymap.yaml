@@ -203,7 +203,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - '&jiggle_on'
+  - $$mdi:package-down$$
   - RGB ON
   - t: $$mdi:brightness-4$$
     s: Bri-
@@ -238,7 +238,7 @@ layers:
     type: trans
   - ⏮
   - ⏭
-  - '&jiggle_off'
+  - $$mdi:export$$
   - t: ' '
     type: held
   - t: ▽
