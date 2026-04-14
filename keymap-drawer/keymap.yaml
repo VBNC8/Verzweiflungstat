@@ -203,7 +203,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - $$tabler:square-arrow-down$$
+  - $$mdi:logout$$
   - RGB ON
   - t: $$mdi:brightness-4$$
     s: Bri-
@@ -238,7 +238,7 @@ layers:
     type: trans
   - ⏮
   - ⏭
-  - $$tabler:square-arrow-up$$
+  - $$mdi:login$$
   - t: ' '
     type: held
   - t: ▽
