@@ -32,22 +32,19 @@
     /* Macros                                                               */
     /* ------------------------------------------------------------------ */
     macros {
-        // Schaltet den Jiggler explizit AN
+
+        // Schaltet Scroll Lock Dauer-An (Jiggler Start)
         jiggle_on: jiggle_on {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
-            tap-ms = <10>;
-            bindings = <&macro_press &kp F24>; 
+            bindings = <&macro_press &kp SCROLLLOCK>; 
         };
 
-        // Schaltet den Jiggler explizit AUS
+        // Schaltet Scroll Lock Dauer-Aus (Jiggler Stopp)
         jiggle_off: jiggle_off {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
-            tap-ms = <10>;
-            bindings = <&macro_release &kp F24>;
+            bindings = <&macro_release &kp SCROLLLOCK>;
         };
         
         pair_paren: pair_paren {
