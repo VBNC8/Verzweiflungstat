@@ -52,9 +52,9 @@
             , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 13  P0.20  . */
             , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 14  P0.17  DEL */
             /* thumbs */
-            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P0.08  thumb inner (RET) */
+            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P0.06  thumb inner (RET) */
             , <&gpio1  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 16  P1.04  thumb mid (SPACE) */
-            , <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P1.06  thumb outer (BSPC) */
+            , <&gpio1  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P1.08  thumb outer (BSPC) */
             ;
     };
 
