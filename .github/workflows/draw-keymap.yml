@@ -95,7 +95,7 @@ jobs:
               else:
                   reordered[30] = {'t': str(key), 'type': 'round'}
               # 3. Append Alps nav circle as key 36.
-              enc = ENCODER_LABELS.get(name, {'tl': '', 'br': ''})
+              enc = ENCODER_LABELS.get(name, {})
               reordered.append({**NAV_BASE, **enc})
               if isinstance(layer, list):
                   data['layers'][name] = reordered
