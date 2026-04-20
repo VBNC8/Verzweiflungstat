@@ -207,7 +207,7 @@
         combo_nav_down { timeout-ms = <30>; key-positions = <0 14 10>; bindings = <&once 0 DOWN>; };
         combo_nav_left { timeout-ms = <30>; key-positions = <0 14 12>; bindings = <&once 0 C_PREV>; };
         combo_nav_right { timeout-ms = <30>; key-positions = <0 14 13>; bindings = <&once 0 C_NEXT>; };
-        combo_nav_ok { timeout-ms = <30>; key-positions = <0 14>; bindings = <&once 0 C_PP>; };
+        combo_nav_ok { timeout-ms = <50>; key-positions = <0 14>; bindings = <&once 0 C_PP>; };
     };
 
     keymap {
