@@ -203,8 +203,8 @@
         combo_bt1 { timeout-ms = <30>; key-positions = <4 6>; bindings = <&bt_sel_1>; };
         combo_bt2 { timeout-ms = <30>; key-positions = <4 7>; bindings = <&bt_sel_2>; };
         combo_usb { timeout-ms = <30>; key-positions = <4 8>; bindings = <&usb_on>; };
-        combo_nav_up { timeout-ms = <30>; key-positions = <0 14 10>; bindings = <&once 0 UP>; };
-        combo_nav_down { timeout-ms = <30>; key-positions = <0 14 11>; bindings = <&once 0 DOWN>; };
+        combo_nav_up { timeout-ms = <30>; key-positions = <0 14 11>; bindings = <&once 0 UP>; };
+        combo_nav_down { timeout-ms = <30>; key-positions = <0 14 10>; bindings = <&once 0 DOWN>; };
         combo_nav_left { timeout-ms = <30>; key-positions = <0 14 12>; bindings = <&once 0 C_PREV>; };
         combo_nav_right { timeout-ms = <30>; key-positions = <0 14 13>; bindings = <&once 0 C_NEXT>; };
         combo_nav_ok { timeout-ms = <30>; key-positions = <0 14>; bindings = <&once 0 C_PP>; };
