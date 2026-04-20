@@ -118,6 +118,35 @@
             #binding-cells = <0>;
             bindings = <&bt BT_CLR>;
         };
+        
+        // Makro sendet den Befehl und "wartet" dann einfach, bis du loslässt
+        m_pp: m_pp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp C_PP>; 
+        };
+        m_next: m_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_NEXT>;
+        };
+        m_prev: m_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_PREV>;
+        };
+        m_up: m_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp UP>;
+        };
+        m_down: m_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DOWN>;
+        };
     };
 
     behaviors {
@@ -166,15 +195,6 @@
             bindings = <&macro_bt_clr>, <&none>;
         };
 
-        // Verhindert das Halten/Wiederholen: 
-        // Sendet bei Tastendruck den Key und ignoriert das Halten (&none)
-        once: once_behavior {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <150>; 
-            bindings = <&none>, <&kp>;
-        };
     };
 
     combos {
@@ -203,12 +223,11 @@
         combo_bt1 { timeout-ms = <30>; key-positions = <4 6>; bindings = <&bt_sel_1>; };
         combo_bt2 { timeout-ms = <30>; key-positions = <4 7>; bindings = <&bt_sel_2>; };
         combo_usb { timeout-ms = <30>; key-positions = <4 8>; bindings = <&usb_on>; };
-        combo_nav_up { timeout-ms = <30>; key-positions = <0 14 11>; bindings = <&once 0 UP>; };
-        combo_nav_down { timeout-ms = <30>; key-positions = <0 14 10>; bindings = <&once 0 DOWN>; };
-        combo_nav_left { timeout-ms = <30>; key-positions = <0 14 12>; bindings = <&once 0 C_PREV>; };
-        combo_nav_right { timeout-ms = <30>; key-positions = <0 14 13>; bindings = <&once 0 C_NEXT>; };
-        combo_nav_ok { timeout-ms = <50>; key-positions = <0 14>; bindings = <&once 0 C_PP>; };
-    };
+        combo_up    { timeout-ms = <40>; key-positions = <0 11 14>; bindings = <&m_up>; };
+        combo_down  { timeout-ms = <40>; key-positions = <0 10 14>; bindings = <&m_down>; };
+        combo_prev  { timeout-ms = <40>; key-positions = <0 12 14>; bindings = <&m_prev>; };
+        combo_next  { timeout-ms = <40>; key-positions = <0 13 14>; bindings = <&m_next>; };
+        combo_pp    { timeout-ms = <40>; key-positions = <0 14>;    bindings = <&m_pp>; };    };
 
     keymap {
         compatible = "zmk,keymap";
