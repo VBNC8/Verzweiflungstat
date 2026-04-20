@@ -166,13 +166,14 @@
             bindings = <&macro_bt_clr>, <&none>;
         };
 
-        // Dieses Verhalten sendet nur einen Tap und ignoriert das Halten komplett
-        med_tap: media_tap_only {
+        // Verhindert das Halten/Wiederholen: 
+        // Sendet bei Tastendruck den Key und ignoriert das Halten (&none)
+        once: once_behavior {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            bindings = <&none>, <&kp>; // Bei Halten passiert &none, bei Tap &kp
+            tapping-term-ms = <150>; 
+            bindings = <&none>, <&kp>;
         };
     };
 
