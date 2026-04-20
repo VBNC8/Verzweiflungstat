@@ -52,6 +52,10 @@ layers:
     h: Raise
   - t: ⌫
     h: Adjust
+  - t: ↵
+    s: ↑ ↓
+    h: ← →
+    type: round
   lower:
   - ^
   - <
@@ -106,6 +110,10 @@ layers:
     s: Show
   - t: ▽
     type: trans
+  - t: ↵
+    s: ↑ ↓
+    h: ← →
+    type: round
   raise:
   - F1
   - F2
@@ -163,6 +171,10 @@ layers:
     type: held
   - t: ▽
     type: trans
+  - t: ↵
+    s: ↑ ↓
+    h: ← →
+    type: round
   adjust:
   - t: ▽
     type: trans
@@ -235,6 +247,10 @@ layers:
     type: trans
   - t: ' '
     type: held
+  - t: ↵
+    s: ↑ ↓
+    h: ← →
+    type: round
 combos:
 - p:
   - 2
@@ -334,5 +350,5 @@ combos:
   l:
   - default
 layout:
-  qmk_keyboard: crkbd/rev1
-  qmk_layout: LAYOUT_split_3x5_3
+  qmk_info_json: keymap-drawer/layout.json
+  qmk_layout: LAYOUT
