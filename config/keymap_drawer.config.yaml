@@ -126,27 +126,26 @@ draw_config:
   dark_mode: true
   width: 1200
   svg_extra_style: |
-    svg.keymap {
-      font-size: 16px;
-    }
-    text.tap {
-      font-size: 20px;
-    }
-    text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
-      font-size: 13px;
-    }
-    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-32 rect.key { fill: #854747; }
-    g.layer-default g.keypos-33 rect.key { fill: #854747; }
-    g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
-    g.layer-lower g.keypos-32 rect.key { fill: #854747; }
-    g.layer-lower g.keypos-33 rect.key { fill: #854747; }
-    g.layer-raise g.keypos-31 rect.key { fill: #3a7a3a; }
-    g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
-    /* Convert encoder (keypos-36) from rect to circle */
-    g.keypos-36 rect.key { display: none; }
-    g.keypos-36 circle.key { display: block; }
+  svg.keymap {
+    font-size: 16px;
+  }
+  text.tap {
+    font-size: 20px;
+  }
+  text.combo, text.hold, text.shifted, text.left, text.right {
+    font-size: 13px;
+  }
+  g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
+  g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
+  g.layer-default g.keypos-32 rect.key { fill: #854747; }
+  g.layer-default g.keypos-33 rect.key { fill: #854747; }
+  g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
+  g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
+  g.layer-lower g.keypos-32 rect.key { fill: #854747; }
+  g.layer-lower g.keypos-33 rect.key { fill: #854747; }
+  g.layer-raise g.keypos-31 rect.key { fill: #3a7a3a; }
+  g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
+  g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+  g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
+  /* Make encoder (keypos-36) circular */
+  g.keypos-36 rect.key { rx: 100; ry: 100; }
