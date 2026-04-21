@@ -1,4 +1,4 @@
-name: Draw ZMK keymaps
+name: Draw ZMK keymaps 
 on:
   workflow_dispatch:
   push:
