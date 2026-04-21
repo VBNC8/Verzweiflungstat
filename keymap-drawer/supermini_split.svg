@@ -148,7 +148,7 @@ svg.keymap {
 text.tap {
   font-size: 20px;
 }
-text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
+text.combo, text.hold, text.shifted, text.left, text.right {
   font-size: 13px;
 }
 g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
@@ -163,9 +163,7 @@ g.layer-raise g.keypos-31 rect.key { fill: #3a7a3a; }
 g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
 g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
-/* Convert encoder (keypos-36) from rect to circle */
-g.keypos-36 rect.key { display: none; }
-g.keypos-36 circle.key { display: block; }
+g.keypos-36 rect.key { rx: 100; ry: 100; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
