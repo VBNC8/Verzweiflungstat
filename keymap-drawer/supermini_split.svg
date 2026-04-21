@@ -326,11 +326,11 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <text x="0" y="0" class="key tap">⌫</text>
 <text x="0" y="24" class="key hold">Adjust</text>
 </g>
-<g transform="translate(314, 132)" class="key round keypos-36">
-<rect rx="6" ry="6" x="-32" y="-32" width="63" height="63" class="key round"/>
+<g transform="translate(308, 126)" class="key round keypos-36">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="30" class="key round hold">◀ ▶</text>
-<text x="0" y="-30" class="key round shifted">↑ ↓</text>
+<text x="0" y="24" class="key round hold">◀ ▶</text>
+<text x="0" y="-24" class="key round shifted">↑ ↓</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="126" y="43" width="28" height="26" class="combo"/>
@@ -560,11 +560,11 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(314, 132)" class="key round keypos-36">
-<rect rx="6" ry="6" x="-32" y="-32" width="63" height="63" class="key round"/>
+<g transform="translate(308, 126)" class="key round keypos-36">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="30" class="key round hold">◀ ▶</text>
-<text x="0" y="-30" class="key round shifted">↑ ↓</text>
+<text x="0" y="24" class="key round hold">◀ ▶</text>
+<text x="0" y="-24" class="key round shifted">↑ ↓</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="126" y="43" width="28" height="26" class="combo"/>
@@ -754,11 +754,11 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(314, 132)" class="key round keypos-36">
-<rect rx="6" ry="6" x="-32" y="-32" width="63" height="63" class="key round"/>
+<g transform="translate(308, 126)" class="key round keypos-36">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="30" class="key round hold">◀ ▶</text>
-<text x="0" y="-30" class="key round shifted">↑ ↓</text>
+<text x="0" y="24" class="key round hold">◀ ▶</text>
+<text x="0" y="-24" class="key round shifted">↑ ↓</text>
 </g>
 </g>
 </g>
@@ -915,11 +915,11 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 <g transform="translate(560, 205)" class="key held keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
 </g>
-<g transform="translate(314, 132)" class="key round keypos-36">
-<rect rx="6" ry="6" x="-32" y="-32" width="63" height="63" class="key round"/>
+<g transform="translate(308, 126)" class="key round keypos-36">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="30" class="key round hold">◀ ▶</text>
-<text x="0" y="-30" class="key round shifted">↑ ↓</text>
+<text x="0" y="24" class="key round hold">◀ ▶</text>
+<text x="0" y="-24" class="key round shifted">↑ ↓</text>
 </g>
 </g>
 </g>
