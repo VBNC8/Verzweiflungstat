@@ -328,8 +328,8 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(364, 98)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-68" y="-68" width="136" height="136" class="key round"/>
-<text x="0" y="0" class="key round tap">↵</text>
-<text x="0" y="66" class="key round hold">← →</text>
+<text x="0" y="0" class="key round tap">⏯</text>
+<text x="0" y="66" class="key round hold">◀ ▶</text>
 <text x="0" y="-66" class="key round shifted">↑ ↓</text>
 </g>
 <g class="combo combopos-0">
@@ -562,8 +562,8 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(364, 98)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-68" y="-68" width="136" height="136" class="key round"/>
-<text x="0" y="0" class="key round tap">↵</text>
-<text x="0" y="66" class="key round hold">← →</text>
+<text x="0" y="0" class="key round tap">⏯</text>
+<text x="0" y="66" class="key round hold">◀ ▶</text>
 <text x="0" y="-66" class="key round shifted">↑ ↓</text>
 </g>
 <g class="combo combopos-0">
@@ -756,8 +756,8 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(364, 98)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-68" y="-68" width="136" height="136" class="key round"/>
-<text x="0" y="0" class="key round tap">↵</text>
-<text x="0" y="66" class="key round hold">← →</text>
+<text x="0" y="0" class="key round tap">⏯</text>
+<text x="0" y="66" class="key round hold">◀ ▶</text>
 <text x="0" y="-66" class="key round shifted">↑ ↓</text>
 </g>
 </g>
@@ -917,8 +917,8 @@ g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(364, 98)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-68" y="-68" width="136" height="136" class="key round"/>
-<text x="0" y="0" class="key round tap">↵</text>
-<text x="0" y="66" class="key round hold">← →</text>
+<text x="0" y="0" class="key round tap">⏯</text>
+<text x="0" y="66" class="key round hold">◀ ▶</text>
 <text x="0" y="-66" class="key round shifted">↑ ↓</text>
 </g>
 </g>

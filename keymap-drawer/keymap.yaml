@@ -52,9 +52,9 @@ layers:
     h: Raise
   - t: ⌫
     h: Adjust
-  - t: ↵
+  - t: ⏯
     s: ↑ ↓
-    h: ← →
+    h: ◀ ▶
     type: round
   lower:
   - ^
@@ -110,9 +110,9 @@ layers:
     s: Show
   - t: ▽
     type: trans
-  - t: ↵
+  - t: ⏯
     s: ↑ ↓
-    h: ← →
+    h: ◀ ▶
     type: round
   raise:
   - F1
@@ -171,9 +171,9 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - t: ↵
+  - t: ⏯
     s: ↑ ↓
-    h: ← →
+    h: ◀ ▶
     type: round
   adjust:
   - t: ▽
@@ -247,9 +247,9 @@ layers:
     type: trans
   - t: ' '
     type: held
-  - t: ↵
+  - t: ⏯
     s: ↑ ↓
-    h: ← →
+    h: ◀ ▶
     type: round
 combos:
 - p:
