@@ -147,3 +147,6 @@ draw_config:
     g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
     g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
     g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
+    /* Convert encoder (keypos-36) from rect to circle */
+    g.keypos-36 rect.key { display: none; }
+    g.keypos-36 circle.key { display: block; }
