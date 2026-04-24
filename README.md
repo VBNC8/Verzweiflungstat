@@ -1,4 +1,5 @@
 
+
 Firmware for handwired 3x5+3 Corne style split wired mechanical keyboard with an RP2040 Zero for each side.  
 Matrix Col/Row scan.  
 UART connection via USB-C cable.  
@@ -8,7 +9,7 @@ LEOBOG Greywood V3 switches and DROP MT3 keycaps.
 500g stacked copper tenting wedge each side.  
 
 
-![20260412_212411](https://github.com/user-attachments/assets/d1b6166d-67e4-4714-aea2-f4d342f29385)
+<img width="1418" height="1078" alt="20260424_230614" src="https://github.com/user-attachments/assets/4423ecec-02c5-4360-a986-5d7d77ed8b6e" />
 
 ## Keymap
 
