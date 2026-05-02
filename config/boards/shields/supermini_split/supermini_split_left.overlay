@@ -3,24 +3,24 @@
  *
  * Pin assignment (D-label → nRF52840 pin → ZMK GPIO, nice!nano pinout):
  *
- *   Key  0  P0.11  D7   — top row, col 0  (Q)
- *   Key  1  P1.15  D18  — top row, col 1  (W)
- *   Key  2  P0.02  D19  — top row, col 2  (E)
- *   Key  3  P0.29  D20  — top row, col 3  (R)
- *   Key  4  P0.31  D21  — top row, col 4  (T)
- *   Key  5  P1.13  D15  — mid row, col 0  (A)
- *   Key  6  P1.11  D14  — mid row, col 1  (S)
- *   Key  7  P0.10  D16  — mid row, col 2  (D)
- *   Key  8  P0.09  D10  — mid row, col 3  (F)
- *   Key  9  P0.06  D1   — mid row, col 4  (G)
- *   Key 10  P0.17  D2   — bot row, col 0  (Z/Y)
- *   Key 11  P0.20  D3   — bot row, col 1  (X)
- *   Key 12  P0.22  D4   — bot row, col 2  (C)
- *   Key 13  P0.24  D5   — bot row, col 3  (V)
- *   Key 14  P1.00  D6   — bot row, col 4  (B)
- *   Key 15  P0.08  D0   — left thumb out  (encoder push / layer)
- *   Key 16  P1.04  D8   — left thumb mid  (ESC / layer)
- *   Key 17  P1.06  D9   — left thumb in   (TAB / layer)
+ *   Key  0  P0.17  D2   — top row, col 0  (Q)
+ *   Key  1  P0.29  D20  — top row, col 1  (W)
+ *   Key  2  P0.31  D21  — top row, col 2  (E)
+ *   Key  3  P0.08  D0   — top row, col 3  (R)
+ *   Key  4  P0.06  D1   — top row, col 4  (T)
+ *   Key  5  P0.02  D19  — mid row, col 0  (A)
+ *   Key  6  P0.20  D3   — mid row, col 1  (S)
+ *   Key  7  P1.15  D18  — mid row, col 2  (D)
+ *   Key  8  P0.22  D4   — mid row, col 3  (F)
+ *   Key  9  P0.24  D5   — mid row, col 4  (G)
+ *   Key 10  P1.04  D8   — bot row, col 0  (Z/Y)
+ *   Key 11  P1.00  D6   — bot row, col 1  (X)
+ *   Key 12  P1.13  D15  — bot row, col 2  (C)
+ *   Key 13  P0.11  D7   — bot row, col 3  (V)
+ *   Key 14  P1.06  D9   — bot row, col 4  (B)
+ *   Key 15  P1.11  D14  — left thumb out  (encoder push / layer)
+ *   Key 16  P0.09  D10  — left thumb mid  (ESC / layer)
+ *   Key 17  P1.10  D16  — left thumb in   (TAB / layer)
  *
  *   Encoder (rotary, centre bottom pads):
  *     A   P1.01
@@ -28,16 +28,16 @@
  *
  *   9 special-function switches:
  *     BT / USB — wired in parallel to T (P0.31) + partner key:
- *     BT0     → T (P0.31) + A (P1.13)   → combo T+A fires bt_sel_0
- *     BT1     → T (P0.31) + S (P1.11)   → combo T+S fires bt_sel_1
- *     BT2     → T (P0.31) + D (P0.10)   → combo T+D fires bt_sel_2
- *     USB_OUT → T (P0.31) + F (P0.09)   → combo T+F fires usb_on
+ *     BT0     → T (P0.06) + A (P0.02)   → combo T+A fires bt_sel_0
+ *     BT1     → T (P0.06) + S (P0.20)   → combo T+S fires bt_sel_1
+ *     BT2     → T (P0.06) + D (P1.15)   → combo T+D fires bt_sel_2
+ *     USB_OUT → T (P0.06) + F (P0.22)   → combo T+F fires usb_on
  *     5-way nav — wired in parallel to Q (P0.11) + partner key:
- *     Nav Up  → Q (P0.11) + Z (P0.17)   → combo Q+Z fires &kp UP
- *     Nav Dn  → Q (P0.11) + X (P0.20)   → combo Q+X fires &kp DOWN
- *     Nav Lt  → Q (P0.11) + C (P0.22)   → combo Q+C fires &kp LEFT
- *     Nav Rt  → Q (P0.11) + V (P0.24)   → combo Q+V fires &kp RIGHT
- *     Nav OK  → Q (P0.11) + B (P1.00)   → combo Q+B fires &kp RET
+ *     Nav Up  → Q (P0.17) + Z (P1.04)   → combo Q+Z fires &kp UP
+ *     Nav Dn  → Q (P0.17) + X (P1.00)   → combo Q+X fires &kp DOWN
+ *     Nav Lt  → Q (P0.17) + C (P1.13)   → combo Q+C fires &kp LEFT
+ *     Nav Rt  → Q (P0.17) + V (P0.11)   → combo Q+V fires &kp RIGHT
+ *     Nav OK  → Q (P0.17) + B (P1.06)   → combo Q+B fires &kp RET
  *
  * Key-position map (used in keymap / combos):
  *   Left  keys : 0–17   (18 direct, this half)
@@ -57,24 +57,24 @@
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios
-            = <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  0  P0.11  Q */
-            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  1  P1.15  W */
-            , <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  2  P0.02  E */
-            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  3  P0.29  R */
-            , <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  4  P0.31  T */
-            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  5  P1.13  A */
-            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  6  P1.11  S */
-            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  7  P0.10  D */
-            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  8  P0.09  F */
-            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  9  P0.06  G */
-            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 10  P0.17  Z */
-            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 11  P0.20  X */
-            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 12  P0.22  C */
-            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 13  P0.24  V */
-            , <&gpio1  0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 14  P1.00  B */
-            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P0.08  thumb out */
-            , <&gpio1  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 16  P1.04  thumb mid */
-            , <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P1.06  thumb in  */
+            = <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  0  P0.17  Q */
+            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  1  P0.29  W */
+            , <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  2  P0.31  E */
+            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  3  P0.08  R */
+            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  4  P0.06  T */
+            , <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  5  P0.02  A */
+            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  6  P0.20  S */
+            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  7  P1.15  D */
+            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  8  P0.22  F */
+            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  9  P0.24  G */
+            , <&gpio1  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 10  P1.04  Z */
+            , <&gpio1  0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 11  P1.00  X */
+            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 12  P1.13  C */
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 13  P0.11  V */
+            , <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 14  P1.06  B */
+            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P1.11  thumb out */
+            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 16  P0.06  thumb mid */
+            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P0.10  thumb in  */
             ;
     };
 
