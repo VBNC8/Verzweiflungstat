@@ -133,6 +133,6 @@
     led_off: led-off {
         gpio-hog;
         gpios = <15 0>;
-        output-low;
+        output-high;
     };
 };
