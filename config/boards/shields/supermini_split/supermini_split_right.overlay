@@ -11,9 +11,9 @@
  *   Key  2  P0.02  D19  (I)    Key  7  P1.11  D16  (K)    Key 12  P0.17  D4   (,)
  *   Key  3  P1.15  D18  (O)    Key  8  P1.13  D14  (L)    Key 13  P0.08  D3   (.)
  *   Key  4  P0.22  D7   (P)    Key  9  P0.24  D15  (ö)    Key 14  P1.00  D2   (DEL)
- *   Key 15  P0.11  D0   (right thumb inner / RET)
+ *   Key 15  P1.06  D0   (right thumb inner / RET)
  *   Key 16  P1.04  D8   (right thumb mid / SPACE)
- *   Key 17  P1.06  D9   (right thumb outer / BSPC)
+ *   Key 17  P0.11  D9   (right thumb outer / BSPC)
  *
  * Positions 0–17 on the peripheral are transmitted to the central
  * and mapped to keymap positions 18–35 (central offset = 18).
@@ -40,7 +40,7 @@
             , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  3  P1.15  O */
             , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  4  P0.22  P */
             /* mid row — innermost (H) → outermost (ö) */
-            , <&gpio0  0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  5  P0.09  H */
+            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  5  P0.09  H */
             , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  6  P0.10  J */
             , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  7  P1.11  K */
             , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key  8  P1.13  L */
@@ -52,9 +52,9 @@
             , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 13  P0.08  . */
             , <&gpio1  0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 14  P1.00  DEL */
             /* thumbs */
-            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P0.11  thumb inner (RET) */
+            , <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 15  P0.11  thumb inner (RET) */
             , <&gpio1  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 16  P1.04  thumb mid (SPACE) */
-            , <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P1.06  thumb outer (BSPC) */
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   /* key 17  P1.06  thumb outer (BSPC) */
             ;
     };
 
