@@ -19,6 +19,12 @@
  * and mapped to keymap positions 18–35 (central offset = 18).
  */
 
+&gpio0 {
+    /* Wir setzen den Pin der blauen LED (meist Pin 15 beim nRF52840) auf Input, 
+       damit er nicht mehr angesteuert wird. */
+    pinctrl-0 = <&gpio0_default>;
+};
+
 / {
     chosen {
         zmk,kscan = &kscan0;
