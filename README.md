@@ -1,5 +1,5 @@
 
-Firmware for Hector hotswap wireless 5x3+3 split mechanical keyboard with two SuperMini nrf52840 controllers.  
+Firmware for Hawk handwired hotswap wireless 5x3+3 split mechanical ergo keyboard with two SuperMini nrf52840 controllers.  
 Left Alps RKJXT1F42001 5-way encoder switch.  
 Left 'mechanical' BT-selector switch.  
 
