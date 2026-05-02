@@ -6,14 +6,14 @@
  * Each row's GPIO list runs innermost (toward centre) → outermost.
  *
  * Corrected column order (firmware pos → physical key → central pos):
- *   Key  0  P0.31  D21  (Y)    Key  5  P0.09  D1   (H)    Key 10  P0.06  D6   (N)
- *   Key  1  P0.29  D20  (U)    Key  6  P0.10  D10  (J)    Key 11  P0.20  D5   (M)
- *   Key  2  P0.02  D19  (I)    Key  7  P1.11  D16  (K)    Key 12  P0.17  D4   (,)
- *   Key  3  P1.15  D18  (O)    Key  8  P1.13  D14  (L)    Key 13  P0.08  D3   (.)
- *   Key  4  P0.22  D7   (P)    Key  9  P0.24  D15  (ö)    Key 14  P1.00  D2   (DEL)
- *   Key 15  P1.06  D0   (right thumb inner / RET)
+ *   Key  0  P0.31  D21  (Y)    Key  5  P0.09  D10  (H)    Key 10  P0.06  D1   (N)
+ *   Key  1  P0.29  D20  (U)    Key  6  P0.10  D16  (J)    Key 11  P0.20  D3   (M)
+ *   Key  2  P0.02  D19  (I)    Key  7  P1.11  D14  (K)    Key 12  P0.17  D2   (,)
+ *   Key  3  P1.15  D18  (O)    Key  8  P1.13  D15  (L)    Key 13  P0.08  D0   (.)
+ *   Key  4  P0.22  D4   (P)    Key  9  P0.24  D5   (ö)    Key 14  P1.00  D6   (DEL)
+ *   Key 15  P1.06  D9   (right thumb inner / RET)
  *   Key 16  P1.04  D8   (right thumb mid / SPACE)
- *   Key 17  P0.11  D9   (right thumb outer / BSPC)
+ *   Key 17  P0.11  D7   (right thumb outer / BSPC)
  *
  * Positions 0–17 on the peripheral are transmitted to the central
  * and mapped to keymap positions 18–35 (central offset = 18).
