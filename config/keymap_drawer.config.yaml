@@ -122,6 +122,9 @@ parse_config:
     "&caps_wrd": "CAPS\nWORD"
     "&kp LC(LALT)": "CREO\n(C+A)"
 
+    "&bootloader": "⟐"
+    "&sys_reset": "↻"
+
 draw_config:
   dark_mode: true
   width: 1200
