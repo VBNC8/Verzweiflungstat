@@ -302,7 +302,7 @@
 /* left tmb  */   &kp F14        &trans            &trans
 /* right top */   &trans         &trans            &trans               &trans          &trans
 /* right mid */   &trans         &trans            &trans               &trans          &trans
-/* right bot */   &trans         &trans            &kp C_PREV           &kp C_NEXT      &trans
+/* right bot */   &sys_reset     &bootloader       &kp C_PREV           &kp C_NEXT      &trans
 /* right tmb */   &trans         &trans            &kp F12
             >;
         };
