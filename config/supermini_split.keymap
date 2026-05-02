@@ -298,7 +298,7 @@
             bindings = <
 /* left top  */   &trans         &trans            &trans               &trans          &trans
 /* left mid  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt BT_SEL 3    &bt BT_SEL 4
-/* left bot  */   &usb_on        &ext_power EP_TOG &trans               &trans          &trans
+/* left bot  */   &usb_on        &ext_power EP_TOG &trans               &bootloader     &sys_reset
 /* left tmb  */   &kp F14        &trans            &trans
 /* right top */   &trans         &trans            &trans               &trans          &trans
 /* right mid */   &trans         &trans            &trans               &trans          &trans
