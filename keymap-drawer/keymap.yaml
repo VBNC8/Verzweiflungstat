@@ -223,10 +223,8 @@ layers:
   - Pwr±
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - '&bootloader'
+  - '&sys_reset'
   - t: ▽
     type: trans
   - t: ▽
