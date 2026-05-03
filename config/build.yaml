@@ -8,10 +8,10 @@ jobs:
         [
           {
             "board": "nice_nano//zmk",
-            "shield": "supermini_split_left"
+            "shield": "hawk_left"
           },
           {
             "board": "nice_nano//zmk",
-            "shield": "supermini_split_right"
+            "shield": "hawk_right"
           }
         ]
