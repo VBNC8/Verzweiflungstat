@@ -1,5 +1,5 @@
 /*
- * Right half overlay — Super mini nrf52840
+ * Right half overlay — Hawk nrf52840
  *
  * This PCB is reversible: the right half is the same board flipped 180°.
  * The columns are therefore mirrored relative to the left overlay.
