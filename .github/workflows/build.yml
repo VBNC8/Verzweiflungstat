@@ -30,7 +30,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: hawk-wireless-firmware-${{ steps.vars.outputs.SHA_SHORT }}
+          name: hawk-firmware-${{ steps.vars.outputs.SHA_SHORT }}
           path: |
-            hawk-wireless-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-            hawk-wireless-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+            hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+            hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
