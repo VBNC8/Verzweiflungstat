@@ -1,5 +1,5 @@
 /*
- * Left half overlay — Super mini nrf52840
+ * Left half overlay — Hawk nrf52840
  *
  * Pin assignment (D-label → nRF52840 pin → ZMK GPIO, nice!nano pinout):
  *
