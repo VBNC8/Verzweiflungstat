@@ -165,7 +165,7 @@
         caps_wrd: caps_wrd {
             compatible = "zmk,behavior-caps-word";
             #binding-cells = <0>;
-            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>;
+            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE SQT SEMI LBKT>;
         };
 
         hrm_safe: hrm_safe {
