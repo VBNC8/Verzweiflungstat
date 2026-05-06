@@ -145,6 +145,9 @@ parse_config:
     "&caps_wrd": "CAPS\nWORD" # Das \n erzwingt den Zeilenumbruch
     "&kp LC(LALT)": "CREO\n(C+A)"
 
+    "&bootloader": "⟐"
+    "&sys_reset": "↻"
+
 draw_config:
   dark_mode: true
   #n_columns: 1
