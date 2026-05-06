@@ -252,7 +252,7 @@
          *   Pos 15–17 : left thumbs             Pos 33–35 : right thumbs
          */
         default_layer {
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
             bindings = <
 /* left top  */   &kp Q          &kp W             &kp E              &kp R                &kp T
 /* left mid  */   &kp A          &kp S             &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G
