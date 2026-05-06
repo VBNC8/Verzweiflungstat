@@ -116,7 +116,7 @@
         caps_wrd: caps_wrd {
             compatible = "zmk,behavior-caps-word";
             #binding-cells = <0>;
-            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>;
+            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE SQT SEMI LBKT>;
         };
 
         hrm_safe: hrm_safe {
@@ -133,11 +133,11 @@
         hrm_shift: hrm_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <180>;
-            quick-tap-ms = <150>;
-            flavor = "balanced";
+            tapping-term-ms = <150>; // Dein ursprünglicher Wert
+            quick-tap-ms = <100>;    // Dein ursprünglicher Wert
+            flavor = "tap-preferred"; // TESTE DIESEN
             bindings = <&kp>, <&kp>;
-            hold-trigger-on-release;
+            // hold-trigger-on-release; // Deaktiviere das vorerst (auskommentieren)
         };
 
         lt_hp: lt_hp {
