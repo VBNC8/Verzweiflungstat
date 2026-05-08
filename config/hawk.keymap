@@ -231,15 +231,15 @@
         combo_ss { timeout-ms = <50>; key-positions = <1 6>; bindings = <&kp MINUS>; layers = <0>; };
 
         // Special Hardware Switches
-        combo_bt0 { timeout-ms = <30>; key-positions = <4 5>; bindings = <&bt_sel_0>; };
-        combo_bt1 { timeout-ms = <30>; key-positions = <4 6>; bindings = <&bt_sel_1>; };
-        combo_bt2 { timeout-ms = <30>; key-positions = <4 7>; bindings = <&bt_sel_2>; };
-        combo_usb { timeout-ms = <30>; key-positions = <4 8>; bindings = <&usb_on>; };
-        combo_up    { timeout-ms = <40>; key-positions = <0 11 14>; bindings = <&kp UP>; };
-        combo_down  { timeout-ms = <40>; key-positions = <0 10 14>; bindings = <&kp DOWN>; };
-        combo_prev  { timeout-ms = <40>; key-positions = <0 12 14>; bindings = <&m_prev>; };
-        combo_next  { timeout-ms = <40>; key-positions = <0 13 14>; bindings = <&m_next>; };
-        combo_pp    { timeout-ms = <40>; key-positions = <0 14>;    bindings = <&m_pp>; };    };
+        combo_bt0 { timeout-ms = <20>; key-positions = <11 5>; bindings = <&bt_sel_0>; };
+        combo_bt1 { timeout-ms = <20>; key-positions = <11 6>; bindings = <&bt_sel_1>; };
+        combo_bt2 { timeout-ms = <20>; key-positions = <11 7>; bindings = <&bt_sel_2>; };
+        combo_usb { timeout-ms = <20>; key-positions = <11 8>; bindings = <&usb_on>; };
+        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>; };
+        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; };
+        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&m_prev>; };
+        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&m_next>; };
+        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>; };    };
 
     keymap {
         compatible = "zmk,keymap";
