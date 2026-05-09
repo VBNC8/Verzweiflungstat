@@ -22,10 +22,12 @@
  * Special functions via chord combos (special switches wired in parallel
  * to the common key AND the partner key):
  *   BT / USB  — common key T (pos 4):
- *     X+G(9)  = BT0
- *     X+S(6)  = BT1
- *     X+A(5)  = BT2
- *     X+D(7)  = USB
+ *     X+G(9)  = BT0 (ws)
+ *     X+S(6)  = BT1 (ge)
+ *     X+A(5)  = BT2 (bl)
+ *     X+D(7)  = USB (rt)
+ *     X (gn)
+ *     GND (sw)
  *   5-way nav — common key Q (pos 0):
  *     Q+Z(10) = Nav Up
  *     Q+X(11) = Nav Down
