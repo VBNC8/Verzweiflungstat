@@ -814,11 +814,13 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(196, 91)" class="key keypos-13">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 78%">&amp;bt_sel_3</tspan></text>
+<use href="#mdi:bluetooth" xlink:href="#mdi:bluetooth" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth"/>
+<text x="0" y="-24" class="key shifted">⓸</text>
 </g>
 <g transform="translate(252, 98)" class="key keypos-14">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 78%">&amp;bt_sel_4</tspan></text>
+<use href="#mdi:bluetooth" xlink:href="#mdi:bluetooth" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth"/>
+<text x="0" y="-24" class="key shifted">⓹</text>
 </g>
 <g transform="translate(476, 98)" class="key trans keypos-15">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
