@@ -103,7 +103,7 @@ jobs:
                   layer['keys'] = reordered
 
           # Remap combo key-positions from firmware order to QMK row-by-row order,
-          # and drop BT-switcher combos (T = firmware pos 4) and
+          # and drop BT-switcher combos (X = firmware pos 11) and
           # 5-way-nav combos (Q = firmware pos 0 paired with bot-left 10-14).
           FW_POS_TO_QMK_POS = [
                0,  1,  2,  3,  4,   # fw  0- 4 → qmk  0- 4
@@ -119,8 +119,8 @@ jobs:
           for combo in data.get('combos', []):
               # keymap-drawer serialises key positions under the short alias "p"
               positions = combo.get('p', combo.get('key_positions', []))
-              # Skip BT-switcher (T+A/S/D/F) combos — firmware pos 4 (T key).
-              if 4 in positions:
+              # Skip BT-switcher (X+A/S/D/F) combos — firmware pos 11 (X key).
+              if 11 in positions:
                   continue
               # Skip 5-way-nav (Q+Z/X/C/V/B) combos — firmware pos 0 (Q key)
               # paired with bot-left (10-14) partner keys only.
