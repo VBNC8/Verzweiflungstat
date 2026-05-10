@@ -201,10 +201,8 @@ layers:
   - t: $$mdi:bluetooth$$
     h: Zbook
     s: ⓷
-  - t: $$mdi:bluetooth$$
-    s: ⓸
-  - t: $$mdi:bluetooth$$
-    s: ⓹
+  - '&bt_sel_3'
+  - '&bt_sel_4'
   - t: ▽
     type: trans
   - t: ▽
