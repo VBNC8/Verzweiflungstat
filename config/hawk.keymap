@@ -92,6 +92,18 @@
             #binding-cells = <0>;
             bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
         };
+        
+        bt_sel_3: bt_sel_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>;
+        };
+
+        bt_sel_4: bt_sel_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 4>;
+        };
 
         durchmesser: durchmesser {
             compatible = "zmk,behavior-macro";
@@ -299,11 +311,11 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-/* left top  */   &trans         &trans            &trans               &trans          &trans
-/* left mid  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt BT_SEL 3    &bt BT_SEL 4
+/* left top  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt BT_SEL_3    &bt BT_SEL_4
+/* left mid  */   &kp SQT        &kp MINUS         &trans               &trans          &trans
 /* left bot  */   &usb_on        &ext_power EP_TOG &trans               &bootloader     &sys_reset
 /* left tmb  */   &kp F14        &trans            &trans
-/* right top */   &trans         &trans            &trans               &trans          &trans
+/* right top */   &trans         &kp LBKT          &trans               &kp SEMI        &trans
 /* right mid */   &trans         &trans            &trans               &trans          &trans
 /* right bot */   &sys_reset     &bootloader       &kp C_PREV           &kp C_NEXT      &trans
 /* right tmb */   &trans         &trans            &kp F12
