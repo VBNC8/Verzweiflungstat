@@ -3,7 +3,7 @@ manifest:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
     - name: robertwidfen
-      url-base: https://github.com/robertwidfen/
+      url-base: https://github.com/robertwidfen
   projects:
     - name: zmk
       remote: zmkfirmware
