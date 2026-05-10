@@ -167,7 +167,7 @@
         caps_wrd: caps_wrd {
             compatible = "zmk,behavior-caps-word";
             #binding-cells = <0>;
-            continue-list = <DE_POUND BACKSPACE DEL DE_MINUS DE_UNDERSCORE SQT SEMI LBKT>;
+            continue-list = <NON_US_HASH KP_DIVIDE BACKSPACE DEL SLASH SQT SEMI LBKT>;
         };
 
         hrm_safe: hrm_safe {
