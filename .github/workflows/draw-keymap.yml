@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/supermini_split.keymap"
+      - "config/hawk.keymap"
       - "config/keymap_drawer.config.yaml"
       - ".github/workflows/draw-keymap.yml"
       - "keymap-drawer/layout.json"
@@ -25,7 +25,7 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # Parse supermini_split keymap.
+          # Parse hawk keymap.
           #
           # Firmware position layout (ZMK BLE split, 36 keys):
           #   Left half   : pos  0–17  (central, 18 keys)
@@ -37,8 +37,8 @@ jobs:
           # keymap-drawer's get_array regex expects "key-positions" (hyphen).
           # The keymap source uses "key_positions" (underscore), so normalise
           # to a temp copy before parsing.
-          sed 's/key_positions/key-positions/g' config/supermini_split.keymap > /tmp/supermini_split_normalized.keymap
-          keymap -c config/keymap_drawer.config.yaml parse -z /tmp/supermini_split_normalized.keymap > raw_keymap.yaml
+          sed 's/key_positions/key-positions/g' config/hawk.keymap > /tmp/hawk_normalized.keymap
+          keymap -c config/keymap_drawer.config.yaml parse -z /tmp/hawk_normalized.keymap > raw_keymap.yaml
 
           python3 - <<'PYEOF'
           import yaml, os
@@ -143,13 +143,13 @@ jobs:
 
       - name: Draw SVG
         run: |
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/supermini_split.svg
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/hawk.svg
 
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add keymap-drawer/keymap.yaml keymap-drawer/supermini_split.svg
-          git commit -m "Automated keymap draw for supermini_split" || exit 0
+          git add keymap-drawer/keymap.yaml keymap-drawer/hawk.svg
+          git commit -m "Automated keymap draw for hawk" || exit 0
           git pull --rebase
           git push
