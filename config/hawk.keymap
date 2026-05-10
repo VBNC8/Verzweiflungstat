@@ -311,7 +311,7 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-/* left top  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt BT_SEL_3    &bt BT_SEL_4
+/* left top  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt_sel_3       &bt_sel_4
 /* left mid  */   &kp SQT        &kp MINUS         &trans               &trans          &trans
 /* left bot  */   &usb_on        &ext_power EP_TOG &trans               &bootloader     &sys_reset
 /* left tmb  */   &kp F14        &trans            &trans
