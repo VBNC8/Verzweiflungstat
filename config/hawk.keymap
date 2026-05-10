@@ -170,6 +170,13 @@
             continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE SQT SEMI LBKT>;
         };
 
+        caps_word_de: caps_word_de {
+             compatible = "zmk,behavior-caps-word-de";
+             #binding-cells = <0>;
+             //continue-list = <DE_POUND DE_BSLH DE_MINUS DE_UNDER BACKSPACE DELETE>;
+             continue-list = <POUND BSLH MINUS UNDER BACKSPACE DELETE>;
+        };
+
         hrm_safe: hrm_safe {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -224,7 +231,7 @@
         combo_slash { timeout-ms = <40>; key-positions = <6 7>; bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
         combo_minus { timeout-ms = <50>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
         combo_underscore { timeout-ms = <40>; key-positions = <5 6>; bindings = <&kp LS(SLASH)>; layers = <0 1>; };
-        combo_caps_word { timeout-ms = <40>; key-positions = <8 24>; bindings = <&caps_wrd>; layers = <0>; };
+        combo_caps_word { timeout-ms = <40>; key-positions = <8 24>; bindings = <&caps_word_de>; layers = <0>; };
         combo_quote { timeout-ms = <50>; key-positions = <7 8>; bindings = <&kp LS(N2)>; layers = <0 1>; };
         combo_question { timeout-ms = <50>; key-positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
         combo_ae { timeout-ms = <55>; key-positions = <0 5>; bindings = <&kp SQT>; layers = <0>; };
