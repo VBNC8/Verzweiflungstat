@@ -2,10 +2,14 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+      - name: robertwidfen
+      url-base: https://github.com/robertwidfen/
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
+      - name: zmk-module-caps-word-de
+      remote: robertwidfen
   self:
     path: config
