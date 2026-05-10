@@ -176,6 +176,22 @@ layers:
     h: ◀ ▶
     type: round
   adjust:
+  - Ä
+  - ß
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Ü
+  - t: ▽
+    type: trans
+  - Ö
+  - t: ▽
+    type: trans
   - t: $$mdi:bluetooth$$
     h: PC
     s: ⓵
@@ -187,22 +203,6 @@ layers:
     s: ⓷
   - '&bt_sel_3'
   - '&bt_sel_4'
-  - t: ▽
-    type: trans
-  - Ü
-  - t: ▽
-    type: trans
-  - Ö
-  - t: ▽
-    type: trans
-  - Ä
-  - ß
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
   - t: ▽
     type: trans
   - t: ▽
