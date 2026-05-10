@@ -259,15 +259,6 @@ combos:
   - default
   - lower
 - p:
-  - 21
-  - 22
-  k: 'CREO
-
-    (C+A)'
-  l:
-  - default
-  - lower
-- p:
   - 17
   - 18
   k: \
@@ -341,31 +332,6 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 21
-  - 14
-  k:
-    t: $$mdi:bluetooth$$
-    h: PC
-    s: ⓵
-- p:
-  - 21
-  - 11
-  k:
-    t: $$mdi:bluetooth$$
-    h: S8
-    s: ⓶
-- p:
-  - 21
-  - 10
-  k:
-    t: $$mdi:bluetooth$$
-    h: Zbook
-    s: ⓷
-- p:
-  - 21
-  - 12
-  k: $$mdi:usb$$
 layout:
   qmk_info_json: keymap-drawer/layout.json
   qmk_layout: LAYOUT
