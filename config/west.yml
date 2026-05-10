@@ -9,7 +9,7 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-      - name: zmk-module-caps-word-de
+    - name: zmk-module-caps-word-de
       remote: robertwidfen
   self:
     path: config
