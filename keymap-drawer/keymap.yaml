@@ -176,26 +176,6 @@ layers:
     h: ◀ ▶
     type: round
   adjust:
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
   - t: $$mdi:bluetooth$$
     h: PC
     s: ⓵
@@ -205,10 +185,24 @@ layers:
   - t: $$mdi:bluetooth$$
     h: Zbook
     s: ⓷
-  - t: $$mdi:bluetooth$$
-    s: ⓸
-  - t: $$mdi:bluetooth$$
-    s: ⓹
+  - BT 3
+  - BT 4
+  - t: ▽
+    type: trans
+  - Ü
+  - t: ▽
+    type: trans
+  - Ö
+  - t: ▽
+    type: trans
+  - Ä
+  - ß
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -345,6 +339,31 @@ combos:
   k: ß
   l:
   - default
+- p:
+  - 21
+  - 14
+  k:
+    t: $$mdi:bluetooth$$
+    h: PC
+    s: ⓵
+- p:
+  - 21
+  - 11
+  k:
+    t: $$mdi:bluetooth$$
+    h: S8
+    s: ⓶
+- p:
+  - 21
+  - 10
+  k:
+    t: $$mdi:bluetooth$$
+    h: Zbook
+    s: ⓷
+- p:
+  - 21
+  - 12
+  k: $$mdi:usb$$
 layout:
   qmk_info_json: keymap-drawer/layout.json
   qmk_layout: LAYOUT
