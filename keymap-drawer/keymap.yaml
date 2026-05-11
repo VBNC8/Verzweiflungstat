@@ -105,8 +105,7 @@ layers:
     type: held
   - t: $$mdi:monitor$$
     s: Show
-  - t: Adjust
-    type: held
+  - Adjust
   - t: ⏯
     s: ↑ ↓
     h: ◀ ▶
