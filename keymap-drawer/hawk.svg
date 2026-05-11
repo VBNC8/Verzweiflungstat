@@ -299,7 +299,7 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(168, 205)" class="key round keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
-<text x="0" y="0" class="key round tap">&amp;C_PP</text>
+<text x="0" y="0" class="key round tap">⏯</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -323,7 +323,7 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(560, 205)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">&amp;BSPC</text>
+<text x="0" y="0" class="key tap">⌫</text>
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>

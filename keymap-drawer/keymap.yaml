@@ -39,7 +39,7 @@ layers:
   - t: .
     s: AltGr
   - ⌦
-  - t: '&C_PP'
+  - t: ⏯
     type: round
   - t: ESC
     h: Raise
@@ -49,7 +49,7 @@ layers:
     h: Lower
   - t: ␣
     h: Raise
-  - '&BSPC'
+  - ⌫
   - t: ⏯
     s: ↑ ↓
     h: ◀ ▶
