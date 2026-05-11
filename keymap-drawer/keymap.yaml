@@ -39,8 +39,7 @@ layers:
   - t: .
     s: AltGr
   - ⌦
-  - t: ⏯
-    h: Adjust
+  - t: '&C_PP'
     type: round
   - t: ESC
     h: Raise
@@ -50,8 +49,7 @@ layers:
     h: Lower
   - t: ␣
     h: Raise
-  - t: ⌫
-    h: Adjust
+  - '&BSPC'
   - t: ⏯
     s: ↑ ↓
     h: ◀ ▶
@@ -98,8 +96,7 @@ layers:
   - ','
   - .
   - '='
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
+  - t: Adjust
     type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
@@ -108,8 +105,8 @@ layers:
     type: held
   - t: $$mdi:monitor$$
     s: Show
-  - t: ▽
-    type: trans
+  - t: Adjust
+    type: held
   - t: ⏯
     s: ↑ ↓
     h: ◀ ▶
@@ -227,7 +224,8 @@ layers:
   - ⏭
   - t: ▽
     type: trans
-  - t: ' '
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
     type: round
   - t: ▽
     type: trans
