@@ -5,7 +5,7 @@ parse_config:
     "&lt 1 RET": {t: "↵", h: "Lower"}
     "&lt 2 ESC": {t: "ESC", h: "Raise"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise"}
-    "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+    "&kp BSPC": {t: "⌫", h: "Adjust"}
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
