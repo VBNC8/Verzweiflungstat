@@ -64,8 +64,8 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - t: ✕
-    s: Alt F4
+  - t: ▽
+    type: trans
   - t: '1'
     s: '!'
   - t: '2'
@@ -127,8 +127,7 @@ layers:
   - t: ▽
     type: trans
   - Ö
-  - t: ▽
-    type: trans
+  - F10
   - Ä
   - ß
   - t: ▽
@@ -171,8 +170,8 @@ layers:
     type: trans
   - t: '&nbsp'
     type: held
-  - t: ▽
-    type: trans
+  - t: ✕
+    s: Alt F4
   - t: ⏯
     s: ↑ ↓
     h: ◀ ▶
