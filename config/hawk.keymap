@@ -250,11 +250,18 @@
         combo_bt2 { timeout-ms = <20>; key-positions = <11 5>; bindings = <&bt_sel_2>; };
         combo_usb { timeout-ms = <20>; key-positions = <11 7>; bindings = <&usb_on>; };
         
-        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>; };
-        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; };
-        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&m_prev>; };
-        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&m_next>; };
-        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>; };    };
+        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;   layers = <0>; };
+        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; layers = <0>; };
+        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&m_prev>;  layers = <0>; };
+        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&m_next>;  layers = <0>; };
+        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;    layers = <0>; };
+
+        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;   layers = <1>; };
+        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; layers = <1>; };
+        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
+        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&kp RIGHT>;  layers = <1>; };
+        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;    layers = <1>; };
+    };
 
     keymap {
         compatible = "zmk,keymap";
