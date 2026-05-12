@@ -50,7 +50,7 @@ layers:
   - t: ␣
     h: Raise
   - ⌫
-  - t: ⏮ ⏯
+  - t: ⏮ ⏯ ⏭
     s: ↑ ↓
     h: ⏮ ⏭
     type: round
@@ -106,7 +106,7 @@ layers:
   - t: $$mdi:monitor$$
     s: Show
   - Adjust
-  - t: ⏮ ⏯
+  - t: ⏮ ⏯ ⏭
     s: ↑ ↓
     h: ⏮ ⏭
     type: round
@@ -172,7 +172,7 @@ layers:
     type: held
   - t: ✕
     s: Alt F4
-  - t: ⏮ ⏯
+  - t: ⏮ ⏯ ⏭
     s: ↑ ↓
     h: ⏮ ⏭
     type: round
@@ -235,7 +235,7 @@ layers:
     type: trans
   - t: ' '
     type: held
-  - t: ⏮ ⏯
+  - t: ⏮ ⏯ ⏭
     s: ↑ ↓
     h: ⏮ ⏭
     type: round
