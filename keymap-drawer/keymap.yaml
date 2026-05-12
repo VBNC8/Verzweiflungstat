@@ -52,7 +52,7 @@ layers:
   - ⌫
   - t: ⏯
     s: ↑ ↓
-    h: ◀ ▶
+    h: ⏮ ⏭
     type: round
   lower:
   - ^
@@ -108,7 +108,7 @@ layers:
   - Adjust
   - t: ⏯
     s: ↑ ↓
-    h: ◀ ▶
+    h: ⏮ ⏭
     type: round
   raise:
   - t: ▽
@@ -174,7 +174,7 @@ layers:
     s: Alt F4
   - t: ⏯
     s: ↑ ↓
-    h: ◀ ▶
+    h: ⏮ ⏭
     type: round
   adjust:
   - F1
@@ -237,7 +237,7 @@ layers:
     type: held
   - t: ⏯
     s: ↑ ↓
-    h: ◀ ▶
+    h: ⏮ ⏭
     type: round
 combos:
 - p:
