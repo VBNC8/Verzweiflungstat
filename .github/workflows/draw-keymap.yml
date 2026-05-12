@@ -73,12 +73,7 @@ jobs:
 
           # Alps 5-way encoder circle: t=center(↵), s=↑↓, h=←→.
           # Encoder CW/CCW labels appended to s field (layer-specific).
-          NAV_BASE = {
-            't': '<span style="white-space: nowrap;">⏮ ⏯ ⏭</span>', 
-            's': '↑', 
-            'h': ' ↓', 
-            'type': 'round'
-          }
+          NAV_BASE = {'t': '⏮\u2009⏯', 's': '↑ ↓', 'h': '⏮ ⏭', 'type': 'round'}
           ENCODER_LABELS = {
               'default_layer': {'s': '🔊 🔉'},
               'lower_layer':   {'s': '⇤ ⇥'},
