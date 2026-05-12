@@ -256,11 +256,11 @@
         combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&m_next>;  layers = <0>; };
         combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;    layers = <0>; };
 
-        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;   layers = <1>; };
-        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; layers = <1>; };
-        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
-        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&kp RIGHT>;  layers = <1>; };
-        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;    layers = <1>; };
+        combo_up_l1   { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;    layers = <1>; };
+        combo_down_l1 { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>;  layers = <1>; };
+        combo_prev_l1 { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
+        combo_next_l1 { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&kp RIGHT>; layers = <1>; };
+        combo_pp_l1   { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;     layers = <1>; };
     };
 
     keymap {
