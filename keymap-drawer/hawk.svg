@@ -327,9 +327,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
-<text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="24" class="key round hold">⏮ ⏭</text>
-<text x="0" y="-24" class="key round shifted">↑ ↓</text>
+<text x="0" y="0" class="key round tap">
+<tspan x="0" dy="-1.2em">⏮</tspan><tspan x="0" dy="1.2em">⏯</tspan><tspan x="0" dy="1.2em">⏭</tspan>
+</text>
+<text x="0" y="24" class="key round hold"> ↓</text>
+<text x="0" y="-24" class="key round shifted">↑</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="126" y="43" width="28" height="26" class="combo"/>
@@ -553,9 +555,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
-<text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="24" class="key round hold">⏮ ⏭</text>
-<text x="0" y="-24" class="key round shifted">↑ ↓</text>
+<text x="0" y="0" class="key round tap">
+<tspan x="0" dy="-1.2em">⏮</tspan><tspan x="0" dy="1.2em">⏯</tspan><tspan x="0" dy="1.2em">⏭</tspan>
+</text>
+<text x="0" y="24" class="key round hold"> ↓</text>
+<text x="0" y="-24" class="key round shifted">↑</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="126" y="43" width="28" height="26" class="combo"/>
@@ -742,9 +746,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
-<text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="24" class="key round hold">⏮ ⏭</text>
-<text x="0" y="-24" class="key round shifted">↑ ↓</text>
+<text x="0" y="0" class="key round tap">
+<tspan x="0" dy="-1.2em">⏮</tspan><tspan x="0" dy="1.2em">⏯</tspan><tspan x="0" dy="1.2em">⏭</tspan>
+</text>
+<text x="0" y="24" class="key round hold"> ↓</text>
+<text x="0" y="-24" class="key round shifted">↑</text>
 </g>
 </g>
 </g>
@@ -905,9 +911,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
-<text x="0" y="0" class="key round tap">⏯</text>
-<text x="0" y="24" class="key round hold">⏮ ⏭</text>
-<text x="0" y="-24" class="key round shifted">↑ ↓</text>
+<text x="0" y="0" class="key round tap">
+<tspan x="0" dy="-1.2em">⏮</tspan><tspan x="0" dy="1.2em">⏯</tspan><tspan x="0" dy="1.2em">⏭</tspan>
+</text>
+<text x="0" y="24" class="key round hold"> ↓</text>
+<text x="0" y="-24" class="key round shifted">↑</text>
 </g>
 </g>
 </g>
