@@ -11,5 +11,6 @@ Left 'mechanical' BT-selector switch.
 
 <img width="1253" height="1053" alt="20260508_212808" src="https://github.com/user-attachments/assets/f1f7a164-3dd1-45e8-ab4b-03623d4e0525" />
 
-<img width="1469" height="1080" alt="p-hbhes-01" src="https://github.com/user-attachments/assets/6f1f6c1e-ee56-4fb5-9f4b-8fc2d972ff2f" />
+<img width="1243" height="973" alt="p-hbhes-l-01" src="https://github.com/user-attachments/assets/53f9e8ab-1f92-41a6-9bfa-a3e625d34068" />
+
 
