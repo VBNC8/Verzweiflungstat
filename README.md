@@ -16,6 +16,6 @@ Moulded tin tenting weights under each half, total kb weight 1100g for both halv
 <img width="1286" height="1051" alt="p-hbhes-01" src="https://github.com/user-attachments/assets/c471b0eb-48ba-4e91-9c07-c3e09c3d9000" />
 
 <img width="1510" height="1078" alt="20260515_140231" src="https://github.com/user-attachments/assets/e20ec464-2853-446a-95fb-59018f012847" />
-Basis for the layout was a testrig with five adjustable finger triplets and a thumb triplet. Once I was satisfied with the adjustment, I took the geometry as basis for the Hawk.
+Basis for the layout was a testrig with five adjustable finger triplets and a thumb triplet for MX switches and keycaps. Once I was satisfied with the adjustment, I took the geometry as basis for the Hawk.
 
 
