@@ -123,13 +123,17 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - Ü
   - t: ▽
     type: trans
-  - Ö
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - F10
-  - Ä
-  - ß
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
