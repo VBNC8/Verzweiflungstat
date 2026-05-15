@@ -4,7 +4,8 @@ Left Alps RKJXT1F42001 5-way encoder switch.
 Left 'mechanical' BT-selector switch.
 3D printed upper case half.
 3D printed case bottom plate.
-500mAh battery on each half mounted below the case bottom plate
+500mAh battery on each half mounted below the case bottom plate.
+Moulded tin tenting weights under each half, total kb weight 1100g for both halves.
 
 ## Keymap
 ![Keymap](./keymap-drawer/hawk.svg)  
