@@ -111,8 +111,8 @@ layers:
     h: ↓
     type: round
   raise:
-  - t: ▽
-    type: trans
+  - t: ✕
+    s: Alt F4
   - t: ▽
     type: trans
   - t: ▽
@@ -170,8 +170,8 @@ layers:
     type: trans
   - t: '&nbsp'
     type: held
-  - t: ✕
-    s: Alt F4
+  - t: ▽
+    type: trans
   - t: ⏮·⏯·⏭
     s: ↑
     h: ↓
