@@ -9,7 +9,6 @@ Moulded tin tenting weights under each half, total kb weight 1100g for both halv
 ## Keymap
 ![Keymap](./keymap-drawer/hawk.svg)  
 
-<img width="1253" height="1053" alt="20260508_212808" src="https://github.com/user-attachments/assets/f1f7a164-3dd1-45e8-ab4b-03623d4e0525" />
 <img width="1124" height="944" alt="Left-half" src="https://github.com/user-attachments/assets/891a8795-94cd-42e0-9496-7664ea36a665" />
 
 
@@ -25,5 +24,5 @@ Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, P
 <img width="1151" height="593" alt="Gemini_Generated_Image_5l3mhj5l3mhj5l3m" src="https://github.com/user-attachments/assets/b2d541b1-e478-434a-b4aa-65ba6d2fc74b" />
 One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (Q) and the others are differnt obviously (Y, X, C and V). In ZMK they are processed as combos.
 
-
 <img width="1408" height="654" alt="Tin" src="https://github.com/user-attachments/assets/264480dc-02cf-48f5-b65c-f9c54817c228" />
+For the tin tenting weights, first a PLA positive was printed for each side with space for batteries and BT-Selector, plaster/sand moulds formed and filled with molten tin. Final drill holes, some local machining and polishing was necessary to make the weights ready for assembly.
