@@ -10,6 +10,8 @@ Moulded tin tenting weights under each half, total kb weight 1100g for both halv
 ![Keymap](./keymap-drawer/hawk.svg)  
 
 <img width="1253" height="1053" alt="20260508_212808" src="https://github.com/user-attachments/assets/f1f7a164-3dd1-45e8-ab4b-03623d4e0525" />
+<img width="1124" height="944" alt="Left-half" src="https://github.com/user-attachments/assets/891a8795-94cd-42e0-9496-7664ea36a665" />
+
 
 <img width="1286" height="1051" alt="p-hbhes-01" src="https://github.com/user-attachments/assets/c471b0eb-48ba-4e91-9c07-c3e09c3d9000" />
 
@@ -24,3 +26,4 @@ Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, P
 One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (Q) and the others are differnt obviously (Y, X, C and V). In ZMK they are processed as combos.
 
 
+<img width="1408" height="654" alt="Tin" src="https://github.com/user-attachments/assets/264480dc-02cf-48f5-b65c-f9c54817c228" />
