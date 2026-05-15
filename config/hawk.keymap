@@ -306,7 +306,7 @@
         raise_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-/* left top  */   &trans         &trans            &trans               &trans            &trans
+/* left top  */   &kp LA(F4)     &trans            &trans               &trans            &trans
 /* left mid  */   &kp SQT        &kp MINUS         &trans               &trans            &trans
 /* left bot  */   &trans         &trans            &trans               &trans            &trans
 /* left tmb  */                                    &kp F14              &kp LC(LS(ESC))   &trans
@@ -314,7 +314,7 @@
 /* right top */   &trans         &kp LBKT          &trans               &kp SEMI        &kp F10
 /* right mid */   &kp UP         &kp LEFT          &kp DOWN             &kp RIGHT       &kp PLUS
 /* right bot */   &trans         &trans            &trans               &trans          &kp EQUAL
-/* right tmb */   &trans         &nbsp             &kp LA(F4)
+/* right tmb */   &trans         &nbsp             &trans
             >;
         };
 
