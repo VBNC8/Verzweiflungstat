@@ -1,5 +1,3 @@
-
-
 Firmware for Hawk handwired hotswap wireless 5x3+3 split mechanical ergo keyboard with two SuperMini nrf52840 controllers.  
 Left Alps RKJXT1F42001 5-way encoder switch.  
 Left 'mechanical' BT-selector switch.
@@ -17,5 +15,9 @@ Moulded tin tenting weights under each half, total kb weight 1100g for both halv
 
 <img width="1510" height="1078" alt="20260515_140231" src="https://github.com/user-attachments/assets/e20ec464-2853-446a-95fb-59018f012847" />
 Basis for the layout was a testrig with five adjustable finger triplets and a thumb triplet for MX switches and keycaps. Once I was satisfied with the adjustment, I took the geometry as basis for the Hawk.
+
+<img width="1538" height="1078" alt="20260506_131524" src="https://github.com/user-attachments/assets/259026cd-3dec-4930-99bb-7ff9c9874671" />
+BT Selector internals.
+Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, Pushrods for the TS09-63-25-WT-260-SMT-TR tactile SMD switches pressed in the pushbuttons and located inside the springs are cut to length bicycle spokes, double diodes are BAV70 type.
 
 
