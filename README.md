@@ -18,6 +18,6 @@ Basis for the layout was a testrig with five adjustable finger triplets and a th
 
 <img width="1538" height="1078" alt="20260506_131524" src="https://github.com/user-attachments/assets/259026cd-3dec-4930-99bb-7ff9c9874671" />
 BT Selector internals.
-Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, Pushrods for the TS09-63-25-WT-260-SMT-TR tactile SMD switches pressed in the pushbuttons and located inside the springs are cut to length bicycle spokes, double diodes are BAV70 type.
+Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, Pushrods for the TS09-63-25-WT-260-SMT-TR tactile SMD switches on top of the narrow PCB pressed in the pushbuttons and located inside the springs are cut to length bicycle spokes, double diodes on the bottom of the PCB are BAV70 type.
 
 
