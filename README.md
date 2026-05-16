@@ -36,8 +36,7 @@ To mount the Alps multiswitch rigidly to the PLA top plate, a small PCB with fou
 
 <img width="1406" height="1002" alt="Hawk-PCB-hardware" src="https://github.com/user-attachments/assets/2e36497b-da44-4c97-ad06-579c5d9ca554" />
 
-Both Selector PCB (4 and 5 button type) and Alps mount PCB (round and rectangular type) are produced on a less than 100x100mm PCB as one piece.
-
+Both Selector PCB (4 and 5 button type) and Alps mount PCB (round and rectangular type w/ matrix or direct-pin option) are produced on a less than 100x100mm PCB as one piece.
 
 <img width="1408" height="654" alt="Tin" src="https://github.com/user-attachments/assets/264480dc-02cf-48f5-b65c-f9c54817c228" />
 
