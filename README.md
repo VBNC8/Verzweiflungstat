@@ -1,7 +1,7 @@
 
 
 Firmware for Hawk handwired hotswap wireless 5x3+3 split mechanical ergo keyboard with two SuperMini nrf52840 controllers.  
-Left Alps RKJXT1F42001 5-way encoder switch.  
+Left Alps RKJXT1F42001 5-way encoder multiswitch.  
 Left 'mechanical' BT-selector switch.
 3D printed upper case half.
 3D printed case bottom plate.
@@ -27,11 +27,12 @@ Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, P
 
 <img width="757" height="285" alt="Schaltplan" src="https://github.com/user-attachments/assets/5444f1f3-16e1-458c-9c83-1498c8e25447" />
 
-One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (Q) and the others are differnt obviously (Y, X, C and V). In ZMK they are processed as combos.
+One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (X) and the others are differnt obviously (A, S, D and G). In ZMK they are processed as combos.
+The Alps multiswitch is processed in a similar manner.
 
 <img width="1234" height="1078" alt="Alps-mount" src="https://github.com/user-attachments/assets/9f9116e4-fd44-472d-b46e-40374c0bed90" />
 
-To mount the Alps rigidly to the top plate, a small PCB with four mounting holes is used.
+To mount the Alps multiswitch rigidly to the PLA top plate, a small PCB with four mounting holes is used.
 
 <img width="1406" height="1002" alt="Hawk-PCB-hardware" src="https://github.com/user-attachments/assets/2e36497b-da44-4c97-ad06-579c5d9ca554" />
 
