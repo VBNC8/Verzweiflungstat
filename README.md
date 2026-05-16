@@ -41,3 +41,6 @@ Both Selector PCB (4 and 5 button type) and Alps mount PCB (round and rectangula
 <img width="1408" height="654" alt="Tin" src="https://github.com/user-attachments/assets/264480dc-02cf-48f5-b65c-f9c54817c228" />
 
 For the tin tenting weights, first a PLA positive was printed for each side with space for batteries and BT-Selector, plaster/sand moulds formed and filled with molten tin. Final drill holes, some local machining and polishing was necessary to make the weights ready for assembly.
+
+<img width="1670" height="1028" alt="20260508_232749" src="https://github.com/user-attachments/assets/4c0a40eb-d154-4367-aa4e-ad4a43c904fc" />
+As there is enough space below the board in the tenting wedge, the board is powered by two 500mAh 3.7V 503035 Lipo Polymer Batteries.
