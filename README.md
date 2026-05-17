@@ -20,7 +20,7 @@ Basis for the layout was a testrig with five adjustable finger triplets and a th
 BT Selector internals.
 Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, Pushrods for the TS09-63-25-WT-260-SMT-TR tactile SMD switches on top of the narrow PCB pressed in the pushbuttons and located inside the springs are cut to length bicycle spokes, double diodes on the bottom of the PCB are BAV70 type.
 
-<img width="2141" height="894" alt="Diagram1" src="https://github.com/user-attachments/assets/09ad581f-719e-4298-aaa9-8f70d886031d" />
+<img width="2168" height="899" alt="Diagram1" src="https://github.com/user-attachments/assets/135bc677-fd78-4d62-b7ad-a3a43dce3c93" />
 One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (X) and the others are differnt obviously (A, S, D and G). In ZMK they are processed as combos.
 The Alps multiswitch is processed in a similar manner.
 
