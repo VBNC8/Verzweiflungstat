@@ -1,5 +1,3 @@
-
-
 Firmware for Hawk handwired hotswap wireless 5x3+3 split mechanical ergo keyboard with two SuperMini nrf52840 controllers.  
 Left Alps RKJXT1F42001 5-way encoder multiswitch.  
 Left 'mechanical' BT-selector switch.
@@ -22,7 +20,7 @@ Basis for the layout was a testrig with five adjustable finger triplets and a th
 BT Selector internals.
 Springs are 4mm diameter taken from MX blue switches out of an old Cherry G80, Pushrods for the TS09-63-25-WT-260-SMT-TR tactile SMD switches on top of the narrow PCB pressed in the pushbuttons and located inside the springs are cut to length bicycle spokes, double diodes on the bottom of the PCB are BAV70 type.
 
-<img width="2185" height="939" alt="Diagram1" src="https://github.com/user-attachments/assets/6323bea5-851c-46c7-95ff-07c7228e884a" />
+<img width="2141" height="894" alt="Diagram1" src="https://github.com/user-attachments/assets/09ad581f-719e-4298-aaa9-8f70d886031d" />
 One contact of each selector SMD switch is wired to GND and the other to TWO keys each with BAV70 double diodes to save space. One of the keys is common to all four bushbuttons (X) and the others are differnt obviously (A, S, D and G). In ZMK they are processed as combos.
 The Alps multiswitch is processed in a similar manner.
 
