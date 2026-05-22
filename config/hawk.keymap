@@ -187,8 +187,8 @@
             #binding-cells = <2>;
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            flavor = "balanced";
-            require-prior-idle-ms = <150>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <220>;
             bindings = <&kp>, <&kp>;
             hold-trigger-on-release;
         };
@@ -196,7 +196,7 @@
         hrm_shift: hrm_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <150>; // Dein ursprünglicher Wert
+            tapping-term-ms = <170>; // Dein ursprünglicher Wert
             quick-tap-ms = <100>;    // Dein ursprünglicher Wert
             flavor = "tap-preferred"; // TESTE DIESEN
             bindings = <&kp>, <&kp>;
@@ -276,14 +276,14 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
             bindings = <
-/* left top  */   &kp Q          &kp W             &kp E              &kp R                &kp T
-/* left mid  */   &kp A          &kp S             &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G
-/* left bot  */   &kp Z          &hrm_safe LALT X  &kp C              &kp V                &kp B
-/* left tmb  */                                    &kp C_PP              &lt 2 ESC            &lt 1 TAB
+/* left top  */   &kp Q          &kp W                &kp E                 &kp R                &kp T
+/* left mid  */   &kp A          &kp S                &kp D                 &hrm_shift LSHIFT F  &kp G
+/* left bot  */   &kp Z          &hrm_safe LCTRL X    &hrm_safe LALT C      &kp V                &kp B
+/* left tmb  */                                       &kp C_PP              &lt 2 ESC            &lt 1 TAB
 
-/* right top */   &kp Y          &kp U                &kp I              &kp O                &kp P
-/* right mid */   &kp H          &hrm_shift RSHIFT J  &hrm_safe RCTRL K  &kp L                &kp LS(NON_US_HASH)
-/* right bot */   &kp N          &kp M                &kp COMMA          &hrm_safe RALT DOT   &kp DEL
+/* right top */   &kp Y          &kp U                &kp I                 &kp O                &kp P
+/* right mid */   &kp H          &hrm_shift RSHIFT J  &kp K                 &kp L                &kp LS(NON_US_HASH)
+/* right bot */   &kp N          &kp M                &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL
 /* right tmb */   &lt 1 RET      &lt_hp 2 SPACE       &kp BSPC
             >;
         };
