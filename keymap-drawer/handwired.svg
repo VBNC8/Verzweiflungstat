@@ -1,8 +1,5 @@
 <svg width="788" height="1379" viewBox="0 0 788 1379" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>/* start glyphs */
-<svg id="mdi:bluetooth-off">
-<svg xmlns="http://www.w3.org/2000/svg" id="mdi-bluetooth-off" viewBox="0 0 24 24"><path d="M13,5.83L14.88,7.71L13.28,9.31L14.69,10.72L17.71,7.7L12,2H11V7.03L13,9.03M5.41,4L4,5.41L10.59,12L5,17.59L6.41,19L11,14.41V22H12L16.29,17.71L18.59,20L20,18.59M13,18.17V14.41L14.88,16.29" /></svg>
-</svg>
 <svg id="mdi:brightness-4">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-brightness-4" viewBox="0 0 24 24"><path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
 </svg>
@@ -331,8 +328,7 @@ g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(168, 205)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">⌫</text>
-<text x="0" y="24" class="key hold">Adjust</text>
+<text x="0" y="0" class="key tap">⏯</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -357,7 +353,6 @@ g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 <g transform="translate(560, 205)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">⌫</text>
-<text x="0" y="24" class="key hold">Adjust</text>
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
@@ -566,10 +561,9 @@ g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">=</text>
 </g>
-<g transform="translate(168, 205)" class="key keypos-30">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:bluetooth-off"/>
-<text x="0" y="-24" class="key shifted">CLR 5s</text>
+<g transform="translate(168, 205)" class="key held keypos-30">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
+<text x="0" y="0" class="key held tap">Adjust</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -592,9 +586,9 @@ g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 <use href="#mdi:monitor" xlink:href="#mdi:monitor" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:monitor"/>
 <text x="0" y="-24" class="key shifted">Show</text>
 </g>
-<g transform="translate(560, 205)" class="key trans keypos-35">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(560, 205)" class="key held keypos-35">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
+<text x="0" y="0" class="key held tap">Adjust</text>
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
