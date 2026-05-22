@@ -14,30 +14,30 @@ layers:
   - P
   - A
   - S
-  - t: D
-    h: CTRL
+  - D
   - t: F
     h: Shift
   - G
   - H
   - t: J
     h: Shift
-  - t: K
-    h: CTRL
+  - K
   - L
   - ''''
   - Z
   - t: X
-    h: Alt
-  - C
+    h: LCTRL
+  - t: C
+    h: LALT
   - V
   - B
   - N
   - t: M
     s: µ
-  - ','
+  - t: ','
+    h: RALT
   - t: .
-    s: AltGr
+    h: RCTRL
   - ⌦
   - t: ⏯
     type: round
