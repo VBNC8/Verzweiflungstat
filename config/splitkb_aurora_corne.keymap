@@ -95,28 +95,28 @@
         caps_wrd: caps_wrd {
             compatible = "zmk,behavior-caps-word";
             #binding-cells = <0>;
-            continue-list = <POUND BACKSPACE DEL MINUS UNDERSCORE>; 
+            continue-list = <NON_US_HASH KP_DIVIDE BACKSPACE DEL SLASH SQT SEMI LBKT>;
         };
 
-        hrm_safe: hrm_safe { 
-            compatible = "zmk,behavior-hold-tap"; 
-            #binding-cells = <2>; 
-            tapping-term-ms = <280>; 
-            quick-tap-ms = <175>; 
-            flavor = "balanced"; 
-            require-prior-idle-ms = <150>; 
-            bindings = <&kp>, <&kp>; 
-            hold-trigger-on-release; 
+        hrm_safe: hrm_safe {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <220>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-on-release;
         };
 
         hrm_shift: hrm_shift {
-            compatible = "zmk,behavior-hold-tap"; 
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <150>;         // Etwas mehr Puffer
-            quick-tap-ms = <100>;            // Deutlich unter tapping-term
-            flavor = "balanced"; // Reagiert sofort bei Tastenkombinationen
-            bindings = <&kp>, <&kp>; 
-            hold-trigger-on-release; 
+            tapping-term-ms = <170>; // Dein ursprünglicher Wert
+            quick-tap-ms = <100>;    // Dein ursprünglicher Wert
+            flavor = "tap-preferred"; // TESTE DIESEN
+            bindings = <&kp>, <&kp>;
+            // hold-trigger-on-release; // Deaktiviere das vorerst (auskommentieren)
         };
 
         lt_hp: lt_hp {
@@ -288,10 +288,10 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
             bindings = <
-&kp N1  &kp Q  &kp W             &kp E              &kp R                &kp T                &kp Y       &kp U                 &kp I               &kp O                &kp P                &none
-&kp N2  &kp A  &kp S             &hrm_safe LCTRL D  &hrm_shift LSHIFT F  &kp G                &kp H       &hrm_shift RSHIFT J   &hrm_safe RCTRL K   &kp L                &kp LS(NON_US_HASH)  &none
-&kp N3  &kp Z  &hrm_safe LALT X  &kp C              &kp V                &kp B                &kp N       &kp M                 &kp COMMA           &hrm_safe RALT DOT   &kp DEL              &none
-                                 &lt_hp 3 C_PP      &lt 2 ESC            &lt 1 TAB            &lt 1 RET   &lt_hp 2 SPACE        &lt_hp 3 BSPC
+&kp N1  &kp Q  &kp W                &kp E              &kp R                &kp T                &kp Y       &kp U                 &kp I                 &kp O                &kp P                &none
+&kp N2  &kp A  &kp S                &kp D              &hrm_shift LSHIFT F  &kp G                &kp H       &hrm_shift RSHIFT J   &kp K                 &kp L                &kp LS(NON_US_HASH)  &none
+&kp N3  &kp Z  &hrm_safe LCTRL X    &hrm_safe LALT C   &kp V                &kp B                &kp N       &kp M                 &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL              &none
+                                    &kp C_PP           &lt 2 ESC            &lt 1 TAB            &lt 1 RET   &lt_hp 2 SPACE        &kp BSPC
             >;
         };
 
@@ -301,7 +301,7 @@
 &none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley             &kp LS(GRAVE) &pair_paren      &pair_brc    &pair_bkt   &kp LA(F4)    &none
 &none  &kp N1        &kp N2           &kp N3               &kp N4        &kp N5              &kp N6        &kp N7           &kp N8       &kp N9      &kp N0        &none
 &none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH     &kp KP_PLUS   &kp KP_MULTIPLY  &kp COMMA    &kp DOT     &kp LS(N0)    &none
-                                      &enc_bt_clr 0 0      &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &trans
+                                      &mo 3                &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &mo 3
             >;
         };
 
@@ -318,10 +318,10 @@
         adjust_layer {
            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
            bindings = <
-&none  &trans        &trans             &trans            &trans         &trans              &trans  &trans  &trans       &trans       &trans      &none
-&none  &bt_sel_0     &bt_sel_1          &bt_sel_2         &bt_sel_3      &bt_sel_4           &trans  &trans  &trans       &trans       &trans      &none
-&none  &usb_on       &ext_power EP_TOG  &trans            &trans         &trans              &trans  &trans  &kp C_PREV   &kp C_NEXT   &trans      &none
-                                        &kp F14           &trans         &trans              &trans  &trans  &kp F12
+&none  &trans        &trans             &trans            &trans         &trans              &trans       &trans       &trans       &trans       &trans      &none
+&none  &bt_sel_0     &bt_sel_1          &bt_sel_2         &bt_sel_3      &bt_sel_4           &trans       &trans       &trans       &trans       &trans      &none
+&none  &usb_on       &ext_power EP_TOG  &trans            &&bootloader   &sys_reset          &sys_reset   &bootloader  &kp C_PREV   &kp C_NEXT   &trans      &none
+                                        &enc_bt_clr 0 0   &trans         &trans              &trans       &trans       &kp F12
             >;
         };
     };
