@@ -119,7 +119,7 @@
             flavor = "tap-preferred"; // TESTE DIESEN
             bindings = <&kp>, <&kp>;
             // hold-trigger-on-release; // Deaktiviere das vorerst (auskommentieren)
-        };;
+        };
 
         lt_hp: lt_hp {
             compatible = "zmk,behavior-hold-tap";
