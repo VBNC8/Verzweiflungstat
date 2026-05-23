@@ -17,33 +17,32 @@ layers:
   - P
   - A
   - S
-  - t: D
-    h: CTRL
+  - D
   - t: F
     h: Shift
   - G
   - H
   - t: J
     h: Shift
-  - t: K
-    h: CTRL
+  - K
   - L
   - ''''
   - Z
   - t: X
-    h: Alt
-  - C
+    h: LCTRL
+  - t: C
+    h: LALT
   - V
   - B
   - N
   - t: M
     s: µ
-  - ','
+  - t: ','
+    h: RALT
   - t: .
-    s: AltGr
+    h: RCTRL
   - ⌦
   - t: ⏯
-    h: Adjust
     type: round
   - t: ESC
     h: Raise
@@ -53,8 +52,7 @@ layers:
     h: Lower
   - t: ␣
     h: Raise
-  - t: ⌫
-    h: Adjust
+  - ⌫
   lower:
   - ^
   - <
@@ -96,8 +94,7 @@ layers:
   - ','
   - .
   - '='
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
+  - t: Adjust
     type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
@@ -106,8 +103,8 @@ layers:
     type: held
   - t: $$mdi:monitor$$
     s: Show
-  - t: ▽
-    type: trans
+  - t: Adjust
+    type: held
   raise:
   - F1
   - F2
@@ -213,19 +210,16 @@ layers:
   - Pwr±
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - '&bootloader'
+  - '&sys_reset'
+  - '&sys_reset'
+  - '&bootloader'
   - ⏮
   - ⏭
   - t: ▽
     type: trans
-  - t: ' '
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
     type: round
   - t: ▽
     type: trans
