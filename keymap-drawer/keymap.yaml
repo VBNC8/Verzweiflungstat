@@ -201,7 +201,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - $$mdi:logout$$
+  - t: ▽
+    type: trans
   - RGB ON
   - t: $$mdi:brightness-4$$
     s: Bri-
@@ -232,7 +233,8 @@ layers:
   - ⟐
   - ⏮
   - ⏭
-  - $$mdi:login$$
+  - t: ▽
+    type: trans
   - t: ' '
     type: held
   - t: ▽
