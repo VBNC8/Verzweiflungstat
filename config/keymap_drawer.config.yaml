@@ -25,7 +25,7 @@ parse_config:
     "&kp LS(N2)": '"'
     "&kp LS(N4)": '$'
     "&kp LS(N5)": '%'
-    "&kp LA(F4)": '&'
+    "&kp LA(F6)": '&'
     "&kp LS(N7)": "/"
     "&kp LS(N8)": "("
     "&kp LS(N9)": ")"
