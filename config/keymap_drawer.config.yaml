@@ -6,6 +6,7 @@ parse_config:
     "&lt 2 ESC": {t: "ESC", h: "Raise"}
     "&lt_hp 2 SPACE": {t: "␣", h: "Raise"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+    "
     "&mo 1": {t: "Lower", type: "held"}
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
@@ -161,9 +162,7 @@ draw_config:
     g.layer-lower rect.held { fill: #854747; }
     g.layer-raise rect.held { fill: #3a7a3a; }
     g.layer-adjust rect.held { fill: #3a4a8a; }
-    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
     g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-32 rect.key { fill: #854747; }
     g.layer-default g.keypos-33 rect.key { fill: #854747; }
     g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
