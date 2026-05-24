@@ -60,7 +60,7 @@ layers:
   - ()
   - '{}'
   - '[]'
-  - ✕
+  - /
   - t: '1'
     s: '!'
   - t: '2'
@@ -157,8 +157,7 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - ✕
   adjust:
   - t: $$mdi:lightbulb-on$$
     s: OnOff
