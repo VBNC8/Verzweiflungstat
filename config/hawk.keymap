@@ -197,16 +197,10 @@
         hrm_shift: hrm_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <220>; 
-            quick-tap-ms = <175>;
-            flavor = "balanced";  // WICHTIG: Holt den Mod nur, wenn die ANDERE Taste innerhalb des Terms losgelassen wird
-            
-            // Wir begrenzen den Effekt auf die rechte Hand:
-            hold-trigger-key-positions = <14 15 16 17 18 19 24 25 26 27 28 29 34 35>; // Deine rechte Hand-IDs
-            
-            // DIE RETTUNG FÜR "FIES":
-            hold-trigger-on-release; // Der Mod triggert ERST beim Loslassen der rechten Taste!
-            
+            tapping-term-ms = <260>;       // Wieder höher! Du MUSST das F/J bewusst halten für Shift
+            quick-tap-ms = <150>;          // Verhindert Fehlauslösungen bei schnellen Doppelbuchstaben
+            require-prior-idle-ms = <150>; // ABSOLUT KRITISCH: Blockiert Shift, wenn du mitten im Wort bist
+            flavor = "tap-preferred";      // Im Zweifel IMMER der Buchstabe f/j beim schnellen Schreiben
             bindings = <&kp>, <&kp>;
         };
 
