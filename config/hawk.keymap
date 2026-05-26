@@ -227,25 +227,33 @@
         compatible = "zmk,combos";
 
         // ==========================================
-        // SYSTEMATISCHER TEST: Manuelle Combos auf 35ms
+        // 1. SYSTEMATISCHER TEST: Knackige HRM-Combos (35ms)
+        // Diese liegen auf Tasten mit Modifikatoren (F, J, X, C)
         // ==========================================
-        combo_excl       { timeout-ms = <35>; key-positions = <2 7>;   bindings = <&kp LS(N1)>; layers = <0 1>; };
-        combo_colon      { timeout-ms = <35>; key-positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0 1>; };
-        combo_creo_mod   { timeout-ms = <35>; key-positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0 1>; };
-        combo_backslash  { timeout-ms = <35>; key-positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
-        combo_slash      { timeout-ms = <35>; key-positions = <6 7>;   bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
-        combo_minus      { timeout-ms = <35>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
-        combo_underscore { timeout-ms = <35>; key-positions = <5 6>;   bindings = <&kp LS(SLASH)>; layers = <0 1>; };
-        combo_caps_word  { timeout-ms = <35>; key-positions = <8 24>;  bindings = <&caps_wrd>; layers = <0>; };
-        combo_quote      { timeout-ms = <35>; key-positions = <7 8>;   bindings = <&kp LS(N2)>; layers = <0 1>; };
-        combo_question   { timeout-ms = <35>; key-positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
-        combo_ae         { timeout-ms = <35>; key-positions = <0 5>;   bindings = <&kp SQT>; layers = <0>; };
-        combo_oe         { timeout-ms = <35>; key-positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };
-        combo_ue         { timeout-ms = <35>; key-positions = <19 24>; bindings = <&kp LBKT>; layers = <0>; };
-        combo_ss         { timeout-ms = <35>; key-positions = <1 6>;   bindings = <&kp MINUS>; layers = <0>; };
+        combo_creo_mod   { timeout-ms = <35>; key-positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0 1>; }; // X + C
+        combo_caps_word  { timeout-ms = <35>; key-positions = <8 24>;  bindings = <&caps_wrd>; layers = <0>; };    // F + J
+        combo_quote      { timeout-ms = <35>; key-positions = <7 8>;   bindings = <&kp LS(N2)>; layers = <0 1>; }; // D + F
+        combo_question   { timeout-ms = <35>; key-positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; }; // J + K
+        combo_ue         { timeout-ms = <35>; key-positions = <19 24>; bindings = <&kp LBKT>; layers = <0>; };     // U + J
+
 
         // ==========================================
-        // HARDWARE-COMBOS (Bleiben unangetastet auf 2ms)
+        // 2. UNKRITISCHE COMBOS (Komfortable 45-50ms)
+        // Hier liegen keine Modifikatoren, das Timing darf entspannt sein
+        // ==========================================
+        combo_excl       { timeout-ms = <45>; key-positions = <2 7>;   bindings = <&kp LS(N1)>; layers = <0 1>; };
+        combo_colon      { timeout-ms = <45>; key-positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0 1>; }; // , + . (Zwar HRM, aber unkritisch für f/j)
+        combo_backslash  { timeout-ms = <45>; key-positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
+        combo_slash      { timeout-ms = <45>; key-positions = <6 7>;   bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
+        combo_minus      { timeout-ms = <45>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
+        combo_underscore { timeout-ms = <45>; key-positions = <5 6>;   bindings = <&kp LS(SLASH)>; layers = <0 1>; };
+        combo_ae         { timeout-ms = <50>; key-positions = <0 5>;   bindings = <&kp SQT>; layers = <0>; };      // Q + A (Pinky)
+        combo_oe         { timeout-ms = <45>; key-positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };     // O + L
+        combo_ss         { timeout-ms = <45>; key-positions = <1 6>;   bindings = <&kp MINUS>; layers = <0>; };
+
+
+        // ==========================================
+        // 3. HARDWARE-COMBOS (Bleiben auf 2ms)
         // ==========================================
         combo_bt0 { timeout-ms = <2>; key-positions = <11 9>; bindings = <&bt_sel_0>; };
         combo_bt1 { timeout-ms = <2>; key-positions = <11 6>; bindings = <&bt_sel_1>; };
