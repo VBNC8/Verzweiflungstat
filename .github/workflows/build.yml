@@ -1,8 +1,18 @@
 name: Build Hawk-wireless
 on: [push, pull_request, workflow_dispatch]
+
+# 1. Hier geben wir dem GitHub-Bot offiziell Lese-Rechte auf den Code
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # 2. Hier übergeben wir das Token an ALLE Skripte und West-Befehle im Job
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
     container:
       image: zmkfirmware/zmk-build-arm:4.1
     steps:
