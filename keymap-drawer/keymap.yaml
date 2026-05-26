@@ -16,11 +16,11 @@ layers:
   - S
   - D
   - t: F
-    h: Shift
+    h: LSHIFT
   - G
   - H
   - t: J
-    h: Shift
+    h: RSHIFT
   - K
   - L
   - ''''
