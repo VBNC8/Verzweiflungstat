@@ -162,6 +162,7 @@
                 , <&macro_pause_for_release>
                 , <&macro_release &kp UP>;
         };
+
         // Makro für DOWN mit Wiederholung
         m_down: m_down {
             compatible = "zmk,behavior-macro";
