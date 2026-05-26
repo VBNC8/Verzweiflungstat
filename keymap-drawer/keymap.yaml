@@ -95,16 +95,17 @@ layers:
   - ','
   - .
   - '='
-  - h: Adjust
+  - t: $$mdi:monitor$$
+    s: Show
     type: round
   - $$mdi:microsoft-windows-classic$$
   - t: ⤒ Pos1
     type: held
   - t: ⤓ End
     type: held
-  - t: $$mdi:monitor$$
-    s: Show
-  - h: Adjust
+  - t: ▽
+    type: trans
+  - ⌫
   - t: ⏮·⏯·⏭
     s: ↑
     h: ↓
@@ -237,8 +238,9 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: round
   - t: ⏮·⏯·⏭
     s: ↑
     h: ↓
