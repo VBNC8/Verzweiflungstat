@@ -275,7 +275,7 @@
         combo_backslash  { timeout-ms = <45>; key-positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
         combo_slash      { timeout-ms = <45>; key-positions = <6 7>;   bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
         combo_minus      { timeout-ms = <45>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
-        combo_underscore { timeout-ms = <45>; key-positions = <5 6>;   bindings = <&kp LS(SLASH)>; layers = <0 1>; };
+        combo_underscore { timeout-ms = <35>; key-positions = <5 6>;   bindings = <&kp LS(SLASH)>; layers = <0 1>; };
         combo_ae         { timeout-ms = <50>; key-positions = <0 5>;   bindings = <&kp SQT>; layers = <0>; };      // Q + A (Pinky)
         combo_oe         { timeout-ms = <45>; key-positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };     // O + L
         combo_ss         { timeout-ms = <45>; key-positions = <1 6>;   bindings = <&kp MINUS>; layers = <0>; };
