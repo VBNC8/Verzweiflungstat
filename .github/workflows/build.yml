@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Zwingt den Bot, das interne Token zu nutzen
 
       - name: West Init
         run: west init -l config
