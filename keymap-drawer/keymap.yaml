@@ -245,6 +245,34 @@ layers:
     type: round
 combos:
 - p:
+  - 13
+  - 16
+  k: 'CAPS
+
+    WORD'
+  l:
+  - default
+- p:
+  - 12
+  - 13
+  k: '"'
+  l:
+  - default
+  - lower
+- p:
+  - 16
+  - 17
+  k: '?'
+  l:
+  - default
+  - lower
+- p:
+  - 6
+  - 16
+  k: Ü
+  l:
+  - default
+- p:
   - 2
   - 12
   k: '!'
@@ -287,28 +315,6 @@ combos:
   - default
   - lower
 - p:
-  - 13
-  - 16
-  k: 'CAPS
-
-    WORD'
-  l:
-  - default
-- p:
-  - 12
-  - 13
-  k: '"'
-  l:
-  - default
-  - lower
-- p:
-  - 16
-  - 17
-  k: '?'
-  l:
-  - default
-  - lower
-- p:
   - 0
   - 10
   k: Ä
@@ -318,12 +324,6 @@ combos:
   - 8
   - 18
   k: Ö
-  l:
-  - default
-- p:
-  - 6
-  - 16
-  k: Ü
   l:
   - default
 - p:
