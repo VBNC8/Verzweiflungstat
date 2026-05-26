@@ -525,6 +525,7 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 <g transform="translate(168, 205)" class="key round keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <use href="#mdi:monitor" xlink:href="#mdi:monitor" x="-7" y="-7" height="14" width="14.0" class="key round tap glyph mdi:monitor"/>
+<text x="0" y="24" class="key round hold">Adjust</text>
 <text x="0" y="-24" class="key round shifted">Show</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
@@ -550,6 +551,7 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 <g transform="translate(560, 205)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">⌫</text>
+<text x="0" y="24" class="key hold">Adjust</text>
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>

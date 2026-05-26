@@ -96,6 +96,7 @@ layers:
   - .
   - '='
   - t: $$mdi:monitor$$
+    h: Adjust
     s: Show
     type: round
   - $$mdi:microsoft-windows-classic$$
@@ -105,7 +106,8 @@ layers:
     type: held
   - t: ▽
     type: trans
-  - ⌫
+  - t: ⌫
+    h: Adjust
   - t: ⏮·⏯·⏭
     s: ↑
     h: ↓
