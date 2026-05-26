@@ -17,6 +17,10 @@ parse_config:
     "&kp F13": {t: " ", type: "held"}
     "&kp F14": {t: " ", type: "ghost"}
 
+    # --- NEW LAYER KEYS (LOWER LAYER EXTRAS) ---
+    "&lt 3 LG(D)": {t: "$$mdi:monitor$$", s: "Show", h: "Adjust"}
+    "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
