@@ -226,41 +226,49 @@
     combos {
         compatible = "zmk,combos";
 
-        /* Wir nutzen hier den Unterstrich bei key-positions, 
-           da dies oft die Pydantic-Validierung im Drawer fixiert */
+        // ==========================================
+        // 1. MANUELLE TIPP-COMBOS (Menschliches Timing)
+        // ==========================================
+        combo_excl       { timeout-ms = <40>; key-positions = <2 7>;   bindings = <&kp LS(N1)>; layers = <0 1>; };
+        combo_colon      { timeout-ms = <40>; key-positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0 1>; };
+        combo_creo_mod   { timeout-ms = <40>; key-positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0 1>; };
+        combo_backslash  { timeout-ms = <40>; key-positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
+        combo_slash      { timeout-ms = <40>; key-positions = <6 7>;   bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
+        combo_minus      { timeout-ms = <40>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
+        combo_underscore { timeout-ms = <40>; key-positions = <5 6>;   bindings = <&kp LS(SLASH)>; layers = <0 1>; };
+        combo_caps_word  { timeout-ms = <40>; key-positions = <8 24>;  bindings = <&caps_wrd>; layers = <0>; };
+        combo_quote      { timeout-ms = <40>; key-positions = <7 8>;   bindings = <&kp LS(N2)>; layers = <0 1>; };
+        combo_question   { timeout-ms = <40>; key-positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
+        combo_ae         { timeout-ms = <45>; key-positions = <0 5>;   bindings = <&kp SQT>; layers = <0>; };
+        combo_oe         { timeout-ms = <40>; key-positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };
+        combo_ue         { timeout-ms = <40>; key-positions = <19 24>; bindings = <&kp LBKT>; layers = <0>; };
+        combo_ss         { timeout-ms = <40>; key-positions = <1 6>;   bindings = <&kp MINUS>; layers = <0>; };
 
-        combo_excl { timeout-ms = <40>; key-positions = <2 7>; bindings = <&kp LS(N1)>; layers = <0 1>; };
-        combo_colon { timeout-ms = <50>; key-positions = <30 31>; bindings = <&kp LS(DOT)>; layers = <0 1>; };
-        combo_creo_mod { timeout-ms = <50>; key-positions = <11 12>; bindings = <&kp LC(LALT)>; layers = <0 1>; };
-        combo_backslash { timeout-ms = <40>; key-positions = <25 26>; bindings = <&kp RA(MINUS)>; layers = <0 1>; };
-        combo_slash { timeout-ms = <40>; key-positions = <6 7>; bindings = <&kp KP_DIVIDE>; layers = <0 1>; };
-        combo_minus { timeout-ms = <50>; key-positions = <26 27>; bindings = <&kp SLASH>; layers = <0 1>; };
-        combo_underscore { timeout-ms = <40>; key-positions = <5 6>; bindings = <&kp LS(SLASH)>; layers = <0 1>; };
-        combo_caps_word { timeout-ms = <40>; key-positions = <8 24>; bindings = <&caps_wrd>; layers = <0>; };
-        combo_quote { timeout-ms = <50>; key-positions = <7 8>; bindings = <&kp LS(N2)>; layers = <0 1>; };
-        combo_question { timeout-ms = <50>; key-positions = <24 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; };
-        combo_ae { timeout-ms = <55>; key-positions = <0 5>; bindings = <&kp SQT>; layers = <0>; };
-        combo_oe { timeout-ms = <50>; key-positions = <21 26>; bindings = <&kp SEMI>; layers = <0>; };
-        combo_ue { timeout-ms = <50>; key-positions = <19 24>; bindings = <&kp LBKT>; layers = <0>; };
-        combo_ss { timeout-ms = <50>; key-positions = <1 6>; bindings = <&kp MINUS>; layers = <0>; };
 
-        // Special Hardware Switches
-        combo_bt0 { timeout-ms = <20>; key-positions = <11 9>; bindings = <&bt_sel_0>; };
-        combo_bt1 { timeout-ms = <20>; key-positions = <11 6>; bindings = <&bt_sel_1>; };
-        combo_bt2 { timeout-ms = <20>; key-positions = <11 5>; bindings = <&bt_sel_2>; };
-        combo_usb { timeout-ms = <20>; key-positions = <11 7>; bindings = <&usb_on>; };
+        // ==========================================
+        // 2. HARDWARE-COMBOS (Elektrisch parallel geschaltet)
+        // Hier reichen 2ms, dadurch blockieren sie NICHT die normalen Tasten!
+        // ==========================================
         
-        combo_up    { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;   layers = <0>; };
-        combo_down  { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>; layers = <0>; };
-        combo_prev  { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&m_prev>;  layers = <0>; };
-        combo_next  { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&m_next>;  layers = <0>; };
-        combo_pp    { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;    layers = <0>; };
+        // BT / USB Selector
+        combo_bt0 { timeout-ms = <2>; key-positions = <11 9>; bindings = <&bt_sel_0>; };
+        combo_bt1 { timeout-ms = <2>; key-positions = <11 6>; bindings = <&bt_sel_1>; };
+        combo_bt2 { timeout-ms = <2>; key-positions = <11 5>; bindings = <&bt_sel_2>; };
+        combo_usb { timeout-ms = <2>; key-positions = <11 7>; bindings = <&usb_on>; };
+        
+        // 5-Way Nav-Stick (Layer 0)
+        combo_up    { timeout-ms = <2>; key-positions = <0 11 14>; bindings = <&kp UP>;    layers = <0>; };
+        combo_down  { timeout-ms = <2>; key-positions = <0 10 14>; bindings = <&kp DOWN>;  layers = <0>; };
+        combo_prev  { timeout-ms = <2>; key-positions = <0 12 14>; bindings = <&m_prev>;   layers = <0>; };
+        combo_next  { timeout-ms = <2>; key-positions = <0 13 14>; bindings = <&m_next>;   layers = <0>; };
+        combo_pp    { timeout-ms = <2>; key-positions = <0 14>;    bindings = <&m_pp>;     layers = <0>; };
 
-        combo_up_l1   { timeout-ms = <20>; key-positions = <0 11 14>; bindings = <&kp UP>;    layers = <1>; };
-        combo_down_l1 { timeout-ms = <20>; key-positions = <0 10 14>; bindings = <&kp DOWN>;  layers = <1>; };
-        combo_prev_l1 { timeout-ms = <20>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
-        combo_next_l1 { timeout-ms = <20>; key-positions = <0 13 14>; bindings = <&kp RIGHT>; layers = <1>; };
-        combo_pp_l1   { timeout-ms = <20>; key-positions = <0 14>;    bindings = <&m_pp>;     layers = <1>; };
+        // 5-Way Nav-Stick (Layer 1)
+        combo_up_l1   { timeout-ms = <2>; key-positions = <0 11 14>; bindings = <&kp UP>;    layers = <1>; };
+        combo_down_l1 { timeout-ms = <2>; key-positions = <0 10 14>; bindings = <&kp DOWN>;  layers = <1>; };
+        combo_prev_l1 { timeout-ms = <2>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
+        combo_next_l1 { timeout-ms = <2>; key-positions = <0 13 14>; bindings = <&kp RIGHT>; layers = <1>; };
+        combo_pp_l1   { timeout-ms = <2>; key-positions = <0 14>;    bindings = <&m_pp>;     layers = <1>; };
     };
 
     keymap {
