@@ -194,15 +194,20 @@
             hold-trigger-on-release;
         };
 
-        hrm_shift: hrm_shift {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <260>;       // Wieder höher! Du MUSST das F/J bewusst halten für Shift
-            quick-tap-ms = <150>;          // Verhindert Fehlauslösungen bei schnellen Doppelbuchstaben
-            require-prior-idle-ms = <150>; // ABSOLUT KRITISCH: Blockiert Shift, wenn du mitten im Wort bist
-            flavor = "tap-preferred";      // Im Zweifel IMMER der Buchstabe f/j beim schnellen Schreiben
-            bindings = <&kp>, <&kp>;
-        };
+        hrm_shift: home_row_mods_shift {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "tap-preferred";
+        tapping-term-ms = <200>;
+        
+        /* 1. Disable quick-tap or set it very low to stop the double-tap bug */
+        quick-tap-ms = <0>; 
+        
+        /* 2. Prevent accidental mods during fast typing rolls */
+        require-prior-idle-ms = <150>; 
+        
+        bindings = <&kp>, <&kp>;
+    };
 
         lt_hp: lt_hp {
             compatible = "zmk,behavior-hold-tap";
