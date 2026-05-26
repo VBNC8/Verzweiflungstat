@@ -45,7 +45,7 @@ layers:
     h: Raise
   - t: ⇥
     h: Lower
-  - t: ↵
+  - t: RET
     h: Lower
   - t: ␣
     h: Raise
