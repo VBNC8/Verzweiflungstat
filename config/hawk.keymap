@@ -180,6 +180,16 @@
     };
 
     behaviors {
+        lt_enter: lt_enter {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <220>; // Leicht erhöht, um versehentliche Taps abzufangen
+            quick-tap-ms = <150>;    // Erlaubt schnelles Doppel-Enter, falls man es mal braucht
+            flavor = "hold-preferred"; // Im Zweifel IMMER Layer, kein Enter!
+            retro-tap;               // Feuert Enter NUR, wenn absolut keine andere Taste gedrückt wurde
+            bindings = <&mo>, <&kp>;
+        };
+
         caps_wrd: caps_wrd {
             compatible = "zmk,behavior-caps-word";
             #binding-cells = <0>;
@@ -310,10 +320,10 @@
 /* left bot  */   &kp Z          &hrm_safe LCTRL X    &hrm_safe LALT C      &kp V                &kp B
 /* left tmb  */                                       &kp C_PP              &lt 2 ESC            &lt 1 TAB
 
-/* right top */   &kp Y          &kp U                &kp I                 &kp O                &kp P
-/* right mid */   &kp H          &hrm_right RSHIFT J  &kp K                 &kp L                &kp LS(NON_US_HASH)
-/* right bot */   &kp N          &kp M                &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL
-/* right tmb */   &lt 1 RET      &lt_hp 2 SPACE       &kp BSPC
+/* right top */   &kp Y             &kp U                &kp I                 &kp O                &kp P
+/* right mid */   &kp H             &hrm_right RSHIFT J  &kp K                 &kp L                &kp LS(NON_US_HASH)
+/* right bot */   &kp N             &kp M                &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL
+/* right tmb */   &lt_enter 1 RET   &lt_hp 2 SPACE       &kp BSPC
             >;
         };
 
