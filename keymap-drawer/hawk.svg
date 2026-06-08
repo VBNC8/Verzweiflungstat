@@ -883,12 +883,12 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g transform="translate(168, 205)" class="key round keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
+<text x="0" y="0" class="key round tap">▽</text>
+</g>
+<g transform="translate(230, 213) rotate(15.0)" class="key round keypos-31">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key round tap glyph mdi:bluetooth-off"/>
 <text x="0" y="-24" class="key round shifted">CLR 5s</text>
-</g>
-<g transform="translate(230, 213) rotate(15.0)" class="key trans keypos-31">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(295, 224) rotate(30.0)" class="key trans keypos-32">
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
@@ -898,14 +898,14 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(498, 213) rotate(-15.0)" class="key trans keypos-34">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
-</g>
-<g transform="translate(560, 205)" class="key round keypos-35">
+<g transform="translate(498, 213) rotate(-15.0)" class="key round keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <use href="#mdi:bluetooth-off" xlink:href="#mdi:bluetooth-off" x="-7" y="-7" height="14" width="14.0" class="key round tap glyph mdi:bluetooth-off"/>
 <text x="0" y="-24" class="key round shifted">CLR 5s</text>
+</g>
+<g transform="translate(560, 205)" class="key trans keypos-35">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(308, 126)" class="key round keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
