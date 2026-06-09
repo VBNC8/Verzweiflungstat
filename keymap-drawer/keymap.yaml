@@ -336,6 +336,14 @@ combos:
   k: ß
   l:
   - default
+- p:
+  - 30
+  - 35
+  k: Ctl+ BSPC
+  l:
+  - default
+  - lower
+  - raise
 layout:
   qmk_info_json: keymap-drawer/layout.json
   qmk_layout: LAYOUT
