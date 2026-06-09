@@ -305,7 +305,7 @@
             timeout-ms = <45>;
             key-positions = <15 35>;
             bindings = <&kp LC(BSPC)>;
-            layers = <0 1 2>; /* Aktiv auf allen relevanten Ebenen */
+            layers = <0>; /* Aktiv auf allen relevanten Ebenen */
         };
     };
 
