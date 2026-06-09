@@ -300,6 +300,13 @@
         combo_prev_l1 { timeout-ms = <2>; key-positions = <0 12 14>; bindings = <&kp LEFT>;  layers = <1>; };
         combo_next_l1 { timeout-ms = <2>; key-positions = <0 13 14>; bindings = <&kp RIGHT>; layers = <1>; };
         combo_pp_l1   { timeout-ms = <2>; key-positions = <0 14>;    bindings = <&m_pp>;     layers = <1>; };
+
+        combo_del_last_word {
+            timeout-ms = <45>;
+            key-positions = <15 35>;
+            bindings = <&kp LC(BSPC)>;
+            layers = <0 1 2>; /* Aktiv auf allen relevanten Ebenen */
+        };
     };
 
     keymap {
