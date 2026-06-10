@@ -47,8 +47,11 @@ jobs:
         run: |
           cp build/zephyr/zmk.uf2 hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
-          # Hier installieren wir kurz das Tool und verpacken die LINKE Seite als Funk-Paket:
-          pip install nrfutil
+          
+          # PIP UND NRFUTIL NACHINSTALLIEREN
+          apt-get update && apt-get install -y python3-pip
+          pip3 install nrfutil
+          
           nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
         
       - name: Build Right
@@ -58,7 +61,9 @@ jobs:
         run: |
           cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
-          # Und hier verpacken wir die RECHTE Seite als Funk-Paket:
+          
+          # Hier ist pip schon da, wir installieren nur nrfutil falls nötig
+          pip3 install nrfutil
           nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
         
       - name: Upload
