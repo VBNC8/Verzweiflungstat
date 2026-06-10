@@ -43,18 +43,23 @@ jobs:
       - name: Build Left
         run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
-      - name: Save Left
+      - name: Save Left & Create DFU Package
         run: |
           cp build/zephyr/zmk.uf2 hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
+          # Hier installieren wir kurz das Tool und verpacken die LINKE Seite als Funk-Paket:
+          pip install nrfutil
+          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
         
       - name: Build Right
         run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
-      - name: Save Right
+      - name: Save Right & Create DFU Package
         run: |
           cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
+          # Und hier verpacken wir die RECHTE Seite als Funk-Paket:
+          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
         
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -63,10 +68,7 @@ jobs:
           path: |
             hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
             hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
+            hawk-left-dfu.zip
             hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
             hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
-
-      - name: Generate DFU package
-        run: |
-          pip install nrfutil
-          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application zephyr.bin hawk-dfu.zip
+            hawk-right-dfu.zip
