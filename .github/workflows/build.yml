@@ -22,7 +22,7 @@ jobs:
       - name: Configure Git Local URL
         run: |
           git config --global url."${GITHUB_WORKSPACE}/".insteadOf "https://github.com/VBNC8/Verzweiflungstat/"
-          git config --global url."${GITHUB_WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
+          git config --global url."${WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
 
       - name: West Init
         run: west init -l config
@@ -53,20 +53,18 @@ jobs:
           cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
 
-      # JETZT BESTELLEN WIR DAS TOOL PER WGET (UND INSTALLIEREN ES ZUR NOT)
-      - name: Install nrfutil-go & Generate Packages
+      # JETZT BEREITEN WIR DAS BLUETOOTH-DFU-PAKET MIT ADAFRUIT VOR
+      - name: Install adafruit-nrfutil & Generate Packages
         run: |
-          # 1. Sicherstellen, dass wget oder curl da ist
-          apt-get update && apt-get install -y wget
+          # 1. Pip installieren (das hat im Log ja vorhin super geklappt)
+          apt-get update && apt-get install -y python3-pip
           
-          # 2. Tool herunterladen
-          wget https://github.com/muresan/nrfutil-go/releases/latest/download/nrfutil-go-linux-amd64 -O nrfutil-go-linux-amd64
-          chmod +x nrfutil-go-linux-amd64
-          mv nrfutil-go-linux-amd64 /usr/local/bin/nrfutil-go
+          # 2. Das Python-3-taugliche Adafruit-Tool installieren
+          pip3 install adafruit-nrfutil --break-system-packages
           
-          # 3. Die DFU-Pakete schreiben
-          nrfutil-go pkg generate --hw-version 52 --sd-req 0x00 --app-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
-          nrfutil-go pkg generate --hw-version 52 --sd-req 0x00 --app-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
+          # 3. Die DFU-Zips erzeugen (die Syntax ist hier leicht anders)
+          adafruit-nrfutil dfu genpkg --dev-type 52 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
+          adafruit-nrfutil dfu genpkg --dev-type 52 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
         
       - name: Upload
         uses: actions/upload-artifact@v4
