@@ -41,7 +41,7 @@ jobs:
         run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
         
       - name: Build Left
-        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
       - name: Save Left
         run: |
@@ -49,7 +49,7 @@ jobs:
           cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
         
       - name: Build Right
-        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
       - name: Save Right
         run: |
