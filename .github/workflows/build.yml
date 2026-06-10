@@ -65,3 +65,8 @@ jobs:
             hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
             hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
             hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
+
+      - name: Generate DFU package
+        run: |
+          pip install nrfutil
+          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application zephyr.bin hawk-dfu.zip
