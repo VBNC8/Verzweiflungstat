@@ -1,7 +1,6 @@
 name: Build Hawk-wireless
 on: [push, pull_request, workflow_dispatch]
 
-# 1. Hier geben wir dem GitHub-Bot offiziell Lese-Rechte auf den Code
 permissions:
   contents: read
 
@@ -9,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # 2. Hier übergeben wir das Token an ALLE Skripte und West-Befehle im Job
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
@@ -19,9 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: false # Verhindert, dass Checkout selbst stolpert
+          submodules: false
 
-      # DER TRICK: Git anweisen, für dein Repo den lokalen Ordner zu nutzen
       - name: Configure Git Local URL
         run: |
           git config --global url."${GITHUB_WORKSPACE}/".insteadOf "https://github.com/VBNC8/Verzweiflungstat/"
@@ -43,28 +40,30 @@ jobs:
       - name: Build Left
         run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
-      - name: Save Left & Create DFU Package
+      - name: Save Left
         run: |
           cp build/zephyr/zmk.uf2 hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
-          
-          # PIP UND NRFUTIL MIT KRAFT INSTALLIEREN
-          apt-get update && apt-get install -y python3-pip
-          pip3 install nrfutil --break-system-packages
-          
-          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
         
       - name: Build Right
         run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
         
-      - name: Save Right & Create DFU Package
+      - name: Save Right
         run: |
           cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
+
+      # JETZT HOLEN WIR UNS DAS MODERNE GO-TOOL OHNE PYTHON-STRESS
+      - name: Install nrfutil-go & Generate Packages
+        run: |
+          # 1. Tool direkt als fertige Linux-Binary herunterladen
+          curl -sSLO https://github.com/muresan/nrfutil-go/releases/latest/download/nrfutil-go-linux-amd64
+          chmod +x nrfutil-go-linux-amd64
+          mv nrfutil-go-linux-amd64 /usr/local/bin/nrfutil-go
           
-          # Auch hier das Flag mitsenden
-          pip3 install nrfutil --break-system-packages
-          nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
+          # 2. Die DFU-Pakete für Links und Rechts schreiben
+          nrfutil-go pkg generate --hw-version 52 --sd-req 0x00 --app-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
+          nrfutil-go pkg generate --hw-version 52 --sd-req 0x00 --app-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
         
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -72,8 +71,6 @@ jobs:
           name: 'hawk-${{ github.run_number }}-${{ github.sha }}'
           path: |
             hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-            hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
             hawk-left-dfu.zip
             hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-            hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
             hawk-right-dfu.zip
