@@ -48,9 +48,9 @@ jobs:
           cp build/zephyr/zmk.uf2 hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
           
-          # PIP UND NRFUTIL NACHINSTALLIEREN
+          # PIP UND NRFUTIL MIT KRAFT INSTALLIEREN
           apt-get update && apt-get install -y python3-pip
-          pip3 install nrfutil
+          pip3 install nrfutil --break-system-packages
           
           nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
         
@@ -62,8 +62,8 @@ jobs:
           cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
           cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
           
-          # Hier ist pip schon da, wir installieren nur nrfutil falls nötig
-          pip3 install nrfutil
+          # Auch hier das Flag mitsenden
+          pip3 install nrfutil --break-system-packages
           nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
         
       - name: Upload
