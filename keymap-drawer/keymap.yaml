@@ -99,7 +99,8 @@ layers:
     h: Adjust
     s: Show
     type: round
-  - $$mdi:microsoft-windows-classic$$
+  - t: $$mdi:microsoft-windows-classic$$
+    h: sticky
   - t: ⤒ Pos1
     type: held
   - t: ⤓ End
