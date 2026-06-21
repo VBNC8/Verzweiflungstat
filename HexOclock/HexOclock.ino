@@ -1,6 +1,6 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.6 (Fixes: corrected LED mapping from v1.1.44, further reduced G-sensor, awake indicator)
+// VERSION:      v2.1.7 (Increased brightness: orange seconds LEDs and red hour LEDs)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.6";
+const char* FIRMWARE_VERSION = "2.1.7";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -140,8 +140,8 @@ const unsigned long OTA_ARM_DELAY_MS = 500;
 const unsigned long TAP_DEBOUNCE_MS = 500;
 // Further reduced click sensitivity (was 110) - threshold of 120 = lower sensitivity
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 120;
-// Seconds LEDs brightness
-const uint8_t SECONDS_LED_BRIGHTNESS = 12;
+// Increased brightness for orange seconds LEDs (was 12 -> 20)
+const uint8_t SECONDS_LED_BRIGHTNESS = 20;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -222,7 +222,7 @@ void IRAM_ATTR onTimer() {
     
     uint32_t anZeit = ledAnZeit_us; 
     if (aktiveReihe == 2 || aktiveReihe == 3) {
-      anZeit = (anZeit * 115) / 100; 
+      anZeit = (anZeit * 125) / 100;  // Increased from 115 to 125 for brighter red hour LEDs
     } else if (aktiveReihe == 4) {
       anZeit = (anZeit * 4) / 5;     
     }
@@ -245,7 +245,7 @@ void IRAM_ATTR onTimer() {
     
     uint32_t anZeit = ledAnZeit_us;
     if (aktiveReihe == 2 || aktiveReihe == 3) {
-      anZeit = (anZeit * 115) / 100;
+      anZeit = (anZeit * 125) / 100;  // Increased from 115 to 125 for brighter red hour LEDs
     } else if (aktiveReihe == 4) {
       anZeit = (anZeit * 4) / 5;
     }
