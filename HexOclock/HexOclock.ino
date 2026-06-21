@@ -1,6 +1,6 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.2 (Fixes: OTA startup bug, OTA timeout, OTA knock-only access, G-sensor)
+// VERSION:      v2.1.5 (Fixes: tap-release gating for OTA trigger, corrected seconds LED positions)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.2";
+const char* FIRMWARE_VERSION = "2.1.5";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -63,8 +63,7 @@ uint8_t lis3dh_i2c_addr = 0x18;
 // Physical LED Layout:
 // R3 (Red): [5 LEDs - Hours/Months display]
 // R2 (Red): [5 LEDs - Hours/Months display]
-// R4 (Orange): [5 LEDs - Seconds indicator]
-// R3 (Orange): [2 LEDs - Seconds indicator]
+// Seconds blink LEDs are wired on R2C3 and R2C4
 // R1 (Green): [10 LEDs - Minutes/Days display]
 // R0 (Green): [10 LEDs - Minutes/Days display]
 
@@ -86,8 +85,8 @@ Point einerStunden[5] = {
 Point sechserStunden[3] = { 
   {3,0}, {3,1}, {3,2} 
 };
-const Point sekundenLedLinks = {4,3};
-const Point sekundenLedRechts = {4,4};
+const Point sekundenLedLinks = {2,3};
+const Point sekundenLedRechts = {2,4};
 
 const uint8_t wMuster[5][5] = {
   {0, 1, 0, 1, 0}, 
@@ -115,6 +114,7 @@ unsigned long letzterKabelKlopfTimer = 0;
 unsigned long otaStartTimer = 0; 
 bool datumAnzeigeAktiv = false;
 bool otaModusAktiviert = false; 
+bool kabelTapReleaseRequired = false;
 
 float displayHelligkeiten[5][5] = {0.0};
 const float FADE_SPEED = 1.2; 
@@ -428,35 +428,45 @@ void loop() {
       datumAnzeigeAktiv = false;
       ersterKabelKlopfTimer = 0;
       letzterKabelKlopfTimer = 0;
+      kabelTapReleaseRequired = false;
       Serial.println("[MODE] Switched to cable power");
     }
     
     // Klopfen im Kabelmodus abfragen
-    if (lis.getClick()) {
-      unsigned long jetzt = millis();
-      if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
-        Serial.println("[CLICK] Ignoring tap burst from the same shock event");
-        letzterKabelKlopfTimer = jetzt;
-      }
-      else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
-        Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
-        datumAnzeigeAktiv = true;
-        datumMenueTimer = jetzt;
-        ersterKabelKlopfTimer = jetzt;
-        letzterKabelKlopfTimer = jetzt;
-      } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
-        Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
-        otaModusAktiviert = true;
-        datumAnzeigeAktiv = false;
-        letzterKabelKlopfTimer = jetzt;
-        WiFi.mode(WIFI_STA);
-        WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present; timeout handling below returns to normal mode if WiFi never connects
-        setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
-      } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
-        // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
-        Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
-        letzterKabelKlopfTimer = jetzt;
+    bool tapDetected = lis.getClick();
+    if (!tapDetected) {
+      kabelTapReleaseRequired = false;
+    }
+    if (tapDetected) {
+      if (kabelTapReleaseRequired) {
+        Serial.println("[CLICK] Waiting for tap release before accepting next tap");
+      } else {
+        unsigned long jetzt = millis();
+        if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
+          Serial.println("[CLICK] Ignoring tap burst from the same shock event");
+          letzterKabelKlopfTimer = jetzt;
+        }
+        else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
+          Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
+          datumAnzeigeAktiv = true;
+          datumMenueTimer = jetzt;
+          ersterKabelKlopfTimer = jetzt;
+          letzterKabelKlopfTimer = jetzt;
+        } 
+        else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
+          Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
+          otaModusAktiviert = true;
+          datumAnzeigeAktiv = false;
+          letzterKabelKlopfTimer = jetzt;
+          WiFi.mode(WIFI_STA);
+          WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present; timeout handling below returns to normal mode if WiFi never connects
+          setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
+        } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+          // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
+          Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
+          letzterKabelKlopfTimer = jetzt;
+        }
+        kabelTapReleaseRequired = true;
       }
     }
   } else {
@@ -467,6 +477,7 @@ void loop() {
       otaModusAktiviert = false;
       ersterKabelKlopfTimer = 0;
       letzterKabelKlopfTimer = 0;
+      kabelTapReleaseRequired = false;
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
@@ -600,7 +611,7 @@ void loop() {
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // Left second LED always on (array index [4][3])
+      // Left second LED always on (array index [2][3])
       targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 31;
     }
   } 
