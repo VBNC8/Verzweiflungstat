@@ -132,9 +132,9 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
-// Require at least 800ms after the first tap before a deliberate 2nd tap can arm OTA
-const unsigned long OTA_ARM_DELAY_MS = 800;
-// Ignore follow-up sensor hits for 1200ms after an accepted tap, but still allow a quick deliberate 2nd tap in date mode
+// Require at least 1200ms after the first tap before a deliberate 2nd tap can arm OTA
+const unsigned long OTA_ARM_DELAY_MS = 1200;
+// Ignore follow-up sensor hits for the same 1200ms window so one physical knock cannot also trigger OTA
 const unsigned long TAP_DEBOUNCE_MS = 1200;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
