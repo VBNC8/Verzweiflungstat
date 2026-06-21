@@ -130,9 +130,9 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
-// Require a short pause after the first tap before a 2nd tap can arm OTA, preventing rapid follow-up taps from triggering both actions
+// Require at least 800ms after the first tap before a deliberate 2nd tap can arm OTA
 const unsigned long OTA_ARM_DELAY_MS = 800;
-// Ignore follow-up sensor hits from the same cable shock, but still allow a quick deliberate 2nd tap in date mode
+// Ignore follow-up sensor hits for 1200ms after an accepted tap, but still allow a quick deliberate 2nd tap in date mode
 const unsigned long TAP_DEBOUNCE_MS = 1200;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
@@ -445,7 +445,7 @@ void loop() {
         datumAnzeigeAktiv = false;
         letzterKabelTapTimer = jetzt;
         WiFi.mode(WIFI_STA);
-        WiFi.begin(); // Uses stored STA credentials from ESP32 flash
+        WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
         // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
