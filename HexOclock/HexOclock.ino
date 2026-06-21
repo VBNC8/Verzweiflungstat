@@ -132,9 +132,9 @@ int cachedBatteryValue = 0;
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
 // Require a short pause after the first tap before a 2nd tap can arm OTA, preventing rapid follow-up taps from triggering both actions
 const unsigned long OTA_ARM_DELAY_MS = 800;
-// Ignore follow-up sensor hits from the same cable shock so OTA needs a deliberate 2nd tap
-const unsigned long TAP_DEBOUNCE_MS = 2000;
-// Strongly reduced click sensitivity to avoid false positives on cable vibrations
+// Ignore follow-up sensor hits from the same cable shock, but still allow a quick deliberate 2nd tap in date mode
+const unsigned long TAP_DEBOUNCE_MS = 1200;
+// Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
 
 // ===================================================================
