@@ -87,7 +87,7 @@ Point sechserStunden[3] = {
   {3,0}, {3,1}, {3,2} 
 };
 
-// SECONDS (Orange LEDs - R4, R3 center) - 2 LEDs for blink indicator
+// SECONDS (Orange LEDs - R4) - 2 LEDs for blink indicator
 Point secondsIndicator[2] = {
   {4,3}, {4,4}  // Left and right indicator LEDs
 };
@@ -560,8 +560,8 @@ void loop() {
     if (millis() - otaStartTimer > OTA_SESSION_TIMEOUT) stoppeOTA();
   } 
   // ZUSTAND 2: Datumsanzeige aktiv für 7 Sekunden (NUR nach Klopfen am Kabel)
-  // Months are displayed like hours, days like minutes
-  // Left second LED constantly on
+  // Monate werden wie Stunden, Tage wie Minuten dargestellt
+  // Linke Sekunden-LED dauerhaft an
   else if (!isBatterieBetrieb && datumAnzeigeAktiv) {
     if (millis() - datumMenueTimer >= 7000) {
       datumAnzeigeAktiv = false; // 7 Sekunden vorbei -> Zurück zur Uhrzeit
@@ -604,7 +604,7 @@ void loop() {
       int sStd = timeinfo->tm_hour / 6;
       for(int i=0; i<sStd; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // --- SEKUNDEN-BLINKLOGIK (FIXED: use cached battery value) ---
+      // --- SEKUNDEN-BLINKLOGIK mit gepuffertem Batteriewert ---
       if (!isBatterieBetrieb) {
         int batVal = cachedBatteryValue;
         if (batVal < 3150) {
@@ -641,7 +641,7 @@ void loop() {
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // Left second LED always on
+      // Linke Sekunden-LED immer an
       targetFrame[4][3] = 31;
     }
     else {
