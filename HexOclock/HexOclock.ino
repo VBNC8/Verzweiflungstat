@@ -133,7 +133,7 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
-// Require a short pause before a 2nd tap can arm OTA, so one knock cannot trigger both actions
+// Require a short pause after the first tap before a 2nd tap can arm OTA, preventing rapid follow-up taps from triggering both actions
 const unsigned long OTA_ARM_DELAY_MS = 800;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 80;
@@ -442,6 +442,7 @@ void loop() {
         WiFi.begin(); // Uses stored credentials from WiFiManager (saved in ESP32 flash)
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+        // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
         Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
       }
     }
