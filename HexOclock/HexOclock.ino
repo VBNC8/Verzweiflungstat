@@ -436,6 +436,7 @@ void loop() {
       unsigned long jetzt = millis();
       if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
         Serial.println("[CLICK] Ignoring tap burst from the same shock event");
+        letzterKabelKlopfTimer = jetzt;
       }
       else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
         Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
@@ -444,7 +445,7 @@ void loop() {
         ersterKabelKlopfTimer = jetzt;
         letzterKabelKlopfTimer = jetzt;
       } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
