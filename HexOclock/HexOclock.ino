@@ -137,6 +137,7 @@ const unsigned long OTA_ARM_DELAY_MS = 800;
 // Ignore follow-up sensor hits for 1200ms after an accepted tap, but still allow a quick deliberate 2nd tap in date mode
 const unsigned long TAP_DEBOUNCE_MS = 1200;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor
+// and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
 
 // ===================================================================
@@ -424,6 +425,7 @@ void loop() {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
       datumAnzeigeAktiv = false;
+      ersterKabelKlopfTimer = 0;
       letzterKabelKlopfTimer = 0;
       Serial.println("[MODE] Switched to cable power");
     }
@@ -461,6 +463,7 @@ void loop() {
       isBatterieBetrieb = true;
       datumAnzeigeAktiv = false;
       otaModusAktiviert = false;
+      ersterKabelKlopfTimer = 0;
       letzterKabelKlopfTimer = 0;
       stoppeOTA();
       anzeigeTimer = millis();
@@ -568,7 +571,10 @@ void loop() {
         if (wMuster[r][c] == 1) targetFrame[r][c] = waberHelligkeit;
       }
     }
-    if (millis() - otaStartTimer > OTA_SESSION_TIMEOUT) stoppeOTA();
+    if (millis() - otaStartTimer > OTA_SESSION_TIMEOUT) {
+      Serial.println("[OTA] Session timeout reached");
+      stoppeOTA();
+    }
   } 
   // ZUSTAND 2: Datumsanzeige aktiv für 7 Sekunden (NUR nach Klopfen am Kabel)
   // Monate werden wie Stunden, Tage wie Minuten dargestellt
