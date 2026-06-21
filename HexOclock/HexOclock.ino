@@ -210,11 +210,11 @@ void resetDateAndOtaState() {
   kabelTapReleaseRequired = false;
 }
 
-bool hasMillisElapsed(unsigned long now, unsigned long start, unsigned long duration) {
+bool hasTimeElapsed(unsigned long now, unsigned long start, unsigned long duration) {
   return (unsigned long)(now - start) >= duration;
 }
 
-bool isMillisWithin(unsigned long now, unsigned long start, unsigned long duration) {
+bool isWithinDuration(unsigned long now, unsigned long start, unsigned long duration) {
   return (unsigned long)(now - start) < duration;
 }
 
@@ -447,12 +447,12 @@ void loop() {
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
 
-  if (!startupInitialized && hasMillisElapsed(jetzt, startupPhaseTimer, STARTUP_PHASE_MS)) {
+  if (!startupInitialized && hasTimeElapsed(jetzt, startupPhaseTimer, STARTUP_PHASE_MS)) {
     startupInitialized = true;
     resetDateAndOtaState();
     Serial.println("[STARTUP] Awake indicator complete - normal display active");
   }
-  bool initializationPhaseActive = !startupInitialized || isMillisWithin(jetzt, bootTimeMs, INITIALIZATION_PHASE_MS);
+  bool initializationPhaseActive = !startupInitialized || isWithinDuration(jetzt, bootTimeMs, INITIALIZATION_PHASE_MS);
 
   // OTA is only active when explicitly triggered by 2nd knock during date display
   if (!isBatterieBetrieb && otaModusAktiviert && otaGestartet) {
@@ -486,7 +486,7 @@ void loop() {
         if (kabelTapReleaseRequired) {
           Serial.println("[CLICK] Waiting for tap release before accepting next tap");
         } else {
-          if (letzterKabelKlopfTimer != 0 && isMillisWithin(jetzt, letzterKabelKlopfTimer, TAP_DEBOUNCE_MS)) {
+          if (letzterKabelKlopfTimer != 0 && isWithinDuration(jetzt, letzterKabelKlopfTimer, TAP_DEBOUNCE_MS)) {
             Serial.println("[CLICK] Ignoring tap burst from the same shock event");
             letzterKabelKlopfTimer = jetzt;
           }
@@ -497,7 +497,7 @@ void loop() {
             ersterKabelKlopfTimer = jetzt;
             letzterKabelKlopfTimer = jetzt;
           }
-          else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && hasMillisElapsed(jetzt, ersterKabelKlopfTimer, OTA_ARM_DELAY_MS)) {
+          else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && hasTimeElapsed(jetzt, ersterKabelKlopfTimer, OTA_ARM_DELAY_MS)) {
             Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
             otaModusAktiviert = true;
             datumAnzeigeAktiv = false;
