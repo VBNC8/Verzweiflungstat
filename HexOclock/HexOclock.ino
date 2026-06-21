@@ -132,12 +132,14 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
-// Require at least 1200ms after the first tap before a deliberate 2nd tap can arm OTA
-const unsigned long OTA_ARM_DELAY_MS = 1200;
-// Ignore follow-up sensor hits for the same 1200ms window so one physical knock cannot also trigger OTA
-const unsigned long TAP_DEBOUNCE_MS = 1200;
+// Require at least 500ms after entering date display before a deliberate 2nd tap can arm OTA
+const unsigned long OTA_ARM_DELAY_MS = 500;
+// Ignore follow-up sensor hits from the same shock event for 500ms
+const unsigned long TAP_DEBOUNCE_MS = 500;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
+// Seconds LEDs were intentionally dimmed before; increase to improve visibility.
+const uint8_t SECONDS_LED_BRIGHTNESS = 12;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -626,18 +628,18 @@ void loop() {
         if (batVal < 3150) {
           // A. AKKU LÄDT: Dreiertakt (Sekunde % 3 -> Links, Rechts, Aus)
           int takt = timeinfo->tm_sec % 3;
-          if (takt == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } // Links an
-          else if (takt == 1) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; } // Rechts an
+          if (takt == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = SECONDS_LED_BRIGHTNESS; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } // Links an
+          else if (takt == 1) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = SECONDS_LED_BRIGHTNESS; } // Rechts an
           else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } // Beide aus
         } else {
           // B. AKKU VOLL: Reines, rhythmisches Wechselblinken
-          if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
-          else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; }
+          if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = SECONDS_LED_BRIGHTNESS; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
+          else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = SECONDS_LED_BRIGHTNESS; }
         }
       } else {
         // Akkubetrieb: Klassisches Wechselblinken
-        if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
-        else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; }
+        if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = SECONDS_LED_BRIGHTNESS; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
+        else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = SECONDS_LED_BRIGHTNESS; }
       }
     }
     else if (abgelaufeneZeit >= 10000 && abgelaufeneZeit < 15000) {
