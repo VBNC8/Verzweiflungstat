@@ -1,6 +1,6 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.7 (Increased brightness: orange seconds LEDs and red hour LEDs)
+// VERSION:      v2.1.8 (Increased brightness: orange seconds LEDs and red hour LEDs)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.7";
+const char* FIRMWARE_VERSION = "2.1.8";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
