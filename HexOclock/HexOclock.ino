@@ -1,10 +1,10 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.0.1 (Fixes: Pin 13 reverted, Always-on OTA, Reduced G-Sensor)
+// VERSION:      v2.1.0 (New Session: Fixed OTA startup, knock-triggered access, 60s timeout)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
-//               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
+//               STARTUP: Startet direkt in die Uhrzeit. Kein OTA-Modus beim Hochfahren!
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
-//               OTA: Always active when on cable power, activated via 2nd knock during date display.
+//               OTA ACCESS: Only via 2nd knock during date display (60 second timeout).
 //               BLINK LOGIC: Am Kabel Dreiertakt (Links-Rechts-Aus) solange der Akku lädt.
 //                            Bei vollem Akku (>= 3150) reines Wechselblinken (Links-Rechts).
 //               LED COLORS: Bottom 2 rows (R1/R0) = Green (minutes/days)
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.0.1";
+const char* FIRMWARE_VERSION = "2.1.0";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -131,7 +131,7 @@ unsigned long batteryReadTimer = 0;
 const unsigned long BATTERY_READ_INTERVAL = 500;  // Read every 500ms
 int cachedBatteryValue = 0;
 
-// OTA - ALWAYS KEEP RUNNING when on cable power
+// OTA - 60 second timeout (v2.1.0: Now ONLY triggered by 2nd knock, NOT on startup)
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
 
 // ===================================================================
@@ -256,7 +256,7 @@ void setupOTA() {
   Serial.println("[OTA] Service aktiv.");
 }
 
-// FIXED: Don't stop OTA - keep it running on cable power
+// FIXED: Stop OTA and cleanup
 void stoppeOTA() {
   if (!otaGestartet) return;
   ArduinoOTA.end();
@@ -369,13 +369,13 @@ void setup() {
     lis.setRange(LIS3DH_RANGE_2_G);
     writeI2CDirect(lis3dh_i2c_addr, 0x22, 0x80); 
     writeI2CDirect(lis3dh_i2c_addr, 0x25, 0x00);
-    // FIXED: Reduced G-sensor sensitivity
-    // Parameters: click_threshold=25 (was 13), time_limit=20 (was 15), time_latency=25 (was 20), min_clicks=1
-    // Higher click_threshold = less sensitive to accidental taps
-    lis.setClick(1, 25, 20, 25, 150); 
+    // FIXED: Reduced G-sensor sensitivity (v2.1.0)
+    // Parameters: click_threshold=32 (increased from 25), time_limit=20, time_latency=25, min_clicks=1
+    // Higher click_threshold = much less sensitive to accidental taps and vibrations
+    lis.setClick(1, 32, 20, 25, 150); 
     writeI2CDirect(lis3dh_i2c_addr, 0x3A, 0x0B);
     lis.getClick();
-    Serial.println("[SENSOR] LIS3DH click detection configured (reduced sensitivity)");
+    Serial.println("[SENSOR] LIS3DH click detection configured (reduced sensitivity v2.1.0)");
   } else {
     Serial.println("[ERROR] LIS3DH not found!");
   }
@@ -411,20 +411,10 @@ void loop() {
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
 
-  // FIXED: Keep OTA service always active on cable power and handle it every loop
-  if (!isBatterieBetrieb) {
-    if (!otaGestartet) {
-      WiFi.mode(WIFI_STA);
-      WiFi.begin(); 
-      setupOTA();
-    }
-    
-    if (otaGestartet) {
-      ArduinoOTA.handle();
-      
-      // Only stop OTA when switching to battery power
-      // Otherwise, keep it running indefinitely
-    }
+  // v2.1.0: OTA is ONLY active when explicitly triggered by 2nd knock during date display
+  // NO automatic OTA on startup or cable connection!
+  if (!isBatterieBetrieb && otaModusAktiviert && otaGestartet) {
+    ArduinoOTA.handle();
   }
 
   // --- STRIKTE KABEL- UND KLOPF-STEUERUNG ---
@@ -432,7 +422,7 @@ void loop() {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
       datumAnzeigeAktiv = false;
-      Serial.println("[MODE] Switched to cable power - OTA service will start");
+      Serial.println("[MODE] Switched to cable power - awaiting knock for date display");
     }
     
     // Klopfen im Kabelmodus abfragen
@@ -443,10 +433,12 @@ void loop() {
         datumMenueTimer = millis();
       } 
       else if (datumAnzeigeAktiv && !otaModusAktiviert) {
-        Serial.println("[CLICK] 2nd tap during date display: Starting OTA mode visual...");
+        Serial.println("[CLICK] 2nd tap during date display: Starting OTA (60s timeout)...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
-        // OTA service already running, just set visual mode
+        WiFi.mode(WIFI_STA);
+        WiFi.begin();
+        setupOTA();
       }
     }
   } else {
@@ -552,7 +544,7 @@ void loop() {
   // --- C. MATRIX FRAME BAUEN ---
   uint8_t targetFrame[5][5] = {0}; 
   
-  // ZUSTAND 1: OTA Modus aktiv (Waberndes W)
+  // ZUSTAND 1: OTA Modus aktiv (Waberndes W) - with 60s timeout
   if (!isBatterieBetrieb && otaModusAktiviert) {
     float sinusWelle = sin(millis() / 200.0); 
     uint8_t waberHelligkeit = 24 + (uint8_t)(sinusWelle * 7.0 + 0.5); 
@@ -560,6 +552,11 @@ void loop() {
       for (int c = 0; c < 5; c++) {
         if (wMuster[r][c] == 1) targetFrame[r][c] = waberHelligkeit;
       }
+    }
+    // v2.1.0: 60 second OTA timeout
+    if (millis() - otaStartTimer > OTA_SESSION_TIMEOUT) {
+      Serial.println("[OTA] 60 second timeout reached - exiting OTA mode");
+      stoppeOTA();
     }
   } 
   // ZUSTAND 2: Datumsanzeige aktiv für 7 Sekunden (NUR nach Klopfen am Kabel)
