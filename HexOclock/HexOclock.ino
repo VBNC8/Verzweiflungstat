@@ -256,7 +256,7 @@ void setupOTA() {
   Serial.println("[OTA] Service aktiv.");
 }
 
-// FIXED: Don't stop OTA - keep it running on cable power
+// Stops OTA service and disconnects WiFi
 void stoppeOTA() {
   if (!otaGestartet) return;
   ArduinoOTA.end();
@@ -434,8 +434,8 @@ void loop() {
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
         WiFi.mode(WIFI_STA);
-        WiFi.begin();
-        setupOTA();
+        WiFi.begin(); // Uses stored credentials from WiFiManager (saved in ESP32 flash)
+        setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       }
     }
   } else {
