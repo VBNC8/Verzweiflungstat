@@ -111,6 +111,7 @@ unsigned long maxAnzeigeZeit = 20000;
 unsigned long bootTimeMs = 0;
 unsigned long startupPhaseTimer = 0;
 bool startupInitialized = false;  // Flag to show awake indicator on startup
+bool initializationPhaseStateCleared = false;
 
 // Datums- und OTA-Steuerung via Klopfen
 unsigned long datumMenueTimer = 0;
@@ -138,9 +139,9 @@ int cachedBatteryValue = 0;
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
 // Keep the startup awake indicator visible for exactly 2 seconds
-const unsigned long startupPhaseMs = 2000;
+const unsigned long STARTUP_PHASE_MS = 2000;
 // Ignore taps for the first 3 seconds after boot to suppress startup noise
-const unsigned long initializationPhaseMs = 3000;
+const unsigned long INITIALIZATION_PHASE_MS = 3000;
 // Require at least 500ms after entering date display before a deliberate 2nd tap can arm OTA
 const unsigned long OTA_ARM_DELAY_MS = 500;
 // Ignore follow-up sensor hits from the same shock event for 500ms
@@ -438,11 +439,12 @@ void loop() {
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
 
-  if (!startupInitialized && (jetzt - startupPhaseTimer >= startupPhaseMs)) {
+  if (!startupInitialized && (jetzt - startupPhaseTimer >= STARTUP_PHASE_MS)) {
     startupInitialized = true;
     resetDateAndOtaState();
     Serial.println("[STARTUP] Awake indicator complete - normal display active");
   }
+  bool initializationPhaseActive = !startupInitialized || (jetzt - bootTimeMs < INITIALIZATION_PHASE_MS);
 
   // OTA is only active when explicitly triggered by 2nd knock during date display
   if (!isBatterieBetrieb && otaModusAktiviert && otaGestartet) {
@@ -459,12 +461,16 @@ void loop() {
     
     // Klopfen im Kabelmodus abfragen
     bool tapDetected = lis.getClick();
-    if (!startupInitialized || (jetzt - bootTimeMs <= initializationPhaseMs)) {
+    if (initializationPhaseActive) {
       if (tapDetected) {
         Serial.println("[CLICK] Ignoring tap during initialization phase");
       }
-      resetDateAndOtaState();
+      if (!initializationPhaseStateCleared) {
+        resetDateAndOtaState();
+        initializationPhaseStateCleared = true;
+      }
     } else {
+      initializationPhaseStateCleared = false;
       if (!tapDetected) {
         kabelTapReleaseRequired = false;
       }
