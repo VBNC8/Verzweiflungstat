@@ -611,7 +611,7 @@ void loop() {
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // Left second LED always on (array index [4][3])
+      // Left second LED always on (array index [2][3])
       targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 31;
     }
   } 
