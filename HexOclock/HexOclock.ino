@@ -1,10 +1,10 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.1 (Hotfix: Restored seconds to R2 center, added date mode indicator)
+// VERSION:      v2.1.2 (Fixes: OTA tap debounce, 500ms arm delay, brighter seconds LEDs)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein OTA-Modus beim Hochfahren!
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
-//               OTA ACCESS: Only via 2nd knock during date display (60 second timeout).
+//               OTA ACCESS: Only via deliberate 2nd knock >=500ms after date display starts (60s timeout).
 //               BLINK LOGIC: Am Kabel Dreiertakt (Links-Rechts-Aus) solange der Akku lädt.
 //                            Bei vollem Akku (>= 3150) reines Wechselblinken (Links-Rechts).
 //               LED COLORS: Bottom 2 rows (R1/R0) = Green (minutes/days)
@@ -113,6 +113,8 @@ unsigned long maxAnzeigeZeit = 20000;
 
 // Datums- und OTA-Steuerung via Klopfen
 unsigned long datumMenueTimer = 0;
+unsigned long ersterKabelKlopfTimer = 0;
+unsigned long letzterKabelKlopfTimer = 0;
 unsigned long otaStartTimer = 0; 
 bool datumAnzeigeAktiv = false;
 bool otaModusAktiviert = false; 
@@ -133,6 +135,13 @@ int cachedBatteryValue = 0;
 
 // OTA - 60 second timeout (v2.1.0: Now ONLY triggered by 2nd knock, NOT on startup)
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
+// Require at least 500ms after entering date display before a 2nd tap can arm OTA,
+// to avoid the initial tap shock immediately triggering OTA.
+const unsigned long OTA_ARM_DELAY_MS = 500;
+// Ignore follow-up sensor hits from the same shock event for 500ms.
+const unsigned long TAP_DEBOUNCE_MS = 500;
+// Seconds LEDs brightness (out of 31). Increased from 6 for better visibility.
+const uint8_t SECONDS_LED_BRIGHTNESS = 12;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -422,23 +431,38 @@ void loop() {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
       datumAnzeigeAktiv = false;
+      ersterKabelKlopfTimer = 0;
+      letzterKabelKlopfTimer = 0;
       Serial.println("[MODE] Switched to cable power - awaiting knock for date display");
     }
     
     // Klopfen im Kabelmodus abfragen
     if (lis.getClick()) {
-      if (!datumAnzeigeAktiv && !otaModusAktiviert) {
+      unsigned long jetzt = millis();
+      if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
+        // Same shock event: ignore burst, but slide debounce window forward
+        Serial.println("[CLICK] Ignoring tap burst from same shock event");
+        letzterKabelKlopfTimer = jetzt;
+      }
+      else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
         Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
         datumAnzeigeAktiv = true;
-        datumMenueTimer = millis();
-      } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+        datumMenueTimer = jetzt;
+        ersterKabelKlopfTimer = jetzt;
+        letzterKabelKlopfTimer = jetzt;
+      }
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA (60s timeout)...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
+        letzterKabelKlopfTimer = jetzt;
         WiFi.mode(WIFI_STA);
         WiFi.begin();
         setupOTA();
+      } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+        // Tap too soon after date display started - ignore
+        Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
+        letzterKabelKlopfTimer = jetzt;
       }
     }
   } else {
@@ -447,6 +471,8 @@ void loop() {
       isBatterieBetrieb = true;
       datumAnzeigeAktiv = false;
       otaModusAktiviert = false;
+      ersterKabelKlopfTimer = 0;
+      letzterKabelKlopfTimer = 0;
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
@@ -608,18 +634,18 @@ void loop() {
         if (batVal < 3150) {
           // A. AKKU LÄDT: Dreiertakt (Sekunde % 3 -> Links, Rechts, Aus)
           int takt = timeinfo->tm_sec % 3;
-          if (takt == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } // Links an
-          else if (takt == 1) { targetFrame[2][3] = 0; targetFrame[2][4] = 6; } // Rechts an
+          if (takt == 0) { targetFrame[2][3] = SECONDS_LED_BRIGHTNESS; targetFrame[2][4] = 0; } // Links an
+          else if (takt == 1) { targetFrame[2][3] = 0; targetFrame[2][4] = SECONDS_LED_BRIGHTNESS; } // Rechts an
           else { targetFrame[2][3] = 0; targetFrame[2][4] = 0; } // Beide aus
         } else {
           // B. AKKU VOLL: Reines, rhythmisches Wechselblinken
-          if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } 
-          else { targetFrame[2][3] = 0; targetFrame[2][4] = 6; }
+          if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = SECONDS_LED_BRIGHTNESS; targetFrame[2][4] = 0; } 
+          else { targetFrame[2][3] = 0; targetFrame[2][4] = SECONDS_LED_BRIGHTNESS; }
         }
       } else {
         // Akkubetrieb: Klassisches Wechselblinken
-        if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } 
-        else { targetFrame[2][3] = 0; targetFrame[2][4] = 6; }
+        if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = SECONDS_LED_BRIGHTNESS; targetFrame[2][4] = 0; } 
+        else { targetFrame[2][3] = 0; targetFrame[2][4] = SECONDS_LED_BRIGHTNESS; }
       }
     }
     else if (abgelaufeneZeit >= 10000 && abgelaufeneZeit < 15000) {
