@@ -133,6 +133,10 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
+// Require a short pause before a 2nd tap can arm OTA, so one knock cannot trigger both actions
+const unsigned long OTA_ARM_DELAY = 800;
+// Strongly reduced click sensitivity to avoid false positives on cable vibrations
+const uint8_t G_SENSOR_CLICK_THRESHOLD = 80;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -369,8 +373,8 @@ void setup() {
     lis.setRange(LIS3DH_RANGE_2_G);
     writeI2CDirect(lis3dh_i2c_addr, 0x22, 0x80); 
     writeI2CDirect(lis3dh_i2c_addr, 0x25, 0x00);
-    // Reduced G-sensor sensitivity: threshold increased to 40 (was 25) to avoid false positives
-    lis.setClick(1, 40, 20, 25, 150); 
+    // Strongly reduced G-sensor sensitivity to avoid false positives
+    lis.setClick(1, G_SENSOR_CLICK_THRESHOLD, 20, 25, 150); 
     writeI2CDirect(lis3dh_i2c_addr, 0x3A, 0x0B);
     lis.getClick();
     Serial.println("[SENSOR] LIS3DH click detection configured (reduced sensitivity)");
@@ -424,18 +428,21 @@ void loop() {
     
     // Klopfen im Kabelmodus abfragen
     if (lis.getClick()) {
+      unsigned long jetzt = millis();
       if (!datumAnzeigeAktiv && !otaModusAktiviert) {
         Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
         datumAnzeigeAktiv = true;
-        datumMenueTimer = millis();
+        datumMenueTimer = jetzt;
       } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - datumMenueTimer >= OTA_ARM_DELAY)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
         WiFi.mode(WIFI_STA);
         WiFi.begin(); // Uses stored credentials from WiFiManager (saved in ESP32 flash)
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
+      } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+        Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
       }
     }
   } else {
