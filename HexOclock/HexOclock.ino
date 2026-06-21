@@ -110,8 +110,8 @@ unsigned long maxAnzeigeZeit = 20000;
 
 // Datums- und OTA-Steuerung via Klopfen
 unsigned long datumMenueTimer = 0;
-unsigned long ersterKabelTapTimer = 0;
-unsigned long letzterKabelTapTimer = 0;
+unsigned long ersterKabelKlopfTimer = 0;
+unsigned long letzterKabelKlopfTimer = 0;
 unsigned long otaStartTimer = 0; 
 bool datumAnzeigeAktiv = false;
 bool otaModusAktiviert = false; 
@@ -424,35 +424,35 @@ void loop() {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
       datumAnzeigeAktiv = false;
-      letzterKabelTapTimer = 0;
+      letzterKabelKlopfTimer = 0;
       Serial.println("[MODE] Switched to cable power");
     }
     
     // Klopfen im Kabelmodus abfragen
     if (lis.getClick()) {
       unsigned long jetzt = millis();
-      if (jetzt - letzterKabelTapTimer < TAP_DEBOUNCE_MS) {
+      if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
         Serial.println("[CLICK] Ignoring tap burst from the same shock event");
       }
       else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
         Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
         datumAnzeigeAktiv = true;
         datumMenueTimer = jetzt;
-        ersterKabelTapTimer = jetzt;
-        letzterKabelTapTimer = jetzt;
+        ersterKabelKlopfTimer = jetzt;
+        letzterKabelKlopfTimer = jetzt;
       } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - ersterKabelTapTimer >= OTA_ARM_DELAY_MS)) {
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
-        letzterKabelTapTimer = jetzt;
+        letzterKabelKlopfTimer = jetzt;
         WiFi.mode(WIFI_STA);
         WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
         // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
         Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
-        letzterKabelTapTimer = jetzt;
+        letzterKabelKlopfTimer = jetzt;
       }
     }
   } else {
@@ -461,7 +461,7 @@ void loop() {
       isBatterieBetrieb = true;
       datumAnzeigeAktiv = false;
       otaModusAktiviert = false;
-      letzterKabelTapTimer = 0;
+      letzterKabelKlopfTimer = 0;
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
