@@ -138,10 +138,10 @@ const unsigned long OTA_SESSION_TIMEOUT = 60000;
 const unsigned long OTA_ARM_DELAY_MS = 500;
 // Ignore follow-up sensor hits from the same shock event for 500ms
 const unsigned long TAP_DEBOUNCE_MS = 500;
-// Further reduced click sensitivity (was 110) - threshold of 120 = lower sensitivity
-const uint8_t G_SENSOR_CLICK_THRESHOLD = 120;
-// Increased brightness for orange seconds LEDs (was 12 -> 20)
-const uint8_t SECONDS_LED_BRIGHTNESS = 20;
+// Further reduced click sensitivity (was 120) - threshold of 160 = lower sensitivity
+const uint8_t G_SENSOR_CLICK_THRESHOLD = 160;
+// Increased brightness for orange seconds LEDs (was 25 -> 30)
+const uint8_t SECONDS_LED_BRIGHTNESS = 30;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -222,7 +222,7 @@ void IRAM_ATTR onTimer() {
     
     uint32_t anZeit = ledAnZeit_us; 
     if (aktiveReihe == 2 || aktiveReihe == 3) {
-      anZeit = (anZeit * 125) / 100;  // Increased from 115 to 125 for brighter red hour LEDs
+      anZeit = (anZeit * 150) / 100;  // Increased from 125 to 150 for brighter red hour LEDs
     } else if (aktiveReihe == 4) {
       anZeit = (anZeit * 4) / 5;     
     }
