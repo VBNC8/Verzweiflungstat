@@ -108,6 +108,7 @@ RTC_DATA_ATTR int letzterSyncTag = -1;
 bool isBatterieBetrieb = true; 
 unsigned long anzeigeTimer = 0;
 unsigned long maxAnzeigeZeit = 20000; 
+unsigned long bootTimeMs = 0;
 unsigned long startupPhaseTimer = 0;
 bool startupInitialized = false;  // Flag to show awake indicator on startup
 
@@ -197,6 +198,15 @@ void shutdownSensors() {
   delay(10);
   
   Serial.println("[SLEEP] Sensors powered down");
+}
+
+void resetDateAndOtaState() {
+  datumAnzeigeAktiv = false;
+  otaModusAktiviert = false;
+  datumMenueTimer = 0;
+  ersterKabelKlopfTimer = 0;
+  letzterKabelKlopfTimer = 0;
+  kabelTapReleaseRequired = false;
 }
 
 // FIXED: Use GPIO registers for faster, safer ISR control
@@ -329,6 +339,7 @@ void holeNTPZeit() {
 void setup() {
   Serial.begin(115200);
   delay(500);  // Wait for Serial to initialize
+  bootTimeMs = millis();
   
   printStartupInfo();
   
@@ -427,14 +438,9 @@ void loop() {
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
 
-  if (!startupInitialized && startupPhaseTimer != 0 && (jetzt - startupPhaseTimer >= startupPhaseMs)) {
+  if (!startupInitialized && (jetzt - startupPhaseTimer >= startupPhaseMs)) {
     startupInitialized = true;
-    datumAnzeigeAktiv = false;
-    otaModusAktiviert = false;
-    datumMenueTimer = 0;
-    ersterKabelKlopfTimer = 0;
-    letzterKabelKlopfTimer = 0;
-    kabelTapReleaseRequired = false;
+    resetDateAndOtaState();
     Serial.println("[STARTUP] Awake indicator complete - normal display active");
   }
 
@@ -447,24 +453,17 @@ void loop() {
   if (digitalRead(PIN_WAKEUP_INPUT) == HIGH) {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
-      datumAnzeigeAktiv = false;
-      ersterKabelKlopfTimer = 0;
-      letzterKabelKlopfTimer = 0;
-      kabelTapReleaseRequired = false;
+      resetDateAndOtaState();
       Serial.println("[MODE] Switched to cable power");
     }
     
     // Klopfen im Kabelmodus abfragen
     bool tapDetected = lis.getClick();
-    if (!startupInitialized || jetzt <= initializationPhaseMs) {
+    if (!startupInitialized || (jetzt - bootTimeMs <= initializationPhaseMs)) {
       if (tapDetected) {
         Serial.println("[CLICK] Ignoring tap during initialization phase");
       }
-      datumAnzeigeAktiv = false;
-      datumMenueTimer = 0;
-      ersterKabelKlopfTimer = 0;
-      letzterKabelKlopfTimer = 0;
-      kabelTapReleaseRequired = false;
+      resetDateAndOtaState();
     } else {
       if (!tapDetected) {
         kabelTapReleaseRequired = false;
@@ -505,11 +504,7 @@ void loop() {
     // Wechsel in den Akkubetrieb
     if (!isBatterieBetrieb) {
       isBatterieBetrieb = true;
-      datumAnzeigeAktiv = false;
-      otaModusAktiviert = false;
-      ersterKabelKlopfTimer = 0;
-      letzterKabelKlopfTimer = 0;
-      kabelTapReleaseRequired = false;
+      resetDateAndOtaState();
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
