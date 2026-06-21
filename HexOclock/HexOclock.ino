@@ -1,6 +1,6 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.0 (New Session: Fixed OTA startup, knock-triggered access, 60s timeout)
+// VERSION:      v2.1.1 (Hotfix: Restored seconds to R2 center, added date mode indicator)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein OTA-Modus beim Hochfahren!
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
@@ -8,8 +8,8 @@
 //               BLINK LOGIC: Am Kabel Dreiertakt (Links-Rechts-Aus) solange der Akku lädt.
 //                            Bei vollem Akku (>= 3150) reines Wechselblinken (Links-Rechts).
 //               LED COLORS: Bottom 2 rows (R1/R0) = Green (minutes/days)
-//                           Middle 2 rows (R4/R3) = Orange (seconds)
-//                           Top 2 rows (R3/R2) = Red (hours/months)
+//                           Center row (R2) = Orange (seconds blink) + Red (hours/months)
+//                           Top row (R3) = Red (hours/months display)
 // =======================================================================================
 
 #include <WiFi.h>
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.0";
+const char* FIRMWARE_VERSION = "2.1.1";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -87,9 +87,9 @@ Point sechserStunden[3] = {
   {3,0}, {3,1}, {3,2} 
 };
 
-// SECONDS (Orange LEDs - R4, R3 center) - 2 LEDs for blink indicator
+// SECONDS (Orange LEDs - R2 center) - 2 LEDs for blink indicator
 Point secondsIndicator[2] = {
-  {4,3}, {4,4}  // Left and right indicator LEDs
+  {2,3}, {2,4}  // Left and right indicator LEDs (CENTER ORANGE on R2)
 };
 
 const uint8_t wMuster[5][5] = {
@@ -560,8 +560,6 @@ void loop() {
     }
   } 
   // ZUSTAND 2: Datumsanzeige aktiv für 7 Sekunden (NUR nach Klopfen am Kabel)
-  // FIXED: Date display corrected - months like hours, days like minutes
-  // Left second LED constantly on
   else if (!isBatterieBetrieb && datumAnzeigeAktiv) {
     if (millis() - datumMenueTimer >= 7000) {
       datumAnzeigeAktiv = false; // 7 Sekunden vorbei -> Zurück zur Uhrzeit
@@ -581,8 +579,8 @@ void loop() {
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // Left second LED always on (Orange - R4[3] or R3[3])
-      targetFrame[4][3] = 31;
+      // LEFT SECOND LED ALWAYS ON - indicator that DATE mode is active (not time mode)
+      targetFrame[2][3] = 31;
     }
   } 
   // ZUSTAND 3: Normaler Uhrenbetrieb (Startzustand & Standard-Modus)
@@ -604,24 +602,24 @@ void loop() {
       int sStd = timeinfo->tm_hour / 6;
       for(int i=0; i<sStd; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // --- SEKUNDEN-BLINKLOGIK (FIXED: use cached battery value) ---
+      // --- SEKUNDEN-BLINKLOGIK (v2.1.1 FIXED: Center ORANGE R2[3] R2[4]) ---
       if (!isBatterieBetrieb) {
         int batVal = cachedBatteryValue;
         if (batVal < 3150) {
           // A. AKKU LÄDT: Dreiertakt (Sekunde % 3 -> Links, Rechts, Aus)
           int takt = timeinfo->tm_sec % 3;
-          if (takt == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } // Links an
-          else if (takt == 1) { targetFrame[4][3] = 0; targetFrame[4][4] = 6; } // Rechts an
-          else { targetFrame[4][3] = 0; targetFrame[4][4] = 0; } // Beide aus
+          if (takt == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } // Links an
+          else if (takt == 1) { targetFrame[2][3] = 0; targetFrame[2][4] = 6; } // Rechts an
+          else { targetFrame[2][3] = 0; targetFrame[2][4] = 0; } // Beide aus
         } else {
           // B. AKKU VOLL: Reines, rhythmisches Wechselblinken
-          if (timeinfo->tm_sec % 2 == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } 
-          else { targetFrame[4][3] = 0; targetFrame[4][4] = 6; }
+          if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } 
+          else { targetFrame[2][3] = 0; targetFrame[2][4] = 6; }
         }
       } else {
         // Akkubetrieb: Klassisches Wechselblinken
-        if (timeinfo->tm_sec % 2 == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } 
-        else { targetFrame[4][3] = 0; targetFrame[4][4] = 6; }
+        if (timeinfo->tm_sec % 2 == 0) { targetFrame[2][3] = 6; targetFrame[2][4] = 0; } 
+        else { targetFrame[2][3] = 0; targetFrame[2][4] = 6; }
       }
     }
     else if (abgelaufeneZeit >= 10000 && abgelaufeneZeit < 15000) {
@@ -640,9 +638,6 @@ void loop() {
       for(int i=0; i<eMon; i++) targetFrame[einerStunden[i].row][einerStunden[i].col] = 31;
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
-      
-      // Left second LED always on
-      targetFrame[4][3] = 31;
     }
     else {
       // Akku im Akkubetrieb (Wechselphase)
