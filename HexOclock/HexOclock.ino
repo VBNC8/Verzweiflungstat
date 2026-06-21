@@ -1,6 +1,6 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.0 (Fixes: OTA startup bug, OTA timeout, OTA knock-only access, G-sensor)
+// VERSION:      v2.1.2 (Fixes: OTA startup bug, OTA timeout, OTA knock-only access, G-sensor)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.0";
+const char* FIRMWARE_VERSION = "2.1.2";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -134,7 +134,7 @@ int cachedBatteryValue = 0;
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
 // Require a short pause before a 2nd tap can arm OTA, so one knock cannot trigger both actions
-const unsigned long OTA_ARM_DELAY = 800;
+const unsigned long OTA_ARM_DELAY_MS = 800;
 // Strongly reduced click sensitivity to avoid false positives on cable vibrations
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 80;
 
@@ -434,7 +434,7 @@ void loop() {
         datumAnzeigeAktiv = true;
         datumMenueTimer = jetzt;
       } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - datumMenueTimer >= OTA_ARM_DELAY)) {
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - datumMenueTimer >= OTA_ARM_DELAY_MS)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
