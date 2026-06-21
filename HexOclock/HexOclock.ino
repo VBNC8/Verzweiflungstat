@@ -138,10 +138,10 @@ const unsigned long OTA_SESSION_TIMEOUT = 60000;
 const unsigned long OTA_ARM_DELAY_MS = 500;
 // Ignore follow-up sensor hits from the same shock event for 500ms
 const unsigned long TAP_DEBOUNCE_MS = 500;
-// Further reduced click sensitivity (was 120) - threshold of 160 = lower sensitivity
-const uint8_t G_SENSOR_CLICK_THRESHOLD = 160;
-// Increased brightness for orange seconds LEDs (was 25 -> 30)
-const uint8_t SECONDS_LED_BRIGHTNESS = 30;
+// Further reduced click sensitivity (was 120) - threshold of 200 = lower sensitivity
+const uint8_t G_SENSOR_CLICK_THRESHOLD = 200;
+// Increased brightness for orange seconds LEDs (was 30 -> 40)
+const uint8_t SECONDS_LED_BRIGHTNESS = 40;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
