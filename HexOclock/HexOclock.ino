@@ -1,10 +1,10 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.0.0 (Integrated Fixes Edition)
+// VERSION:      v2.0.1 (Fixes: Pin 13 reverted, Always-on OTA, Reduced G-Sensor)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
 //               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
-//               OTA: Aktivierung NUR durch ein 2. Klopfen während dieser 7 Sekunden.
+//               OTA: Always active when on cable power, activated via 2nd knock during date display.
 //               BLINK LOGIC: Am Kabel Dreiertakt (Links-Rechts-Aus) solange der Akku lädt.
 //                            Bei vollem Akku (>= 3150) reines Wechselblinken (Links-Rechts).
 //               LED COLORS: Bottom 2 rows (R1/R0) = Green (minutes/days)
@@ -27,7 +27,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.0.0";
+const char* FIRMWARE_VERSION = "2.0.1";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -50,7 +50,7 @@ const int colPins[5] = {7, 8, 9, 10, 11};   // C0-C4 (left to right)
 
 #define I2C_SDA 12                          
 #define I2C_SCL 13                          
-#define PIN_BATTERIE_MESSUNG 14             // FIXED: Changed from 13 to 14 (was conflicting with I2C_SCL)
+#define PIN_BATTERIE_MESSUNG 13             // REVERTED: Pin 13 works - either I2C or battery, never simultaneous
 
 Adafruit_VEML7700 veml = Adafruit_VEML7700();
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
@@ -131,8 +131,7 @@ unsigned long batteryReadTimer = 0;
 const unsigned long BATTERY_READ_INTERVAL = 500;  // Read every 500ms
 int cachedBatteryValue = 0;
 
-// OTA Retry
-unsigned long otaLastRetryTimer = 0;
+// OTA - ALWAYS KEEP RUNNING when on cable power
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
 
 // ===================================================================
@@ -257,7 +256,7 @@ void setupOTA() {
   Serial.println("[OTA] Service aktiv.");
 }
 
-// FIXED: Improved OTA stop and retry capability
+// FIXED: Don't stop OTA - keep it running on cable power
 void stoppeOTA() {
   if (!otaGestartet) return;
   ArduinoOTA.end();
@@ -370,11 +369,13 @@ void setup() {
     lis.setRange(LIS3DH_RANGE_2_G);
     writeI2CDirect(lis3dh_i2c_addr, 0x22, 0x80); 
     writeI2CDirect(lis3dh_i2c_addr, 0x25, 0x00);
-    // TODO: Reduce G-sensor sensitivity - current settings may be too aggressive
-    lis.setClick(2, 13, 15, 20, 150); 
+    // FIXED: Reduced G-sensor sensitivity
+    // Parameters: click_threshold=25 (was 13), time_limit=20 (was 15), time_latency=25 (was 20), min_clicks=1
+    // Higher click_threshold = less sensitive to accidental taps
+    lis.setClick(1, 25, 20, 25, 150); 
     writeI2CDirect(lis3dh_i2c_addr, 0x3A, 0x0B);
     lis.getClick();
-    Serial.println("[SENSOR] LIS3DH click detection configured");
+    Serial.println("[SENSOR] LIS3DH click detection configured (reduced sensitivity)");
   } else {
     Serial.println("[ERROR] LIS3DH not found!");
   }
@@ -410,13 +411,19 @@ void loop() {
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
 
-  if (!isBatterieBetrieb && otaModusAktiviert && otaGestartet) {
-    ArduinoOTA.handle();
+  // FIXED: Keep OTA service always active on cable power and handle it every loop
+  if (!isBatterieBetrieb) {
+    if (!otaGestartet) {
+      WiFi.mode(WIFI_STA);
+      WiFi.begin(); 
+      setupOTA();
+    }
     
-    // FIXED: Improved timeout - allow restart after 60s
-    if (millis() - otaStartTimer > OTA_SESSION_TIMEOUT) {
-      Serial.println("[OTA] Session timeout. Ready for new connection.");
-      otaStartTimer = millis();  // Reset timer for next 60-second window
+    if (otaGestartet) {
+      ArduinoOTA.handle();
+      
+      // Only stop OTA when switching to battery power
+      // Otherwise, keep it running indefinitely
     }
   }
 
@@ -424,9 +431,8 @@ void loop() {
   if (digitalRead(PIN_WAKEUP_INPUT) == HIGH) {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
-      stoppeOTA();
       datumAnzeigeAktiv = false;
-      Serial.println("[MODE] Switched to cable power");
+      Serial.println("[MODE] Switched to cable power - OTA service will start");
     }
     
     // Klopfen im Kabelmodus abfragen
@@ -437,12 +443,10 @@ void loop() {
         datumMenueTimer = millis();
       } 
       else if (datumAnzeigeAktiv && !otaModusAktiviert) {
-        Serial.println("[CLICK] 2nd tap during date display: Starting OTA mode...");
+        Serial.println("[CLICK] 2nd tap during date display: Starting OTA mode visual...");
         otaModusAktiviert = true;
-        datumAnzeigeAktiv = false; 
-        WiFi.mode(WIFI_STA);
-        WiFi.begin(); 
-        setupOTA();
+        datumAnzeigeAktiv = false;
+        // OTA service already running, just set visual mode
       }
     }
   } else {
@@ -450,6 +454,7 @@ void loop() {
     if (!isBatterieBetrieb) {
       isBatterieBetrieb = true;
       datumAnzeigeAktiv = false;
+      otaModusAktiviert = false;
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
@@ -556,7 +561,6 @@ void loop() {
         if (wMuster[r][c] == 1) targetFrame[r][c] = waberHelligkeit;
       }
     }
-    if (millis() - otaStartTimer > 60000) stoppeOTA();
   } 
   // ZUSTAND 2: Datumsanzeige aktiv für 7 Sekunden (NUR nach Klopfen am Kabel)
   // FIXED: Date display corrected - months like hours, days like minutes
