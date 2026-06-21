@@ -86,6 +86,8 @@ Point einerStunden[5] = {
 Point sechserStunden[3] = { 
   {3,0}, {3,1}, {3,2} 
 };
+const Point sekundenLedLinks = {4,3};
+const Point sekundenLedRechts = {4,4};
 
 const uint8_t wMuster[5][5] = {
   {0, 1, 0, 1, 0}, 
@@ -590,8 +592,8 @@ void loop() {
       int sMon = monat / 6;
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
-      // Left second LED always on (Orange - R4[3])
-      targetFrame[4][3] = 31;
+      // Left second LED always on (array index [4][3])
+      targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 31;
     }
   } 
   // ZUSTAND 3: Normaler Uhrenbetrieb (Startzustand & Standard-Modus)
@@ -619,18 +621,18 @@ void loop() {
         if (batVal < 3150) {
           // A. AKKU LÄDT: Dreiertakt (Sekunde % 3 -> Links, Rechts, Aus)
           int takt = timeinfo->tm_sec % 3;
-          if (takt == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } // Links an
-          else if (takt == 1) { targetFrame[4][3] = 0; targetFrame[4][4] = 6; } // Rechts an
-          else { targetFrame[4][3] = 0; targetFrame[4][4] = 0; } // Beide aus
+          if (takt == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } // Links an
+          else if (takt == 1) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; } // Rechts an
+          else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } // Beide aus
         } else {
           // B. AKKU VOLL: Reines, rhythmisches Wechselblinken
-          if (timeinfo->tm_sec % 2 == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } 
-          else { targetFrame[4][3] = 0; targetFrame[4][4] = 6; }
+          if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
+          else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; }
         }
       } else {
         // Akkubetrieb: Klassisches Wechselblinken
-        if (timeinfo->tm_sec % 2 == 0) { targetFrame[4][3] = 6; targetFrame[4][4] = 0; } 
-        else { targetFrame[4][3] = 0; targetFrame[4][4] = 6; }
+        if (timeinfo->tm_sec % 2 == 0) { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 6; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 0; } 
+        else { targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 0; targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 6; }
       }
     }
     else if (abgelaufeneZeit >= 10000 && abgelaufeneZeit < 15000) {
@@ -651,7 +653,7 @@ void loop() {
       for(int i=0; i<sMon; i++) targetFrame[sechserStunden[i].row][sechserStunden[i].col] = 31;
       
       // Linke Sekunden-LED immer an
-      targetFrame[4][3] = 31;
+      targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 31;
     }
     else {
       // Akku im Akkubetrieb (Wechselphase)
