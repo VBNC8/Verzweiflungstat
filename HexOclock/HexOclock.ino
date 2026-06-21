@@ -87,11 +87,6 @@ Point sechserStunden[3] = {
   {3,0}, {3,1}, {3,2} 
 };
 
-// SECONDS (Orange LEDs - R4) - 2 LEDs for blink indicator
-Point secondsIndicator[2] = {
-  {4,3}, {4,4}  // Left and right indicator LEDs
-};
-
 const uint8_t wMuster[5][5] = {
   {0, 1, 0, 1, 0}, 
   {0, 0, 1, 0, 1}, 
@@ -113,6 +108,7 @@ unsigned long maxAnzeigeZeit = 20000;
 
 // Datums- und OTA-Steuerung via Klopfen
 unsigned long datumMenueTimer = 0;
+unsigned long ersterKabelTapTimer = 0;
 unsigned long otaStartTimer = 0; 
 bool datumAnzeigeAktiv = false;
 bool otaModusAktiviert = false; 
@@ -433,13 +429,14 @@ void loop() {
         Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
         datumAnzeigeAktiv = true;
         datumMenueTimer = jetzt;
+        ersterKabelTapTimer = jetzt;
       } 
-      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - datumMenueTimer >= OTA_ARM_DELAY_MS)) {
+      else if (datumAnzeigeAktiv && !otaModusAktiviert && (jetzt - ersterKabelTapTimer >= OTA_ARM_DELAY_MS)) {
         Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
         otaModusAktiviert = true;
         datumAnzeigeAktiv = false;
         WiFi.mode(WIFI_STA);
-        WiFi.begin(); // Uses stored credentials from WiFiManager (saved in ESP32 flash)
+        WiFi.begin(); // Uses stored STA credentials from ESP32 flash
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
         // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
