@@ -1,8 +1,9 @@
 // =======================================================================================
 // PROJEKT:      HexOclock (ESP32-S3 Waveshare Zero)
-// VERSION:      v2.1.5 (Fixes: tap-release gating for OTA trigger, corrected seconds LED positions)
+// VERSION:      v2.1.9 (Startup indicator timing and tap guard prevent accidental date/OTA entry)
 // BESCHREIBUNG: Energiesparende Hexagonal-LED-Uhr mit Helligkeits- und Lagesensor.
-//               STARTUP: Startet direkt in die Uhrzeit. Kein Menü, kein Akku, kein Datum.
+//               STARTUP: Zeigt 2 Sekunden beide Sekunden-LEDs als Awake-Indikator, dann Uhrzeit.
+//                        Kabel-Klopfen wird in den ersten 3 Sekunden nach dem Boot ignoriert.
 //               CABLE TAP: Klopfen am Kabel zeigt exakt 7 Sekunden das Datum.
 //               OTA: Aktivierung NUR durch ein 2. Klopfen während dieser 7 Sekunden (60s Timeout).
 //               BLINK LOGIC: Am Kabel Dreiertakt (Links-Rechts-Aus) solange der Akku lädt.
@@ -27,7 +28,7 @@
 // ===================================================================
 // VERSION MANAGEMENT
 // ===================================================================
-const char* FIRMWARE_VERSION = "2.1.5";
+const char* FIRMWARE_VERSION = "2.1.9";
 const char* PROJECT_NAME = "HexOclock";
 const char* BUILD_DATE = __DATE__;
 const char* BUILD_TIME = __TIME__;
@@ -58,7 +59,7 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 uint8_t lis3dh_i2c_addr = 0x18;
 
 // ===================================================================
-// 2. MATRIX-KOORDINATEN & SPEICHER (Based on Physical Layout)
+// 2. MATRIX-KOORDINATEN & SPEICHER (Based on Physical Layout - from v1.1.44)
 // ===================================================================
 // Physical LED Layout:
 // R3 (Red): [5 LEDs - Hours/Months display]
@@ -70,17 +71,18 @@ uint8_t lis3dh_i2c_addr = 0x18;
 struct Point { int row; int col; };
 
 // MINUTES/DAYS (Green LEDs - R0, R1) - 9 individual units (0-9 days) + 5 tens (0-50 days)
+// U-shape: R1 left (1,0-4) and R4 right (4,4-1)
 Point einzelMinuten[9] = { 
   {1,0}, {1,1}, {1,2}, {1,3}, {1,4}, 
-  {0,4}, {0,3}, {0,2}, {0,1} 
-}; 
+  {4,4}, {4,3}, {4,2}, {4,1} 
+};
 Point zehnerMinuten[5] = { 
   {0,0}, {0,1}, {0,2}, {0,3}, {0,4} 
 };
 
 // HOURS/MONTHS (Red LEDs - R2, R3) - 5 individual units (0-5 hours/months) + 3 sixes (0-18 hours / 0-12 months)
 Point einerStunden[5] = { 
-  {2,0}, {2,1}, {2,2}, {2,3}, {2,4} 
+  {2,0}, {2,1}, {2,2}, {3,3}, {3,4}
 };
 Point sechserStunden[3] = { 
   {3,0}, {3,1}, {3,2} 
@@ -106,6 +108,10 @@ RTC_DATA_ATTR int letzterSyncTag = -1;
 bool isBatterieBetrieb = true; 
 unsigned long anzeigeTimer = 0;
 unsigned long maxAnzeigeZeit = 20000; 
+unsigned long bootTimeMs = 0;
+unsigned long startupPhaseTimer = 0;
+bool startupInitialized = false;  // Flag to show awake indicator on startup
+bool initializationPhaseStateCleared = false;
 
 // Datums- und OTA-Steuerung via Klopfen
 unsigned long datumMenueTimer = 0;
@@ -132,14 +138,18 @@ int cachedBatteryValue = 0;
 
 // OTA session timeout: 60 seconds before returning to time display
 const unsigned long OTA_SESSION_TIMEOUT = 60000;
+// Keep the startup awake indicator visible for exactly 2 seconds
+const unsigned long STARTUP_PHASE_MS = 2000;
+// Ignore taps for the first 3 seconds after boot to suppress startup noise
+const unsigned long INITIALIZATION_PHASE_MS = 3000;
 // Require at least 500ms after entering date display before a deliberate 2nd tap can arm OTA
 const unsigned long OTA_ARM_DELAY_MS = 500;
 // Ignore follow-up sensor hits from the same shock event for 500ms
 const unsigned long TAP_DEBOUNCE_MS = 500;
-// Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
-const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
-// Seconds LEDs were intentionally dimmed before; increase to improve visibility.
-const uint8_t SECONDS_LED_BRIGHTNESS = 12;
+// Further reduced click sensitivity (was 120) - threshold of 200 = lower sensitivity
+const uint8_t G_SENSOR_CLICK_THRESHOLD = 200;
+// Increased brightness for orange seconds LEDs (was 30 -> 40)
+const uint8_t SECONDS_LED_BRIGHTNESS = 40;
 
 // ===================================================================
 // 3. HILFSFUNKTIONEN
@@ -191,6 +201,23 @@ void shutdownSensors() {
   Serial.println("[SLEEP] Sensors powered down");
 }
 
+void resetDateAndOtaState() {
+  datumAnzeigeAktiv = false;
+  otaModusAktiviert = false;
+  datumMenueTimer = 0;
+  ersterKabelKlopfTimer = 0;
+  letzterKabelKlopfTimer = 0;
+  kabelTapReleaseRequired = false;
+}
+
+bool hasTimeElapsed(unsigned long now, unsigned long start, unsigned long duration) {
+  return (unsigned long)(now - start) >= duration;
+}
+
+bool isWithinDuration(unsigned long now, unsigned long start, unsigned long duration) {
+  return (unsigned long)(now - start) < duration;
+}
+
 // FIXED: Use GPIO registers for faster, safer ISR control
 void IRAM_ATTR onTimer() {
   static int aktiveReihe = 0;
@@ -220,7 +247,7 @@ void IRAM_ATTR onTimer() {
     
     uint32_t anZeit = ledAnZeit_us; 
     if (aktiveReihe == 2 || aktiveReihe == 3) {
-      anZeit = (anZeit * 115) / 100; 
+      anZeit = (anZeit * 150) / 100;  // Increased from 125 to 150 for brighter red hour LEDs
     } else if (aktiveReihe == 4) {
       anZeit = (anZeit * 4) / 5;     
     }
@@ -243,7 +270,7 @@ void IRAM_ATTR onTimer() {
     
     uint32_t anZeit = ledAnZeit_us;
     if (aktiveReihe == 2 || aktiveReihe == 3) {
-      anZeit = (anZeit * 115) / 100;
+      anZeit = (anZeit * 125) / 100;  // Increased from 115 to 125 for brighter red hour LEDs
     } else if (aktiveReihe == 4) {
       anZeit = (anZeit * 4) / 5;
     }
@@ -321,6 +348,7 @@ void holeNTPZeit() {
 void setup() {
   Serial.begin(115200);
   delay(500);  // Wait for Serial to initialize
+  bootTimeMs = millis();
   
   printStartupInfo();
   
@@ -376,11 +404,11 @@ void setup() {
     lis.setRange(LIS3DH_RANGE_2_G);
     writeI2CDirect(lis3dh_i2c_addr, 0x22, 0x80); 
     writeI2CDirect(lis3dh_i2c_addr, 0x25, 0x00);
-    // Strongly reduced G-sensor sensitivity to avoid false positives
+    // Further reduced G-sensor sensitivity to avoid false positives
     lis.setClick(1, G_SENSOR_CLICK_THRESHOLD, 20, 25, 150); 
     writeI2CDirect(lis3dh_i2c_addr, 0x3A, 0x0B);
     lis.getClick();
-    Serial.println("[SENSOR] LIS3DH click detection configured (reduced sensitivity)");
+    Serial.println("[SENSOR] LIS3DH click detection configured (further reduced sensitivity)");
   } else {
     Serial.println("[ERROR] LIS3DH not found!");
   }
@@ -401,6 +429,8 @@ void setup() {
     Serial.println("[TIME] Cold start - syncing NTP");
     holeNTPZeit(); 
   }
+
+  startupPhaseTimer = millis();
   
   Serial.println("[SETUP] Initialization complete!\n");
 }
@@ -413,8 +443,16 @@ float geglaettetesDelay = 100.0;
 
 void loop() {
   // FIXED: Refresh time info fresh per loop
+  unsigned long jetzt = millis();
   time_t nun = time(nullptr);
   struct tm* timeinfo = localtime(&nun);
+
+  if (!startupInitialized && hasTimeElapsed(jetzt, startupPhaseTimer, STARTUP_PHASE_MS)) {
+    startupInitialized = true;
+    resetDateAndOtaState();
+    Serial.println("[STARTUP] Awake indicator complete - normal display active");
+  }
+  bool initializationPhaseActive = !startupInitialized || isWithinDuration(jetzt, bootTimeMs, INITIALIZATION_PHASE_MS);
 
   // OTA is only active when explicitly triggered by 2nd knock during date display
   if (!isBatterieBetrieb && otaModusAktiviert && otaGestartet) {
@@ -425,59 +463,62 @@ void loop() {
   if (digitalRead(PIN_WAKEUP_INPUT) == HIGH) {
     if (isBatterieBetrieb) {
       isBatterieBetrieb = false;
-      datumAnzeigeAktiv = false;
-      ersterKabelKlopfTimer = 0;
-      letzterKabelKlopfTimer = 0;
-      kabelTapReleaseRequired = false;
+      resetDateAndOtaState();
       Serial.println("[MODE] Switched to cable power");
     }
     
     // Klopfen im Kabelmodus abfragen
     bool tapDetected = lis.getClick();
-    if (!tapDetected) {
-      kabelTapReleaseRequired = false;
-    }
-    if (tapDetected) {
-      if (kabelTapReleaseRequired) {
-        Serial.println("[CLICK] Waiting for tap release before accepting next tap");
-      } else {
-        unsigned long jetzt = millis();
-        if (letzterKabelKlopfTimer != 0 && jetzt - letzterKabelKlopfTimer < TAP_DEBOUNCE_MS) {
-          Serial.println("[CLICK] Ignoring tap burst from the same shock event");
-          letzterKabelKlopfTimer = jetzt;
+    if (initializationPhaseActive) {
+      if (tapDetected) {
+        Serial.println("[CLICK] Ignoring tap during initialization phase");
+      }
+      if (!initializationPhaseStateCleared) {
+        resetDateAndOtaState();
+        initializationPhaseStateCleared = true;
+      }
+    } else {
+      initializationPhaseStateCleared = false;
+      if (!tapDetected) {
+        kabelTapReleaseRequired = false;
+      }
+      if (tapDetected) {
+        if (kabelTapReleaseRequired) {
+          Serial.println("[CLICK] Waiting for tap release before accepting next tap");
+        } else {
+          if (letzterKabelKlopfTimer != 0 && isWithinDuration(jetzt, letzterKabelKlopfTimer, TAP_DEBOUNCE_MS)) {
+            Serial.println("[CLICK] Ignoring tap burst from the same shock event");
+            letzterKabelKlopfTimer = jetzt;
+          }
+          else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
+            Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
+            datumAnzeigeAktiv = true;
+            datumMenueTimer = jetzt;
+            ersterKabelKlopfTimer = jetzt;
+            letzterKabelKlopfTimer = jetzt;
+          }
+          else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && hasTimeElapsed(jetzt, ersterKabelKlopfTimer, OTA_ARM_DELAY_MS)) {
+            Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
+            otaModusAktiviert = true;
+            datumAnzeigeAktiv = false;
+            letzterKabelKlopfTimer = jetzt;
+            WiFi.mode(WIFI_STA);
+            WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present; timeout handling below returns to normal mode if WiFi never connects
+            setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
+          } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
+            // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
+            Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
+            letzterKabelKlopfTimer = jetzt;
+          }
+          kabelTapReleaseRequired = true;
         }
-        else if (!datumAnzeigeAktiv && !otaModusAktiviert) {
-          Serial.println("[CLICK] 1st tap: Showing date for 7 seconds");
-          datumAnzeigeAktiv = true;
-          datumMenueTimer = jetzt;
-          ersterKabelKlopfTimer = jetzt;
-          letzterKabelKlopfTimer = jetzt;
-        } 
-        else if (datumAnzeigeAktiv && !otaModusAktiviert && ersterKabelKlopfTimer != 0 && (jetzt - ersterKabelKlopfTimer >= OTA_ARM_DELAY_MS)) {
-          Serial.println("[CLICK] 2nd tap during date display: Starting OTA...");
-          otaModusAktiviert = true;
-          datumAnzeigeAktiv = false;
-          letzterKabelKlopfTimer = jetzt;
-          WiFi.mode(WIFI_STA);
-          WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present; timeout handling below returns to normal mode if WiFi never connects
-          setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
-        } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
-          // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
-          Serial.println("[CLICK] Ignoring follow-up tap during OTA arm delay");
-          letzterKabelKlopfTimer = jetzt;
-        }
-        kabelTapReleaseRequired = true;
       }
     }
   } else {
     // Wechsel in den Akkubetrieb
     if (!isBatterieBetrieb) {
       isBatterieBetrieb = true;
-      datumAnzeigeAktiv = false;
-      otaModusAktiviert = false;
-      ersterKabelKlopfTimer = 0;
-      letzterKabelKlopfTimer = 0;
-      kabelTapReleaseRequired = false;
+      resetDateAndOtaState();
       stoppeOTA();
       anzeigeTimer = millis();
       Serial.println("[MODE] Switched to battery power");
@@ -575,8 +616,13 @@ void loop() {
   // --- C. MATRIX FRAME BAUEN ---
   uint8_t targetFrame[5][5] = {0}; 
   
+  // ZUSTAND 0: Startup - both seconds LEDs at full brightness to show device is awake
+  if (!startupInitialized) {
+    targetFrame[sekundenLedLinks.row][sekundenLedLinks.col] = 31;
+    targetFrame[sekundenLedRechts.row][sekundenLedRechts.col] = 31;
+  }
   // ZUSTAND 1: OTA Modus aktiv (Waberndes W)
-  if (!isBatterieBetrieb && otaModusAktiviert) {
+  else if (!isBatterieBetrieb && otaModusAktiviert) {
     float sinusWelle = sin(millis() / 200.0); 
     uint8_t waberHelligkeit = 24 + (uint8_t)(sinusWelle * 7.0 + 0.5); 
     for (int r = 0; r < 5; r++) {
@@ -599,7 +645,7 @@ void loop() {
       int tag = timeinfo->tm_mday;
       int monat = timeinfo->tm_mon + 1;
       
-      // Days (0-31) displayed like MINUTES (Green LEDs - R0, R1)
+      // Days (0-31) displayed like MINUTES (Green LEDs - R0, R1, R4)
       int eTag = tag % 10;
       for(int i=0; i<eTag; i++) targetFrame[einzelMinuten[i].row][einzelMinuten[i].col] = 31;
       int zTag = tag / 10;
