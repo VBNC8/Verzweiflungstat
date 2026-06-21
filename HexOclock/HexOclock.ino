@@ -136,8 +136,7 @@ const unsigned long OTA_SESSION_TIMEOUT = 60000;
 const unsigned long OTA_ARM_DELAY_MS = 800;
 // Ignore follow-up sensor hits for 1200ms after an accepted tap, but still allow a quick deliberate 2nd tap in date mode
 const unsigned long TAP_DEBOUNCE_MS = 1200;
-// Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor
-// and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
+// Strongly reduced click sensitivity to avoid false positives on cable vibrations; keep threshold high because cable knocks couple directly into the sensor and still produced accidental OTA triggers at lower thresholds during cable-powered tests.
 const uint8_t G_SENSOR_CLICK_THRESHOLD = 110;
 
 // ===================================================================
@@ -449,7 +448,7 @@ void loop() {
         datumAnzeigeAktiv = false;
         letzterKabelKlopfTimer = jetzt;
         WiFi.mode(WIFI_STA);
-        WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present
+        WiFi.begin(); // Attempts stored STA credentials from ESP32 flash, if present; timeout handling below returns to normal mode if WiFi never connects
         setupOTA();   // Also sets otaStartTimer = millis() for the 60s timeout
       } else if (datumAnzeigeAktiv && !otaModusAktiviert) {
         // Tap arrived before OTA_ARM_DELAY_MS elapsed, so stay in date display
