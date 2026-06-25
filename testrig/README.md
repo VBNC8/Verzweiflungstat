@@ -1,6 +1,6 @@
-Proto testrig to determine the perfect stagger.
+Proto testrig to determine the 'perfect' splay and stagger.
 
-No electonics, no controller, no typing function, just a fast and easy way to feel the hardware.
+No electonics, no controller, no typing function, just a fast and easy way to feel the actual hardware.
 
 Switches and keycaps can be mounted and tested physically which is much more realistic than 'typing' on a peace of paper with the layout just printed or drawn on.
 This version 'just' allows adjusting column stagger and thumb cluster position, but the base plate can be easily modified in terms of splay etc. and is a fast printing part. So for me it was a good compromise between complexity (fully variable) and simplicity (fast and easy to adjust and reproduce).
