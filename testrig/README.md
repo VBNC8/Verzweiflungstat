@@ -1,1 +1,2 @@
-<img width="1110" height="726" alt="Proto" src="https://github.com/user-attachments/assets/fd7acdc5-2e7e-41a8-878d-13b8e40ee141" />
+<img width="1110" height="726" alt="Proto" src="https://github.com/user-attachments/assets/67c5b72f-42e1-4141-a872-d760d00a4996" />
+
