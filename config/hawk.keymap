@@ -322,15 +322,15 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
             bindings = <
-/* left top  */   &kp Q          &kp W                &kp E                 &kp R                &kp T
-/* left mid  */   &kp A          &kp S                &kp D                 &hrm_left LSHIFT F   &kp G
-/* left bot  */   &kp Z          &hrm_safe LCTRL X    &hrm_safe LALT C      &kp V                &kp B
-/* left tmb  */                                       &kp C_PP              &lt 2 ESC            &lt 1 TAB
+/* left top  */   &kp Q              &kp W                &kp E                 &kp R       &kp T
+/* left mid  */   &hrm_left LSHIFT A &kp S                &kp D                 &kp F       &kp G
+/* left bot  */   &kp Z              &hrm_safe LCTRL X    &hrm_safe LALT C      &kp V       &kp B
+/* left tmb  */                                           &kp C_PP              &lt 1 ESC   &lt 2 TAB
 
-/* right top */   &kp Y             &kp U                &kp I                 &kp O                &kp P
-/* right mid */   &kp H             &hrm_right RSHIFT J  &kp K                 &kp L                &kp LS(NON_US_HASH)
-/* right bot */   &kp N             &kp M                &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL
-/* right tmb */   &lt_enter 1 RET   &lt_hp 2 SPACE       &kp BSPC
+/* right top */   &kp Y             &kp U              &kp I                 &kp O                &kp P
+/* right mid */   &kp H             &kp J              &kp K                 &kp L                &hrm_right RSHIFT LS(NON_US_HASH)
+/* right bot */   &kp N             &kp M              &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL
+/* right tmb */   &lt_enter 2 RET   &lt_hp 1 SPACE     &kp BSPC
             >;
         };
 
