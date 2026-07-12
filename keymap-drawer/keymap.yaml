@@ -12,18 +12,18 @@ layers:
   - I
   - O
   - P
-  - A
+  - t: A
+    h: LSHIFT
   - S
   - D
-  - t: F
-    h: LSHIFT
+  - F
   - G
   - H
-  - t: J
-    h: RSHIFT
+  - J
   - K
   - L
-  - ''''
+  - t: ''''
+    h: RSHIFT
   - Z
   - t: X
     h: LCTRL
@@ -42,13 +42,13 @@ layers:
   - t: ⏯
     type: round
   - t: ESC
-    h: Raise
-  - t: ⇥
     h: Lower
+  - t: TAB
+    h: Raise
   - t: RET
-    h: Lower
-  - t: ␣
     h: Raise
+  - t: SPACE
+    h: Lower
   - ⌫
   - t: ⏮·⏯·⏭
     s: ↑
