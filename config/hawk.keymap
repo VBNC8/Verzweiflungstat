@@ -211,12 +211,10 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-        
-            // Das wichtigste Match für deinen Tippstil:
+            tapping-term-ms = <220>;             // Leicht erhöht
+            require-prior-idle-ms = <150>;       // <-- DIESER SCHUTZ FILTERT "das" FEHLER RAUS
             hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
-            hold-trigger-on-release; // <--- HIER ist die Magie
-        
+            hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
         };
     
@@ -224,11 +222,10 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-        
+            tapping-term-ms = <220>;
+            require-prior-idle-ms = <150>;
             hold-trigger-key-positions = <LEFT_HAND_KEYS>;
-            hold-trigger-on-release; // <--- HIER auch
-        
+            hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
         };
 
