@@ -541,17 +541,13 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 <use href="#mdi:microsoft-windows-classic" xlink:href="#mdi:microsoft-windows-classic" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:microsoft-windows-classic"/>
 <text x="0" y="24" class="key hold">sticky</text>
 </g>
-<g transform="translate(295, 224) rotate(30.0)" class="key held keypos-32">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
-<text x="0" y="0" class="key held tap">
-<tspan x="0" dy="-0.6em">⤒</tspan><tspan x="0" dy="1.2em">Pos1</tspan>
-</text>
+<g transform="translate(295, 224) rotate(30.0)" class="key trans keypos-32">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(433, 224) rotate(-30.0)" class="key held keypos-33">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
-<text x="0" y="0" class="key held tap">
-<tspan x="0" dy="-0.6em">⤓</tspan><tspan x="0" dy="1.2em">End</tspan>
-</text>
+<g transform="translate(433, 224) rotate(-30.0)" class="key trans keypos-33">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(498, 213) rotate(-15.0)" class="key trans keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -735,13 +731,17 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 <tspan x="0" dy="-0.6em">Task</tspan><tspan x="0" dy="1.2em">Mgr</tspan>
 </text>
 </g>
-<g transform="translate(295, 224) rotate(30.0)" class="key trans keypos-32">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(295, 224) rotate(30.0)" class="key held keypos-32">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
+<text x="0" y="0" class="key held tap">
+<tspan x="0" dy="-0.6em">⤒</tspan><tspan x="0" dy="1.2em">Pos1</tspan>
+</text>
 </g>
-<g transform="translate(433, 224) rotate(-30.0)" class="key trans keypos-33">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(433, 224) rotate(-30.0)" class="key held keypos-33">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
+<text x="0" y="0" class="key held tap">
+<tspan x="0" dy="-0.6em">⤓</tspan><tspan x="0" dy="1.2em">End</tspan>
+</text>
 </g>
 <g transform="translate(498, 213) rotate(-15.0)" class="key held keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>

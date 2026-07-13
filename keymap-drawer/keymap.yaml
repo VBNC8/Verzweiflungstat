@@ -101,10 +101,10 @@ layers:
     type: round
   - t: $$mdi:microsoft-windows-classic$$
     h: sticky
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ⌫
@@ -162,10 +162,10 @@ layers:
     type: round
   - t: Task Mgr
     type: held
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: ⤒ Pos1
+    type: held
+  - t: ⤓ End
+    type: held
   - t: '&nbsp'
     type: held
   - t: ▽
