@@ -59,17 +59,23 @@
     };
 
     /*
-     * Disable the onboard blue LED (P0.15) so no subsystem can blink it.
-     * The gpio-hog keeps the pin driven low (LED off) from early GPIO init.
+     * RGB LED widget: use the onboard blue LED (P0.15) for BT status.
+     * All three colour aliases map to the same physical LED.
      */
     leds { status = "disabled"; };
-};
 
-&gpio0 {
-    led_off: led-off {
-        gpio-hog;
-        gpios = <15 0>;
-        output-low;
+    widget_leds {
+        compatible = "gpio-leds";
+        status = "okay";
+        led_widget: led_widget_0 {
+            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+        };
+    };
+
+    aliases {
+        led-red   = &led_widget;
+        led-green = &led_widget;
+        led-blue  = &led_widget;
     };
 };
 
