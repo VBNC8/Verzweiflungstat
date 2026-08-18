@@ -232,16 +232,12 @@ layers:
     type: trans
   - t: ▽
     type: round
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
-    type: round
+  - BT CLR
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
-    type: round
+  - BT CLR
   - t: ▽
     type: trans
   - t: ⏮·⏯·⏭
