@@ -1,14 +1,26 @@
 parse_config:
   raw_binding_map:
-    # --- LAYER KEYS (ROT) ---
-    "&lt 1 TAB": {t: "⇥", h: "Lower"}
-    "&lt 1 RET": {t: "↵", h: "Lower"}
-    "&lt 2 ESC": {t: "ESC", h: "Raise"}
-    "&lt_hp 2 SPACE": {t: "␣", h: "Raise"}
+    # --- LAYER KEYS & MODIFIERS (Daumentasten) ---
+    "&lt 1 ESC": {t: "ESC", h: "Lower"}
+    "&lt 2 TAB": {t: "⇥", h: "Raise"}
+    "&lt_enter 2 RET": {t: "↵", h: "Raise"}
+    "&lt_hp 1 SPACE": {t: "␣", h: "Lower"}
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+    "&lt 3 LG(D)": {t: "$$mdi:monitor$$", h: "Adjust"}
+    "&sk LGUI": {t: "$$mdi:microsoft-windows-classic$$", s: "sticky"}
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
     "&mo 3": {t: "Adjust", type: "held"}
+
+    # --- HRM BEHAVIORS ---
+    "&hrm_left LSHIFT A": {t: "A", h: "Shift"}
+    "&hrm_right RSHIFT LS(NON_US_HASH)": {t: "'", h: "Shift"}
+    "&hrm_safe LCTRL X": {t: "X", h: "CTRL"}
+    "&hrm_safe LALT C": {t: "C", h: "Alt"}
+    "&hrm_safe RALT COMMA": {t: ",", h: "AltGr"}
+    "&hrm_safe RCTRL DOT": {t: ".", h: "CTRL"}
+
+    # --- SONDERTASTEN & NAVIGATION ---
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
@@ -19,10 +31,14 @@ parse_config:
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
 
+    # --- MAKROS & KLAMMERN ---
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
+    "&smiley": {t: "☻"}
+    "&durchmesser": "Ø"
     
+    # --- SYMBOLS & SHIFTED ---
     "&kp LS(N1)": "!"
     "&kp LS(N2)": '"'
     "&kp LS(N4)": '$'
@@ -36,7 +52,8 @@ parse_config:
     "&kp LS(DOT)": ":"
     "&kp LS(NON_US_HASH)": "'"
     "&kp LS(BSLH)": "'"
-     
+    "&kp LS(SLASH)": "_"
+    
     # --- MATH CODES (NUMPAD) ---
     "&kp KP_PLUS": "+"
     "&kp KP_MINUS": "-"
@@ -53,7 +70,6 @@ parse_config:
     "&kp GRAVE": {t: "^"}
     "&kp LS(GRAVE)": {t: "°"}
     "&kp PLUS": "`"
-    "&kp LS(SLASH)": "_"
 
     # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
@@ -103,50 +119,31 @@ parse_config:
     "&bt_sel_3": {t: "$$mdi:bluetooth$$", s: "⓸"}
     "&bt_sel_4": {t: "$$mdi:bluetooth$$", s: "⓹"}
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
-
-    # --- SONSTIGES ---
-    "&smiley": {t: "☻"}
-    "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": {t: "⏯", type: "ghost"}
     "&mkp LCLK": "🖱 LMB"
     "&mkp RCLK": "🖱 RMB"
-
-    # --- MODIFIERS ---
-    "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
-    "&hrm_shift LSHIFT F": {t: "F", h: "Shift"}
-    "&hrm_shift RSHIFT J": {t: "J", h: "Shift"}
-    "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
-    "&hrm_safe LALT X": {t: "X", h: "Alt"}
-    "&hrm_safe RALT DOT": {t: ".", s: "AltGr"}
-    
-    # --- RGB UNTERBELEUCHTUNG ---
-    "&rgb_ug RGB_TOG": {t: "$$mdi:lightbulb-on$$", s: "OnOff"}
-    "&rgb_ug RGB_EFF": {t: "$$mdi:cosine-wave$$", s: "Mode"}
-    "&rgb_ug RGB_EFR": {t: "$$mdi:cosine-wave$$", s: "Rev"}
-    "&rgb_ug RGB_BRI": {t: "$$mdi:brightness-7$$", s: "Bri+"}
-    "&rgb_ug RGB_BRD": {t: "$$mdi:brightness-4$$", s: "Bri-"}
-    "&rgb_ug RGB_SAI": {t: "$$mdi:palette$$", s: "Sat+"}
-    "&rgb_ug RGB_SAD": {t: "$$mdi:palette-outline$$", s: "Sat-"}
-    "&rgb_ug RGB_HUI": {t: "$$mdi:palette-swatch$$", s: "Hue+"}
-    "&rgb_ug RGB_HUD": {t: "$$mdi:palette-swatch-outline$$", s: "Hue-"}
-
-    # --- BLUETOOTH & SYSTEM ---
     "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
-    "&usb_on": "$$mdi:usb$$"
-    "&kp LA(F4)": "✕"
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
-    "&caps_wrd": "CAPS\nWORD" # Das \n erzwingt den Zeilenumbruch
+    # --- OTHER ---
+    "&caps_wrd": "CAPS\nWORD"
     "&kp LC(LALT)": "CREO\n(C+A)"
 
 draw_config:
   dark_mode: true
-  #n_columns: 1
   width: 1200
-  exclude_combos: ["&bt_sel_0", "&bt_sel_1", "&bt_sel_2", "&out OUT_USB"]
+  exclude_combos:
+    - "&bt_sel_0"
+    - "&bt_sel_1"
+    - "&bt_sel_2"
+    - "&out OUT_USB"
+    - "combo_bt0"
+    - "combo_bt1"
+    - "combo_bt2"
+    - "combo_usb"
   svg_extra_style: |
     svg.keymap {
       font-size: 16px;
@@ -164,10 +161,13 @@ draw_config:
     g.layer-lower rect.held { fill: #854747; }
     g.layer-raise rect.held { fill: #3a7a3a; }
     g.layer-adjust rect.held { fill: #3a4a8a; }
-    g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-32 rect.key { fill: #854747; }
-    g.layer-default g.keypos-33 rect.key { fill: #854747; }
-    g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
-    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+    
+    /* Angepasste Daumentasten-Highlights */
+    g.layer-default g.keypos-36 rect.key { fill: #3a4a8a; }
+    g.layer-default g.keypos-37 rect.key { fill: #854747; }
+    g.layer-default g.keypos-38 rect.key { fill: #3a7a3a; }
+    g.layer-default g.keypos-39 rect.key { fill: #3a7a3a; }
+    g.layer-default g.keypos-40 rect.key { fill: #854747; }
+    g.layer-default g.keypos-41 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-36 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
