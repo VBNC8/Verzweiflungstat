@@ -1,14 +1,26 @@
 parse_config:
   raw_binding_map:
-    # --- LAYER KEYS ---
-    "&lt 1 TAB": {t: "⇥", h: "Lower"}
-    "&lt 1 RET": {t: "↵", h: "Lower"}
-    "&lt 2 ESC": {t: "ESC", h: "Raise"}
-    "&lt_hp 2 SPACE": {t: "␣", h: "Raise"}
-    "&kp BSPC": {t: "⌫", h: "Adjust"}
+    # --- LAYER KEYS & MODIFIERS (Daumentasten) ---
+    "&lt 1 ESC": {t: "ESC", h: "Lower"}
+    "&lt 2 TAB": {t: "⇥", h: "Raise"}
+    "&lt_enter 2 RET": {t: "↵", h: "Raise"}
+    "&lt_hp 1 SPACE": {t: "␣", h: "Lower"}
+    "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+    "&lt 3 LG(D)": {t: "$$mdi:monitor$$", h: "Adjust"}
+    "&sk LGUI": {t: "$$mdi:microsoft-windows-classic$$", s: "sticky"}
     "&mo 1": {t: "Lower", type: "held"}
     "&mo 2": {t: "Raise", type: "held"}
-    "&mo 3": {h: "Adjust"}
+    "&mo 3": {t: "Adjust", type: "held"}
+
+    # --- HRM BEHAVIORS ---
+    "&hrm_left LSHIFT A": {t: "A", h: "Shift"}
+    "&hrm_right RSHIFT LS(NON_US_HASH)": {t: "'", h: "Shift"}
+    "&hrm_safe LCTRL X": {t: "X", h: "CTRL"}
+    "&hrm_safe LALT C": {t: "C", h: "Alt"}
+    "&hrm_safe RALT COMMA": {t: ",", h: "AltGr"}
+    "&hrm_safe RCTRL DOT": {t: ".", h: "CTRL"}
+
+    # --- SONDERTASTEN & NAVIGATION ---
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
     "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
@@ -16,15 +28,17 @@ parse_config:
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
     "&kp F14": {t: " ", type: "ghost"}
+    "&f10_ghost": {t: "F10", type: "ghost"}
+    "&kp F11": "RGB"
 
-    # --- NEW LAYER KEYS (LOWER LAYER EXTRAS) ---
-    "&lt 3 LG(D)": {t: "$$mdi:monitor$$", s: "Show", h: "Adjust"}
-    "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
-
+    # --- MAKROS & KLAMMERN ---
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
-
+    "&smiley": {t: "☻"}
+    "&durchmesser": "Ø"
+    
+    # --- SYMBOLS & SHIFTED ---
     "&kp LS(N1)": "!"
     "&kp LS(N2)": '"'
     "&kp LS(N4)": '$'
@@ -38,16 +52,17 @@ parse_config:
     "&kp LS(DOT)": ":"
     "&kp LS(NON_US_HASH)": "'"
     "&kp LS(BSLH)": "'"
-
-    # --- MATH ---
+    "&kp LS(SLASH)": "_"
+    
+    # --- MATH CODES (NUMPAD) ---
     "&kp KP_PLUS": "+"
     "&kp KP_MINUS": "-"
     "&kp KP_MULTIPLY": "*"
     "&kp KP_DIVIDE": "/"
     "&kp KP_EQUAL": "="
     "&plus_minus": "±"
-
-    # --- SYMBOLS & NAVIGATION ---
+    
+    # --- SYMBOLE & NAVIGATION ---
     "&kp BSPC": "⌫"
     "&kp DEL": "⌦"
     "&kp LGUI": "$$mdi:microsoft-windows-classic$$"
@@ -55,11 +70,10 @@ parse_config:
     "&kp GRAVE": {t: "^"}
     "&kp LS(GRAVE)": {t: "°"}
     "&kp PLUS": "`"
-    "&kp LS(SLASH)": "_"
 
-    # --- NUMBERS & UMLAUTS ---
+    # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
-    "&kp N2": {t: "2", s: '"'}
+    "&kp N2": {t: "2", s: "\""}
     "&kp N3": {t: "3", s: "§"}
     "&kp N4": {t: "4", s: "$"}
     "&kp N5": {t: "5", s: "%"}
@@ -86,6 +100,8 @@ parse_config:
     "&kp EQUAL": "´"
     "&kp RA(NON_US_BSLH)": "|"
     "&kp RA(RBKT)": "~"
+    "&kp RA(N2)": "²"
+    "&kp RA(N3)": "³"
     "&kp NON_US_HASH": "#"
     "&kp NON_US_BSLH": {t: "<"}
     "&kp LS(NON_US_BSLH)": ">"
@@ -96,43 +112,38 @@ parse_config:
     "&kp M": {t: "M", s: "µ"}
 
     # --- SYSTEM & BT ---
-    "&usb_on": "$$mdi:usb$$"
+    "&usb_on": {t: "ψ USB", s: "☀ ON"}
     "&bt_sel_0": {t: "$$mdi:bluetooth$$", s: "⓵", h: "PC"}
     "&bt_sel_1": {t: "$$mdi:bluetooth$$", s: "⓶", h: "S8"}
     "&bt_sel_2": {t: "$$mdi:bluetooth$$", s: "⓷", h: "Zbook"}
     "&bt_sel_3": {t: "$$mdi:bluetooth$$", s: "⓸"}
     "&bt_sel_4": {t: "$$mdi:bluetooth$$", s: "⓹"}
     "&kp LA(F4)": {t: "✕", s: "Alt F4"}
-
-    # --- MISC ---
-    "&smiley": {t: "☻"}
-    "&durchmesser": "Ø"
     "&kp C_PREV": "⏮"
     "&kp C_NEXT": "⏭"
     "&kp C_PP": {t: "⏯", type: "ghost"}
-
-    # --- MODIFIERS ---
-    "&hrm_safe LCTRL D": {t: "D", h: "CTRL"}
-    "&hrm_shift LSHIFT F": {t: "F", h: "Shift"}
-    "&hrm_shift RSHIFT J": {t: "J", h: "Shift"}
-    "&hrm_safe RCTRL K": {t: "K", h: "CTRL"}
-    "&hrm_safe LALT X": {t: "X", h: "Alt"}
-    "&hrm_safe RALT DOT": {t: ".", s: "AltGr"}
-
-    # --- BLUETOOTH & SYSTEM ---
-    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "round"}
+    "&mkp LCLK": "🖱 LMB"
+    "&mkp RCLK": "🖱 RMB"
+    "&enc_bt_clr 0 0": {t: "$$mdi:bluetooth-off$$", s: "CLR 5s", type: "ghost"}
     "&ext_power EP_TOG": "Pwr±"
     "&ext_power EP_ON": "Pwr+"
 
+    # --- OTHER ---
     "&caps_wrd": "CAPS\nWORD"
     "&kp LC(LALT)": "CREO\n(C+A)"
-
-    "&bootloader": "⟐"
-    "&sys_reset": "↻"
 
 draw_config:
   dark_mode: true
   width: 1200
+  exclude_combos:
+    - "&bt_sel_0"
+    - "&bt_sel_1"
+    - "&bt_sel_2"
+    - "&out OUT_USB"
+    - "combo_bt0"
+    - "combo_bt1"
+    - "combo_bt2"
+    - "combo_usb"
   svg_extra_style: |
     svg.keymap {
       font-size: 16px;
@@ -140,19 +151,22 @@ draw_config:
     text.tap {
       font-size: 20px;
     }
-    text.combo, text.hold, text.shifted, text.left, text.right {
+    text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
       font-size: 13px;
     }
-    g.layer-lower g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
+    g.keypos-30 rect.key {
+      rx: 50%;
+      ry: 50%;
+    }
+    g.layer-lower rect.held { fill: #854747; }
+    g.layer-raise rect.held { fill: #3a7a3a; }
+    g.layer-adjust rect.held { fill: #3a4a8a; }
+    
+    /* Angepasste Daumentasten-Highlights */
+    g.layer-default g.keypos-31 rect.key { fill: #3a4a8a; }
     g.layer-default g.keypos-32 rect.key { fill: #854747; }
-    g.layer-default g.keypos-33 rect.key { fill: #854747; }
+    g.layer-default g.keypos-33 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-lower g.keypos-35 rect.key { fill: #3a4a8a; }
-    g.layer-lower g.keypos-32 rect.key { fill: #854747; }
-    g.layer-lower g.keypos-33 rect.key { fill: #854747; }
-    g.layer-raise g.keypos-31 rect.key { fill: #3a7a3a; }
-    g.layer-raise g.keypos-34 rect.key { fill: #3a7a3a; }
-    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+    g.layer-default g.keypos-35 rect.key { fill: #854747; }
+    g.layer-adjust g.keypos-31 rect.key { fill: #3a4a8a; }
     g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
-    g.keypos-36 rect.key { rx: 100; ry: 100; }

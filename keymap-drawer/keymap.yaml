@@ -1,3 +1,6 @@
+layout:
+  qmk_info_json: keymap-drawer/layout.json
+  qmk_layout: LAYOUT
 layers:
   default:
   - t: Q
@@ -13,7 +16,7 @@ layers:
   - O
   - P
   - t: A
-    h: LSHIFT
+    h: Shift
   - S
   - D
   - F
@@ -23,37 +26,33 @@ layers:
   - K
   - L
   - t: ''''
-    h: RSHIFT
+    h: Shift
   - Z
   - t: X
-    h: LCTRL
+    h: CTRL
   - t: C
-    h: LALT
+    h: Alt
   - V
   - B
   - N
   - t: M
     s: µ
   - t: ','
-    h: RALT
+    h: AltGr
   - t: .
-    h: RCTRL
+    h: CTRL
   - ⌦
   - t: ⏯
     type: round
   - t: ESC
     h: Lower
-  - t: TAB
+  - t: ⇥
     h: Raise
-  - t: RET
+  - t: ↵
     h: Raise
-  - t: SPACE
+  - t: ␣
     h: Lower
   - ⌫
-  - t: ⏮·⏯·⏭
-    s: ↑
-    h: ↓
-    type: round
   lower:
   - ^
   - <
@@ -97,22 +96,17 @@ layers:
   - '='
   - t: $$mdi:monitor$$
     h: Adjust
-    s: Show
     type: round
   - t: $$mdi:microsoft-windows-classic$$
-    h: sticky
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+    s: sticky
+  - t: ⤒ Pos1
+    type: held
+  - t: ⤓ End
+    type: held
   - t: ⌫
     h: Adjust
-  - t: ⏮·⏯·⏭
-    s: ↑
-    h: ↓
-    type: round
+  - t: Adjust
+    type: held
   raise:
   - F1
   - F2
@@ -162,18 +156,14 @@ layers:
     type: round
   - t: Task Mgr
     type: held
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: '&nbsp'
     type: held
   - t: ▽
     type: trans
-  - t: ⏮·⏯·⏭
-    s: ↑
-    h: ↓
-    type: round
   adjust:
   - t: ▽
     type: trans
@@ -218,32 +208,31 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - $$mdi:usb$$
+  - t: ψ USB
+    s: ☀ ON
   - Pwr±
   - t: ▽
     type: trans
-  - ⟐
-  - ↻
-  - ↻
-  - ⟐
+  - '&bootloader'
+  - '&sys_reset'
+  - '&sys_reset'
+  - '&bootloader'
   - ⏮
   - ⏭
   - t: ▽
     type: trans
-  - t: ▽
+  - t: ' '
     type: round
-  - BT CLR
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - BT CLR
   - t: ▽
     type: trans
-  - t: ⏮·⏯·⏭
-    s: ↑
-    h: ↓
-    type: round
+  - t: ▽
+    type: trans
+  - t: ' '
+    type: held
 combos:
 - p:
   - 13
@@ -281,8 +270,8 @@ combos:
   - default
   - lower
 - p:
-  - 27
   - 28
+  - 29
   k: ':'
   l:
   - default
@@ -290,7 +279,7 @@ combos:
 - p:
   - 17
   - 18
-  k: \
+  k: '&RA(MINUS)'
   l:
   - default
   - lower
@@ -339,6 +328,3 @@ combos:
   k: Ctl+ BSPC
   l:
   - default
-layout:
-  qmk_info_json: keymap-drawer/layout.json
-  qmk_layout: LAYOUT

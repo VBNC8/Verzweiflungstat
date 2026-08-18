@@ -1,77 +1,35 @@
-name: Build Hawk-wireless
+name: Build Aurora Corne
 on: [push, pull_request, workflow_dispatch]
-
 permissions:
   contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
     container:
       image: zmkfirmware/zmk-build-arm:4.1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: false
-
-      - name: Configure Git Local URL
-        run: |
-          git config --global url."${GITHUB_WORKSPACE}/".insteadOf "https://github.com/VBNC8/Verzweiflungstat/"
-          git config --global url."${WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
 
       - name: West Init
         run: west init -l config
 
       - name: West Update
         run: west update
-        
       - name: West Zephyr Export
         run: west zephyr-export
-        
-      - name: Set short SHA
-        id: vars
-        run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-        
-      - name: Build Left
-        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
-        
+      - name: Build Left (mit Display)
+        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Left
-        run: |
-          cp build/zephyr/zmk.uf2 hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-          cp build/zephyr/zmk.bin hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
-        
-      - name: Build Right
-        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="hawk_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"Hawk-${{ steps.vars.outputs.SHA_SHORT }}\""
-        
+        run: cp build/zephyr/zmk.uf2 left.uf2
+      - name: Build Right (ohne Display)
+        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Save Right
-        run: |
-          cp build/zephyr/zmk.uf2 hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-          cp build/zephyr/zmk.bin hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
-
-      # JETZT BEREITEN WIR DAS BLUETOOTH-DFU-PAKET MIT ADAFRUIT VOR
-      - name: Install adafruit-nrfutil & Generate Packages
-        run: |
-          # 1. Pip installieren (das hat im Log ja vorhin super geklappt)
-          apt-get update && apt-get install -y python3-pip
-          
-          # 2. Das Python-3-taugliche Adafruit-Tool installieren
-          pip3 install adafruit-nrfutil --break-system-packages
-          
-          # 3. Die DFU-Zips erzeugen (die Syntax ist hier leicht anders)
-          adafruit-nrfutil dfu genpkg --dev-type 52 --application hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-left-dfu.zip
-          adafruit-nrfutil dfu genpkg --dev-type 52 --application hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.bin hawk-right-dfu.zip
-        
+        run: cp build/zephyr/zmk.uf2 right.uf2
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: 'hawk-${{ github.run_number }}-${{ github.sha }}'
+          name: aurora-corne-firmware
           path: |
-            hawk-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-            hawk-left-dfu.zip
-            hawk-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
-            hawk-right-dfu.zip
+            left.uf2
+            right.uf2
