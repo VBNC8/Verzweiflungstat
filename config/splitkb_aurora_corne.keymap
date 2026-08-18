@@ -1,0 +1,337 @@
+/*
+ * Splitkb Aurora Corne keymap — aligned with Hawk-wireless layout.
+ *
+ * Key position reference (42 positions total):
+ *
+ *   Row 0:  0(none)  1=Q   2=W   3=E   4=R   5=T     6=Y   7=U   8=I   9=O  10=P  11(outer)
+ *   Row 1: 12(none) 13=A  14=S  15=D  16=F  17=G    18=H  19=J  20=K  21=L  22=Ö  23(none)
+ *   Row 2: 24(none) 25=Z  26=X  27=C  28=V  29=B    30=N  31=M  32=,  33=.  34=DEL 35(none)
+ *   Thumbs:         36    37    38              39    40    41
+ *
+ * Changes vs. v2.1.4 (aligned to Hawk-wireless benchmark):
+ *   - HRM positions: Shift→A (hrm_left), Ctrl→X, Alt→C (left);
+ *                    Shift→Ö-col (hrm_right), RCtrl→DOT, RAlt→COMMA (right)
+ *   - Thumb layer assignments: lower=L2(37)/R2(40), raise=L3(38)/R1(39)
+ *   - Added hrm_left / hrm_right directional behaviors
+ *   - Added lt_enter behavior (hold-preferred, retro-tap)
+ *   - caps_wrd continue-list updated to match Hawk
+ *   - Added bt_sel_0..4 macros (OUT_BLE + BT_SEL n, replacing direct bt BT_SEL)
+ *   - Lower layer: right-side symbols and thumbs aligned to Hawk
+ *   - Raise layer: LA(F4) on Z-pos, HOME/END on correct thumbs
+ *   - Adjust layer: bt_sel macros, bootloader/sys_reset positions,
+ *                   enc_bt_clr on thumbs; RGB controls preserved
+ *   - Added combos: slash (S+D), minus (L+Ö), underscore (A+S), del_last_word
+ */
+
+#define LEFT_HAND_KEYS   0  1  2  3  4  5  12 13 14 15 16 17  24 25 26 27 28 29  36 37 38
+#define RIGHT_HAND_KEYS  6  7  8  9 10 11  18 19 20 21 22 23  30 31 32 33 34 35  39 40 41
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/pointing.h>
+
+/ {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+
+    macros {
+        pair_paren: pair_paren {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <&kp LS(N8)>, <&kp LS(N9)>, <&kp LEFT>;
+        };
+
+        pair_brc: pair_brc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <&kp RA(N7)>, <&kp RA(N0)>, <&kp LEFT>;
+        };
+
+        pair_bkt: pair_bkt {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
+        };
+
+        usb_on: usb_on {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_USB>, <&rgb_ug RGB_ON>;
+        };
+
+        bt_off: bt_off {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&rgb_ug RGB_OFF>;
+        };
+
+        bt_sel_0: bt_sel_0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>;
+        };
+
+        bt_sel_1: bt_sel_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>;
+        };
+
+        bt_sel_2: bt_sel_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
+        };
+
+        bt_sel_3: bt_sel_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>;
+        };
+
+        bt_sel_4: bt_sel_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 4>;
+        };
+
+        durchmesser: durchmesser {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N2 &kp KP_N4 &kp KP_N8>, <&macro_release &kp LALT>;
+        };
+
+        smiley: smiley {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <20>;
+            tap-ms = <20>;
+            bindings = <&macro_press &kp LSHFT>, <&macro_tap &kp COMMA>, <&macro_release &kp LSHFT>, <&macro_tap &kp SLASH>, <&macro_press &kp LSHFT>, <&macro_tap &kp N9>, <&macro_release &kp LSHFT>;
+        };
+
+        nbsp: nbsp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N6 &kp KP_N0>, <&macro_release &kp LALT>;
+        };
+
+        macro_bt_clr: macro_bt_clr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+
+        m_pp: m_pp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp C_PP>;
+        };
+
+        m_next: m_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_NEXT>;
+        };
+
+        m_prev: m_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_PREV>;
+        };
+    };
+
+    behaviors {
+        caps_wrd: caps_wrd {
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <NON_US_HASH KP_DIVIDE BACKSPACE DEL SLASH SQT SEMI LBKT>;
+        };
+
+        lt_enter: lt_enter {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <220>;
+            quick-tap-ms = <150>;
+            flavor = "hold-preferred";
+            retro-tap;
+            bindings = <&mo>, <&kp>;
+        };
+
+        hrm_safe: hrm_safe {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <220>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-on-release;
+        };
+
+        hrm_left: hrm_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            require-prior-idle-ms = <150>;
+            hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
+            hold-trigger-on-release;
+            bindings = <&kp>, <&kp>;
+        };
+
+        hrm_right: hrm_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <170>;
+            require-prior-idle-ms = <80>;
+            hold-trigger-key-positions = <LEFT_HAND_KEYS>;
+            hold-trigger-on-release;
+            bindings = <&kp>, <&kp>;
+        };
+
+        lt_hp: lt_hp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "balanced";
+            retro-tap;
+            bindings = <&mo>, <&kp>;
+        };
+
+        enc_bt_clr: enc_bt_clr {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <5000>;
+            flavor = "tap-preferred";
+            bindings = <&macro_bt_clr>, <&none>;
+        };
+
+        hw_scroll: hw_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+            tap-ms = <20>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        // ==========================================
+        // HRM-safe combos (35ms) — keys near modifiers
+        // ==========================================
+        combo_caps_word  { timeout-ms = <35>; key-positions = <16 19>; bindings = <&caps_wrd>;      layers = <0>; };    // F + J
+        combo_quote      { timeout-ms = <35>; key-positions = <15 16>; bindings = <&kp LS(N2)>;     layers = <0 1>; }; // D + F  →  "
+        combo_question   { timeout-ms = <35>; key-positions = <19 20>; bindings = <&kp LS(MINUS)>;  layers = <0 1>; }; // J + K  →  ?
+        combo_ue         { timeout-ms = <35>; key-positions = <7 19>;  bindings = <&kp LBKT>;       layers = <0>; };   // U + J  →  Ü
+
+        // ==========================================
+        // Unkritische Combos (45–50ms)
+        // ==========================================
+        combo_excl       { timeout-ms = <45>; key-positions = <3 15>;  bindings = <&kp LS(N1)>;     layers = <0 1>; }; // E + D  →  !
+        combo_colon      { timeout-ms = <45>; key-positions = <32 33>; bindings = <&kp LS(DOT)>;    layers = <0 1>; }; // , + .  →  :
+        combo_backslash  { timeout-ms = <45>; key-positions = <20 21>; bindings = <&kp RA(MINUS)>;  layers = <0 1>; }; // K + L  →  backslash
+        combo_slash      { timeout-ms = <45>; key-positions = <14 15>; bindings = <&kp KP_DIVIDE>;  layers = <0 1>; }; // S + D  →  /
+        combo_minus      { timeout-ms = <45>; key-positions = <21 22>; bindings = <&kp SLASH>;      layers = <0 1>; }; // L + Ö  →  -
+        combo_underscore { timeout-ms = <35>; key-positions = <13 14>; bindings = <&kp LS(SLASH)>;  layers = <0 1>; }; // A + S  →  _
+        combo_ae         { timeout-ms = <50>; key-positions = <1 13>;  bindings = <&kp SQT>;        layers = <0>; };   // Q + A  →  Ä
+        combo_oe         { timeout-ms = <45>; key-positions = <9 21>;  bindings = <&kp SEMI>;       layers = <0>; };   // O + L  →  Ö
+        combo_ss         { timeout-ms = <45>; key-positions = <2 14>;  bindings = <&kp MINUS>;      layers = <0>; };   // W + S  →  ß
+
+        // Superscript numbers in lower layer
+        combo_super2     { timeout-ms = <50>; key-positions = <2 14>;  bindings = <&kp RA(N2)>;     layers = <1>; }; // W + S  →  ²
+        combo_super3     { timeout-ms = <50>; key-positions = <3 15>;  bindings = <&kp RA(N3)>;     layers = <1>; }; // E + D  →  ³
+
+        // Delete last word (left-thumb-1 + right-thumb-3)
+        combo_del_last_word {
+            timeout-ms = <45>;
+            key-positions = <36 41>;
+            bindings = <&kp LC(BSPC)>;
+            layers = <0>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        /*
+         * Each layer has exactly 42 bindings:
+         *   Pos  0    : left outer guard      Pos 11    : right outer guard
+         *   Pos  1– 5 : left top row          Pos  6–10 : right top row
+         *   Pos 12    : left outer guard      Pos 23    : right outer guard
+         *   Pos 13–17 : left mid row          Pos 18–22 : right mid row
+         *   Pos 24    : left outer guard      Pos 35    : right outer guard
+         *   Pos 25–29 : left bot row          Pos 30–34 : right bot row
+         *   Pos 36–38 : left thumbs           Pos 39–41 : right thumbs
+         */
+        default_layer {
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
+            bindings = <
+&none  &kp Q              &kp W             &kp E              &kp R       &kp T                  &kp Y           &kp U                 &kp I                &kp O                &kp P                           &none
+&none  &hrm_left LSHIFT A &kp S             &kp D              &kp F       &kp G                  &kp H           &kp J                 &kp K                &kp L                &hrm_right RSHIFT LS(NON_US_HASH) &none
+&none  &kp Z              &hrm_safe LCTRL X &hrm_safe LALT C   &kp V       &kp B                  &kp N           &kp M                 &hrm_safe RALT COMMA &hrm_safe RCTRL DOT  &kp DEL                         &none
+                                            &kp C_PP           &lt 1 ESC   &lt 2 TAB              &lt_enter 2 RET &lt_hp 1 SPACE        &kp BSPC
+            >;
+        };
+
+        lower_layer {
+            sensor-bindings = <&inc_dec_kp LA(TAB) LA(LS(TAB))>, <&inc_dec_kp PG_DN PG_UP>;
+            bindings = <
+&none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley                &kp LS(GRAVE)  &pair_paren     &pair_brc        &pair_bkt      &kp LS(N6)    &none
+&none  &kp N1        &kp N2           &kp N3               &kp N4         &kp N5                 &kp N6         &kp N7          &kp N8           &kp N9         &kp N0        &none
+&none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH        &kp KP_PLUS    &kp KP_MULTIPLY &kp COMMA        &kp DOT        &kp LS(N0)    &none
+                                       &lt 3 LG(D)         &sk LGUI       &trans                 &trans         &trans          &lt_hp 3 BSPC
+            >;
+        };
+
+        raise_layer {
+            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
+            bindings = <
+&none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5               &kp F6       &kp F7        &kp F8      &kp F9     &kp F10    &none
+&none  &trans        &trans           &trans               &trans            &trans               &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS   &none
+&none  &kp LA(F4)    &trans           &trans               &trans            &trans               &trans       &trans        &trans      &trans     &kp EQUAL  &none
+                                       &kp F14             &kp LC(LS(ESC))  &kp HOME              &kp END      &nbsp         &trans
+            >;
+        };
+
+        adjust_layer {
+            sensor-bindings = <&inc_dec_kp UP DOWN>, <&inc_dec_kp UP DOWN>;
+            bindings = <
+&none  &trans        &trans             &trans            &trans         &trans                   &rgb_ug RGB_EFF  &rgb_ug RGB_BRI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &kp LA(F4)  &none
+&none  &bt_sel_0     &bt_sel_1          &bt_sel_2         &bt_sel_3      &bt_sel_4                &rgb_ug RGB_EFR  &rgb_ug RGB_BRD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &trans      &none
+&none  &usb_on       &ext_power EP_TOG  &trans            &bootloader    &sys_reset               &sys_reset       &bootloader      &kp C_PREV       &kp C_NEXT       &trans      &none
+                                         &trans           &enc_bt_clr 0 0 &trans                  &rgb_ug RGB_TOG  &enc_bt_clr 0 0  &trans
+            >;
+        };
+    };
+};
+
+&spi3 {
+    status = "okay";
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+        spi-max-frequency = <4000000>;
+        chain-length = <18>;
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+        color-mapping = <2 1 3>;
+    };
+};
