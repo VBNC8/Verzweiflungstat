@@ -15,18 +15,18 @@ layers:
   - I
   - O
   - P
-  - A
+  - t: A
+    h: LSHIFT
   - S
   - D
-  - t: F
-    h: Shift
+  - F
   - G
   - H
-  - t: J
-    h: Shift
+  - J
   - K
   - L
-  - ''''
+  - t: ''''
+    h: RSHIFT
   - Z
   - t: X
     h: LCTRL
@@ -45,13 +45,13 @@ layers:
   - t: ⏯
     type: round
   - t: ESC
-    h: Raise
-  - t: ⇥
     h: Lower
-  - t: ↵
-    h: Lower
-  - t: ␣
+  - t: TAB
     h: Raise
+  - t: RET
+    h: Raise
+  - t: SPACE
+    h: Lower
   - ⌫
   lower:
   - ^
@@ -94,15 +94,18 @@ layers:
   - ','
   - .
   - '='
-  - t: Adjust
+  - t: $$mdi:monitor$$
+    h: Adjust
+    s: Show
     type: round
-  - $$mdi:microsoft-windows-classic$$
+  - t: $$mdi:microsoft-windows-classic$$
+    h: sticky
   - t: ⤒ Pos1
     type: held
   - t: ⤓ End
     type: held
-  - t: $$mdi:monitor$$
-    s: Show
+  - t: ⌫
+    h: Adjust
   - t: Adjust
     type: held
   raise:
@@ -226,11 +229,40 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - t: $$mdi:bluetooth-off$$
+    s: CLR 5s
+    type: ghost
   - t: ' '
     type: held
 combos:
+- p:
+  - 13
+  - 16
+  k: 'CAPS
+
+    WORD'
+  l:
+  - default
+- p:
+  - 12
+  - 13
+  k: '"'
+  l:
+  - default
+  - lower
+- p:
+  - 16
+  - 17
+  k: '?'
+  l:
+  - default
+  - lower
+- p:
+  - 6
+  - 16
+  k: Ü
+  l:
+  - default
 - p:
   - 2
   - 12
@@ -239,24 +271,16 @@ combos:
   - default
   - lower
 - p:
-  - 27
   - 28
+  - 29
   k: ':'
   l:
   - default
   - lower
 - p:
-  - 21
-  - 22
-  k: 'CREO
-
-    (C+A)'
-  l:
-  - default
-- p:
   - 17
   - 18
-  k: \
+  k: '&RA(MINUS)'
   l:
   - default
   - lower
@@ -282,28 +306,6 @@ combos:
   - default
   - lower
 - p:
-  - 13
-  - 16
-  k: 'CAPS
-
-    WORD'
-  l:
-  - default
-- p:
-  - 12
-  - 13
-  k: '"'
-  l:
-  - default
-  - lower
-- p:
-  - 16
-  - 17
-  k: '?'
-  l:
-  - default
-  - lower
-- p:
   - 0
   - 10
   k: Ä
@@ -316,14 +318,39 @@ combos:
   l:
   - default
 - p:
-  - 6
-  - 16
-  k: Ü
-  l:
-  - default
-- p:
   - 1
   - 11
   k: ß
+  l:
+  - default
+- p:
+  - 21
+  - 17
+  k:
+    t: $$mdi:bluetooth$$
+    h: PC
+    s: ⓵
+- p:
+  - 21
+  - 11
+  k:
+    t: $$mdi:bluetooth$$
+    h: S8
+    s: ⓶
+- p:
+  - 21
+  - 10
+  k:
+    t: $$mdi:bluetooth$$
+    h: Zbook
+    s: ⓷
+- p:
+  - 21
+  - 12
+  k: $$mdi:usb$$
+- p:
+  - 30
+  - 35
+  k: Ctl+ BSPC
   l:
   - default
