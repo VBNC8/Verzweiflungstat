@@ -1,0 +1,71 @@
+name: Build splistkp-aurora-Corne
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    container:
+      image: zmkfirmware/zmk-build-arm:4.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Configure Git Local URL
+        run: |
+          git config --global url."${GITHUB_WORKSPACE}/".insteadOf "https://github.com/VBNC8/Verzweiflungstat/"
+          git config --global url."${WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
+
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr Export
+        run: west zephyr-export
+
+      - name: Set short SHA
+        id: vars
+        run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build Left
+        run: west build -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_left" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"AuroraCorne-${{ steps.vars.outputs.SHA_SHORT }}\""
+
+      - name: Save Left
+        run: |
+          cp build/zephyr/zmk.uf2 aurora-corne-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+          cp build/zephyr/zmk.bin aurora-corne-left-${{ steps.vars.outputs.SHA_SHORT }}.bin
+
+      - name: Build Right
+        run: west build -p -s zmk/app -b nice_nano//zmk -- -DSHIELD="splitkb_aurora_corne_right" -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DCONFIG_ZMK_KEYBOARD_NAME="\"AuroraCorne-${{ steps.vars.outputs.SHA_SHORT }}\""
+
+      - name: Save Right
+        run: |
+          cp build/zephyr/zmk.uf2 aurora-corne-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+          cp build/zephyr/zmk.bin aurora-corne-right-${{ steps.vars.outputs.SHA_SHORT }}.bin
+
+      - name: Install adafruit-nrfutil & Generate Packages
+        run: |
+          apt-get update && apt-get install -y python3-pip
+          pip3 install adafruit-nrfutil --break-system-packages
+          adafruit-nrfutil dfu genpkg --dev-type 52 --application aurora-corne-left-${{ steps.vars.outputs.SHA_SHORT }}.bin aurora-corne-left-dfu.zip
+          adafruit-nrfutil dfu genpkg --dev-type 52 --application aurora-corne-right-${{ steps.vars.outputs.SHA_SHORT }}.bin aurora-corne-right-dfu.zip
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'aurora-corne-${{ github.run_number }}-${{ github.sha }}'
+          path: |
+            aurora-corne-left-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+            aurora-corne-left-dfu.zip
+            aurora-corne-right-${{ steps.vars.outputs.SHA_SHORT }}.uf2
+            aurora-corne-right-dfu.zip
