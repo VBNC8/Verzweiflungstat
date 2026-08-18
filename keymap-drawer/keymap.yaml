@@ -221,8 +221,7 @@ layers:
   - ⏭
   - t: ▽
     type: trans
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
+  - t: ' '
     type: round
   - t: ▽
     type: trans
@@ -230,9 +229,8 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: $$mdi:bluetooth-off$$
-    s: CLR 5s
-    type: ghost
+  - t: ▽
+    type: trans
   - t: ' '
     type: held
 combos:
