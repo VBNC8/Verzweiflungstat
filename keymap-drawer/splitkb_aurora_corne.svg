@@ -12,9 +12,6 @@
 <svg id="mdi:monitor">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-monitor" viewBox="0 0 24 24"><path d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z" /></svg>
 </svg>
-<svg id="mdi:usb">
-<svg xmlns="http://www.w3.org/2000/svg" id="mdi-usb" viewBox="0 0 24 24"><path d="M15,7V11H16V13H13V5H15L12,1L9,5H11V13H8V10.93C8.7,10.56 9.2,9.85 9.2,9C9.2,7.78 8.21,6.8 7,6.8C5.78,6.8 4.8,7.78 4.8,9C4.8,9.85 5.3,10.56 6,10.93V13A2,2 0 0,0 8,15H11V18.05C10.29,18.41 9.8,19.15 9.8,20A2.2,2.2 0 0,0 12,22.2A2.2,2.2 0 0,0 14.2,20C14.2,19.15 13.71,18.41 13,18.05V15H16A2,2 0 0,0 18,13V11H19V7H15Z" /></svg>
-</svg>
 </defs>/* end glyphs */
 <style>/* inherit to force styles through use tags */
 svg path {
@@ -158,13 +155,16 @@ g.keypos-30 rect.key {
 g.layer-lower rect.held { fill: #854747; }
 g.layer-raise rect.held { fill: #3a7a3a; }
 g.layer-adjust rect.held { fill: #3a4a8a; }
-g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
-g.layer-default g.keypos-32 rect.key { fill: #854747; }
-g.layer-default g.keypos-33 rect.key { fill: #854747; }
-g.layer-default g.keypos-34 rect.key { fill: #3a7a3a; }
-g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
-g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
-g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+
+/* Angepasste Daumentasten-Highlights */
+g.layer-default g.keypos-36 rect.key { fill: #3a4a8a; }
+g.layer-default g.keypos-37 rect.key { fill: #854747; }
+g.layer-default g.keypos-38 rect.key { fill: #3a7a3a; }
+g.layer-default g.keypos-39 rect.key { fill: #3a7a3a; }
+g.layer-default g.keypos-40 rect.key { fill: #854747; }
+g.layer-default g.keypos-41 rect.key { fill: #3a4a8a; }
+g.layer-adjust g.keypos-36 rect.key { fill: #3a4a8a; }
+g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
@@ -214,7 +214,7 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <g transform="translate(28, 105)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">A</text>
-<text x="0" y="24" class="key hold">LSHIFT</text>
+<text x="0" y="24" class="key hold">Shift</text>
 </g>
 <g transform="translate(84, 91)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -251,7 +251,7 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <g transform="translate(700, 105)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">&#x27;</text>
-<text x="0" y="24" class="key hold">RSHIFT</text>
+<text x="0" y="24" class="key hold">Shift</text>
 </g>
 <g transform="translate(28, 161)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -260,12 +260,12 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <g transform="translate(84, 147)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">X</text>
-<text x="0" y="24" class="key hold">LCTRL</text>
+<text x="0" y="24" class="key hold">CTRL</text>
 </g>
 <g transform="translate(140, 140)" class="key keypos-22">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">C</text>
-<text x="0" y="24" class="key hold">LALT</text>
+<text x="0" y="24" class="key hold">Alt</text>
 </g>
 <g transform="translate(196, 147)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -287,12 +287,12 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <g transform="translate(588, 140)" class="key keypos-27">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">,</text>
-<text x="0" y="24" class="key hold">RALT</text>
+<text x="0" y="24" class="key hold">AltGr</text>
 </g>
 <g transform="translate(644, 147)" class="key keypos-28">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">.</text>
-<text x="0" y="24" class="key hold">RCTRL</text>
+<text x="0" y="24" class="key hold">CTRL</text>
 </g>
 <g transform="translate(700, 161)" class="key keypos-29">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -309,17 +309,17 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(295, 224) rotate(30.0)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key"/>
-<text x="0" y="0" class="key tap">TAB</text>
+<text x="0" y="0" class="key tap">⇥</text>
 <text x="0" y="38" class="key hold">Raise</text>
 </g>
 <g transform="translate(433, 224) rotate(-30.0)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key"/>
-<text x="0" y="0" class="key tap">RET</text>
+<text x="0" y="0" class="key tap">↵</text>
 <text x="0" y="38" class="key hold">Raise</text>
 </g>
 <g transform="translate(498, 213) rotate(-15.0)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">SPACE</text>
+<text x="0" y="0" class="key tap">␣</text>
 <text x="0" y="24" class="key hold">Lower</text>
 </g>
 <g transform="translate(560, 205)" class="key keypos-35">
@@ -404,7 +404,10 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g class="combo combopos-16">
 <rect rx="6" ry="6" x="98" y="102" width="28" height="26" class="combo"/>
-<use href="#mdi:usb" xlink:href="#mdi:usb" x="105" y="108" height="14" width="14.0" class="combo tap glyph mdi:usb"/>
+<text x="112" y="116" class="combo tap">
+<tspan x="112" dy="-0.6em">ψ</tspan><tspan x="112" dy="1.2em">USB</tspan>
+</text>
+<text x="112" y="104" class="combo shifted">☀ ON</text>
 </g>
 <g class="combo combopos-17">
 <path d="M364,205 l-177,0" class="combo"/>
@@ -553,12 +556,11 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 <use href="#mdi:monitor" xlink:href="#mdi:monitor" x="-7" y="-7" height="14" width="14.0" class="key round tap glyph mdi:monitor"/>
 <text x="0" y="24" class="key round hold">Adjust</text>
-<text x="0" y="-24" class="key round shifted">Show</text>
 </g>
 <g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#mdi:microsoft-windows-classic" xlink:href="#mdi:microsoft-windows-classic" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:microsoft-windows-classic"/>
-<text x="0" y="24" class="key hold">sticky</text>
+<text x="0" y="-24" class="key shifted">sticky</text>
 </g>
 <g transform="translate(295, 224) rotate(30.0)" class="key held keypos-32">
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
@@ -635,7 +637,10 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g class="combo combopos-11">
 <rect rx="6" ry="6" x="98" y="102" width="28" height="26" class="combo"/>
-<use href="#mdi:usb" xlink:href="#mdi:usb" x="105" y="108" height="14" width="14.0" class="combo tap glyph mdi:usb"/>
+<text x="112" y="116" class="combo tap">
+<tspan x="112" dy="-0.6em">ψ</tspan><tspan x="112" dy="1.2em">USB</tspan>
+</text>
+<text x="112" y="104" class="combo shifted">☀ ON</text>
 </g>
 </g>
 </g>
@@ -725,6 +730,7 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 <g transform="translate(28, 161)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">✕</text>
+<text x="0" y="-24" class="key shifted">Alt F4</text>
 </g>
 <g transform="translate(84, 147)" class="key trans keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -809,7 +815,10 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g class="combo combopos-3">
 <rect rx="6" ry="6" x="98" y="102" width="28" height="26" class="combo"/>
-<use href="#mdi:usb" xlink:href="#mdi:usb" x="105" y="108" height="14" width="14.0" class="combo tap glyph mdi:usb"/>
+<text x="112" y="116" class="combo tap">
+<tspan x="112" dy="-0.6em">ψ</tspan><tspan x="112" dy="1.2em">USB</tspan>
+</text>
+<text x="112" y="104" class="combo shifted">☀ ON</text>
 </g>
 </g>
 </g>
@@ -906,7 +915,10 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g transform="translate(28, 161)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:usb" xlink:href="#mdi:usb" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:usb"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.0em">ψ</tspan><tspan x="0" dy="1.2em">USB</tspan>
+</text>
+<text x="0" y="-24" class="key shifted">☀ ON</text>
 </g>
 <g transform="translate(84, 147)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -991,7 +1003,10 @@ g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
 </g>
 <g class="combo combopos-3">
 <rect rx="6" ry="6" x="98" y="102" width="28" height="26" class="combo"/>
-<use href="#mdi:usb" xlink:href="#mdi:usb" x="105" y="108" height="14" width="14.0" class="combo tap glyph mdi:usb"/>
+<text x="112" y="116" class="combo tap">
+<tspan x="112" dy="-0.6em">ψ</tspan><tspan x="112" dy="1.2em">USB</tspan>
+</text>
+<text x="112" y="104" class="combo shifted">☀ ON</text>
 </g>
 </g>
 </g>
