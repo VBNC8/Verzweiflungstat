@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     container:
       image: zmkfirmware/zmk-build-arm:4.1
     steps:
@@ -22,7 +19,7 @@ jobs:
       - name: Configure Git Local URL
         run: |
           git config --global url."${GITHUB_WORKSPACE}/".insteadOf "https://github.com/VBNC8/Verzweiflungstat/"
-          git config --global url."${WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
+          git config --global url."${GITHUB_WORKSPACE}".insteadOf "https://github.com/VBNC8/Verzweiflungstat"
 
       - name: West Init
         run: west init -l config
