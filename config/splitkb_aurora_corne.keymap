@@ -91,6 +91,48 @@
             #binding-cells = <0>;
             bindings = <&bt BT_CLR>;
         };
+
+        m_pp: m_pp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <&kp C_PP>;
+        };
+
+        m_next: m_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_NEXT>;
+        };
+
+        m_prev: m_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C_PREV>;
+        };
+
+        m_up: m_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_press &kp UP>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp UP>;
+        };
+
+        m_down: m_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_press &kp DOWN>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp DOWN>;
+        };
     }; 
     // --- ENDE DES MAKRO BLOCKS ---
 
@@ -126,6 +168,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <220>;
+            require-prior-idle-ms = <150>;
             hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
@@ -136,6 +179,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <170>;
+            require-prior-idle-ms = <80>;
             hold-trigger-key-positions = <LEFT_HAND_KEYS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
@@ -163,144 +207,51 @@
      combos {
         compatible = "zmk,combos";
 
-        // Pos 1: Col 0 (P0.10) + Row 0 & 2 -> Combo Index 0 & 24
-        combo_bt0 {
-            timeout-ms = <100>;
-            key-positions = <0 24>;
-            bindings = <&bt_sel_0>;
-        };
+        // ==========================================
+        // 1. HRM-Combos (35ms)
+        // ==========================================
+        combo_caps_word  { timeout-ms = <35>; key-positions = <10 26>;  bindings = <&caps_wrd>; layers = <0>; };    // F(10) + J(26)
+        combo_quote      { timeout-ms = <35>; key-positions = <9 10>;   bindings = <&kp LS(N2)>; layers = <0 1>; }; // D(9) + F(10)
+        combo_question   { timeout-ms = <35>; key-positions = <26 27>;  bindings = <&kp LS(MINUS)>; layers = <0 1>; }; // J(26) + K(27)
+        combo_ue         { timeout-ms = <35>; key-positions = <20 26>;  bindings = <&kp LBKT>; layers = <0>; };     // U(20) + J(26)
 
-        // Pos 2: Col 1 (P0.09) + Row 0 & 2 -> Q + Y (Index 1 & 25)
-        combo_bt1 {
-            timeout-ms = <100>;
-            key-positions = <1 25>;
-            bindings = <&bt_sel_1>;
-        };
+        // ==========================================
+        // 2. Unkritische Combos (45-50ms)
+        // ==========================================
+        combo_excl       { timeout-ms = <45>; key-positions = <3 9>;    bindings = <&kp LS(N1)>; layers = <0 1>; };  // E(3) + D(9)
+        combo_colon      { timeout-ms = <45>; key-positions = <33 34>;  bindings = <&kp LS(DOT)>; layers = <0 1>; }; // ,(33) + .(34)
+        combo_backslash  { timeout-ms = <45>; key-positions = <27 28>;  bindings = <&kp RA(MINUS)>; layers = <0 1>; }; // K(27) + L(28)
+        combo_slash      { timeout-ms = <45>; key-positions = <8 9>;    bindings = <&kp KP_DIVIDE>; layers = <0 1>; }; // S(8) + D(9)
+        combo_minus      { timeout-ms = <45>; key-positions = <28 29>;  bindings = <&kp SLASH>; layers = <0 1>; };   // L(28) + ö(29)
+        combo_underscore { timeout-ms = <35>; key-positions = <7 8>;    bindings = <&kp LS(SLASH)>; layers = <0 1>; }; // A(7) + S(8)
+        combo_ae         { timeout-ms = <50>; key-positions = <1 7>;    bindings = <&kp SQT>; layers = <0>; };       // Q(1) + A(7)
+        combo_oe         { timeout-ms = <45>; key-positions = <22 28>;  bindings = <&kp SEMI>; layers = <0>; };      // O(22) + L(28)
+        combo_ss         { timeout-ms = <45>; key-positions = <2 8>;    bindings = <&kp MINUS>; layers = <0>; };     // W(2) + S(8)
 
-        // Pos 3: Col 2 (P1.11) + Row 0 & 2 -> W + X (Index 2 & 26)
-        combo_bt2 {
-            timeout-ms = <100>;
-            key-positions = <2 26>;
-            bindings = <&bt_sel_2>;
-        };
+        // ==========================================
+        // 3. Hardware-Combos (2ms)
+        // ==========================================
+        combo_bt0 { timeout-ms = <2>; key-positions = <14 11>; bindings = <&bt_sel_0>; };  // X(14) + G(11)
+        combo_bt1 { timeout-ms = <2>; key-positions = <14 8>;  bindings = <&bt_sel_1>; };  // X(14) + S(8)
+        combo_bt2 { timeout-ms = <2>; key-positions = <14 7>;  bindings = <&bt_sel_2>; };  // X(14) + A(7)
+        combo_usb { timeout-ms = <2>; key-positions = <14 9>;  bindings = <&usb_on>; };    // X(14) + D(9)
 
-        // Pos 4: Col 3 (P1.13) + Row 0 & 2 -> E + C (Index 3 & 27)
-        combo_usb {
-            timeout-ms = <100>;
-            key-positions = <3 27>;
-            bindings = <&out OUT_USB>;
-        };
+        combo_up    { timeout-ms = <2>; key-positions = <1 14 17>; bindings = <&kp UP>;   layers = <0>; };  // Q(1)+X(14)+B(17)
+        combo_down  { timeout-ms = <2>; key-positions = <1 13 17>; bindings = <&kp DOWN>; layers = <0>; };  // Q(1)+Z(13)+B(17)
+        combo_prev  { timeout-ms = <2>; key-positions = <1 15 17>; bindings = <&m_prev>;  layers = <0>; };  // Q(1)+C(15)+B(17)
+        combo_next  { timeout-ms = <2>; key-positions = <1 16 17>; bindings = <&m_next>;  layers = <0>; };  // Q(1)+V(16)+B(17)
+        combo_pp    { timeout-ms = <2>; key-positions = <1 17>;    bindings = <&m_pp>;    layers = <0>; };  // Q(1)+B(17)
 
-        // ! (E + D) - Vertikal Mittelfinger
-        combo_excl {
-            timeout-ms = <40>;
-            key-positions = <3 15>;
-            bindings = <&kp LS(N1)>;
-            layers = <0 1>;
-        };
+        combo_up_l1   { timeout-ms = <2>; key-positions = <1 14 17>; bindings = <&kp UP>;    layers = <1>; };
+        combo_down_l1 { timeout-ms = <2>; key-positions = <1 13 17>; bindings = <&kp DOWN>;  layers = <1>; };
+        combo_prev_l1 { timeout-ms = <2>; key-positions = <1 15 17>; bindings = <&kp LEFT>;  layers = <1>; };
+        combo_next_l1 { timeout-ms = <2>; key-positions = <1 16 17>; bindings = <&kp RIGHT>; layers = <1>; };
+        combo_pp_l1   { timeout-ms = <2>; key-positions = <1 17>;    bindings = <&m_pp>;     layers = <1>; };
 
-        // Doppelpunkt (:) auf , und .
-        combo_colon {
-            timeout-ms = <50>;
-            key-positions = <32 33>; // Positionen für COMMA und DOT auf dem Corne
-            bindings = <&kp LS(DOT)>;
-            layers = <0 1>;
-        };
-
-        // CREO: Ctrl+Alt auf X und C (Links unten)
-        combo_creo_mod {
-            timeout-ms = <50>;
-            key-positions = <26 27>; // X=26, C=27
-            bindings = <&kp LC(LALT)>;
-            layers = <0>;
-        };
-
-        // Backslash (\) auf K und L
-        combo_backslash {
-            timeout-ms = <40>;
-            key-positions = <20 21>; // K=20, L=21
-            bindings = <&kp RA(MINUS)>; // AltGr + ß ergibt \ im DE-Layout
-            layers = <0 1>;
-        };
-
-        // Slash (/) auf S und D
-        combo_slash {
-            timeout-ms = <40>;
-            key-positions = <14 15>; // K=20, L=21
-            bindings = <&kp KP_DIVIDE>;
-            layers = <0 1>;
-        };
-
-        // Minus/Bindestrich (-) für DE-Layout auf L und SLASH
-        combo_minus {
-            timeout-ms = <50>;
-            key-positions = <21 22>; // L=21, SLASH=22
-            bindings = <&kp SLASH>;  // Schickt den Code für die Taste rechts neben dem Punkt (DE: -)
-            layers = <0 1>;
-        };
-
-        // Unterstrich (_) auf A und S (Links)
-        combo_underscore {
-            timeout-ms = <39>;
-            require-prior-idle-ms = <100>;
-            key-positions = <13 14>; // A=13, S=14
-            bindings = <&kp LS(SLASH)>; // Ergibt im DE-Layout den Unterstrich (_)
-            layers = <0 1>;
-        };
-
-        // Caps Word auf beiden Shift-Tasten (F und J)
-        combo_caps_word {
-            timeout-ms = <40>;
-            key-positions = <16 19>; // F=16, J=19
-            bindings = <&caps_wrd>;
-            layers = <0>;
-        };
-        
-        // Gänsefüßchen (") auf D und F
-        combo_quote {
-            timeout-ms = <50>;
-            key-positions = <15 16>; // D und F
-            bindings = <&kp LS(N2)>; // In DE-Layout meist LS(2) für "
-            layers = <0 1>;
-        };
-
-        // Fragezeichen (?) auf J und K
-        combo_question {
-            timeout-ms = <50>;
-            key-positions = <19 20>; // J und K
-            bindings = <&kp LS(MINUS)>; // In DE-Layout meist LS(_) für ?
-            layers = <0 1>;
-        };
-       
-        // Ä (A + Q) - Vertikal linker pinkie
-        combo_ae {
-            timeout-ms = <55>;
-            key-positions = <1 13>; // A=13, Q=1
-            bindings = <&kp SQT>;
-            layers = <0>;
-        };
-
-        // Ö (O + L) - Vertikal rechter Ringfinger
-        combo_oe {
-            timeout-ms = <50>;
-            key-positions = <9 21>; // O=9, L=21
-            bindings = <&kp SEMI>;
-            layers = <0>;
-        };
-
-        // Ü (U + J) - Vertikal rechter Zeigefinger
-        combo_ue {
-            timeout-ms = <50>;
-            key-positions = <7 19>; // U=7, J=19
-            bindings = <&kp LBKT>;
-            layers = <0>;
-        };
-
-        // ß (W + S) - Vertikal nach oben (Linker Ringfinger)
-        combo_ss {
-            timeout-ms = <50>;
-            key-positions = <2 14>; // W=2, S=14
-            bindings = <&kp MINUS>;
+        combo_del_last_word {
+            timeout-ms = <45>;
+            key-positions = <36 41>;
+            bindings = <&kp LC(BSPC)>;
             layers = <0>;
         };
     };
@@ -310,10 +261,10 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>, <&inc_dec_kp DOWN UP>;
             bindings = <
-&kp N1  &kp Q  &kp W                &kp E              &kp R               &kp T                &kp Y       &kp U                 &kp I                 &kp O                &kp P                &none
-&kp N2  &kp A  &kp S                &kp D              &hrm_left LSHIFT F  &kp G                &kp H       &hrm_right RSHIFT J   &kp K                 &kp L                &kp LS(NON_US_HASH)  &none
-&kp N3  &kp Z  &hrm_safe LCTRL X    &hrm_safe LALT C   &kp V                &kp B                &kp N       &kp M                 &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL              &none
-                                    &kp C_PP           &lt 2 ESC            &lt 1 TAB            &lt_enter 1 RET   &lt_hp 2 SPACE        &kp BSPC
+&kp N1  &kp Q              &kp W                &kp E              &kp R                &kp T                &kp Y       &kp U                 &kp I                 &kp O                &kp P                        &none
+&kp N2  &hrm_left LSHIFT A &kp S                &kp D              &kp F                &kp G                &kp H       &kp J                 &kp K                 &kp L                &hrm_right RSHIFT LS(NON_US_HASH)  &none
+&kp N3  &kp Z              &hrm_safe LCTRL X    &hrm_safe LALT C   &kp V                &kp B                &kp N       &kp M                 &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL                      &none
+                                                 &kp C_PP           &lt 1 ESC            &lt 2 TAB            &lt_enter 2 RET   &lt_hp 1 SPACE   &kp BSPC
             >;
         };
 
@@ -323,7 +274,7 @@
 &none  &kp GRAVE     &kp NON_US_BSLH  &kp LS(NON_US_BSLH)  &durchmesser  &smiley             &kp LS(GRAVE) &pair_paren      &pair_brc    &pair_bkt   &kp LS(N6)    &none
 &none  &kp N1        &kp N2           &kp N3               &kp N4        &kp N5              &kp N6        &kp N7           &kp N8       &kp N9      &kp N0        &none
 &none  &kp RA(RBKT)  &kp LS(N5)       &kp RA(NON_US_BSLH)  &kp LS(N4)    &kp NON_US_HASH     &kp KP_PLUS   &kp KP_MULTIPLY  &kp COMMA    &kp DOT     &kp LS(N0)    &none
-                                      &mo 3                &kp LGUI      &kp HOME            &kp END       &kp LG(D)        &mo 3
+                                      &lt 3 LG(D)          &sk LGUI      &trans              &trans        &trans           &lt_hp 3 BSPC
             >;
         };
 
@@ -333,7 +284,7 @@
 &none  &kp F1        &kp F2           &kp F3               &kp F4           &kp F5           &kp F6       &kp F7        &kp F8      &kp F9     &kp F10       &none
 &none  &trans        &trans           &trans               &trans           &trans           &kp UP       &kp LEFT      &kp DOWN    &kp RIGHT  &kp PLUS      &none
 &none  &kp LA(F4)    &trans           &trans               &trans           &trans           &trans       &trans        &trans      &trans     &kp EQUAL     &none
-                                      &kp F14              &kp LC(LS(ESC))  &trans           &trans       &nbsp         &trans
+                                      &kp F14              &kp LC(LS(ESC))  &kp HOME         &kp END      &nbsp         &trans
             >;
         };
 
@@ -343,7 +294,7 @@
 &none  &trans        &trans             &trans            &trans         &trans              &trans       &trans       &trans       &trans       &trans      &none
 &none  &bt_sel_0     &bt_sel_1          &bt_sel_2         &bt_sel_3      &bt_sel_4           &trans       &trans       &trans       &trans       &trans      &none
 &none  &usb_on       &ext_power EP_TOG  &trans            &bootloader    &sys_reset          &sys_reset   &bootloader  &kp C_PREV   &kp C_NEXT   &trans      &none
-                                        &enc_bt_clr 0 0   &trans         &trans              &trans       &trans       &kp F12
+                                        &trans             &enc_bt_clr 0 0  &trans           &trans       &enc_bt_clr 0 0  &trans
             >;
         };
     };
