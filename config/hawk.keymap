@@ -367,12 +367,12 @@
 /* left top  */   &trans         &trans            &trans               &trans            &trans
 /* left mid  */   &bt_sel_0      &bt_sel_1         &bt_sel_2            &bt_sel_3         &bt_sel_4
 /* left bot  */   &usb_on        &ext_power EP_TOG &trans               &bootloader       &sys_reset
-/* left tmb  */                                    &trans               &enc_bt_clr 0 0   &trans
+/* left tmb  */                                    &trans               &bt BT_CLR        &trans
 
-/* right top */   &trans         &trans            &trans               &trans          &trans
-/* right mid */   &trans         &trans            &trans               &trans          &trans
-/* right bot */   &sys_reset     &bootloader       &kp C_PREV           &kp C_NEXT      &trans
-/* right tmb */   &trans         &enc_bt_clr 0 0   &trans            
+/* right top */   &trans         &trans            &trans               &trans            &trans
+/* right mid */   &trans         &trans            &trans               &trans            &trans
+/* right bot */   &sys_reset     &bootloader       &kp C_PREV           &kp C_NEXT        &trans
+/* right tmb */   &trans         &bt BT_CLR        &trans            
             >;
         };
     };
