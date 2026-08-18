@@ -1,5 +1,18 @@
 name: Build splistkp-aurora-Corne
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths:
+      - "config/splitkb_aurora_corne.keymap"
+      - "config/boards/shields/splitkb_aurora_corne/**"
+      - "config/west.yml"
+      - ".github/workflows/build-splistkp-aurora-corne.yml"
+  pull_request:
+    paths:
+      - "config/splitkb_aurora_corne.keymap"
+      - "config/boards/shields/splitkb_aurora_corne/**"
+      - "config/west.yml"
+      - ".github/workflows/build-splistkp-aurora-corne.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
