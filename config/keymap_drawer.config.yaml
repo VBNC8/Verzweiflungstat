@@ -73,7 +73,7 @@ parse_config:
 
     # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
-    "&kp N2": {t: "2", s: "\""}
+    "&kp N2": {t: "2", s: "\"}
     "&kp N3": {t: "3", s: "§"}
     "&kp N4": {t: "4", s: "$"}
     "&kp N5": {t: "5", s: "%"}
@@ -97,9 +97,6 @@ parse_config:
     "&kp RA(Y)": "Ü"
     "&kp RA(SQT)": "Ä"
     "&kp RA(MINUS)": "\\"
-    "&kp RA(MINUS)": {t: "\\"}
-    "&RA(MINUS)": {t: "\\"}
-    "RA(MINUS)": {t: "\\"}
     "&kp EQUAL": "´"
     "&kp RA(NON_US_BSLH)": "|"
     "&kp RA(RBKT)": "~"
@@ -169,13 +166,13 @@ draw_config:
     g.layer-adjust rect.held { fill: #3a4a8a; }
     
 /* --- DEFAULT LAYER DAUMENTASTEN (Pos 37 - 42) --- */
-    g.layer-default g.keypos-37 rect.key { fill: #3a4a8a !important; }
-    g.layer-default g.keypos-38 rect.key { fill: #854747 !important; }
-    g.layer-default g.keypos-39 rect.key { fill: #3a7a3a !important; }
-    g.layer-default g.keypos-40 rect.key { fill: #3a7a3a !important; }
-    g.layer-default g.keypos-41 rect.key { fill: #854747 !important; }
-    g.layer-default g.keypos-42 rect.key { fill: #3a4a8a !important; }
+    g.layer-default g.keypos-37 rect.key { fill: #3a4a8a; }
+    g.layer-default g.keypos-38 rect.key { fill: #854747; }
+    g.layer-default g.keypos-39 rect.key { fill: #3a7a3a; }
+    g.layer-default g.keypos-40 rect.key { fill: #3a7a3a; }
+    g.layer-default g.keypos-41 rect.key { fill: #854747; }
+    g.layer-default g.keypos-42 rect.key { fill: #3a4a8a; }
 
     /* --- ADJUST LAYER DAUMENTASTEN --- */
-    g.layer-adjust g.keypos-37 rect.key { fill: #3a4a8a !important; }
-    g.layer-adjust g.keypos-41 rect.key { fill: #3a4a8a !important; }
+    g.layer-adjust g.keypos-37 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-41 rect.key { fill: #3a4a8a; }
