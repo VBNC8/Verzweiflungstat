@@ -273,7 +273,7 @@ combos:
 - p:
   - 17
   - 18
-  k: \\
+  k: \
   l:
   - default
   - lower
