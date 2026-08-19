@@ -106,7 +106,7 @@ jobs:
           echo "First 80 lines:"
           sed -n '1,80p' "$f"
           
-          - name: Commit and push
+      - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
