@@ -184,11 +184,6 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - '&bt_sel_0'
-  - '&bt_sel_1'
-  - '&bt_sel_2'
-  - '&bt_sel_3'
-  - '&bt_sel_4'
   - t: ▽
     type: trans
   - t: ▽
@@ -199,8 +194,20 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - $$mdi:usb$$
-  - Pwr±
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - '&bootloader'
@@ -212,12 +219,14 @@ layers:
   - t: ▽
     type: trans
   - type: held
-  - BT CLR
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - BT CLR
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - t: ▽
@@ -311,90 +320,6 @@ combos:
   k: ß
   l:
   - default
-- p:
-  - 21
-  - 14
-  k: '&bt_sel_0'
-- p:
-  - 21
-  - 11
-  k: '&bt_sel_1'
-- p:
-  - 21
-  - 10
-  k: '&bt_sel_2'
-- p:
-  - 21
-  - 12
-  k: $$mdi:usb$$
-- p:
-  - 0
-  - 21
-  - 24
-  k: UP
-  l:
-  - default
-- p:
-  - 0
-  - 20
-  - 24
-  k: DOWN
-  l:
-  - default
-- p:
-  - 0
-  - 22
-  - 24
-  k: '&m_prev'
-  l:
-  - default
-- p:
-  - 0
-  - 23
-  - 24
-  k: '&m_next'
-  l:
-  - default
-- p:
-  - 0
-  - 24
-  k: '&m_pp'
-  l:
-  - default
-- p:
-  - 0
-  - 21
-  - 24
-  k: UP
-  l:
-  - lower
-- p:
-  - 0
-  - 20
-  - 24
-  k: DOWN
-  l:
-  - lower
-- p:
-  - 0
-  - 22
-  - 24
-  k: LEFT
-  l:
-  - lower
-- p:
-  - 0
-  - 23
-  - 24
-  k: RIGHT
-  l:
-  - lower
-- p:
-  - 0
-  - 24
-  k: '&m_pp'
-  l:
-  - lower
 - p:
   - 30
   - 35
