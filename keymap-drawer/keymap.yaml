@@ -101,9 +101,8 @@ layers:
     s: sticky
   - ⤒ Pos1
   - ⤓ End
-  - t: ⌫
-    h: Adjust
-  - Adjust
+  - ⌫
+  - h: Adjust
   raise:
   - F1
   - F2
