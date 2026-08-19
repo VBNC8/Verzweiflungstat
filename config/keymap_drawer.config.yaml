@@ -11,8 +11,8 @@ parse_config:
     "&mo 3": {h: "Adjust"}
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
-    "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
-    "&nbsp": {t: "&nbsp", type: "held"}
+    "&kp LC(LS(ESC))": {t: "Task Mgr"}
+    "&nbsp": {t: "&nbsp"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
     "&kp F14": {t: " ", type: "ghost"}
