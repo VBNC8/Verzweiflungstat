@@ -230,7 +230,7 @@
 
         // 2. UNKRITISCHE COMBOS (45-50ms)
         combo_excl       { timeout-ms = <45>; key-positions = <3 15>;  bindings = <&kp LS(N1)>; layers = <0 1>; };  // E (3) + D (15)
-        combo_colon      { timeout-ms = <45>; key-positions = <33 34>; bindings = <&kp LS(DOT)>; layers = <0 1>; }; // , (33) + . (34)
+        combo_colon      { timeout-ms = <45>; key-positions = <33 34>; bindings = <&kp LS(DOT)>; layers = <0 1>; }; // , (32) + . (33)
         combo_backslash  { timeout-ms = <45>; key-positions = <20 21>; bindings = <&kp RA(MINUS)>; layers = <0 1>; }; // K (20) + L (21)
         combo_slash      { timeout-ms = <45>; key-positions = <14 15>; bindings = <&kp KP_DIVIDE>; layers = <0 1>; }; // S (14) + D (15)
         combo_minus      { timeout-ms = <45>; key-positions = <21 22>; bindings = <&kp SLASH>; layers = <0 1>; }; // L (21) + Ö (22)
