@@ -3,17 +3,14 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "config/hawk.keymap"
+      - "config/splitkb_aurora_corne.keymap"
       - "config/keymap_drawer.config.yaml"
+      - "keymap-drawer/keymap.yaml"
       - ".github/workflows/draw-keymap.yml"
-      - "keymap-drawer/layout.json"
 
 jobs:
   draw:
     runs-on: ubuntu-latest
-    env:
-      SVG_OUT: keymap-drawer/hawk.svg
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,162 +18,98 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install dependencies
         run: pip install tree-sitter==0.21.3 keymap-drawer PyYAML
 
       - name: Parse and Transform
         run: |
-          sed 's/key_positions/key-positions/g' config/hawk.keymap > /tmp/hawk_normalized.keymap
-          keymap -c config/keymap_drawer.config.yaml parse -z /tmp/hawk_normalized.keymap > raw_keymap.yaml
+          # 1. Parsen (erzeugt raw_keymap.yaml mit 42 Tasten)
+          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
+          
+          python3 - <<EOF
+          import yaml
 
-          python3 - <<'PYEOF'
-          import yaml, os
-
-          with open('raw_keymap.yaml', 'r', encoding='utf-8') as f:
+          with open('raw_keymap.yaml', 'r') as f:
               data = yaml.safe_load(f)
 
-          data['layout'] = {'qmk_info_json': 'keymap-drawer/layout.json', 'qmk_layout': 'LAYOUT'}
+          # Layout-Wechsel auf das schmale 3x5_3 Layout
+          data['layout'] = {'qmk_keyboard': 'crkbd/rev1', 'qmk_layout': 'LAYOUT_split_3x5_3'}
 
-          FW_TO_QMK = [
-               0,  1,  2,  3,  4,
-              18, 19, 20, 21, 22,
-               5,  6,  7,  8,  9,
-              23, 24, 25, 26, 27,
-              10, 11, 12, 13, 14,
-              28, 29, 30, 31, 32,
-              15, 16, 17,
-              33, 34, 35,
-          ]
+          # Hardware/BT-Combos ausblenden (Positionspaare im 42-Tasten layout)
+          # combo_bt0 (26, 20), combo_bt1 (26, 14), combo_bt2 (26, 13), combo_usb (26, 15)
+          bt_usb_positions = [{26, 20}, {26, 14}, {26, 13}, {26, 15}]
+          if 'combos' in data:
+              data['combos'] = [c for c in data['combos'] if set(c.get('p', [])) not in bt_usb_positions]
 
-          NAV_BASE = {'t': '⏮·⏯·⏭', 's': '↑', 'h': '↓', 'type': 'round'}
-          ENCODER_LABELS = {
-              'default_layer': {'s': '🔊 🔉'},
-              'lower_layer':   {'s': '⇤ ⇥'},
-              'raise_layer':   {'s': '↑ ↓'},
-              'adjust_layer':  {'s': '⟲ ⟳'},
-          }
+          # Definition der zu löschenden Indizes (äußere Spalten der 42er-Keymap)
+          deleted_indices = [0, 11, 12, 23, 24, 35]
 
+          # 2. Layer-Tasten löschen (42 -> 36 Tasten)
           layers = data.get('layers', {})
           for name, layer in layers.items():
               keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
-              if len(keys_list) != 36:
-                  continue
-              reordered = [keys_list[i] for i in FW_TO_QMK]
-              key = reordered[30]
-              if isinstance(key, dict):
-                  key['type'] = 'round'
-              else:
-                  reordered[30] = {'t': str(key), 'type': 'round'}
-              enc = ENCODER_LABELS.get(name, {})
-              reordered.append({**NAV_BASE, **enc})
-              if isinstance(layer, list):
-                  data['layers'][name] = reordered
-              else:
-                  layer['keys'] = reordered
+              for idx in sorted(deleted_indices, reverse=True):
+                  if len(keys_list) > idx:
+                      keys_list.pop(idx)
 
-          FW_POS_TO_QMK_POS = [
-               0,  1,  2,  3,  4,
-              10, 11, 12, 13, 14,
-              20, 21, 22, 23, 24,
-              30, 31, 32,
-               5,  6,  7,  8,  9,
-              15, 16, 17, 18, 19,
-              25, 26, 27, 28, 29,
-              33, 34, 35,
-          ]
+          # 3. EC11-Encoder-Taste (linker Daumen, im 36er Layout an Index 30) als Kreis darstellen
+          for name, layer in layers.items():
+              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
+              if len(keys_list) > 30:
+                  key = keys_list[30]
+                  if isinstance(key, dict):
+                      key['type'] = 'round'
+                  else:
+                      keys_list[30] = {'t': str(key), 'type': 'round'}
 
-          remapped_combos = []
-          for combo in data.get('combos', []):
-              positions = combo.get('p', combo.get('key_positions', []))
-              if 11 in positions:
-                  continue
-              NAV_PARTNERS = {10, 11, 12, 13, 14}
-              if 0 in positions and any(p in NAV_PARTNERS for p in positions):
-                  continue
-              remapped = [FW_POS_TO_QMK_POS[pos] for pos in positions]
-              if 'p' in combo:
-                  combo['p'] = remapped
-              else:
-                  combo['key_positions'] = remapped
-              remapped_combos.append(combo)
-          data['combos'] = remapped_combos
+          # 4. verbleibende Combos auf das 36er Layout umrechnen
+          if 'combos' in data:
+              for combo in data['combos']:
+                  new_positions = []
+                  for pos in combo['p']:
+                      offset = sum(1 for d in deleted_indices if d < pos)
+                      new_positions.append(pos - offset)
+                  combo['p'] = new_positions
 
+          import os
           os.makedirs('keymap-drawer', exist_ok=True)
-          with open('keymap-drawer/keymap.yaml', 'w', encoding='utf-8') as f:
+          with open('keymap-drawer/keymap.yaml', 'w') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
-          PYEOF
+          EOF
 
       - name: Draw SVG
         run: |
-          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > "$SVG_OUT"
+          keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
 
-      - name: Sanitize SVG style comments
+      - name: Validate SVG XML
         run: |
           python3 - <<'PY'
-          import os, re
-
-          p = os.environ["SVG_OUT"]
-          with open(p, "r", encoding="utf-8", errors="replace") as f:
-              svg = f.read()
-
-          def fix_comment(m):
-              c = m.group(1)
-              c = c.replace("—", "-").replace("–", "-")
-              c = c.replace("&", "and")
-              return f"/*{c}*/"
-
-          svg = re.sub(r"/\*(.*?)\*/", fix_comment, svg, flags=re.S)
-
-          with open(p, "w", encoding="utf-8") as f:
-              f.write(svg)
-
-          print("Sanitized style comments in", p)
-          PY
-
-      - name: Validate SVG XML (with context)
-        run: |
-          python3 - <<'PY'
-          import os
           import xml.etree.ElementTree as ET
-
-          p = os.environ["SVG_OUT"]
-          try:
-              ET.parse(p)
-              print(f"SVG XML OK: {p}")
-          except ET.ParseError as e:
-              print(f"SVG XML ParseError: {e}")
-              line_no, col = getattr(e, "position", (None, None))
-              if line_no is not None:
-                  with open(p, "r", encoding="utf-8", errors="replace") as f:
-                      lines = f.readlines()
-                  start = max(1, line_no - 2)
-                  end = min(len(lines), line_no + 2)
-                  print(f"\nContext ({start}-{end}):")
-                  for i in range(start, end + 1):
-                      txt = lines[i - 1].rstrip("\n")
-                      print(f"{i:>5}: {txt}")
-                      if i == line_no:
-                          print("       " + " " * col + "^")
-              raise
+          p = "keymap-drawer/splitkb_aurora_corne.svg"
+          ET.parse(p)
+          print(f"SVG XML OK: {p}")
           PY
 
-      - name: Debug SVG around previous failure area
-        if: always()
+      - name: Debug SVG content (embedded refs / escaping)
         run: |
-          f="$SVG_OUT"
+          f="keymap-drawer/splitkb_aurora_corne.svg"
           echo "File info:"
-          ls -lah "$f" || true
+          ls -lah "$f"
           echo
-          echo "Lines 160-175:"
-          nl -ba "$f" | sed -n '160,175p' || true
-
+          echo "Potentially problematic patterns:"
+          grep -n "data:image" "$f" || true
+          grep -n "xlink:href\\|href=" "$f" || true
+          grep -n "\\\\\\\\" "$f" || true
+          echo
+          echo "First 80 lines:"
+          sed -n '1,80p' "$f"
+          
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add keymap-drawer/keymap.yaml "$SVG_OUT"
-          git commit -m "Automated keymap draw for hawk (SVG sanitize + validate)" || exit 0
-          git pull --rebase
+          git add keymap-drawer/keymap.yaml keymap-drawer/splitkb_aurora_corne.svg
+          git commit -m "Automated 3x5_3 crop and draw fix" || exit 0
           git push
