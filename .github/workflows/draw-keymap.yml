@@ -1,19 +1,18 @@
 name: Draw ZMK keymaps
-
 on:
   workflow_dispatch:
   push:
     paths:
-      - "config/splitkb_aurora_corne.keymap"
+      - "config/hawk.keymap"
       - "config/keymap_drawer.config.yaml"
-      - "keymap-drawer/keymap.yaml"
       - ".github/workflows/draw-keymap.yml"
+      - "keymap-drawer/layout.json"
 
 jobs:
   draw:
     runs-on: ubuntu-latest
     env:
-      SVG_OUT: keymap-drawer/splitkb_aurora_corne.svg
+      SVG_OUT: keymap-drawer/hawk.svg
 
     steps:
       - name: Checkout
@@ -29,110 +28,114 @@ jobs:
 
       - name: Parse and Transform
         run: |
-          # 1) Parse (produces raw_keymap.yaml with 42 keys)
-          keymap -c config/keymap_drawer.config.yaml parse -z config/splitkb_aurora_corne.keymap > raw_keymap.yaml
+          sed 's/key_positions/key-positions/g' config/hawk.keymap > /tmp/hawk_normalized.keymap
+          keymap -c config/keymap_drawer.config.yaml parse -z /tmp/hawk_normalized.keymap > raw_keymap.yaml
 
-          python3 - <<'PY'
-          import os
-          import yaml
+          python3 - <<'PYEOF'
+          import yaml, os
 
-          with open("raw_keymap.yaml", "r", encoding="utf-8") as f:
+          with open('raw_keymap.yaml', 'r', encoding='utf-8') as f:
               data = yaml.safe_load(f)
 
-          # Switch to narrow 3x5_3 layout
-          data["layout"] = {
-              "qmk_keyboard": "crkbd/rev1",
-              "qmk_layout": "LAYOUT_split_3x5_3"
+          data['layout'] = {'qmk_info_json': 'keymap-drawer/layout.json', 'qmk_layout': 'LAYOUT'}
+
+          FW_TO_QMK = [
+               0,  1,  2,  3,  4,
+              18, 19, 20, 21, 22,
+               5,  6,  7,  8,  9,
+              23, 24, 25, 26, 27,
+              10, 11, 12, 13, 14,
+              28, 29, 30, 31, 32,
+              15, 16, 17,
+              33, 34, 35,
+          ]
+
+          NAV_BASE = {'t': '⏮·⏯·⏭', 's': '↑', 'h': '↓', 'type': 'round'}
+          ENCODER_LABELS = {
+              'default_layer': {'s': '🔊 🔉'},
+              'lower_layer':   {'s': '⇤ ⇥'},
+              'raise_layer':   {'s': '↑ ↓'},
+              'adjust_layer':  {'s': '⟲ ⟳'},
           }
 
-          # Hide hardware/BT combos in 42-key layout
-          # combo_bt0 (26,20), combo_bt1 (26,14), combo_bt2 (26,13), combo_usb (26,15)
-          bt_usb_positions = [{26, 20}, {26, 14}, {26, 13}, {26, 15}]
-          if "combos" in data:
-              data["combos"] = [
-                  c for c in data["combos"]
-                  if set(c.get("p", [])) not in bt_usb_positions
-              ]
-
-          # Indices to delete (outer columns of 42-key keymap)
-          deleted_indices = [0, 11, 12, 23, 24, 35]
-
-          # 2) Delete layer keys (42 -> 36)
-          layers = data.get("layers", {})
+          layers = data.get('layers', {})
           for name, layer in layers.items():
-              keys_list = layer if isinstance(layer, list) else layer.get("keys", [])
-              for idx in sorted(deleted_indices, reverse=True):
-                  if len(keys_list) > idx:
-                      keys_list.pop(idx)
+              keys_list = layer if isinstance(layer, list) else layer.get('keys', [])
+              if len(keys_list) != 36:
+                  continue
+              reordered = [keys_list[i] for i in FW_TO_QMK]
+              key = reordered[30]
+              if isinstance(key, dict):
+                  key['type'] = 'round'
+              else:
+                  reordered[30] = {'t': str(key), 'type': 'round'}
+              enc = ENCODER_LABELS.get(name, {})
+              reordered.append({**NAV_BASE, **enc})
+              if isinstance(layer, list):
+                  data['layers'][name] = reordered
+              else:
+                  layer['keys'] = reordered
 
-          # 3) Mark EC11 encoder key (left thumb, index 30 in 36-key layout) as round
-          for name, layer in layers.items():
-              keys_list = layer if isinstance(layer, list) else layer.get("keys", [])
-              if len(keys_list) > 30:
-                  key = keys_list[30]
-                  if isinstance(key, dict):
-                      key["type"] = "round"
-                  else:
-                      keys_list[30] = {"t": str(key), "type": "round"}
+          FW_POS_TO_QMK_POS = [
+               0,  1,  2,  3,  4,
+              10, 11, 12, 13, 14,
+              20, 21, 22, 23, 24,
+              30, 31, 32,
+               5,  6,  7,  8,  9,
+              15, 16, 17, 18, 19,
+              25, 26, 27, 28, 29,
+              33, 34, 35,
+          ]
 
-          # 4) Remap remaining combo positions to 36-key layout
-          if "combos" in data:
-              for combo in data["combos"]:
-                  positions = combo.get("p", [])
-                  new_positions = []
-                  for pos in positions:
-                      offset = sum(1 for d in deleted_indices if d < pos)
-                      new_positions.append(pos - offset)
-                  combo["p"] = new_positions
+          remapped_combos = []
+          for combo in data.get('combos', []):
+              positions = combo.get('p', combo.get('key_positions', []))
+              if 11 in positions:
+                  continue
+              NAV_PARTNERS = {10, 11, 12, 13, 14}
+              if 0 in positions and any(p in NAV_PARTNERS for p in positions):
+                  continue
+              remapped = [FW_POS_TO_QMK_POS[pos] for pos in positions]
+              if 'p' in combo:
+                  combo['p'] = remapped
+              else:
+                  combo['key_positions'] = remapped
+              remapped_combos.append(combo)
+          data['combos'] = remapped_combos
 
-          os.makedirs("keymap-drawer", exist_ok=True)
-          with open("keymap-drawer/keymap.yaml", "w", encoding="utf-8") as f:
+          os.makedirs('keymap-drawer', exist_ok=True)
+          with open('keymap-drawer/keymap.yaml', 'w', encoding='utf-8') as f:
               yaml.dump(data, f, sort_keys=False, allow_unicode=True)
-          PY
-
-      - name: Sanitize keymap text for SVG/XML
-        run: |
-          python3 - <<'PY'
-          import yaml
-          from xml.sax.saxutils import escape
-
-          PATH = "keymap-drawer/keymap.yaml"
-
-          def esc(v):
-              if isinstance(v, str):
-                  return escape(v, {"'": "&apos;", '"': "&quot;"})
-              return v
-
-          def walk(obj):
-              if isinstance(obj, dict):
-                  out = {}
-                  for k, v in obj.items():
-                      # Escape common display text fields keymap-drawer uses
-                      if k in {"t", "h", "s", "r", "m", "label"} and isinstance(v, str):
-                          out[k] = esc(v)
-                      else:
-                          out[k] = walk(v)
-                  return out
-              if isinstance(obj, list):
-                  return [walk(x) for x in obj]
-              return obj
-
-          with open(PATH, "r", encoding="utf-8") as f:
-              data = yaml.safe_load(f)
-
-          data = walk(data)
-
-          with open(PATH, "w", encoding="utf-8") as f:
-              yaml.dump(data, f, sort_keys=False, allow_unicode=True)
-
-          print("Sanitized:", PATH)
-          PY
+          PYEOF
 
       - name: Draw SVG
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > "$SVG_OUT"
 
-      - name: Validate SVG XML (show exact error location)
+      - name: Sanitize SVG style comments
+        run: |
+          python3 - <<'PY'
+          import os, re
+
+          p = os.environ["SVG_OUT"]
+          with open(p, "r", encoding="utf-8", errors="replace") as f:
+              svg = f.read()
+
+          def fix_comment(m):
+              c = m.group(1)
+              c = c.replace("—", "-").replace("–", "-")
+              c = c.replace("&", "and")
+              return f"/*{c}*/"
+
+          svg = re.sub(r"/\*(.*?)\*/", fix_comment, svg, flags=re.S)
+
+          with open(p, "w", encoding="utf-8") as f:
+              f.write(svg)
+
+          print("Sanitized style comments in", p)
+          PY
+
+      - name: Validate SVG XML (with context)
         run: |
           python3 - <<'PY'
           import os
@@ -140,45 +143,40 @@ jobs:
 
           p = os.environ["SVG_OUT"]
           try:
-            ET.parse(p)
-            print(f"SVG XML OK: {p}")
+              ET.parse(p)
+              print(f"SVG XML OK: {p}")
           except ET.ParseError as e:
-            print(f"SVG XML ParseError: {e}")
-            # e.position => (line, column)
-            line_no, col = getattr(e, "position", (None, None))
-            if line_no is not None:
-              with open(p, "r", encoding="utf-8", errors="replace") as f:
-                lines = f.readlines()
-              start = max(1, line_no - 2)
-              end = min(len(lines), line_no + 2)
-              print(f"\nContext ({start}-{end}):")
-              for i in range(start, end + 1):
-                txt = lines[i - 1].rstrip("\n")
-                print(f"{i:>5}: {txt}")
-                if i == line_no:
-                  print("       " + " " * col + "^")
-            raise
+              print(f"SVG XML ParseError: {e}")
+              line_no, col = getattr(e, "position", (None, None))
+              if line_no is not None:
+                  with open(p, "r", encoding="utf-8", errors="replace") as f:
+                      lines = f.readlines()
+                  start = max(1, line_no - 2)
+                  end = min(len(lines), line_no + 2)
+                  print(f"\nContext ({start}-{end}):")
+                  for i in range(start, end + 1):
+                      txt = lines[i - 1].rstrip("\n")
+                      print(f"{i:>5}: {txt}")
+                      if i == line_no:
+                          print("       " + " " * col + "^")
+              raise
           PY
 
-      - name: Debug SVG content (always)
+      - name: Debug SVG around previous failure area
         if: always()
         run: |
           f="$SVG_OUT"
           echo "File info:"
           ls -lah "$f" || true
           echo
-          echo "Potentially problematic patterns:"
-          grep -n "data:image" "$f" || true
-          grep -n "xlink:href\\|href=" "$f" || true
-          grep -n "\\\\\\\\" "$f" || true
-          echo
-          echo "Lines 150-180 (around previous parse error):"
-          nl -ba "$f" | sed -n '150,180p' || true
+          echo "Lines 160-175:"
+          nl -ba "$f" | sed -n '160,175p' || true
 
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add keymap-drawer/keymap.yaml "$SVG_OUT"
-          git commit -m "Automated 3x5_3 crop and draw fix" || exit 0
+          git commit -m "Automated keymap draw for hawk (SVG sanitize + validate)" || exit 0
+          git pull --rebase
           git push
