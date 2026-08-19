@@ -264,8 +264,8 @@ combos:
   - default
   - lower
 - p:
+  - 27
   - 28
-  - 29
   k: ':'
   l:
   - default
