@@ -145,23 +145,32 @@ text.tap {
 text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
   font-size: 13px;
 }
-g.keypos-30 rect.key {
+g.keypos-36 rect.key {
   rx: 50%;
   ry: 50%;
 }
-g.layer-lower rect.held { fill: #854747; }
-g.layer-raise rect.held { fill: #3a7a3a; }
-g.layer-adjust rect.held { fill: #3a4a8a; }
 
-/* Angepasste Daumentasten-Highlights */
-g.layer-default g.keypos-36 rect.key { fill: #3a4a8a; }
-g.layer-default g.keypos-37 rect.key { fill: #854747; }
-g.layer-default g.keypos-38 rect.key { fill: #3a7a3a; }
-g.layer-default g.keypos-39 rect.key { fill: #3a7a3a; }
-g.layer-default g.keypos-40 rect.key { fill: #854747; }
-g.layer-default g.keypos-41 rect.key { fill: #3a4a8a; }
-g.layer-adjust g.keypos-36 rect.key { fill: #3a4a8a; }
-g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
+/* --- DEFAULT LAYER DAUMENTASTEN (Pos 37 - 42) --- */
+g.layer-default g.keypos-37 rect.key { fill: #3a4a8a !important; }
+g.layer-default g.keypos-38 rect.key { fill: #854747 !important; }
+g.layer-default g.keypos-39 rect.key { fill: #3a7a3a !important; }
+g.layer-default g.keypos-40 rect.key { fill: #3a7a3a !important; }
+g.layer-default g.keypos-41 rect.key { fill: #854747 !important; }
+g.layer-default g.keypos-42 rect.key { fill: #3a4a8a !important; }
+
+/* --- LOWER LAYER DAUMENTASTEN --- */
+g.layer-lower g.keypos-37 rect.key { fill: #3a4a8a !important; }
+g.layer-lower g.keypos-38 rect.key { fill: #3a7a3a !important; }
+g.layer-lower g.keypos-41 rect.key { fill: #3a7a3a !important; }
+g.layer-lower g.keypos-42 rect.key { fill: #3a4a8a !important; }
+
+/* --- RAISE LAYER DAUMENTASTEN (Nur Pos1 & End rot) --- */
+g.layer-raise g.keypos-39 rect.key { fill: #854747 !important; }
+g.layer-raise g.keypos-40 rect.key { fill: #854747 !important; }
+
+/* --- ADJUST LAYER DAUMENTASTEN --- */
+g.layer-adjust g.keypos-37 rect.key { fill: #3a4a8a !important; }
+g.layer-adjust g.keypos-42 rect.key { fill: #3a4a8a !important; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
@@ -532,15 +541,15 @@ g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 <use href="#mdi:microsoft-windows-classic" xlink:href="#mdi:microsoft-windows-classic" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:microsoft-windows-classic"/>
 <text x="0" y="-24" class="key shifted">sticky</text>
 </g>
-<g transform="translate(295, 224) rotate(30.0)" class="key held keypos-32">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
-<text x="0" y="0" class="key held tap">
+<g transform="translate(295, 224) rotate(30.0)" class="key keypos-32">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key"/>
+<text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.6em">⤒</tspan><tspan x="0" dy="1.2em">Pos1</tspan>
 </text>
 </g>
-<g transform="translate(433, 224) rotate(-30.0)" class="key held keypos-33">
-<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key held"/>
-<text x="0" y="0" class="key held tap">
+<g transform="translate(433, 224) rotate(-30.0)" class="key keypos-33">
+<rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key"/>
+<text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.6em">⤓</tspan><tspan x="0" dy="1.2em">End</tspan>
 </text>
 </g>
@@ -549,9 +558,9 @@ g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 <text x="0" y="0" class="key tap">⌫</text>
 <text x="0" y="24" class="key hold">Adjust</text>
 </g>
-<g transform="translate(560, 205)" class="key held keypos-35">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<text x="0" y="0" class="key held tap">Adjust</text>
+<g transform="translate(560, 205)" class="key keypos-35">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">Adjust</text>
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="154" y="74" width="28" height="26" class="combo"/>
@@ -714,9 +723,9 @@ g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 <g transform="translate(168, 205)" class="key round keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key round"/>
 </g>
-<g transform="translate(230, 213) rotate(15.0)" class="key held keypos-31">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<text x="0" y="0" class="key held tap">
+<g transform="translate(230, 213) rotate(15.0)" class="key keypos-31">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.6em">Task</tspan><tspan x="0" dy="1.2em">Mgr</tspan>
 </text>
 </g>
@@ -728,9 +737,9 @@ g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-40" width="52" height="80" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(498, 213) rotate(-15.0)" class="key held keypos-34">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<text x="0" y="0" class="key held tap">&amp;nbsp</text>
+<g transform="translate(498, 213) rotate(-15.0)" class="key keypos-34">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">&amp;nbsp</text>
 </g>
 <g transform="translate(560, 205)" class="key trans keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -891,8 +900,8 @@ g.layer-adjust g.keypos-40 rect.key { fill: #3a4a8a; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(560, 205)" class="key held keypos-35">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
+<g transform="translate(560, 205)" class="key keypos-35">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 </g>
 </g>

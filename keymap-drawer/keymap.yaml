@@ -99,14 +99,11 @@ layers:
     type: round
   - t: $$mdi:microsoft-windows-classic$$
     s: sticky
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
+  - ⤒ Pos1
+  - ⤓ End
   - t: ⌫
     h: Adjust
-  - t: Adjust
-    type: held
+  - Adjust
   raise:
   - F1
   - F2
@@ -154,14 +151,12 @@ layers:
   - ´
   - t: ' '
     type: round
-  - t: Task Mgr
-    type: held
+  - Task Mgr
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - t: '&nbsp'
-    type: held
+  - '&nbsp'
   - t: ▽
     type: trans
   adjust:
@@ -231,8 +226,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
+  - ' '
 combos:
 - p:
   - 13
