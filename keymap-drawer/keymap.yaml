@@ -279,7 +279,7 @@ combos:
 - p:
   - 17
   - 18
-  k: '&RA(MINUS)'
+  k: \
   l:
   - default
   - lower
