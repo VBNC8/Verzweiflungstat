@@ -83,7 +83,30 @@ jobs:
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > keymap-drawer/splitkb_aurora_corne.svg
 
-      - name: Commit and push
+      - name: Validate SVG XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          p = "keymap-drawer/hawk.svg"
+          ET.parse(p)
+          print(f"SVG XML OK: {p}")
+          PY
+
+      - name: Debug SVG content (embedded refs / escaping)
+        run: |
+          f="keymap-drawer/hawk.svg"
+          echo "File info:"
+          ls -lah "$f"
+          echo
+          echo "Potentially problematic patterns:"
+          grep -n "data:image" "$f" || true
+          grep -n "xlink:href\\|href=" "$f" || true
+          grep -n "\\\\\\\\" "$f" || true
+          echo
+          echo "First 80 lines:"
+          sed -n '1,80p' "$f"
+          
+          - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
