@@ -8,9 +8,9 @@ parse_config:
     "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
     "&lt 3 LG(D)": {t: "$$mdi:monitor$$", h: "Adjust"}
     "&sk LGUI": {t: "$$mdi:microsoft-windows-classic$$", s: "sticky"}
-    "&mo 1": {t: "Lower", type: "held"}
-    "&mo 2": {t: "Raise", type: "held"}
-    "&mo 3": {t: "Adjust", type: "held"}
+    "&mo 1": {t: "Lower"}
+    "&mo 2": {t: "Raise"}
+    "&mo 3": {t: "Adjust"}
 
     # --- HRM BEHAVIORS ---
     "&hrm_left LSHIFT A": {t: "A", h: "Shift"}
@@ -161,9 +161,6 @@ draw_config:
       rx: 50%;
       ry: 50%;
     }
-    g.layer-lower rect.held { fill: #854747; }
-    g.layer-raise rect.held { fill: #3a7a3a; }
-    g.layer-adjust rect.held { fill: #3a4a8a; }
     
 /* --- DEFAULT LAYER DAUMENTASTEN (Pos 37 - 42) --- */
     g.layer-default g.keypos-37 rect.key { fill: #3a4a8a; }
