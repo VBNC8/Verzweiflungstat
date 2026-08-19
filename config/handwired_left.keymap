@@ -40,7 +40,6 @@
             bindings = <&kp RA(N8)>, <&kp RA(N9)>, <&kp LEFT>;
         };
 
-        
         durchmesser: durchmesser {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -79,7 +78,6 @@
             #binding-cells = <0>;
             bindings = <&kp C_PREV>;
         };
-
     };
 
     behaviors {
@@ -141,14 +139,6 @@
             retro-tap;
             bindings = <&mo>, <&kp>;
         };
-
-        enc_bt_clr: enc_bt_clr {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <5000>;
-            flavor = "tap-preferred";
-            bindings = <&macro_bt_clr>, <&none>;
-        };
     };
 
     combos {
@@ -171,7 +161,6 @@
         combo_oe         { timeout-ms = <45>; key-positions = <9 21>;  bindings = <&kp SEMI>; layers = <0>; };    // O (9) + L (21)
         combo_ss         { timeout-ms = <45>; key-positions = <2 14>;  bindings = <&kp MINUS>; layers = <0>; };   // W (2) + S (14)
 
-        
         combo_del_last_word {
             timeout-ms = <45>;
             key-positions = <36 41>;
@@ -187,10 +176,10 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
             bindings = <
-&none   &kp Q              &kp W              &kp E                &kp R       &kp T        &kp Y         &kp U              &kp I                 &kp O                &kp P                              &none
-&none   &hrm_left LSHIFT A &kp S              &kp D                &kp F       &kp G        &kp H         &kp J              &kp K                 &kp L                &hrm_right RSHIFT LS(NON_US_HASH)  &none
-&kp C_PP &kp Z             &hrm_safe LCTRL X  &hrm_safe LALT C     &kp V       &kp B        &kp N         &kp M              &hrm_safe RALT COMMA  &hrm_safe RCTRL DOT  &kp DEL                            &kp C_PP
-                                              &kp C_PP             &lt 1 ESC   &lt 2 TAB    &lt_enter 2 RET &lt_hp 1 SPACE   &kp BSPC
+&none   &kp Q               &kp W               &kp E                &kp R       &kp T        &kp Y         &kp U              &kp I               &kp O                &kp P                               &none
+&none   &hrm_left LSHIFT A &kp S               &kp D                &kp F       &kp G        &kp H         &kp J              &kp K               &kp L                &hrm_right RSHIFT LS(NON_US_HASH)  &none
+&kp C_PP &kp Z               &hrm_safe LCTRL X   &hrm_safe LALT C     &kp V       &kp B        &kp N         &kp M              &hrm_safe RALT COMMA &hrm_safe RCTRL DOT  &kp DEL                             &kp C_PP
+                                                &kp C_PP             &lt 1 ESC   &lt 2 TAB    &lt_enter 2 RET &lt_hp 1 SPACE   &kp BSPC
             >;
         };
 
@@ -220,10 +209,10 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-&none   &trans     &trans             &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
-&none   &trans     &trans             &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
-&trans  &trans     &trans             &trans     &bootloader  &sys_reset  &sys_reset  &bootloader  &kp C_PREV  &kp C_NEXT  &trans   &trans
-                                      &trans     &trans       &trans      &trans      &trans       &trans
+&none   &trans     &trans              &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
+&none   &trans     &trans              &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
+&trans  &trans     &trans              &trans     &bootloader  &sys_reset  &sys_reset  &bootloader  &kp C_PREV  &kp C_NEXT  &trans   &trans
+                                       &trans     &trans       &trans      &trans      &trans       &trans
             >;
         };
     };
