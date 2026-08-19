@@ -156,22 +156,20 @@ draw_config:
     g.keypos-30 rect.key { rx: 50%; ry: 50%; }
 
     /* DEFAULT thumbs */
-    g.layer-default g.keypos-30 rect.key { fill: #3a4a8a; }
     g.layer-default g.keypos-31 rect.key { fill: #854747; }
     g.layer-default g.keypos-32 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-33 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-34 rect.key { fill: #854747; }
-    g.layer-default g.keypos-35 rect.key { fill: #3a4a8a; }
 
     /* LOWER thumbs */
     g.layer-lower g.keypos-30 rect.key { fill: #3a4a8a; }
-    g.layer-lower g.keypos-31 rect.key { fill: #3a7a3a; }
-    g.layer-lower g.keypos-34 rect.key { fill: #3a7a3a; }
+    g.layer-lower g.keypos-31 rect.key { fill: #854747; }
+    g.layer-lower g.keypos-34 rect.key { fill: #854747; }
     g.layer-lower g.keypos-35 rect.key { fill: #3a4a8a; }
 
     /* RAISE thumbs */
-    g.layer-raise g.keypos-32 rect.key { fill: #854747; }
-    g.layer-raise g.keypos-33 rect.key { fill: #854747; }
+    g.layer-raise g.keypos-32 rect.key { fill: #3a7a3a; }
+    g.layer-raise g.keypos-33 rect.key { fill: #3a7a3a; }
 
     /* ADJUST thumbs */
     g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
