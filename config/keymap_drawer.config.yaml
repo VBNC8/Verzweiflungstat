@@ -21,12 +21,12 @@ parse_config:
     "&hrm_safe RCTRL DOT": {t: ".", h: "CTRL"}
 
     # --- SONDERTASTEN & NAVIGATION ---
-    "&kp HOME": {t: "⤒ Pos1", type: "held"}
-    "&kp END": {t: "⤓ End", type: "held"}
-    "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
-    "&nbsp": {t: "&nbsp", type: "held"}
-    "&kp F12": {t: " ", type: "held"}
-    "&kp F13": {t: " ", type: "held"}
+    "&kp HOME": {t: "⤒ Pos1"}
+    "&kp END": {t: "⤓ End"}
+    "&kp LC(LS(ESC))": {t: "Task Mgr"}
+    "&nbsp": {t: "&nbsp"}
+    "&kp F12": {t: " "}
+    "&kp F13": {t: " "}
     "&kp F14": {t: " ", type: "ghost"}
     "&f10_ghost": {t: "F10", type: "ghost"}
     "&kp F11": "RGB"
@@ -40,7 +40,7 @@ parse_config:
     
     # --- SYMBOLS & SHIFTED ---
     "&kp LS(N1)": "!"
-    "&kp LS(N2)": '"'
+    '&kp LS(N2)': '"'
     "&kp LS(N4)": '$'
     "&kp LS(N5)": '%'
     "&kp LS(N6)": "&"
@@ -73,7 +73,7 @@ parse_config:
 
     # --- ZAHLEN & UMLAUTE ---
     "&kp N1": {t: "1", s: "!"}
-    "&kp N2": {t: "2", s: "\"}
+    '&kp N2': {t: "2", s: '"'}
     "&kp N3": {t: "3", s: "§"}
     "&kp N4": {t: "4", s: "$"}
     "&kp N5": {t: "5", s: "%"}
@@ -96,7 +96,7 @@ parse_config:
     "&kp RA(P)": "Ö"
     "&kp RA(Y)": "Ü"
     "&kp RA(SQT)": "Ä"
-    "&kp RA(MINUS)": "\\"
+    "&kp RA(MINUS)": '\'
     "&kp EQUAL": "´"
     "&kp RA(NON_US_BSLH)": "|"
     "&kp RA(RBKT)": "~"
@@ -157,19 +157,29 @@ draw_config:
     text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
       font-size: 13px;
     }
-    g.keypos-30 rect.key {
+    g.keypos-36 rect.key {
       rx: 50%;
       ry: 50%;
     }
     
-/* --- DEFAULT LAYER DAUMENTASTEN (Pos 37 - 42) --- */
-    g.layer-default g.keypos-37 rect.key { fill: #3a4a8a; }
-    g.layer-default g.keypos-38 rect.key { fill: #854747; }
-    g.layer-default g.keypos-39 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-40 rect.key { fill: #3a7a3a; }
-    g.layer-default g.keypos-41 rect.key { fill: #854747; }
-    g.layer-default g.keypos-42 rect.key { fill: #3a4a8a; }
+    /* --- DEFAULT LAYER DAUMENTASTEN (Pos 37 - 42) --- */
+    g.layer-default g.keypos-37 rect.key { fill: #3a4a8a !important; }
+    g.layer-default g.keypos-38 rect.key { fill: #854747 !important; }
+    g.layer-default g.keypos-39 rect.key { fill: #3a7a3a !important; }
+    g.layer-default g.keypos-40 rect.key { fill: #3a7a3a !important; }
+    g.layer-default g.keypos-41 rect.key { fill: #854747 !important; }
+    g.layer-default g.keypos-42 rect.key { fill: #3a4a8a !important; }
+
+    /* --- LOWER LAYER DAUMENTASTEN --- */
+    g.layer-lower g.keypos-37 rect.key { fill: #3a4a8a !important; }
+    g.layer-lower g.keypos-38 rect.key { fill: #3a7a3a !important; }
+    g.layer-lower g.keypos-41 rect.key { fill: #3a7a3a !important; }
+    g.layer-lower g.keypos-42 rect.key { fill: #3a4a8a !important; }
+
+    /* --- RAISE LAYER DAUMENTASTEN (Nur Pos1 & End rot) --- */
+    g.layer-raise g.keypos-39 rect.key { fill: #854747 !important; }
+    g.layer-raise g.keypos-40 rect.key { fill: #854747 !important; }
 
     /* --- ADJUST LAYER DAUMENTASTEN --- */
-    g.layer-adjust g.keypos-37 rect.key { fill: #3a4a8a; }
-    g.layer-adjust g.keypos-41 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-37 rect.key { fill: #3a4a8a !important; }
+    g.layer-adjust g.keypos-42 rect.key { fill: #3a4a8a !important; }
