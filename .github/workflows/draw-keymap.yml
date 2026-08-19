@@ -132,15 +132,32 @@ jobs:
         run: |
           keymap -c config/keymap_drawer.config.yaml draw keymap-drawer/keymap.yaml > "$SVG_OUT"
 
-      - name: Validate SVG XML
+      - name: Validate SVG XML (show exact error location)
         run: |
           python3 - <<'PY'
           import os
           import xml.etree.ElementTree as ET
 
           p = os.environ["SVG_OUT"]
-          ET.parse(p)
-          print(f"SVG XML OK: {p}")
+          try:
+            ET.parse(p)
+            print(f"SVG XML OK: {p}")
+          except ET.ParseError as e:
+            print(f"SVG XML ParseError: {e}")
+            # e.position => (line, column)
+            line_no, col = getattr(e, "position", (None, None))
+            if line_no is not None:
+              with open(p, "r", encoding="utf-8", errors="replace") as f:
+                lines = f.readlines()
+              start = max(1, line_no - 2)
+              end = min(len(lines), line_no + 2)
+              print(f"\nContext ({start}-{end}):")
+              for i in range(start, end + 1):
+                txt = lines[i - 1].rstrip("\n")
+                print(f"{i:>5}: {txt}")
+                if i == line_no:
+                  print("       " + " " * col + "^")
+            raise
           PY
 
       - name: Debug SVG content (always)
