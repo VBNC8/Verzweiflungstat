@@ -12,18 +12,18 @@ layers:
   - I
   - O
   - P
-  - A
+  - t: A
+    h: LSHIFT
   - S
   - D
-  - t: F
-    h: Shift
+  - F
   - G
   - H
-  - t: J
-    h: Shift
+  - J
   - K
   - L
-  - ''''
+  - t: ''''
+    h: RSHIFT
   - Z
   - t: X
     h: LCTRL
@@ -39,15 +39,15 @@ layers:
   - t: .
     h: RCTRL
   - ⌦
-  - ⌫
+  - ⏯
   - t: ESC
-    h: Raise
-  - t: ⇥
     h: Lower
-  - t: ↵
+  - t: TAB
+    h: raise
+  - t: RET
+    h: raise
+  - t: SPACE
     h: Lower
-  - t: ␣
-    h: Raise
   - ⌫
   - ⏯
   lower:
@@ -91,15 +91,19 @@ layers:
   - ','
   - .
   - '='
-  - adjust
-  - $$mdi:microsoft-windows-classic$$
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
   - t: $$mdi:monitor$$
+    h: adjust
     s: Show
-  - adjust
+  - t: $$mdi:microsoft-windows-classic$$
+    h: sticky
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ⌫
+    h: Adjust
   - t: ▽
     type: trans
   raise:
@@ -117,8 +121,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - 🖱 RMB
-  - 🖱 LMB
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - UP
@@ -126,8 +132,7 @@ layers:
   - DOWN
   - RIGHT
   - '`'
-  - t: ▽
-    type: trans
+  - ✕
   - t: ▽
     type: trans
   - t: ▽
@@ -145,60 +150,20 @@ layers:
   - t: ▽
     type: trans
   - ´
-  - t: ▽
-    type: trans
+  - F14
   - t: Task Mgr
     type: held
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: ⤒ Pos1
+    type: held
+  - t: ⤓ End
+    type: held
   - t: '&nbsp'
     type: held
   - t: ▽
     type: trans
-  - ✕
+  - t: ▽
+    type: trans
   adjust:
-  - t: $$mdi:lightbulb-on$$
-    s: OnOff
-  - t: $$mdi:brightness-7$$
-    s: Bri+
-  - t: $$mdi:palette-swatch$$
-    s: Hue+
-  - t: $$mdi:palette$$
-    s: Sat+
-  - t: $$mdi:cosine-wave$$
-    s: Mode
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - RGB ON
-  - t: $$mdi:brightness-4$$
-    s: Bri-
-  - t: $$mdi:palette-swatch-outline$$
-    s: Hue-
-  - t: $$mdi:palette-outline$$
-    s: Sat-
-  - t: $$mdi:cosine-wave$$
-    s: Rev
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - RGB OFF
   - t: ▽
     type: trans
   - t: ▽
@@ -211,24 +176,81 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - '&bt_sel_0'
+  - '&bt_sel_1'
+  - '&bt_sel_2'
+  - '&bt_sel_3'
+  - '&bt_sel_4'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - $$mdi:usb$$
+  - Pwr±
+  - t: ▽
+    type: trans
+  - '&bootloader'
+  - '&sys_reset'
+  - '&sys_reset'
+  - '&bootloader'
   - ⏮
   - ⏭
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
+  - type: held
+  - BT CLR
   - t: ▽
     type: trans
   - t: ▽
     type: trans
+  - BT CLR
   - t: ▽
     type: trans
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
-  - ''
 combos:
+- p:
+  - 13
+  - 16
+  k: 'CAPS
+
+    WORD'
+  l:
+  - default
+- p:
+  - 12
+  - 13
+  k: '"'
+  l:
+  - default
+  - lower
+- p:
+  - 16
+  - 17
+  k: '?'
+  l:
+  - default
+  - lower
+- p:
+  - 6
+  - 16
+  k: Ü
+  l:
+  - default
 - p:
   - 2
   - 12
@@ -243,14 +265,6 @@ combos:
   l:
   - default
   - lower
-- p:
-  - 21
-  - 22
-  k: 'CREO
-
-    (C+A)'
-  l:
-  - default
 - p:
   - 17
   - 18
@@ -280,28 +294,6 @@ combos:
   - default
   - lower
 - p:
-  - 13
-  - 16
-  k: 'CAPS
-
-    WORD'
-  l:
-  - default
-- p:
-  - 12
-  - 13
-  k: '"'
-  l:
-  - default
-  - lower
-- p:
-  - 16
-  - 17
-  k: '?'
-  l:
-  - default
-  - lower
-- p:
   - 0
   - 10
   k: Ä
@@ -314,15 +306,99 @@ combos:
   l:
   - default
 - p:
-  - 6
-  - 16
-  k: Ü
-  l:
-  - default
-- p:
   - 1
   - 11
   k: ß
+  l:
+  - default
+- p:
+  - 21
+  - 14
+  k: '&bt_sel_0'
+- p:
+  - 21
+  - 11
+  k: '&bt_sel_1'
+- p:
+  - 21
+  - 10
+  k: '&bt_sel_2'
+- p:
+  - 21
+  - 12
+  k: $$mdi:usb$$
+- p:
+  - 0
+  - 21
+  - 24
+  k: UP
+  l:
+  - default
+- p:
+  - 0
+  - 20
+  - 24
+  k: DOWN
+  l:
+  - default
+- p:
+  - 0
+  - 22
+  - 24
+  k: '&m_prev'
+  l:
+  - default
+- p:
+  - 0
+  - 23
+  - 24
+  k: '&m_next'
+  l:
+  - default
+- p:
+  - 0
+  - 24
+  k: '&m_pp'
+  l:
+  - default
+- p:
+  - 0
+  - 21
+  - 24
+  k: UP
+  l:
+  - lower
+- p:
+  - 0
+  - 20
+  - 24
+  k: DOWN
+  l:
+  - lower
+- p:
+  - 0
+  - 22
+  - 24
+  k: LEFT
+  l:
+  - lower
+- p:
+  - 0
+  - 23
+  - 24
+  k: RIGHT
+  l:
+  - lower
+- p:
+  - 0
+  - 24
+  k: '&m_pp'
+  l:
+  - lower
+- p:
+  - 30
+  - 35
+  k: Ctl+ BSPC
   l:
   - default
 layout:
