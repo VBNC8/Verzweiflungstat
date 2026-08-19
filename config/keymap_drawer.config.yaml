@@ -9,8 +9,8 @@ parse_config:
     "&mo 1": {t: "Lower", type: "held"}
     "&kp HOME": {t: "⤒ Pos1", type: "held"}
     "&kp END": {t: "⤓ End", type: "held"}
-    "&kp LC(LS(ESC))": {t: "Task Mgr", type: "held"}
-    "&nbsp": {t: "&nbsp", type: "held"}
+    "&kp LC(LS(ESC))": {t: "Task Mgr"}
+    "&nbsp": {t: "&nbsp"}
     "&kp F12": {t: " ", type: "held"}
     "&kp F13": {t: " ", type: "held"}
     "&kp F11": "RGB"
@@ -136,9 +136,10 @@ draw_config:
       rx: 50%;
       ry: 50%;
     }
-    g.layer-lower rect.held { fill: #854747; }
-    g.layer-raise rect.held { fill: #3a7a3a; }
-    g.layer-adjust rect.held { fill: #3a4a8a; }
+    g.layer-lower g.keypos-31 rect.key { fill: #3a7a3a; }
+    g.layer-lower g.keypos-34 rect.key { fill: #3a7a3a; }
+    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
     g.layer-default g.keypos-31 rect.key { fill: #3a7a3a; }
     g.layer-default g.keypos-32 rect.key { fill: #854747; }
     g.layer-default g.keypos-33 rect.key { fill: #854747; }
