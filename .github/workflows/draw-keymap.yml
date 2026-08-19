@@ -87,14 +87,14 @@ jobs:
         run: |
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
-          p = "keymap-drawer/plitkb_aurora_corne.svg"
+          p = "keymap-drawer/splitkb_aurora_corne.svg"
           ET.parse(p)
           print(f"SVG XML OK: {p}")
           PY
 
       - name: Debug SVG content (embedded refs / escaping)
         run: |
-          f="keymap-drawer/plitkb_aurora_corne.svg"
+          f="keymap-drawer/splitkb_aurora_corne.svg"
           echo "File info:"
           ls -lah "$f"
           echo
