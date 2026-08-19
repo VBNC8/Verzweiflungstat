@@ -210,10 +210,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - '&bootloader'
-  - '&sys_reset'
-  - '&sys_reset'
-  - '&bootloader'
+  - ⟐
+  - ↻
+  - ↻
+  - ⟐
   - ⏮
   - ⏭
   - t: ▽
