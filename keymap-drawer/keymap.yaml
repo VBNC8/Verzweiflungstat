@@ -160,14 +160,12 @@ layers:
   - ´
   - t: ' '
     type: round
-  - t: Task Mgr
-    type: held
+  - Task Mgr
   - t: ⤒ Pos1
     type: held
   - t: ⤓ End
     type: held
-  - t: '&nbsp'
-    type: held
+  - '&nbsp'
   - t: ▽
     type: trans
   - t: ⏮·⏯·⏭
