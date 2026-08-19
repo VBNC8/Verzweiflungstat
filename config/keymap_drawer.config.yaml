@@ -5,12 +5,12 @@ parse_config:
     "&lt 2 TAB": {t: "⇥", h: "Raise"}
     "&lt_enter 2 RET": {t: "↵", h: "Raise"}
     "&lt_hp 1 SPACE": {t: "␣", h: "Lower"}
-    "&lt_hp 3 BSPC": {t: "⌫", h: "Adjust"}
+    "&lt_hp 3 BSPC": {t: "⌫"}
     "&lt 3 LG(D)": {t: "$$mdi:monitor$$", h: "Adjust"}
     "&sk LGUI": {t: "$$mdi:microsoft-windows-classic$$", s: "sticky"}
     "&mo 1": {t: "Lower"}
     "&mo 2": {t: "Raise"}
-    "&mo 3": {t: "Adjust"}
+    "&mo 3": {h: "Adjust"}
 
     # --- HRM BEHAVIORS ---
     "&hrm_left LSHIFT A": {t: "A", h: "Shift"}
