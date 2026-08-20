@@ -166,14 +166,10 @@ layers:
     type: trans
   - ´
   - F14
-  - t: Task Mgr
-    type: held
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
-  - t: '&nbsp'
-    type: held
+  - Task Mgr
+  - ⤒ Pos1
+  - ⤓ End
+  - '&nbsp'
   - t: ▽
     type: trans
   - t: ⏯
@@ -237,8 +233,7 @@ layers:
   - ⏭
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
+  - ' '
   - t: ▽
     type: trans
   - t: ▽
@@ -247,8 +242,7 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ' '
-    type: held
+  - ' '
   - t: ⏯
     s: ↑
     h: ↓
