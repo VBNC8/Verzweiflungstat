@@ -14,18 +14,18 @@ layers:
   - I
   - O
   - P
-  - A
+  - t: A
+    h: LSHIFT
   - S
   - D
-  - t: F
-    h: Shift
+  - F
   - G
   - H
-  - t: J
-    h: Shift
+  - J
   - K
   - L
-  - ''''
+  - t: ''''
+    h: RSHIFT
   - Z
   - t: X
     h: LCTRL
@@ -43,13 +43,13 @@ layers:
   - ⌦
   - ⏯
   - t: ESC
-    h: Raise
-  - t: ⇥
     h: Lower
-  - t: ↵
-    h: Lower
-  - t: ␣
+  - t: TAB
     h: Raise
+  - t: RET
+    h: Raise
+  - t: SPACE
+    h: Lower
   - ⌫
   - t: ⏯
     s: ↑
@@ -100,17 +100,19 @@ layers:
   - ','
   - .
   - '='
-  - t: Adjust
-    type: held
-  - $$mdi:microsoft-windows-classic$$
-  - t: ⤒ Pos1
-    type: held
-  - t: ⤓ End
-    type: held
   - t: $$mdi:monitor$$
+    h: Adjust
     s: Show
-  - t: Adjust
-    type: held
+  - t: $$mdi:microsoft-windows-classic$$
+    h: sticky
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ⌫
+    h: Adjust
   - t: ⏯
     s: ↑
     h: ↓
@@ -134,8 +136,10 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - 🖱 RMB
-  - 🖱 LMB
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
   - t: ▽
     type: trans
   - UP
@@ -161,14 +165,13 @@ layers:
   - t: ▽
     type: trans
   - ´
-  - t: ▽
-    type: trans
+  - F14
   - t: Task Mgr
     type: held
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - t: ⤒ Pos1
+    type: held
+  - t: ⤓ End
+    type: held
   - t: '&nbsp'
     type: held
   - t: ▽
@@ -256,6 +259,34 @@ layers:
     type: round
 combos:
 - p:
+  - 13
+  - 16
+  k: 'CAPS
+
+    WORD'
+  l:
+  - default
+- p:
+  - 12
+  - 13
+  k: '"'
+  l:
+  - default
+  - lower
+- p:
+  - 16
+  - 17
+  k: '?'
+  l:
+  - default
+  - lower
+- p:
+  - 6
+  - 16
+  k: Ü
+  l:
+  - default
+- p:
   - 2
   - 12
   k: '!'
@@ -269,14 +300,6 @@ combos:
   l:
   - default
   - lower
-- p:
-  - 21
-  - 22
-  k: 'CREO
-
-    (C+A)'
-  l:
-  - default
 - p:
   - 17
   - 18
@@ -306,28 +329,6 @@ combos:
   - default
   - lower
 - p:
-  - 13
-  - 16
-  k: 'CAPS
-
-    WORD'
-  l:
-  - default
-- p:
-  - 12
-  - 13
-  k: '"'
-  l:
-  - default
-  - lower
-- p:
-  - 16
-  - 17
-  k: '?'
-  l:
-  - default
-  - lower
-- p:
   - 0
   - 10
   k: Ä
@@ -340,14 +341,14 @@ combos:
   l:
   - default
 - p:
-  - 6
-  - 16
-  k: Ü
-  l:
-  - default
-- p:
   - 1
   - 11
   k: ß
+  l:
+  - default
+- p:
+  - 30
+  - 35
+  k: Ctl+BSPC
   l:
   - default
