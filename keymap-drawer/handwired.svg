@@ -193,6 +193,9 @@ g.layer-lower g.keypos-35 rect.key { fill: #3a4a8a; }
 
 g.layer-raise g.keypos-32 rect.key { fill: #854747; }
 g.layer-raise g.keypos-33 rect.key { fill: #854747; }
+
+g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
