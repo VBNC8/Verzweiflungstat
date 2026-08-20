@@ -184,5 +184,8 @@ draw_config:
     g.layer-raise g.keypos-32 rect.key { fill: #854747; }
     g.layer-raise g.keypos-33 rect.key { fill: #854747; }
 
+    g.layer-adjust g.keypos-30 rect.key { fill: #3a4a8a; }
+    g.layer-adjust g.keypos-35 rect.key { fill: #3a4a8a; }
+
 
 
