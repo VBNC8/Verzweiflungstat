@@ -28,12 +28,23 @@
  *    ESPNOW_CHANNEL in sender.ino).
  *  - The button_message_t layout below MUST stay in sync with
  *    sender.ino.
+ *  - If you see repeated "E BOD: Brownout detector was triggered"
+ *    resets in the Serial Monitor, that means the board's 3.3V rail
+ *    is briefly dipping too low - almost always because the USB
+ *    cable/port/hub can't supply the current spike the Wi-Fi radio
+ *    draws when it initializes (several hundred mA for a few ms).
+ *    This sketch disables the brownout detector at boot and lowers
+ *    the radio's TX power as a software mitigation so it doesn't get
+ *    stuck resetting, but the real fix is a better USB cable/port or
+ *    powered hub, or a decoupling capacitor (e.g. 470-1000uF) across
+ *    the board's 5V/3V3 and GND pins.
  */
 
 #include <WiFi.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
 #include <Adafruit_NeoPixel.h>
+#include "soc/rtc_cntl_reg.h"
 
 #define LED_PIN            48    // onboard WS2812 RGB LED data pin (HW-678)
 #define LED_BRIGHTNESS     40    // 0-255, kept low to avoid a harsh glare
@@ -101,6 +112,14 @@ bool bootButtonPressed() {
 }
 
 void setup() {
+  // Disable the brownout detector as early as possible. On a marginal
+  // USB power source, the current spike from Wi-Fi radio init can dip
+  // the 3.3V rail enough to trigger a brownout reset, which then loops
+  // forever (reset -> spike -> brownout -> reset...). This does NOT
+  // fix a genuinely weak power supply, it only stops the chip from
+  // resetting itself over it; see the file header note above.
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
+
   Serial.begin(115200);
   delay(100);
 
@@ -114,6 +133,12 @@ void setup() {
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
   esp_wifi_set_channel(ESPNOW_CHANNEL, WIFI_SECOND_CHAN_NONE);
+
+  // Lower the radio's max TX power to reduce its peak current draw.
+  // The receiver is stationary right next to the sender in this setup,
+  // so full range/power isn't needed. 8 dBm (value 34, in the driver's
+  // quarter-dBm units) is a conservative reduction from the default.
+  esp_wifi_set_max_tx_power(34);
 
   if (esp_now_init() != ESP_OK) {
     Serial.println("ESP-NOW init failed!");

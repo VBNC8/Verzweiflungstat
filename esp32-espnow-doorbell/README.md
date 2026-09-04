@@ -52,6 +52,40 @@ press, in the same packet as the button signal (no extra wake-ups).
   negligible next to the deep-sleep baseline current, which is what
   actually determines battery life between button presses.
 
+## Troubleshooting: repeated "E BOD: Brownout detector was triggered"
+
+If the receiver's Serial Monitor shows a boot loop like:
+
+```
+rst:0x3 (RTC_SW_SYS_RST), boot:0x8 (SPI_FAST_FLASH_BOOT)
+...
+E BOD: Brownout detector was triggered
+```
+
+repeating over and over, the chip's 3.3V rail is briefly dipping below
+its brownout threshold (~2.43V) — almost always because the USB
+cable/port/hub can't supply the current spike the Wi-Fi radio draws
+when it initializes (can be several hundred mA for a few milliseconds).
+The reset then re-triggers the same spike, looping forever.
+
+`receiver.ino` now mitigates this by:
+- Disabling the brownout detector at the very start of `setup()`.
+- Lowering the radio's max TX power (`esp_wifi_set_max_tx_power`) to
+  reduce its peak current draw, since the receiver is stationary right
+  next to the sender and doesn't need full range.
+
+This should stop the reset loop, but it treats the symptom, not the
+underlying weak power supply. For a proper fix:
+- Use a shorter/thicker, known-good USB data+power cable, plugged
+  directly into a USB port (not a hub or extension cable) that can
+  supply enough current — a PC's own USB 3.0 port or a dedicated USB
+  power adapter (not just a keyboard/monitor USB passthrough port).
+- Add a decoupling/bulk capacitor (e.g. 470-1000uF electrolytic) across
+  the board's 5V (or 3V3) and GND pins, close to the board, to buffer
+  the current spike.
+- If brownouts persist even after these, the board itself or its
+  regulator may be marginal/faulty.
+
 ## Setup
 
 1. Open `sender/sender.ino` in Arduino IDE, select your ESP32S3 Zero
