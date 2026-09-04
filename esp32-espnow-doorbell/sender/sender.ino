@@ -35,7 +35,16 @@ typedef struct {
 RTC_DATA_ATTR static uint32_t bootCount = 0;
 RTC_DATA_ATTR static uint32_t sendSequence = 0;
 
+// esp_now_send_cb_t's signature changed between ESP32 Arduino core
+// versions: older cores (<=2.x) pass a MAC address (const uint8_t*),
+// while newer cores (esp32 Arduino core >=3.x, based on IDF 5.x) pass
+// a (const wifi_tx_info_t*). Handle both so the sketch compiles either
+// way.
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+void onDataSent(const wifi_tx_info_t *tx_info, esp_now_send_status_t status) {
+#else
 void onDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+#endif
   Serial.print("Send status: ");
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "OK" : "FAIL");
 }
