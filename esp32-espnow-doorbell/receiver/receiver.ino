@@ -13,14 +13,21 @@
  * Behavior:
  *  - Stays powered continuously (via USB during the test period).
  *  - Listens for ESP-NOW broadcast packets from the sender.
- *  - When a packet is received, turns the onboard LED on and keeps
+ *  - When a packet is received, turns the onboard LED red and keeps
  *    it on, ignoring further incoming packets while already lit.
+ *  - Every received packet also carries the sender's battery voltage
+ *    and percentage; these are logged to Serial. If the sender flags
+ *    the battery as low, the LED briefly pulses amber a few times
+ *    (in addition to going/staying red) so the low-battery condition
+ *    is visible without needing the Serial monitor open.
  *  - Pressing the BOOT button (GPIO0, active LOW) turns the LED back
  *    off (acknowledged/cleared).
  *
  * Notes:
  *  - Must be on the same ESP-NOW channel as the sender (see
  *    ESPNOW_CHANNEL in sender.ino).
+ *  - The button_message_t layout below MUST stay in sync with
+ *    sender.ino.
  */
 
 #include <WiFi.h>
@@ -38,9 +45,14 @@ Adafruit_NeoPixel pixel(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 typedef struct {
   uint32_t sequence;
+  uint16_t batteryMilliVolts;
+  uint8_t  batteryPercent;
+  uint8_t  lowBattery; // 0 or 1
 } button_message_t;
 
 volatile bool ledLatched = false;
+volatile int lowBatteryBlinksPending = 0;
+portMUX_TYPE lowBatteryMux = portMUX_INITIALIZER_UNLOCKED;
 
 void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
   if (len < (int)sizeof(button_message_t)) {
@@ -49,8 +61,15 @@ void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
   button_message_t msg;
   memcpy(&msg, data, sizeof(msg));
 
-  Serial.printf("Received signal, sequence=%u\n", msg.sequence);
+  Serial.printf("Received signal, sequence=%u, battery=%u mV (%u%%)%s\n",
+                msg.sequence, msg.batteryMilliVolts, msg.batteryPercent,
+                msg.lowBattery ? " - LOW BATTERY" : "");
   ledLatched = true;
+  if (msg.lowBattery) {
+    portENTER_CRITICAL(&lowBatteryMux);
+    lowBatteryBlinksPending = 3; // pulse amber a few times to flag it
+    portEXIT_CRITICAL(&lowBatteryMux);
+  }
 }
 
 bool bootButtonPressed() {
@@ -112,13 +131,40 @@ void setup() {
 
 void loop() {
   static bool lastLedState = false;
+  static int blinksRemaining = 0;
+  static bool blinkOn = false;
+  static unsigned long blinkNextToggleMs = 0;
+  const unsigned long BLINK_HALF_PERIOD_MS = 150;
 
   if (bootButtonPressed()) {
     ledLatched = false;
     Serial.println("Cleared by BOOT button.");
   }
 
-  if (ledLatched != lastLedState) {
+  if (lowBatteryBlinksPending > 0) {
+    portENTER_CRITICAL(&lowBatteryMux);
+    int pending = lowBatteryBlinksPending;
+    lowBatteryBlinksPending = 0;
+    portEXIT_CRITICAL(&lowBatteryMux);
+
+    blinksRemaining = pending * 2; // on+off per blink
+    blinkOn = false;
+    blinkNextToggleMs = millis();
+  }
+
+  unsigned long now = millis();
+  if (blinksRemaining > 0) {
+    if ((long)(now - blinkNextToggleMs) >= 0) {
+      blinkOn = !blinkOn;
+      pixel.setPixelColor(0, blinkOn ? pixel.Color(255, 160, 0) : 0); // amber
+      pixel.show();
+      blinkNextToggleMs = now + BLINK_HALF_PERIOD_MS;
+      blinksRemaining--;
+      if (blinksRemaining == 0) {
+        lastLedState = !ledLatched; // force a refresh below to restore correct state
+      }
+    }
+  } else if (ledLatched != lastLedState) {
     pixel.setPixelColor(0, ledLatched ? pixel.Color(255, 0, 0) : 0);
     pixel.show();
     lastLedState = ledLatched;
