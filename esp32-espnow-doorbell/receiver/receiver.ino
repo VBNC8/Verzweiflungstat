@@ -31,13 +31,18 @@
  *  - If you see repeated "E BOD: Brownout detector was triggered"
  *    resets in the Serial Monitor, that means the board's 3.3V rail
  *    is briefly dipping too low - almost always because the USB
- *    cable/port/hub can't supply the current spike the Wi-Fi radio
- *    draws when it initializes (several hundred mA for a few ms).
- *    This sketch disables the brownout detector at boot and lowers
- *    the radio's TX power as a software mitigation so it doesn't get
- *    stuck resetting, but the real fix is a better USB cable/port or
- *    powered hub, or a decoupling capacitor (e.g. 470-1000uF) across
- *    the board's 5V/3V3 and GND pins.
+ *    cable/port/hub can't supply the current spike the chip draws
+ *    while switching to full clock speed / initializing the Wi-Fi
+ *    radio at boot. This sketch still writes RTC_CNTL_BROWN_OUT_REG
+ *    and lowers TX power as a best-effort measure, but on ESP32-S3
+ *    this reset frequently happens during the ROM bootloader/early
+ *    clock-init stage, BEFORE setup() ever runs - at which point no
+ *    code in this sketch can prevent it (the write happens too late).
+ *    If the reset loop persists after this mitigation, it confirms
+ *    the crash is happening pre-setup() and the fix must be at the
+ *    power-supply/hardware level (see README's Troubleshooting
+ *    section) or by lowering "Tools > CPU Frequency" in the Arduino
+ *    IDE board menu (reduces the current spike at the clock switch).
  */
 
 #include <WiFi.h>
@@ -112,12 +117,14 @@ bool bootButtonPressed() {
 }
 
 void setup() {
-  // Disable the brownout detector as early as possible. On a marginal
-  // USB power source, the current spike from Wi-Fi radio init can dip
-  // the 3.3V rail enough to trigger a brownout reset, which then loops
-  // forever (reset -> spike -> brownout -> reset...). This does NOT
-  // fix a genuinely weak power supply, it only stops the chip from
-  // resetting itself over it; see the file header note above.
+  // Best-effort: disable the brownout detector as early as our own code
+  // can run. This only helps if the reset is happening AFTER setup()
+  // starts (e.g. during our own WiFi.mode()/esp_now_init() calls below).
+  // On ESP32-S3, brownout resets very often happen even earlier, during
+  // the ROM bootloader / clock-switch-to-240MHz stage, BEFORE this line
+  // ever executes - in that case this write cannot help at all, and a
+  // persistent reset loop points to the power supply / hardware itself
+  // (see the file header note and the README's Troubleshooting section).
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
 
   Serial.begin(115200);

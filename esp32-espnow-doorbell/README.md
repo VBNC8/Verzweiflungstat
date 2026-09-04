@@ -64,18 +64,28 @@ E BOD: Brownout detector was triggered
 
 repeating over and over, the chip's 3.3V rail is briefly dipping below
 its brownout threshold (~2.43V) — almost always because the USB
-cable/port/hub can't supply the current spike the Wi-Fi radio draws
-when it initializes (can be several hundred mA for a few milliseconds).
-The reset then re-triggers the same spike, looping forever.
+cable/port/hub can't supply the current spike the chip draws while
+switching to full (240MHz) clock speed and/or initializing the Wi-Fi
+radio at boot. The reset then re-triggers the same spike, looping
+forever.
 
-`receiver.ino` now mitigates this by:
-- Disabling the brownout detector at the very start of `setup()`.
-- Lowering the radio's max TX power (`esp_wifi_set_max_tx_power`) to
-  reduce its peak current draw, since the receiver is stationary right
-  next to the sender and doesn't need full range.
-
-This should stop the reset loop, but it treats the symptom, not the
-underlying weak power supply. For a proper fix:
+`receiver.ino` writes `RTC_CNTL_BROWN_OUT_REG` at the start of
+`setup()` and lowers the radio's max TX power as a best-effort
+mitigation, **but this does not always work on ESP32-S3**: that reset
+frequently happens during the ROM bootloader / early clock-init stage,
+*before* `setup()` is even reached — at which point nothing in the
+sketch can prevent it, since the register write happens too late.
+**If the loop persists after reflashing with this mitigation in place
+(as confirmed in testing), that is expected and confirms the crash is
+happening pre-`setup()`.** There is no way to fix this from an Arduino
+.ino sketch; it requires either a hardware fix or a custom
+ESP-IDF/sdkconfig build (out of scope for the Arduino IDE workflow used
+here). To resolve it:
+- **Try lowering the CPU frequency** via Arduino IDE's
+  `Tools > CPU Frequency` menu (e.g. from 240MHz down to 160MHz or
+  80MHz) before re-uploading. This reduces the current spike at the
+  clock-switch that often triggers the brownout, and is worth trying
+  first since it requires no hardware changes.
 - Use a shorter/thicker, known-good USB data+power cable, plugged
   directly into a USB port (not a hub or extension cable) that can
   supply enough current — a PC's own USB 3.0 port or a dedicated USB
@@ -84,7 +94,9 @@ underlying weak power supply. For a proper fix:
   the board's 5V (or 3V3) and GND pins, close to the board, to buffer
   the current spike.
 - If brownouts persist even after these, the board itself or its
-  regulator may be marginal/faulty.
+  onboard regulator may be marginal/faulty (this is a known/reported
+  issue on some ESP32-S3 boards, independent of what firmware is
+  flashed).
 
 ## Setup
 
