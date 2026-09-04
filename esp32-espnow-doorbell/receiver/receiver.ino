@@ -2,7 +2,13 @@
  * ESP-NOW receiver: latches onboard LED on when a signal arrives,
  * clears it when the BOOT button is pressed.
  *
- * Board: ESP32S3 devboard (e.g. ESP32-S3-DevKitC-1)
+ * Board: ESP32-S3 N8R2 devboard, HW-678 (8MB flash / 2MB PSRAM).
+ * This board has an addressable WS2812 "NeoPixel" RGB LED on GPIO48
+ * instead of a plain on/off GPIO LED, so it is driven with the
+ * Adafruit_NeoPixel library.
+ *
+ * Requires the "Adafruit NeoPixel" library (Arduino IDE Library
+ * Manager: Sketch > Include Library > Manage Libraries...).
  *
  * Behavior:
  *  - Stays powered continuously (via USB during the test period).
@@ -13,11 +19,6 @@
  *    off (acknowledged/cleared).
  *
  * Notes:
- *  - LED_PIN below assumes a plain GPIO LED such as GPIO2 used on many
- *    ESP32-S3 devkits. Some boards (e.g. those with an addressable
- *    WS2812 "NeoPixel" LED, often on GPIO48) will need different code
- *    to drive the LED - update LED_PIN or swap in a NeoPixel driver if
- *    your board's onboard LED is RGB/addressable.
  *  - Must be on the same ESP-NOW channel as the sender (see
  *    ESPNOW_CHANNEL in sender.ino).
  */
@@ -25,11 +26,15 @@
 #include <WiFi.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
+#include <Adafruit_NeoPixel.h>
 
-#define LED_PIN            2     // onboard LED GPIO; adjust for your board
+#define LED_PIN            48    // onboard WS2812 RGB LED data pin (HW-678)
+#define LED_BRIGHTNESS     40    // 0-255, kept low to avoid a harsh glare
 #define BOOT_BUTTON_GPIO   0      // BOOT button, active LOW
 #define ESPNOW_CHANNEL     1      // must match sender
 #define DEBOUNCE_MS        50
+
+Adafruit_NeoPixel pixel(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 typedef struct {
   uint32_t sequence;
@@ -80,8 +85,10 @@ void setup() {
   Serial.begin(115200);
   delay(100);
 
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
+  pixel.begin();
+  pixel.setBrightness(LED_BRIGHTNESS);
+  pixel.setPixelColor(0, 0); // off
+  pixel.show();
 
   pinMode(BOOT_BUTTON_GPIO, INPUT_PULLUP);
 
@@ -104,10 +111,16 @@ void setup() {
 }
 
 void loop() {
+  static bool lastLedState = false;
+
   if (bootButtonPressed()) {
     ledLatched = false;
     Serial.println("Cleared by BOOT button.");
   }
 
-  digitalWrite(LED_PIN, ledLatched ? HIGH : LOW);
+  if (ledLatched != lastLedState) {
+    pixel.setPixelColor(0, ledLatched ? pixel.Color(255, 0, 0) : 0);
+    pixel.show();
+    lastLedState = ledLatched;
+  }
 }
