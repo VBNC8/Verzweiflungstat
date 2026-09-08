@@ -1,4 +1,3 @@
-
 #include <WiFi.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
@@ -59,7 +58,7 @@ portMUX_TYPE packetCountMux = portMUX_INITIALIZER_UNLOCKED;
 
 // callback->loop flags
 volatile bool packetEvent = false;
-volatile button_message_t lastMsg;
+button_message_t lastMsg;          // <- not volatile (fixed)
 volatile bool lastMsgValid = false;
 portMUX_TYPE msgMux = portMUX_INITIALIZER_UNLOCKED;
 
@@ -233,8 +232,8 @@ void serviceBuzzer(uint32_t now) {
 void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
   uint32_t countSnapshot;
   portENTER_CRITICAL_ISR(&packetCountMux);
-  espnowPacketCount++;
-  countSnapshot = espnowPacketCount;
+  countSnapshot = espnowPacketCount + 1;
+  espnowPacketCount = countSnapshot;
   portEXIT_CRITICAL_ISR(&packetCountMux);
 
   if (len == (int)sizeof(button_message_t)) {
@@ -242,7 +241,7 @@ void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
     memcpy(&msg, data, sizeof(msg));
 
     portENTER_CRITICAL_ISR(&msgMux);
-    lastMsg = msg;
+    memcpy((void*)&lastMsg, &msg, sizeof(msg));   // fixed: no volatile assignment operator
     lastMsgValid = true;
     packetEvent = true;
     portEXIT_CRITICAL_ISR(&msgMux);
@@ -310,7 +309,6 @@ void handleReceivedMessage(const button_message_t &msg) {
     if (!ringActive) setLed(0, 0, 0);
   }
 
-  // normal alarm always on packet
   startRingLed();
   startBuzzerSequence();
 }
@@ -324,8 +322,9 @@ void serviceRadioDutyCycle(uint32_t now) {
     }
   } else {
     if ((uint32_t)(now - rxStateTs) >= RX_LISTEN_OFF_MS) {
-      startEspNowRx();
-      rxRadioOn = true;
+      if (startEspNowRx()) {
+        rxRadioOn = true;
+      }
       rxStateTs = now;
     }
   }
@@ -350,7 +349,6 @@ void setup() {
 #endif
   buzzerOff();
 
-  // start in RX-ON state
   if (startEspNowRx()) {
     rxRadioOn = true;
     rxStateTs = millis();
@@ -384,13 +382,12 @@ void loop() {
     }
   }
 
-  // consume one pending packet event
   bool gotEvent = false;
   button_message_t msgCopy;
   portENTER_CRITICAL(&msgMux);
   if (packetEvent && lastMsgValid) {
     gotEvent = true;
-    msgCopy = lastMsg;
+    memcpy(&msgCopy, (const void*)&lastMsg, sizeof(msgCopy));  // fixed copy
     packetEvent = false;
   }
   portEXIT_CRITICAL(&msgMux);
