@@ -13,6 +13,13 @@ Arduino IDE sketches for a battery-powered wireless "call button":
   button is pressed. Also logs the sender's battery voltage/percentage
   to Serial on every packet, and briefly pulses the LED amber a few
   times if the sender flags its battery as low.
+- **espnow_receiver_c3_buzzer/espnow_receiver_c3_buzzer.ino** — an
+  alternate, buzzer-only receiver for an ESP32-C3 devboard (no
+  NeoPixel/LED dependency). Plays a 5-beep, 800 Hz, 200 ms on/200 ms
+  off alarm pattern on a passive buzzer when a packet arrives, and
+  silences/clears it when its own BOOT button is pressed. This is a
+  separate sketch from receiver/receiver.ino - use whichever matches
+  your hardware.
 
 ## How it avoids needing MAC address pairing
 
@@ -120,7 +127,13 @@ here). To resolve it:
   (install it from Arduino IDE's Library Manager). It lights red when
   latched. If you swap in a different devboard with a plain GPIO LED
   instead, replace the NeoPixel calls in `receiver.ino` with a simple
-  `digitalWrite`.
+  `digitalWrite`. For an ESP32-C3 board, use
+  `espnow_receiver_c3_buzzer/espnow_receiver_c3_buzzer.ino` instead,
+  which drives a buzzer and has no LED/NeoPixel dependency at all.
+- **Buzzer pin (C3 variant)**: `espnow_receiver_c3_buzzer.ino` defaults
+  `BUZZER_PIN` to GPIO4 and `BOOT_BUTTON_GPIO` to GPIO9 - both are
+  placeholders and should be updated at the top of the file to match
+  your specific ESP32-C3 board.
 - **BOOT button pin**: both sketches assume GPIO0, standard for ESP32-S3
   boards. Confirm this matches your specific board's schematic.
 - **Deep sleep current**: for best battery life on the sender, also
