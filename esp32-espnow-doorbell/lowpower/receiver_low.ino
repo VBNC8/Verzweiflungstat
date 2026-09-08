@@ -43,6 +43,9 @@
 #define RX_CYCLE_MS                250
 #define RX_LISTEN_OFF_MS           (RX_CYCLE_MS - RX_LISTEN_ON_MS)
 
+// ---------------- Doorbell retrigger cooldown ----------------
+#define ALARM_COOLDOWN_MS          60000UL   // 60s pause after a triggered alarm
+
 Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 typedef struct __attribute__((packed)) {
@@ -58,7 +61,7 @@ portMUX_TYPE packetCountMux = portMUX_INITIALIZER_UNLOCKED;
 
 // callback->loop flags
 volatile bool packetEvent = false;
-button_message_t lastMsg;          // <- not volatile (fixed)
+button_message_t lastMsg;
 volatile bool lastMsgValid = false;
 portMUX_TYPE msgMux = portMUX_INITIALIZER_UNLOCKED;
 
@@ -85,6 +88,10 @@ uint32_t buzzerStepTs = 0;
 // radio duty-cycle state
 bool rxRadioOn = false;
 uint32_t rxStateTs = 0;
+
+// cooldown state
+bool alarmCooldownActive = false;
+uint32_t alarmCooldownUntil = 0;
 
 void setLed(uint8_t r, uint8_t g, uint8_t b) {
   pixel.setPixelColor(0, pixel.Color(r, g, b));
@@ -241,7 +248,7 @@ void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
     memcpy(&msg, data, sizeof(msg));
 
     portENTER_CRITICAL_ISR(&msgMux);
-    memcpy((void*)&lastMsg, &msg, sizeof(msg));   // fixed: no volatile assignment operator
+    memcpy((void*)&lastMsg, &msg, sizeof(msg));
     lastMsgValid = true;
     packetEvent = true;
     portEXIT_CRITICAL_ISR(&msgMux);
@@ -294,6 +301,9 @@ void stopEspNowRx() {
 }
 
 void handleReceivedMessage(const button_message_t &msg) {
+  uint32_t now = millis();
+
+  // Always process battery state
   if (msg.lowBattery) {
     if (ringActive) {
       batteryWarningPending = true;
@@ -301,7 +311,7 @@ void handleReceivedMessage(const button_message_t &msg) {
       batteryWarningActive = true;
       batteryWarningPending = false;
       warnPhase = 0;
-      warnStepTs = millis();
+      warnStepTs = now;
     }
   } else if (msg.batteryPercent > 30) {
     batteryWarningActive = false;
@@ -309,8 +319,16 @@ void handleReceivedMessage(const button_message_t &msg) {
     if (!ringActive) setLed(0, 0, 0);
   }
 
+  // Doorbell alarm cooldown gate (60s pause)
+  if (alarmCooldownActive && (int32_t)(now - alarmCooldownUntil) < 0) {
+    return;
+  }
+
   startRingLed();
   startBuzzerSequence();
+
+  alarmCooldownActive = true;
+  alarmCooldownUntil = now + ALARM_COOLDOWN_MS;
 }
 
 void serviceRadioDutyCycle(uint32_t now) {
@@ -360,6 +378,7 @@ void setup() {
   Serial.print("Receiver MAC: ");
   Serial.println(WiFi.macAddress());
   Serial.printf("Duty cycle: ON=%ums OFF=%ums\n", RX_LISTEN_ON_MS, RX_LISTEN_OFF_MS);
+  Serial.printf("Doorbell cooldown: %lu ms\n", (unsigned long)ALARM_COOLDOWN_MS);
   Serial.println("BOOT: clear battery warning if active/pending, otherwise test alarm.");
 }
 
@@ -367,6 +386,11 @@ void loop() {
   uint32_t now = millis();
 
   serviceRadioDutyCycle(now);
+
+  // expire cooldown
+  if (alarmCooldownActive && (int32_t)(now - alarmCooldownUntil) >= 0) {
+    alarmCooldownActive = false;
+  }
 
   if (checkBootButtonPressed()) {
     if (batteryWarningActive || batteryWarningPending) {
@@ -379,6 +403,8 @@ void loop() {
       Serial.println("BOOT test alarm.");
       startRingLed();
       startBuzzerSequence();
+      alarmCooldownActive = true;
+      alarmCooldownUntil = millis() + ALARM_COOLDOWN_MS;
     }
   }
 
@@ -387,7 +413,7 @@ void loop() {
   portENTER_CRITICAL(&msgMux);
   if (packetEvent && lastMsgValid) {
     gotEvent = true;
-    memcpy(&msgCopy, (const void*)&lastMsg, sizeof(msgCopy));  // fixed copy
+    memcpy(&msgCopy, (const void*)&lastMsg, sizeof(msgCopy));
     packetEvent = false;
   }
   portEXIT_CRITICAL(&msgMux);
