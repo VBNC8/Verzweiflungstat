@@ -10,7 +10,7 @@ Preferences preferences;
 #define FTP_SERVER    "192.168.178.1"
 #define FTP_PORT      21
 #define FTP_USER      "ESP"
-#define FTP_FILE_PATH "/staircase_log.csv"
+#define FTP_FILE_PATH "/FRITZ.NAS/staircase_log/event_log.csv"
 
 #define ESPNOW_CHANNEL        1
 
@@ -19,8 +19,9 @@ Preferences preferences;
 #define LED_BRIGHTNESS        24
 #define BOOT_BUTTON_PIN       0     
 
-#define RING_HOLD_MS          5000
+#define RING_HOLD_MS          3500
 #define LED_BLINK_HALF_MS     100   
+#define LED_FEEDBACK_ON_MS    500   // Green LED stays on for 500ms
 
 // Buzzer pattern (ausgewertet nach Vorlage)
 #define BUZZER_PIN            16
@@ -28,8 +29,9 @@ Preferences preferences;
 #define BEEP_ON_MS            100
 #define BEEP_OFF_MS           180
 #define BEEP_GROUP_GAP_MS     250
-#define BEEP_COUNT_PER_GROUP  2
-#define BEEP_GROUP_COUNT      2
+#define BEEP_COUNT_PER_GROUP  3
+#define BEEP_GROUP_COUNT      1
+#define BUZZER_COOLDOWN_MS    3000  // 3 second pause between patterns
 
 Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_RGB + NEO_KHZ800);
 
@@ -46,8 +48,12 @@ bool ringActive = false;
 bool ledOn = false;
 uint32_t lastLedToggle = 0;
 
+// LED Feedback State
+uint32_t ledFeedbackUntil = 0;
+bool ledFeedbackActive = false;
+
 // Buzzer State Machine
-enum BuzzerState { BUZZER_IDLE, BUZZER_ON, BUZZER_OFF, BUZZER_GROUP_GAP };
+enum BuzzerState { BUZZER_IDLE, BUZZER_ON, BUZZER_OFF, BUZZER_GROUP_GAP, BUZZER_COOLDOWN };
 BuzzerState buzzerState = BUZZER_IDLE;
 uint8_t groupCountDone = 0;
 uint8_t beepCountDone = 0;
@@ -64,6 +70,12 @@ button_message_t pendingMsg;
 void setLed(uint8_t r, uint8_t g, uint8_t b) {
   pixel.setPixelColor(0, pixel.Color(r, g, b));
   pixel.show();
+}
+
+void setLedFeedback(uint8_t r, uint8_t g, uint8_t b) {
+  setLed(r, g, b);
+  ledFeedbackActive = true;
+  ledFeedbackUntil = millis() + LED_FEEDBACK_ON_MS;
 }
 
 void startRingLed() {
@@ -85,6 +97,17 @@ void startBuzzerSequence() {
 }
 
 void serviceRingLed(uint32_t now) {
+  // Handle feedback LED (green success or red error)
+  if (ledFeedbackActive) {
+    if ((int32_t)(now - ledFeedbackUntil) >= 0) {
+      ledFeedbackActive = false;
+      if (!ringActive) {
+        setLed(0, 0, 0);  // Turn off if ring isn't active
+      }
+    }
+    return;  // Feedback LED takes priority
+  }
+
   if (!ringActive) return;
 
   if ((int32_t)(now - ringUntil) >= 0) {
@@ -112,7 +135,8 @@ void serviceBuzzer(uint32_t now) {
       if (beepCountDone >= BEEP_COUNT_PER_GROUP) {
         groupCountDone++;
         if (groupCountDone >= BEEP_GROUP_COUNT) {
-          buzzerState = BUZZER_IDLE;
+          buzzerState = BUZZER_COOLDOWN;  // Go to cooldown instead of IDLE
+          buzzerStepTs = now;
         } else {
           buzzerState = BUZZER_GROUP_GAP;
         }
@@ -133,6 +157,10 @@ void serviceBuzzer(uint32_t now) {
       buzzerState = BUZZER_ON;
       buzzerStepTs = now;
     }
+  } else if (buzzerState == BUZZER_COOLDOWN) {
+    if (now - buzzerStepTs >= BUZZER_COOLDOWN_MS) {
+      buzzerState = BUZZER_IDLE;  // Finally back to idle after cooldown
+    }
   }
 }
 
@@ -145,96 +173,58 @@ bool getFormattedTime(char* buf, size_t len) {
   return true;
 }
 
-String readFTPResponse(WiFiClient &client, uint32_t timeout = 500) {
-  String response = "";
-  uint32_t start = millis();
-  
-  while (millis() - start < timeout) {
-    while (client.available()) {
-      char c = client.read();
-      response += c;
-      if (c == '\n') {
-        return response;
-      }
-    }
-    delay(10);
-  }
-  return response;
-}
-
 void uploadLogToFritzBox(const char* logLine) {
-  Serial.println("\n=== FTP Upload Started ===");
-  Serial.println("Log: " + String(logLine));
-
   preferences.begin("credentials", true);
   String ftpPass = preferences.getString("ftp_pass", "");
   preferences.end();
 
   if (ftpPass.length() == 0) {
-    Serial.println("ERROR: No FTP password");
-    setLed(255, 0, 0);
-    delay(200);
-    setLed(0, 0, 0);
+    Serial.println("FTP: No password configured");
+    setLedFeedback(255, 0, 0);  // Red - error
     return;
   }
 
   WiFiClient ftpClient;
-  
   if (!ftpClient.connect(FTP_SERVER, FTP_PORT)) {
-    Serial.println("ERROR: FTP connection failed");
-    setLed(255, 0, 0);
-    delay(200);
-    setLed(0, 0, 0);
+    Serial.println("FTP: Connection failed");
+    setLedFeedback(255, 0, 0);  // Red - error
     return;
   }
 
-  delay(200);
-  String response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: Welcome: " + response);
+  delay(100);
+  while (ftpClient.available()) ftpClient.read();
 
   ftpClient.printf("USER %s\r\n", FTP_USER);
-  delay(200);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: USER response: " + response);
+  delay(100);
+  while (ftpClient.available()) ftpClient.read();
 
   ftpClient.printf("PASS %s\r\n", ftpPass.c_str());
-  delay(300);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: PASS response: " + response);
-
-  if (!response.startsWith("230")) {
-    Serial.println("ERROR: Authentication failed");
-    setLed(255, 0, 0);
-    delay(200);
-    ftpClient.print("QUIT\r\n");
-    ftpClient.stop();
-    setLed(0, 0, 0);
-    return;
-  }
+  delay(100);
+  while (ftpClient.available()) ftpClient.read();
 
   ftpClient.print("TYPE I\r\n");
-  delay(200);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: TYPE response: " + response);
+  delay(100);
+  while (ftpClient.available()) ftpClient.read();
 
   ftpClient.print("PASV\r\n");
-  delay(200);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: PASV response: " + response);
+  delay(100);
 
-  int firstPar = response.indexOf('(');
-  int lastPar = response.indexOf(')');
+  String pasvResponse = "";
+  while (ftpClient.available()) {
+    pasvResponse += (char)ftpClient.read();
+  }
+
+  int firstPar = pasvResponse.indexOf('(');
+  int lastPar = pasvResponse.indexOf(')');
   if (firstPar == -1 || lastPar == -1) {
-    Serial.println("ERROR: Invalid PASV response");
-    setLed(255, 0, 0);
-    delay(200);
+    Serial.println("FTP: Invalid PASV response");
+    setLedFeedback(255, 0, 0);  // Red - error
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
-    setLed(0, 0, 0);
     return;
   }
 
-  String pasvData = response.substring(firstPar + 1, lastPar);
+  String pasvData = pasvResponse.substring(firstPar + 1, lastPar);
   int commas[5];
   int idx = 0;
   for (int i = 0; i < pasvData.length(); i++) {
@@ -242,12 +232,10 @@ void uploadLogToFritzBox(const char* logLine) {
   }
 
   if (idx < 5) {
-    Serial.println("ERROR: PASV parsing failed");
-    setLed(255, 0, 0);
-    delay(200);
+    Serial.println("FTP: PASV parsing failed");
+    setLedFeedback(255, 0, 0);  // Red - error
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
-    setLed(0, 0, 0);
     return;
   }
 
@@ -260,70 +248,55 @@ void uploadLogToFritzBox(const char* logLine) {
   int dataPort = (p1 << 8) + p2;
   String dataIp = h1 + "." + h2 + "." + h3 + "." + h4;
 
-  Serial.println("FTP: Data to " + dataIp + ":" + String(dataPort));
-
   WiFiClient dataClient;
   if (!dataClient.connect(dataIp.c_str(), dataPort)) {
-    Serial.println("ERROR: Data connection failed");
-    setLed(255, 0, 0);
-    delay(200);
+    Serial.println("FTP: Data connection failed");
+    setLedFeedback(255, 0, 0);  // Red - error
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
-    setLed(0, 0, 0);
     return;
   }
 
-  delay(100);
+  delay(50);
 
   ftpClient.printf("APPE %s\r\n", FTP_FILE_PATH);
-  delay(300);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: APPE response: " + response);
-
-  if (!response.startsWith("1")) {
-    Serial.println("ERROR: APPE rejected");
-    setLed(255, 0, 0);
-    delay(200);
+  delay(100);
+  
+  String appeResponse = "";
+  while (ftpClient.available()) {
+    appeResponse += (char)ftpClient.read();
+  }
+  
+  if (!appeResponse.startsWith("1")) {
+    Serial.println("FTP: APPE rejected: " + appeResponse);
+    setLedFeedback(255, 0, 0);  // Red - error
     dataClient.stop();
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
-    setLed(0, 0, 0);
     return;
   }
 
-  delay(100);
-  Serial.println("FTP: Sending data...");
+  delay(50);
   dataClient.print(logLine);
   dataClient.print("\r\n");
-  dataClient.flush();
-  delay(200);
   dataClient.stop();
 
-  delay(300);
-  response = readFTPResponse(ftpClient, 1000);
-  Serial.println("FTP: Final response: " + response);
+  delay(100);
+  
+  String finalResponse = "";
+  while (ftpClient.available()) {
+    finalResponse += (char)ftpClient.read();
+  }
+
+  Serial.println("FTP: Success - " + String(logLine));
+  setLedFeedback(0, 255, 0);  // Green - success (brief flash)
 
   ftpClient.print("QUIT\r\n");
-  delay(100);
+  delay(50);
   ftpClient.stop();
-
-  // Only show green if transfer was actually successful (226 = Transfer complete)
-  if (response.startsWith("226")) {
-    Serial.println("FTP: SUCCESS - Transfer complete");
-    setLed(0, 255, 0);
-    delay(200);
-    setLed(0, 0, 0);
-  } else {
-    Serial.println("FTP: FAILED - No transfer complete response");
-    setLed(255, 100, 0);  // Orange for incomplete transfer
-    delay(200);
-    setLed(0, 0, 0);
-  }
 }
 
 void processLog(const char* sourceMac, const button_message_t &msg) {
-  Serial.println(">>> processLog called <<<");
-  
   char timeStr[32];
   if (!getFormattedTime(timeStr, sizeof(timeStr))) {
     snprintf(timeStr, sizeof(timeStr), "UNKNOWN_TIME");
@@ -336,13 +309,10 @@ void processLog(const char* sourceMac, const button_message_t &msg) {
 
   if (WiFi.status() == WL_CONNECTED) {
     uploadLogToFritzBox(logLine);
-  } else {
-    Serial.println("ERROR: WiFi not connected");
   }
 }
 
 void triggerAction(const char* sourceMac, const button_message_t &msg) {
-  Serial.println(">>> triggerAction called <<<");
   startRingLed();
   startBuzzerSequence();
 
@@ -355,7 +325,6 @@ void checkBootButton() {
   int reading = digitalRead(BOOT_BUTTON_PIN);
   if (reading == LOW && lastButtonState == HIGH) {
     if (millis() - lastDebounceTime > 200) {
-      Serial.println(">>> BOOT BUTTON PRESSED <<<");
       button_message_t testMsg = {999, 3300, 100, 0};
       triggerAction("BOOT:TEST:MAC", testMsg);
       lastDebounceTime = millis();
@@ -365,8 +334,6 @@ void checkBootButton() {
 }
 
 void onDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
-  Serial.println(">>> ESP-NOW data received <<<");
-  
   char macStr[18] = "00:00:00:00:00:00";
   if (info && info->src_addr) {
     snprintf(macStr, sizeof(macStr), "%02X:%02X:%02X:%02X:%02X:%02X",
@@ -385,7 +352,6 @@ void checkSerialConfig() {
   if (Serial.available() > 0) {
     String input = Serial.readStringUntil('\n');
     input.trim();
-    
     if (input.startsWith("SET_WIFI ")) {
       int firstSpace = input.indexOf(' ');
       int secondSpace = input.indexOf(' ', firstSpace + 1);
@@ -396,7 +362,6 @@ void checkSerialConfig() {
         preferences.putString("ssid", ssid);
         preferences.putString("wifi_pass", pass);
         preferences.end();
-        Serial.println("WiFi saved, restarting...");
         ESP.restart();
       }
     } else if (input.startsWith("SET_FTP ")) {
@@ -404,7 +369,6 @@ void checkSerialConfig() {
       preferences.begin("credentials", false);
       preferences.putString("ftp_pass", pass);
       preferences.end();
-      Serial.println("FTP password saved, restarting...");
       ESP.restart();
     }
   }
@@ -413,7 +377,6 @@ void checkSerialConfig() {
 void setup() {
   Serial.begin(115200);
   delay(200);
-  Serial.println("\n\n=== STAIRCASE ALARM STARTING ===");
 
   pinMode(BOOT_BUTTON_PIN, INPUT_PULLUP);
   pinMode(BUZZER_PIN, OUTPUT);
@@ -427,27 +390,23 @@ void setup() {
   String wifiPass = preferences.getString("wifi_pass", "");
   preferences.end();
 
-  Serial.println("Connecting to WiFi...");
   WiFi.mode(WIFI_STA);
   if (ssid.length() > 0) {
     WiFi.begin(ssid.c_str(), wifiPass.c_str());
     uint32_t startAttempt = millis();
     while (WiFi.status() != WL_CONNECTED && millis() - startAttempt < 10000) {
       delay(200);
-      Serial.print(".");
       checkSerialConfig();
     }
     if (WiFi.status() == WL_CONNECTED) {
-      Serial.println("\nWiFi OK");
       configTime(3600, 3600, "pool.ntp.org", "time.nist.gov");
     }
   }
 
   WiFi.setSleep(false);
+
   esp_now_init();
   esp_now_register_recv_cb(onDataRecv);
-  
-  Serial.println("Ready\n");
 }
 
 void loop() {
@@ -457,6 +416,7 @@ void loop() {
   checkBootButton();
   checkSerialConfig();
 
+  // Log wird erst ausgeführt, wenn sowohl LED-Ring als auch die Doppel-Beep-Sequenz mit Cooldown komplett fertig sind
   if (pendingLog && !ringActive && buzzerState == BUZZER_IDLE) {
     pendingLog = false;
     processLog(pendingMac, pendingMsg);
