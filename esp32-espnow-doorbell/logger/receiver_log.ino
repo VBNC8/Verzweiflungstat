@@ -33,7 +33,7 @@ Preferences preferences;
 #define BEEP_GROUP_COUNT      1
 #define BUZZER_COOLDOWN_MS    3000  // 3 second pause between patterns
 
-Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_BGR + NEO_KHZ800);
 
 typedef struct __attribute__((packed)) {
   uint32_t sequence;
