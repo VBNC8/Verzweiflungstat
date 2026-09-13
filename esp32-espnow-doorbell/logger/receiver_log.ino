@@ -10,7 +10,7 @@ Preferences preferences;
 #define FTP_SERVER    "192.168.178.1"
 #define FTP_PORT      21
 #define FTP_USER      "ESP"
-#define FTP_FILE_PATH "/FRITZ.NAS/staircase_log/event_log.csv"
+#define FTP_FILE_PATH "/staircase_log.csv"
 
 #define ESPNOW_CHANNEL        1
 
@@ -173,52 +173,68 @@ bool getFormattedTime(char* buf, size_t len) {
   return true;
 }
 
+String readFTPResponse(WiFiClient &client, int timeoutMs = 500) {
+  String response = "";
+  uint32_t startTime = millis();
+  
+  while (millis() - startTime < timeoutMs) {
+    while (client.available()) {
+      char c = client.read();
+      response += c;
+      startTime = millis();  // Reset timeout on new data
+    }
+    delay(10);
+  }
+  
+  return response;
+}
+
 void uploadLogToFritzBox(const char* logLine) {
+  Serial.println("=== UPLOAD START ===");
+  
   preferences.begin("credentials", true);
   String ftpPass = preferences.getString("ftp_pass", "");
   preferences.end();
 
   if (ftpPass.length() == 0) {
     Serial.println("FTP: No password configured");
-    setLedFeedback(255, 0, 0);  // Red - error
+    setLedFeedback(255, 0, 0);
     return;
   }
 
   WiFiClient ftpClient;
   if (!ftpClient.connect(FTP_SERVER, FTP_PORT)) {
     Serial.println("FTP: Connection failed");
-    setLedFeedback(255, 0, 0);  // Red - error
+    setLedFeedback(255, 0, 0);
     return;
   }
 
-  delay(100);
-  while (ftpClient.available()) ftpClient.read();
+  Serial.println("FTP: Connected!");
+
+  String welcomeMsg = readFTPResponse(ftpClient, 500);
+  Serial.println("FTP Welcome: " + welcomeMsg);
 
   ftpClient.printf("USER %s\r\n", FTP_USER);
-  delay(100);
-  while (ftpClient.available()) ftpClient.read();
+  String userResp = readFTPResponse(ftpClient, 500);
+  Serial.println("USER response: " + userResp);
 
   ftpClient.printf("PASS %s\r\n", ftpPass.c_str());
-  delay(100);
-  while (ftpClient.available()) ftpClient.read();
+  String passResp = readFTPResponse(ftpClient, 500);
+  Serial.println("PASS response: " + passResp);
 
   ftpClient.print("TYPE I\r\n");
-  delay(100);
-  while (ftpClient.available()) ftpClient.read();
+  String typeResp = readFTPResponse(ftpClient, 500);
+  Serial.println("TYPE response: " + typeResp);
 
   ftpClient.print("PASV\r\n");
-  delay(100);
-
-  String pasvResponse = "";
-  while (ftpClient.available()) {
-    pasvResponse += (char)ftpClient.read();
-  }
+  String pasvResponse = readFTPResponse(ftpClient, 500);
+  Serial.println("PASV response: " + pasvResponse);
 
   int firstPar = pasvResponse.indexOf('(');
   int lastPar = pasvResponse.indexOf(')');
   if (firstPar == -1 || lastPar == -1) {
     Serial.println("FTP: Invalid PASV response");
-    setLedFeedback(255, 0, 0);  // Red - error
+    setLedFeedback(255, 0, 0);
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
     return;
@@ -233,7 +249,7 @@ void uploadLogToFritzBox(const char* logLine) {
 
   if (idx < 5) {
     Serial.println("FTP: PASV parsing failed");
-    setLedFeedback(255, 0, 0);  // Red - error
+    setLedFeedback(255, 0, 0);
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
     return;
@@ -248,52 +264,48 @@ void uploadLogToFritzBox(const char* logLine) {
   int dataPort = (p1 << 8) + p2;
   String dataIp = h1 + "." + h2 + "." + h3 + "." + h4;
 
+  Serial.println("FTP Data IP: " + dataIp + ":" + String(dataPort));
+
   WiFiClient dataClient;
   if (!dataClient.connect(dataIp.c_str(), dataPort)) {
     Serial.println("FTP: Data connection failed");
-    setLedFeedback(255, 0, 0);  // Red - error
+    setLedFeedback(255, 0, 0);
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
     return;
   }
 
-  delay(50);
+  Serial.println("FTP: Data connection OK");
 
   ftpClient.printf("APPE %s\r\n", FTP_FILE_PATH);
   delay(100);
-  
-  String appeResponse = "";
-  while (ftpClient.available()) {
-    appeResponse += (char)ftpClient.read();
-  }
+  String appeResponse = readFTPResponse(ftpClient, 500);
+  Serial.println("APPE response: " + appeResponse);
   
   if (!appeResponse.startsWith("1")) {
-    Serial.println("FTP: APPE rejected: " + appeResponse);
-    setLedFeedback(255, 0, 0);  // Red - error
+    Serial.println("FTP: APPE rejected");
+    setLedFeedback(255, 0, 0);
     dataClient.stop();
     ftpClient.print("QUIT\r\n");
     ftpClient.stop();
     return;
   }
 
-  delay(50);
+  Serial.println("Sending log line: " + String(logLine));
   dataClient.print(logLine);
   dataClient.print("\r\n");
   dataClient.stop();
 
-  delay(100);
-  
-  String finalResponse = "";
-  while (ftpClient.available()) {
-    finalResponse += (char)ftpClient.read();
-  }
+  delay(200);
+  String finalResponse = readFTPResponse(ftpClient, 500);
+  Serial.println("Final response: " + finalResponse);
 
-  Serial.println("FTP: Success - " + String(logLine));
-  setLedFeedback(0, 255, 0);  // Green - success (brief flash)
+  Serial.println("FTP: Success!");
+  setLedFeedback(0, 255, 0);
 
   ftpClient.print("QUIT\r\n");
-  delay(50);
   ftpClient.stop();
+  Serial.println("=== UPLOAD END ===");
 }
 
 void processLog(const char* sourceMac, const button_message_t &msg) {
@@ -309,6 +321,9 @@ void processLog(const char* sourceMac, const button_message_t &msg) {
 
   if (WiFi.status() == WL_CONNECTED) {
     uploadLogToFritzBox(logLine);
+  } else {
+    Serial.println("WiFi not connected, skipping upload");
+    setLedFeedback(255, 255, 0);  // Yellow - WiFi offline
   }
 }
 
