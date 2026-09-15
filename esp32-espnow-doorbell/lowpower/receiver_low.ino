@@ -27,7 +27,7 @@
 // ---------------- Buzzer pattern ----------------
 #define BUZZER_PIN                 16
 #define BEEP_FREQ_HZ               1500
-#define BEEP_DUTY                  20
+#define BEEP_DUTY                  10
 #define BEEP_ON_MS                 100
 #define BEEP_OFF_MS                180
 #define BEEP_GROUP_GAP_MS          250
