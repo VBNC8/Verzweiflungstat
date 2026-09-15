@@ -26,14 +26,14 @@ Preferences preferences;
 // Buzzer pattern (ausgewertet nach Vorlage)
 #define BUZZER_PIN            16
 #define BEEP_FREQ_HZ          1500
-#define BEEP_ON_MS            100
+#define BEEP_ON_MS            20
 #define BEEP_OFF_MS           180
 #define BEEP_GROUP_GAP_MS     250
-#define BEEP_COUNT_PER_GROUP  3
+#define BEEP_COUNT_PER_GROUP  2
 #define BEEP_GROUP_COUNT      1
-#define BUZZER_COOLDOWN_MS    3000  // 3 second pause between patterns
+#define BUZZER_COOLDOWN_MS    5000  // 3 second pause between patterns
 
-Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_BGR + NEO_KHZ800);
+Adafruit_NeoPixel pixel(LED_COUNT, LED_PIN, NEO_BRG + NEO_KHZ800);
 
 typedef struct __attribute__((packed)) {
   uint32_t sequence;
@@ -173,17 +173,23 @@ bool getFormattedTime(char* buf, size_t len) {
   return true;
 }
 
-String readFTPResponse(WiFiClient &client, int timeoutMs = 500) {
+String readFTPResponse(WiFiClient &client, int timeoutMs = 1500) {
   String response = "";
   uint32_t startTime = millis();
   
+  // Warten, bis überhaupt Daten da sind oder der Timeout greift
+  while (!client.available() && (millis() - startTime < timeoutMs)) {
+    delay(5);
+  }
+  
+  // Einlesen, solange Daten kommen
   while (millis() - startTime < timeoutMs) {
     while (client.available()) {
       char c = client.read();
       response += c;
-      startTime = millis();  // Reset timeout on new data
+      startTime = millis();  // Timeout bei neuen Daten zurücksetzen
     }
-    delay(10);
+    delay(5);
   }
   
   return response;
@@ -192,6 +198,8 @@ String readFTPResponse(WiFiClient &client, int timeoutMs = 500) {
 void uploadLogToFritzBox(const char* logLine) {
   Serial.println("=== UPLOAD START ===");
   
+  delay(500);
+
   preferences.begin("credentials", true);
   String ftpPass = preferences.getString("ftp_pass", "");
   preferences.end();
@@ -210,25 +218,24 @@ void uploadLogToFritzBox(const char* logLine) {
   }
 
   Serial.println("FTP: Connected!");
+  Serial.println("Welcome: " + readFTPResponse(ftpClient, 1000));
 
-  String welcomeMsg = readFTPResponse(ftpClient, 500);
-  Serial.println("FTP Welcome: " + welcomeMsg);
-
+  // USER
   ftpClient.printf("USER %s\r\n", FTP_USER);
-  String userResp = readFTPResponse(ftpClient, 500);
-  Serial.println("USER response: " + userResp);
+  Serial.println("USER resp: " + readFTPResponse(ftpClient, 1000));
 
+  // PASS
   ftpClient.printf("PASS %s\r\n", ftpPass.c_str());
-  String passResp = readFTPResponse(ftpClient, 500);
-  Serial.println("PASS response: " + passResp);
+  Serial.println("PASS resp: " + readFTPResponse(ftpClient, 1000));
 
+  // TYPE
   ftpClient.print("TYPE I\r\n");
-  String typeResp = readFTPResponse(ftpClient, 500);
-  Serial.println("TYPE response: " + typeResp);
+  Serial.println("TYPE resp: " + readFTPResponse(ftpClient, 1000));
 
+  // PASV
   ftpClient.print("PASV\r\n");
-  String pasvResponse = readFTPResponse(ftpClient, 500);
-  Serial.println("PASV response: " + pasvResponse);
+  String pasvResponse = readFTPResponse(ftpClient, 1500);
+  Serial.println("PASV resp: " + pasvResponse);
 
   int firstPar = pasvResponse.indexOf('(');
   int lastPar = pasvResponse.indexOf(')');
@@ -277,10 +284,10 @@ void uploadLogToFritzBox(const char* logLine) {
 
   Serial.println("FTP: Data connection OK");
 
+  // APPE
   ftpClient.printf("APPE %s\r\n", FTP_FILE_PATH);
-  delay(100);
-  String appeResponse = readFTPResponse(ftpClient, 500);
-  Serial.println("APPE response: " + appeResponse);
+  String appeResponse = readFTPResponse(ftpClient, 1500);
+  Serial.println("APPE resp: " + appeResponse);
   
   if (!appeResponse.startsWith("1")) {
     Serial.println("FTP: APPE rejected");
@@ -294,11 +301,12 @@ void uploadLogToFritzBox(const char* logLine) {
   Serial.println("Sending log line: " + String(logLine));
   dataClient.print(logLine);
   dataClient.print("\r\n");
+  dataClient.flush();
   dataClient.stop();
 
-  delay(200);
-  String finalResponse = readFTPResponse(ftpClient, 500);
-  Serial.println("Final response: " + finalResponse);
+  delay(300);
+  String finalResponse = readFTPResponse(ftpClient, 1500);
+  Serial.println("Final resp: " + finalResponse);
 
   Serial.println("FTP: Success!");
   setLedFeedback(0, 255, 0);
