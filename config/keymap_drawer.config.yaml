@@ -20,6 +20,7 @@ parse_config:
     "&kp LS(LG(LEFT))": "$$mdi:dock-left$$"
     "&kp LS(LG(RIGHT))": "$$mdi:dock-right$$"
     "&kp LG(P)": "$$mdi:monitor-multiple$$"
+    "&skq LSHIFT": "⇧" # oder "$$mdi:apple-keyboard-shift$$"
 
     # --- NEW LAYER KEYS (LOWER LAYER EXTRAS) ---
     "&lt 3 LG(D)": {t: "$$mdi:monitor$$", s: "Show", h: "Adjust"}
