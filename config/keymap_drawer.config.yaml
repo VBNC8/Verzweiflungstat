@@ -12,6 +12,10 @@ parse_config:
     "&mo 2": {t: "Raise"}
     "&mo 3": {h: "Adjust"}
 
+    "&kp LS(LG(LEFT))": "$$mdi:dock-left$$"
+    "&kp LS(LG(RIGHT))": "$$mdi:dock-right$$"
+    "&kp LG(P)": "$$mdi:monitor-multiple$$"
+
     # --- HRM BEHAVIORS ---
     "&hrm_left LSHIFT A": {t: "A", h: "Shift"}
     "&hrm_right RSHIFT LS(NON_US_HASH)": {t: "'", h: "Shift"}
