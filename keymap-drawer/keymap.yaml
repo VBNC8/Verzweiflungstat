@@ -141,14 +141,11 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - $$mdi:monitor-multiple$$
+  - $$mdi:dock-left$$
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - $$mdi:dock-right$$
   - ´
   - F14
   - Task Mgr
