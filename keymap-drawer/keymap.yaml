@@ -149,11 +149,11 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - Gui+ P
-  - Sft+Gui+ LEFT
+  - $$mdi:monitor-multiple$$
+  - $$mdi:dock-left$$
   - t: ▽
     type: trans
-  - Sft+Gui+ RIGHT
+  - $$mdi:dock-right$$
   - ´
   - t: ' '
     type: round
