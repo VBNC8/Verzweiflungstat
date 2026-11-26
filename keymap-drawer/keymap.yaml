@@ -12,8 +12,7 @@ layers:
   - I
   - O
   - P
-  - t: A
-    h: LSHIFT
+  - A
   - S
   - D
   - F
@@ -22,8 +21,7 @@ layers:
   - J
   - K
   - L
-  - t: ''''
-    h: RSHIFT
+  - ''''
   - Z
   - t: X
     h: LCTRL
@@ -241,6 +239,24 @@ layers:
     type: round
 combos:
 - p:
+  - 12
+  - 13
+  k:
+    t: LSHIFT
+    h: sticky
+  l:
+  - default
+  - lower
+- p:
+  - 16
+  - 17
+  k:
+    t: LSHIFT
+    h: sticky
+  l:
+  - default
+  - lower
+- p:
   - 13
   - 16
   k: 'CAPS
@@ -249,14 +265,14 @@ combos:
   l:
   - default
 - p:
-  - 12
+  - 3
   - 13
   k: '"'
   l:
   - default
   - lower
 - p:
-  - 16
+  - 7
   - 17
   k: '?'
   l:
