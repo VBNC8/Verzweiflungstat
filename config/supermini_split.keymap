@@ -282,13 +282,13 @@
         raise_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-/* left top  */   &kp F1         &kp F2            &kp F3               &kp F4          &kp F5
-/* left mid  */   &trans         &trans            &trans               &trans          &trans
-/* left bot  */   &trans         &trans            &trans               &trans          &trans
+/* left top  */   &kp F1         &kp F2            &kp F3               &kp F4             &kp F5
+/* left mid  */   &trans         &trans            &trans               &trans             &trans
+/* left bot  */   &trans         &trans            &trans               &trans             &trans
 /* left tmb  */   &kp F14        &kp LC(LS(ESC))   &trans
-/* right top */   &kp F6         &kp F7            &kp F8               &kp F9          &kp F10
-/* right mid */   &kp UP         &kp LEFT          &kp DOWN             &kp RIGHT       &kp PLUS
-/* right bot */   &trans         &trans            &trans               &trans          &kp EQUAL
+/* right top */   &kp F6         &kp F7            &kp F8               &kp F9             &kp F10
+/* right mid */   &kp UP         &kp LEFT          &kp DOWN             &kp RIGHT          &kp PLUS
+/* right bot */   &kp LG(P)      &kp LS(LG(LEFT))  &trans               &kp LS(LG(RIGHT))  &kp EQUAL
 /* right tmb */   &trans         &nbsp             &trans
             >;
         };
