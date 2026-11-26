@@ -17,6 +17,10 @@ parse_config:
     "&kp F13": {t: " ", type: "held"}
     "&kp F14": {t: " ", type: "ghost"}
 
+    "&kp LS(LG(LEFT))": "$$mdi:dock-left$$"
+    "&kp LS(LG(RIGHT))": "$$mdi:dock-right$$"
+    "&kp LG(P)": "$$mdi:monitor-multiple$$"
+
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
