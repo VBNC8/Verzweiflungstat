@@ -176,10 +176,10 @@
         default_layer {
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
             bindings = <
-&none   &kp Q               &kp W               &kp E                &kp R       &kp T        &kp Y         &kp U              &kp I               &kp O                &kp P                               &none
-&none   &hrm_left LSHIFT A &kp S               &kp D                &kp F       &kp G        &kp H         &kp J              &kp K               &kp L                &hrm_right RSHIFT LS(NON_US_HASH)  &none
-&kp C_PP &kp Z               &hrm_safe LCTRL X   &hrm_safe LALT C     &kp V       &kp B        &kp N         &kp M              &hrm_safe RALT COMMA &hrm_safe RCTRL DOT  &kp DEL                             &kp C_PP
-                                                &kp C_PP             &lt 1 ESC   &lt 2 TAB    &lt_enter 2 RET &lt_hp 1 SPACE   &kp BSPC
+&none     &kp Q               &kp W              &kp E             &kp R       &kp T         &kp Y         &kp U              &kp I               &kp O                &kp P                               &none
+&none     &hrm_left LSHIFT A  &kp S              &kp D             &kp F       &kp G         &kp H         &kp J              &kp K               &kp L                &hrm_right RSHIFT LS(NON_US_HASH)  &none
+&kp C_PP  &kp Z               &hrm_safe LCTRL X  &hrm_safe LALT C  &kp V       &kp B         &kp N         &kp M              &hrm_safe RALT COMMA &hrm_safe RCTRL DOT  &kp DEL                             &kp C_PP
+                                                 &kp C_PP          &lt 1 ESC   &lt 2 TAB     &lt_enter 2 RET &lt_hp 1 SPACE   &kp BSPC
             >;
         };
 
@@ -198,10 +198,10 @@
         raise_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-&none   &kp F1      &kp F2  &kp F3  &kp F4           &kp F5    &kp F6   &kp F7    &kp F8    &kp F9     &kp F10   &none
-&none   &trans      &trans  &trans  &trans           &trans    &kp UP   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PLUS  &none
-&trans  &kp LA(F4)  &trans  &trans  &trans           &trans    &trans   &trans    &trans    &trans     &kp EQUAL &trans
-                            &kp F14 &kp LC(LS(ESC))  &kp HOME  &kp END  &nbsp     &trans
+&none   &kp F1      &kp F2  &kp F3  &kp F4           &kp F5         &kp F6    &kp F7            &kp F8    &kp F9            &kp F10   &none
+&none   &trans      &trans  &trans  &trans           &trans         &kp UP    &kp LEFT          &kp DOWN  &kp RIGHT         &kp PLUS  &none
+&trans  &kp LA(F4)  &trans  &trans  &trans           &trans         &kp LG(P) &kp LS(LG(LEFT))  &trans    &kp LS(LG(RIGHT)) &kp EQUAL &trans
+                            &kp F14 &kp LC(LS(ESC))  &kp HOME       &kp END   &nbsp             &trans
             >;
         };
 
@@ -209,10 +209,10 @@
         adjust_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-&none   &trans     &trans              &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
-&none   &trans     &trans              &trans     &trans       &trans      &trans      &trans       &trans      &trans      &trans   &none
-&trans  &trans     &trans              &trans     &bootloader  &sys_reset  &sys_reset  &bootloader  &kp C_PREV  &kp C_NEXT  &trans   &trans
-                                       &trans     &trans       &trans      &trans      &trans       &trans
+&none   &trans     &trans     &trans     &trans       &trans           &trans      &trans       &trans      &trans      &trans   &none
+&none   &trans     &trans     &trans     &trans       &trans           &trans      &trans       &trans      &trans      &trans   &none
+&trans  &trans     &trans     &trans     &bootloader  &sys_reset       &sys_reset  &bootloader  &kp C_PREV  &kp C_NEXT  &trans   &trans
+                              &trans     &trans       &trans           &trans      &trans       &trans
             >;
         };
     };
