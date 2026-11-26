@@ -149,14 +149,11 @@ layers:
     type: trans
   - t: ▽
     type: trans
+  - Gui+ P
+  - Sft+Gui+ LEFT
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - Sft+Gui+ RIGHT
   - ´
   - t: ' '
     type: round
