@@ -339,13 +339,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="154" y="74" width="28" height="26" class="combo"/>
-<text x="168" y="88" class="combo tap">LSHIFT</text>
-<text x="168" y="98" class="combo hold">sticky</text>
+<text x="168" y="88" class="combo tap">⇧</text>
 </g>
 <g class="combo combopos-1">
 <rect rx="6" ry="6" x="546" y="74" width="28" height="26" class="combo"/>
-<text x="560" y="88" class="combo tap">LSHIFT</text>
-<text x="560" y="98" class="combo hold">sticky</text>
+<text x="560" y="88" class="combo tap">⇧</text>
 </g>
 <g class="combo combopos-2">
 <path d="M364,91 l-149,0" class="combo"/>
@@ -582,13 +580,11 @@ g.keypos-36 rect.key { rx: 100; ry: 100; }
 </g>
 <g class="combo combopos-0">
 <rect rx="6" ry="6" x="154" y="74" width="28" height="26" class="combo"/>
-<text x="168" y="88" class="combo tap">LSHIFT</text>
-<text x="168" y="98" class="combo hold">sticky</text>
+<text x="168" y="88" class="combo tap">⇧</text>
 </g>
 <g class="combo combopos-1">
 <rect rx="6" ry="6" x="546" y="74" width="28" height="26" class="combo"/>
-<text x="560" y="88" class="combo tap">LSHIFT</text>
-<text x="560" y="98" class="combo hold">sticky</text>
+<text x="560" y="88" class="combo tap">⇧</text>
 </g>
 <g class="combo combopos-2">
 <rect rx="6" ry="6" x="182" y="50" width="28" height="26" class="combo"/>
