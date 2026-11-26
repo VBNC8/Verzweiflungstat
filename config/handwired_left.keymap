@@ -248,10 +248,10 @@
         raise_layer {
             sensor-bindings = <&inc_dec_kp UP DOWN>;
             bindings = <
-   &trans   &kp F1      &kp F2   &kp F3        &kp F4           &kp F5           &kp F6   &kp F7    &kp F8   &kp F9      &kp F10    &trans
-   &trans   &trans      &trans   &trans        &trans           &trans           &kp UP   &kp LEFT  &kp DOWN &kp RIGHT   &kp PLUS   &trans
-   &trans   &kp LA(F4)  &trans   &trans        &trans           &trans           &trans   &trans    &trans   &trans      &kp EQUAL  &trans
-                                 &kp F14       &kp LC(LS(ESC))  &kp HOME         &kp END  &nbsp     &trans
+   &trans   &kp F1      &kp F2   &kp F3        &kp F4           &kp F5           &kp F6     &kp F7            &kp F8   &kp F9             &kp F10    &trans
+   &trans   &trans      &trans   &trans        &trans           &trans           &kp UP     &kp LEFT          &kp DOWN &kp RIGHT          &kp PLUS   &trans
+   &trans   &kp LA(F4)  &trans   &trans        &trans           &trans           &kp LG(P)  &kp LS(LG(LEFT))  &trans   &kp LS(LG(RIGHT))  &kp EQUAL  &trans
+                                 &kp F14       &kp LC(LS(ESC))  &kp HOME         &kp END    &nbsp             &trans
             >;
         };
 
