@@ -19,6 +19,10 @@ parse_config:
     "&kp LS(LG(RIGHT))": "$$mdi:dock-right$$"
     "&kp LG(P)": "$$mdi:monitor-multiple$$"
 
+    "&kp LS(LG(LEFT))": "$$mdi:dock-left$$"
+    "&kp LS(LG(RIGHT))": "$$mdi:dock-right$$"
+    "&kp LG(P)": "$$mdi:monitor-multiple$$"
+
     "&pair_paren": "()"
     "&pair_brc": "{}"
     "&pair_bkt": "[]"
