@@ -244,14 +244,12 @@ combos:
   k: ⇧
   l:
   - default
-  - lower
 - p:
   - 16
   - 17
   k: ⇧
   l:
   - default
-  - lower
 - p:
   - 13
   - 16
