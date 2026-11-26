@@ -243,8 +243,8 @@
         // ==========================================
         // 1. SYMMETRISCHE SHIFT-COMBOS & ZEIGEFINGER-COMBOS
         // ==========================================
-        combo_shift_left  { timeout-ms = <35>; require-prior-idle-ms = <120>; key-positions = <7 8>;   bindings = <&skq LSHIFT>; layers = <0 1>; }; // D + F
-        combo_shift_right { timeout-ms = <35>; require-prior-idle-ms = <120>; key-positions = <24 25>; bindings = <&skq LSHIFT>; layers = <0 1>; }; // J + K
+        combo_shift_left  { timeout-ms = <35>; require-prior-idle-ms = <120>; key-positions = <7 8>;   bindings = <&skq LSHIFT>; layers = <0>; }; // D + F
+        combo_shift_right { timeout-ms = <35>; require-prior-idle-ms = <120>; key-positions = <24 25>; bindings = <&skq LSHIFT>; layers = <0>; }; // J + K
         combo_caps_word   { timeout-ms = <35>; key-positions = <8 24>;  bindings = <&caps_wrd>; layers = <0>; };    // F + J
         combo_quote       { timeout-ms = <28>; key-positions = <3 8>;   bindings = <&kp LS(N2)>; layers = <0 1>; }; // R + F (")
         combo_question    { timeout-ms = <28>; key-positions = <20 25>; bindings = <&kp LS(MINUS)>; layers = <0 1>; }; // I + K (?)
